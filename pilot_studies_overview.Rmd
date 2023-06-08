@@ -1,0 +1,4874 @@
+---
+title             : "Distancing and Moral Dumbfounding: Pilot Studies"
+shorttitle        : "Distancing Pilot Studies"
+keywords          : "moral dumbfounding, dual-processes, reasons, intuitions, need for cognition"
+bibliography: "resources/bib/My Library.bib"
+figsintext        : yes
+figurelist        : yes
+tablelist         : yes
+footnotelist      : no
+lineno            : yes
+lang              : "english"
+class             : "man"
+output:
+  bookdown::html_document2:
+    toc: true
+    toc_float:
+      toc_collapsed: false
+    toc_depth: 4
+    number_sections: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{=html}
+<script>
+$(document).ready(function() {
+  $items = $('div#TOC li');
+  $items.each(function(idx) {
+    num_ul = $(this).parentsUntil('#TOC').length;
+    $(this).css({'text-indent': num_ul * 10, 'padding-left': 10});
+  });
+
+});
+</script>
+```
+```{r ch5setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(include = FALSE)
+options(scipen=1, digits=2)
+# knitr::opts_chunk$set(fig.path='figure/graphics-', 
+#                       cache.path='cache/graphics-', 
+#                       fig.align='center',
+#                       external=TRUE,
+#                       echo=FALSE,
+#                       warning=FALSE,
+#                       fig.pos='H'
+# )
+```
+
+```{r load_librariesch5}
+rm(list = ls())
+library(citr)
+#install.packages("sjstats")
+library(plyr)
+library(foreign)
+library(car)
+library(desnum)
+library(ggplot2)
+library(extrafont)
+#devtools::install_github("crsh/papaja")
+library(papaja)
+#library("dplyr")
+library("afex")
+library("tibble")
+library(scales)
+#install.packages("metap")
+library(metap)
+library(pwr)
+library(lsr)
+#install.packages("sjstats")
+library(sjstats)
+library(DescTools)
+#inatall.packages("ggstatsplot")
+#library(ggstatsplot)
+library(VGAM)
+library(nnet)
+library(mlogit)
+library(reshape2)
+
+
+
+#devtools::install_github("benmarwick/wordcountaddin")
+#library(wordcountaddin)
+#wordcountaddin::text_stats("distancing_june_rw.Rmd")
+getwd()
+```
+
+```{r loadalldatawithsource}
+
+#source('distancing_june_load_data.R')
+
+```
+
+```{r apriori_power_analyses}
+
+pwr.chisq.test(w=.35,df=(3-1),sig.level = .05, power=.8)
+pwr.chisq.test(w=.21,df=(3-1),sig.level = .05, power=.8)
+pwr.chisq.test(w=.07,df=(3-1),sig.level = .05, power=.8)
+ 
+# https://www.real-statistics.com/chi-square-and-f-distributions/effect-size-chi-square/
+
+```
+
+# Distancing and Moral Dumbfounding
+
+We conducted eight studies in which we tested the hypothesised relationship between distancing (both psychological and temporal) and dumbfounded responding. We hypothesised that increased distance would facilitate the identification of reasons, leading to lower rates of dumbfounding or changing judgements (or both).
+
+Across the 8 studies we employed various manipulations of both psychological and temporal distance and used two different moral scenarios *Incest* and *Cannibal*. The type of distancing being manipulated is noted in the title of each study, along with the scenario being used [in] = *Incest* and [ca] = *Cannibal*.
+
+Study 6 trialed a scale measure of dumbfounded responding (as opposed to the usual categorical critical slide).
+
+Study 8 manipulated temporal distance using a vignette that set the Julie and Mark activity in the distant past.
+
+```{r apriori_power_analyses_reporting}
+
+large <- pwr.chisq.test(w=.35,df=(3-1),sig.level = .05, power=.8)
+med   <- pwr.chisq.test(w=.21,df=(3-1),sig.level = .05, power=.8)
+small <- pwr.chisq.test(w=.07,df=(3-1),sig.level = .05, power=.8)
+
+round(large$N)
+# https://www.real-statistics.com/chi-square-and-f-distributions/effect-size-chi-square/
+
+```
+
+# A Note on Power
+
+A priori power analysis indicated that in order to detect:
+
+-   a large effect size (*V* = .35) with 80% power, a sample of *N* = `r round(large$N)` participants was required
+-   a medium effect size (*V* = .21) with 80% power a sample of *N* = `r round(med$N)` participants was required
+-   a small effect size (*V* = . 07) with 80% power a sample of *N* = `r round(small$N)` was required.
+
+Due to the nature of the tests being conducted, it appears that each of the studies conducted here is likely underpowered. To account for this we have included a combined analysis at the end and conducted mini meta-analyses.
+
+```{r load distancing 1 data}
+
+rm(list = ls())
+
+load("pilot_data/loaded_data/one.RData")
+df3 <- one
+
+df4 <- df3[which(df3$condition=="1manip"),]
+df5 <- df3[which(df3$condition=="2control"),]
+
+
+```
+
+# Study 1: Psychological [in]
+
+## Design
+
+### Manipulation
+
+-   **Psychological Distance**: Increased vs Control
+-   Anne vignette: two levels - present and absent
+
+#### Manipulation Materials:
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.<br> She is currently taking a course in ethics and has been asked to study the following scenario.<br> How should Anne judge the actions of the two people involved?<br> What reasons would you use to explain why she should make that judgement?
+
+### Vignette
+
+-   *Incest*
+
+### Dependent Variable
+
+-   Response to *critical slide*
+    -   (categorical: 3 response options)
+
+## Participants
+
+-   `r length(df3$InCS)` participants
+    -   `r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male;
+    -   *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`
+
+```{r dch5s1change in judgement}
+
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r dcheckingchanges1}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+## Results
+
+-   There was no difference in initial judgement depending on distance manipulation:
+    -   *t*(`r t_j1$parameter`) = `r t_j1$statistic`, *p* `r paste(p_report(t_j1$p.value))`.
+-   No significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$Ju1_bin)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+    -   The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="1manip")`) and the control group (*N* = `r sum(df3$condition=="2control")`) are displayed in Figure \@ref(fig:dch5S1fig2criticalcondition).
+
+```{r dprepch5S1fig2}
+
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+y <- table(df3$condition,df3$Dumb_incl_string)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+rm(x,y)
+```
+
+```{r dch5S1fig2criticalcondition_old, include=FALSE}
+
+
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Increased Distance","Control")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+
+
+```
+
+```{r dch5S1fig2criticalcondition, fig.cap="Study 1: Responses to critical slide for the experimental group (*N* = 60) and the control group (*N* = 60)", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+```{r dlogit1}
+
+df3$InCS <- relevel(df3$InCS, ref = 2)
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | SocDes, data = df3a)# , reflevel = 2)
+
+summary_InCS_model <- summary(InCSModel)
+summary_InCS_model$lratio$parameter
+summary_InCS_model$lratio$statistic
+summary_InCS_model$lratio$p.value
+
+InCSModel$coefficients[3]
+InCSModel$coefficients[4]
+
+cox <- PseudoR2(multinom(InCS~SocDes,df3), "all")
+
+cox[3]
+cox[4]
+#PseudoR2(x, "all")
+#summary_InCS_model
+
+
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[7]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[8]^2
+
+
+summary_InCS_model
+summary_InCS_model$coefficients[3]
+data.frame(exp(InCSModel$coefficients))
+
+exp(InCSModel$coefficients)[3]
+
+
+a <- exp(confint(InCSModel))
+c(a[3],a[7])
+
+residuals(InCSModel)
+fitted(InCSModel, outcome = F)
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+pw$power
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(InCS~SocDes,df3, family = binomial(link = "logit"))
+cox <- revised_PseudoR2s(logits_rsquared)
+
+```
+
+### Social Desirability
+
+-   No significant association between Social Desirability and response to the critical slide:
+    -   χ^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+
+```{r dprepplottinglogit1}
+
+df3 <- df3[which(is.na(df3$SocDes)==FALSE),]
+
+x <- df3$SocDes
+y <- as.numeric(df3$InCS)
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+
+```
+
+```{r dggplotlogit1_old, include=FALSE}
+
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, color=factor(variable,labels=c("dumb","reason","nothing")))) +
+  geom_line()+
+  xlab("Social Desirability") + ylab("Predicted Probability") +
+  scale_y_continuous(limits = c(0, 1)) + 
+  scale_x_continuous(limits = c(0, 10))+
+  scale_color_discrete(name="Response to \nCritical Slide", labels=c("Dumbfounded","Nothing Wrong","Reasons"))+
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+  ),
+  legend.text=element_text(family="Times",
+                           size=8
+  ),
+  legend.title=element_text(family="Times",
+                            size=10
+  ),
+  axis.text=element_text(family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(family="Times",
+                          size=12
+  ),
+  strip.text=element_text(family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+
+```
+
+```{r dggplotlogit1, fig.cap="Study 1: Probability of selecting each response to the critical slide depending on Social Desirability", include=TRUE}
+
+
+suppressWarnings(print(g))
+
+```
+
+# Study 2: Psychological [in]
+
+```{r load distancing 2 data}
+rm(list = ls())
+
+load("pilot_data/loaded_data/two.RData")
+df3 <- two
+dftot <- two_tot
+
+df4 <- df3[which(df3$condition=="1manip"),]
+df5 <- df3[which(df3$condition=="2control"),]
+
+
+
+
+```
+
+## Design
+
+### Manipulation
+
+-   **Psychological Distance**: Increased vs Control
+-   Anne vignette: two levels - present and absent
+
+#### Manipulation Materials
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she adopts a position on an issue in class and struggles (or fails) to defend it when challenged by others.<br> She is currently taking a course in ethics and has been asked to study the following scenario.<br> While reading the story on the next page, try to imagine how the philosophy student Anne will judge the actions of the two people.<br> In particular try to think about reasons she may use to defend her judgement.<br> Try to think about the story from Anne's perspective rather than your own.
+
+### Vignette
+
+-   *Incest*
+
+### Dependent Variable
+
+-   Response to *critical slide*
+    -   (categorical: 3 response options)
+
+## Participants
+
+An initial sample of `r length(dftot$InCS)` participants (`r sum(dftot$gender=="Female",na.rm=T)` female, `r sum(dftot$gender=="Male",na.rm=T)` male; *M*~age~ = `r round(mean(dftot$age,na.rm=T),digits=2)`, min = `r min(dftot$age,na.rm=T)`, max = `r max(dftot$age,na.rm=T)`, *SD* = `r round(sd(dftot$age,na.rm=T),digits=2)`) were collected. Participants were excluded for lying in the need for closure scale (a combined score of \> 15 on selected items).
+
+-   `r length(df3$InCS)` participants
+    -   `r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male;
+    -   *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`
+
+```{r dch5s2change in judgement}
+
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r checkingchangesd2}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+chisq.test(table(dftot$InCS,dftot$condition))
+```
+
+## Results
+
+-   There was no difference in initial judgement depending on distance manipulation:
+    -   *t*(`r t_j1$parameter`) = `r t_j1$statistic`, *p* `r paste(p_report(t_j1$p.value))`.
+-   No significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+    -   The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="1manip")`) and the control group (*N* = `r sum(df3$condition=="2control")`) are displayed in Figure \@ref(fig:dch5S2fig2criticalcondition).
+
+```{r prepch5Sd2fig2}
+
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+```
+
+```{r dch5S2fig2criticalcondition_old, include=FALSE}
+
+
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Increased Distance","Control")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+```
+
+```{r dch5S2fig2criticalcondition, fig.cap="Study 2: Responses to critical slide for the experimental group (*N* = 39) and the control group (*N* = 37)", include=TRUE}
+
+
+suppressWarnings(print(g))
+
+```
+
+```{r dlogit2}
+
+df3$InCS <- relevel(df3$InCS, ref = 2)
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | SocDes, data = df3a)# , reflevel = 2)
+
+summary_InCS_model <- summary(InCSModel)
+summary_InCS_model$lratio$parameter
+summary_InCS_model$lratio$statistic
+summary_InCS_model$lratio$p.value
+
+InCSModel$coefficients[3]
+InCSModel$coefficients[4]
+
+cox <- PseudoR2(multinom(InCS~SocDes,df3), "all")
+
+cox[3]
+cox[4]
+#PseudoR2(x, "all")
+#summary_InCS_model
+
+
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[7]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[8]^2
+
+
+summary_InCS_model
+summary_InCS_model$coefficients[3]
+data.frame(exp(InCSModel$coefficients))
+
+exp(InCSModel$coefficients)[3]
+
+
+a <- exp(confint(InCSModel))
+c(a[3],a[7])
+
+residuals(InCSModel)
+fitted(InCSModel, outcome = F)
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+pw$power
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(InCS~SocDes,df3, family = binomial(link = "logit"))
+cox <- revised_PseudoR2s(logits_rsquared)
+
+```
+
+### Social Desirability
+
+-   No significant association between Social Desirability and response to the critical slide:
+    -   χ^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+
+```{r prepplottinglogitd2}
+
+df3 <- df3[which(is.na(df3$SocDes)==FALSE),]
+
+x <- df3$SocDes
+y <- as.numeric(df3$InCS)
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+
+```
+
+```{r ggplotlogitd2_old, include=FALSE}
+
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, color=factor(variable,labels=c("dumb","reason","nothing")))) +
+  geom_line()+
+  xlab("Social Desirability") + ylab("Predicted Probability") +
+  scale_y_continuous(limits = c(0, 1)) + 
+  scale_x_continuous(limits = c(0, 10))+
+  scale_color_discrete(name="Response to \nCritical Slide", labels=c("Dumbfounded","Nothing Wrong","Reasons"))+
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+  ),
+  legend.text=element_text(family="Times",
+                           size=8
+  ),
+  legend.title=element_text(family="Times",
+                            size=10
+  ),
+  axis.text=element_text(family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(family="Times",
+                          size=12
+  ),
+  strip.text=element_text(family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+
+```
+
+```{r ggplotlogitd2, fig.cap="Study 2: Probability of selecting each response to the critical slide depending on Social Desirability", include=TRUE}
+
+
+suppressWarnings(print(g))
+
+```
+
+```{r logit2}
+
+df3$InCS <- relevel(df3$InCS, ref = 2)
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC, data = df3a)# , reflevel = 2)
+
+summary_InCS_model <- summary(InCSModel)
+summary_InCS_model$lratio$parameter
+summary_InCS_model$lratio$statistic
+summary_InCS_model$lratio$p.value
+
+InCSModel$coefficients[3]
+InCSModel$coefficients[4]
+
+cox <- PseudoR2(multinom(InCS~NFC,df3), "all")
+
+cox[3]
+cox[4]
+#PseudoR2(x, "all")
+#summary_InCS_model
+
+
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[7]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[8]^2
+
+
+summary_InCS_model
+summary_InCS_model$coefficients[3]
+data.frame(exp(InCSModel$coefficients))
+
+exp(InCSModel$coefficients)[3]
+
+
+a <- exp(confint(InCSModel))
+c(a[3],a[7])
+
+residuals(InCSModel)
+fitted(InCSModel, outcome = F)
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+pw$power
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(InCS~NFC,df3, family = binomial(link = "logit"))
+cox <- revised_PseudoR2s(logits_rsquared)
+
+```
+
+### Need for Closure
+
+-   No significant association between Need for Closure and response to the critical slide:
+    -   χ^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+
+```{r prepplottinglogit2}
+
+df3 <- df3[which(is.na(df3$NFC)==FALSE),]
+
+x <- df3$NFC
+y <- as.numeric(df3$InCS)
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+
+```
+
+```{r ggplotlogit2_old, include=FALSE}
+
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, color=factor(variable,labels=c("dumb","reason","nothing")))) +
+  geom_line()+
+  xlab("Need for Closure") + ylab("Predicted Probability") +
+  scale_y_continuous(limits = c(0, 1)) + 
+  #scale_x_continuous(limits = c(-4, 4))+
+  scale_color_discrete(name="Response to \nCritical Slide", labels=c("Dumbfounded","Nothing Wrong","Reasons"))+
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+  ),
+  legend.text=element_text(family="Times",
+                           size=8
+  ),
+  legend.title=element_text(family="Times",
+                            size=10
+  ),
+  axis.text=element_text(family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(family="Times",
+                          size=12
+  ),
+  strip.text=element_text(family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+
+```
+
+```{r ggplotlogit2, fig.cap="Study 2: Probability of selecting each response to the critical slide depending on Need for Closure", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+# Study 3: Temporal (3rd person [in])
+
+```{r load distancing 3 data}
+
+rm(list = ls())
+
+load("pilot_data/loaded_data/three.RData")
+df3 <- three
+dftot <- three_tot
+
+
+df1x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_3/anne_short_b.sav', to.data.frame = TRUE)
+df2x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_3/anne_long_b.sav', to.data.frame = TRUE)
+
+N <- length(df1x$gender)+length(df2x$gender)
+rm(df1x,df2x)
+
+```
+
+## Design
+
+### Manipulation
+
+-   **Temporal Distance**: Increased vs Deceased
+-   Anne vignette: two levels - 5 week deadline vs 5pm today
+
+#### Manipulation Materials:
+
+##### 'Long time'
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.<br>
+She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. [**She must complete and submit this assignment within the next five weeks**]{.underline}.<br>
+While reading the story on the next page, try to think about the story from Anne's perspective rather than your own.
+
+##### Short time:
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.<br>
+She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. [**She must complete and submit this assignment today**]{.underline}.<br>
+While reading the story on the next page, try to think about the story from Anne’s perspective rather than your own.
+
+
+### Vignette
+
+-   *Incest*
+
+### Dependent Variable
+
+-   Response to *critical slide*
+    -   (categorical: 3 response options)
+
+## Participants
+
+An initial sample of `r N` participants took part. After initial screening (3 attention checks) we were left with a sample of `r length(dftot$gender)` participants (`r sum(dftot$gender=="Female",na.rm=T)` female, `r sum(dftot$gender=="Male",na.rm=T)` male; *M*~age~ = `r round(mean(dftot$age,na.rm=T),digits=2)`, min = `r min(dftot$age,na.rm=T)`, max = `r max(dftot$age,na.rm=T)`, *SD* = `r round(sd(dftot$age,na.rm=T),digits=2)`). Participants were excluded for lying in the need for closure scale (a combined score of \> 15 on selected items).
+
+-   `r length(df3$InCS)` participants
+    -   `r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male;
+    -   *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`
+
+```{r adch5s3change in judgement}
+df3 <- three_tot
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r acheckingchangesd3}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+## Results (pre-exclusion)
+
+-   There was no difference in initial judgement depending on distance manipulation:
+    -   *t*(`r t_j1$parameter`) = `r t_j1$statistic`, *p* `r paste(p_report(t_j1$p.value))`.
+-   A significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+-   The responses to the critical slide for the increased distance group (*N* = `r sum(df3$condition=="long")`) and the reduced distance group (*N* = `r sum(df3$condition=="short")`) are displayed in Figure \@ref(fig:adch5S3fig2criticalcondition).
+
+```{r aprepch5Sd30fig2}
+
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+```
+
+```{r adch5S3fig2criticalcondition_old, include=FALSE}
+
+
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Increased Distance","Reduced Distance")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+```
+
+```{r adch5S3fig2criticalcondition, fig.cap="Study 3: Responses to critical slide for the experimental group (*N* = 53) and the control group (*N* = 52)", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+```{r dch5s3change in judgement}
+df3 <- three
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r checkingchangesd3}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+## Results (post-exclusion)
+
+-   There was no difference in initial judgement depending on distance manipulation:
+    -   *t*(`r t_j1$parameter`) = `r t_j1$statistic`, *p* `r paste(p_report(t_j1$p.value))`.
+-   A significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+-   The responses to the critical slide for the increased distance group (*N* = `r sum(df3$condition=="long")`) and the reduced distance group (*N* = `r sum(df3$condition=="short")`) are displayed in Figure \@ref(fig:dch5S3fig2criticalcondition).
+
+```{r prepch5Sd30fig2}
+
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+```
+
+```{r dch5S3fig2criticalcondition_old, include=TRUE}
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Increased Distance","Reduced Distance")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+```
+
+```{r dch5S3fig2criticalcondition, fig.cap="Study 3: Responses to critical slide for the experimental group (*N* = 34) and the control group (*N* = 37)", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+```{r logits3}
+
+df3$InCS <- relevel(df3$InCS, ref = 2)
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC, data = df3a)# , reflevel = 2)
+
+summary_InCS_model <- summary(InCSModel)
+summary_InCS_model$lratio$parameter
+summary_InCS_model$lratio$statistic
+summary_InCS_model$lratio$p.value
+
+InCSModel$coefficients[3]
+InCSModel$coefficients[4]
+
+cox <- PseudoR2(multinom(InCS~NFC,df3), "all")
+
+cox[3]
+cox[4]
+#PseudoR2(x, "all")
+#summary_InCS_model
+
+
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[7]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[8]^2
+
+
+summary_InCS_model
+summary_InCS_model$coefficients[3]
+data.frame(exp(InCSModel$coefficients))
+
+exp(InCSModel$coefficients)[3]
+
+
+a <- exp(confint(InCSModel))
+c(a[3],a[7])
+
+residuals(InCSModel)
+fitted(InCSModel, outcome = F)
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+pw$power
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(InCS~NFC,df3, family = binomial(link = "logit"))
+cox <- revised_PseudoR2s(logits_rsquared)
+
+```
+
+### Need for Closure
+
+-   A significant association between Need for Closure and response to the critical slide:
+    -   χ^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+-   Need for Closure explained between `r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and `r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide.
+-   As Need for Closure increased, participants were significantly more likely to provide reasons than to present as dumbfounded:
+    -   Wald = `r round(wald1,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[15]))`, odds ratio = `r exp(InCSModel$coefficients)[3]`, 95% CI [`r a[3]`, `r a[7]`].
+-   As Need for Closure increased, participants were also significantly more likely to select there is nothing wrong than present as dumbfounded:
+    -   Wald = `r round(wald2,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[16]))`, odds ratio = `r exp(InCSModel$coefficients)[4]`, 95% CI [`r a[4]`, `r a[8]`]. See Figure \@ref(fig:ggplotlogits3).
+
+```{r prepplottinglogits3}
+
+df3 <- df3[which(is.na(df3$NFC)==FALSE),]
+
+x <- df3$NFC
+y <- as.numeric(df3$InCS)
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+
+```
+
+```{r ggplotlogits3_old, include=FALSE}
+
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, color=factor(variable,labels=c("dumb","reason","nothing")))) +
+  geom_line()+
+  xlab("Need for Closure") + ylab("Predicted Probability") +
+  scale_y_continuous(limits = c(0, 1)) + 
+  #scale_x_continuous(limits = c(-4, 4))+
+  scale_color_discrete(name="Response to \nCritical Slide", labels=c("Dumbfounded","Nothing Wrong","Reasons"))+
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+  ),
+  legend.text=element_text(family="Times",
+                           size=8
+  ),
+  legend.title=element_text(family="Times",
+                            size=10
+  ),
+  axis.text=element_text(family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(family="Times",
+                          size=12
+  ),
+  strip.text=element_text(family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+
+```
+
+```{r ggplotlogits3, fig.cap="Study 3: Probability of selecting each response to the critical slide depending on Need for Closure", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+# Study 4: Temporal (3rd person [in])
+
+```{r load distancing 4 data}
+
+rm(list = ls())
+
+load("pilot_data/loaded_data/four.RData")
+df3 <- four
+dftot <- four_tot
+
+
+#x <- df1
+df1x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_4/R_1_short_b.sav', to.data.frame = TRUE)
+df2x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_4/R_1_long.sav', to.data.frame = TRUE)
+  
+
+N <- length(df1x$gender)+length(df2x$gender)
+rm(df1x,df2x)
+
+
+
+```
+
+## Design
+
+### Manipulation
+
+-   **Temporal Distance**: Increased vs Deceased
+-   Anne vignette: two levels - 5 week deadline vs 5pm today
+
+#### Manipulation Materials:
+
+##### 'Long time'
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.<br>
+She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. [**She must complete and submit this assignment within the next five weeks**]{.underline}.<br>
+While reading the story on the next page, try to think about the story from Anne's perspective rather than your own.
+
+##### Short time:
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.<br>
+She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. [**She must complete and submit this assignment today**]{.underline}.<br>
+While reading the story on the next page, try to think about the story from Anne’s perspective rather than your own.
+
+### Vignette
+
+-   *Incest*
+
+### Dependent Variable
+
+-   Response to *critical slide*
+    -   (categorical: 3 response options)
+
+## Participants
+
+An initial sample of `r N` participants took part. After initial screening (3 attention checks) we were left with a sample of `r length(dftot$gender)` participants (`r sum(dftot$gender=="Female",na.rm=T)` female, `r sum(dftot$gender=="Male",na.rm=T)` male; *M*~age~ = `r round(mean(dftot$age,na.rm=T),digits=2)`, min = `r min(dftot$age,na.rm=T)`, max = `r max(dftot$age,na.rm=T)`, *SD* = `r round(sd(dftot$age,na.rm=T),digits=2)`) were collected. Participants were excluded for lying in the need for closure scale (a combined score of \> 15 on selected items).
+
+-   `r length(df3$InCS)` participants
+    -   `r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male;
+    -   *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`
+
+```{r dch5s5change in judgement}
+df3 <- four_tot
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r checkingchangesd5}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+## Results (pre-exclusion)
+
+-   There was no difference in initial judgement depending on distance manipulation:
+    -   *t*(`r t_j1$parameter`) = `r t_j1$statistic`, *p* `r paste(p_report(t_j1$p.value))`.
+-   No significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+-   The responses to the critical slide for the increased distance group (*N* = `r sum(df3$condition=="long")`) and the decreased distance group (*N* = `r sum(df3$condition=="short")`) are displayed in Figure \@ref(fig:dch5S5fig2criticalcondition).
+
+```{r prepch5Sd50fig2}
+
+# y <- table(df3$condition,df3$InCS)
+# y <- as.data.frame(y)
+# #colnames(y) <- c("InCS","condition","Freq","perc")
+# 
+# z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+# perc <- z$Freq
+# test <- cbind(y,perc)
+# test$condition
+# test
+
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+
+ab_graph <- function(){
+  a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+  b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$InCS,a$condition))
+  by <- as.data.frame(table(b$InCS,b$condition))
+  
+  aperc <- ay$Freq/length(a$gender)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("InCS","condition","Freq","perc")
+  
+  bperc <- by$Freq/length(b$gender)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("InCS","condition","Freq","perc")
+  
+  c <- rbind(ay,by)
+  
+  c
+}
+
+test <- ab_graph()
+
+
+rm(x,y)
+```
+
+```{r dch5S5fig2criticalcondition_old, include=FALSE}
+
+
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             #,labels=c("Increased Distance","Reduced Distance")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+
+
+```
+
+```{r dch5S5fig2criticalcondition, fig.cap="Study 4: Responses to critical slide for the experimental group (*N* = 67) and the control group (*N* = 75)", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+```{r dch5s5change in judgementb}
+
+df3 <- four
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r checkingchangesd5b}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+## Results (post-exclusion)
+
+-   There was no difference in initial judgement depending on distance manipulation:
+    -   *t*(`r t_j1$parameter`) = `r t_j1$statistic`, *p* `r paste(p_report(t_j1$p.value))`.
+-   No significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+-   The responses to the critical slide for the increased distance group (*N* = `r sum(df3$condition=="long")`) and the decreased distance group (*N* = `r sum(df3$condition=="short")`) are displayed in Figure \@ref(fig:dch5S5fig2criticalconditionb).
+
+```{r prepch5Sd50fig2b}
+
+# y <- table(df3$condition,df3$InCS)
+# y <- as.data.frame(y)
+# #colnames(y) <- c("InCS","condition","Freq","perc")
+# 
+# z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+# perc <- z$Freq
+# test <- cbind(y,perc)
+# test$condition
+# test
+
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+
+ab_graph <- function(){
+  a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+  b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$InCS,a$condition))
+  by <- as.data.frame(table(b$InCS,b$condition))
+  
+  aperc <- ay$Freq/length(a$gender)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("InCS","condition","Freq","perc")
+  
+  bperc <- by$Freq/length(b$gender)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("InCS","condition","Freq","perc")
+  
+  c <- rbind(ay,by)
+  
+  c
+}
+
+test <- ab_graph()
+
+
+rm(x,y)
+```
+
+```{r dch5S5fig2criticalconditionb_old, include=FALSE}
+
+
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             #,labels=c("Increased Distance","Reduced Distance")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+
+
+```
+
+```{r dch5S5fig2criticalconditionb, fig.cap="Study 4: Responses to critical slide for the experimental group (*N* = 39) and the control group (*N* = 38)", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+```{r logits5}
+
+df3$InCS <- relevel(df3$InCS, ref = 2)
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC, data = df3a)# , reflevel = 2)
+
+summary_InCS_model <- summary(InCSModel)
+summary_InCS_model$lratio$parameter
+summary_InCS_model$lratio$statistic
+summary_InCS_model$lratio$p.value
+
+InCSModel$coefficients[3]
+InCSModel$coefficients[4]
+
+cox <- PseudoR2(multinom(InCS~NFC,df3), "all")
+
+cox[3]
+cox[4]
+#PseudoR2(x, "all")
+#summary_InCS_model
+
+
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[7]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[8]^2
+
+
+summary_InCS_model
+summary_InCS_model$coefficients[3]
+data.frame(exp(InCSModel$coefficients))
+
+exp(InCSModel$coefficients)[3]
+
+
+a <- exp(confint(InCSModel))
+c(a[3],a[7])
+
+residuals(InCSModel)
+fitted(InCSModel, outcome = F)
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+pw$power
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(InCS~NFC,df3, family = binomial(link = "logit"))
+cox <- revised_PseudoR2s(logits_rsquared)
+
+```
+
+### Need for Closure
+
+-   A significant association between Need for Closure and response to the critical slide:
+    -   χ^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+-   Need for Closure explained between `r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and `r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide.
+-   As Need for Closure increased, participants were significantly more likely to provide reasons than to present as dumbfounded:
+    -   Wald = `r round(wald1,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[15]))`, odds ratio = `r exp(InCSModel$coefficients)[3]`, 95% CI [`r a[3]`, `r a[7]`].
+-   As Need for Closure increased, participants were also significantly more likely to select there is nothing wrong than present as dumbfounded:
+    -   Wald = `r round(wald2,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[16]))`, odds ratio = `r exp(InCSModel$coefficients)[4]`, 95% CI [`r a[4]`, `r a[8]`]. See Figure \@ref(fig:ggplotlogits5).
+
+```{r prepplottinglogits5}
+
+df3 <- df3[which(is.na(df3$NFC)==FALSE),]
+
+x <- df3$NFC
+y <- as.numeric(df3$InCS)
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+
+```
+
+```{r ggplotlogits4_old, include=FALSE}
+
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, color=factor(variable,labels=c("dumb","reason","nothing")))) +
+  geom_line()+
+  xlab("Need for Closure") + ylab("Predicted Probability") +
+  scale_y_continuous(limits = c(0, 1)) + 
+  #scale_x_continuous(limits = c(-4, 4))+
+  scale_color_discrete(name="Response to \nCritical Slide", labels=c("Dumbfounded","Nothing Wrong","Reasons"))+
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+  ),
+  legend.text=element_text(family="Times",
+                           size=8
+  ),
+  legend.title=element_text(family="Times",
+                            size=10
+  ),
+  axis.text=element_text(family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(family="Times",
+                          size=12
+  ),
+  strip.text=element_text(family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+
+```
+
+```{r ggplotlogits4, fig.cap="Study 4: Probability of selecting each response to the critical slide depending on Need for Closure", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+# Study 5: Temporal (1st person [in])
+
+```{r load distancing 5 data}
+rm(list = ls())
+
+load("pilot_data/loaded_data/five.RData")
+df3 <- five
+dftot <- five_tot
+
+
+df1x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_5/shorttime_shortpsy.sav', to.data.frame = TRUE)
+df2x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_5/longtime_shortpsy.sav', to.data.frame = TRUE)
+  
+N <- length(df1x$gender)+length(df2x$gender)
+rm(df1x,df2x)
+
+
+```
+
+## Design
+
+### Manipulation
+
+-   **Temporal Distance**: Increased vs Deceased
+-   Anne style vignette in first person: two levels - 5 week deadline vs 5pm today
+
+#### Manipulation Materials:
+
+##### 'Long time'
+
+> Imagine you taking a philosophy course on ethics. For this ethics course you have been asked to study the scenario below.<br>
+You must identify if the behaviour described is right or wrong, and provide reasons for your judgement. [**Imagine you must complete and submit this assignment within the next five weeks**]{.underline}.<br>
+
+
+##### Short time:
+
+> Imagine you taking a philosophy course on ethics. For this ethics course you have been asked to study the scenario below.<br>
+You must identify if the behaviour described is right or wrong, and provide reasons for your judgement. [**Imagine you must complete and submit this assignment today**]{.underline}.<br>
+
+
+### Vignette
+
+-   *Incest*
+
+### Dependent Variable
+
+-   Response to *critical slide*
+    -   (categorical: 3 response options)
+
+## Participants
+
+An initial sample of `r N` participants took part. After initial screening (3 attention checks) we were left with a sample of `r length(dftot$gender)` participants (`r sum(dftot$gender=="Female",na.rm=T)` female, `r sum(dftot$gender=="Male",na.rm=T)` male; *M*~age~ = `r round(mean(dftot$age,na.rm=T),digits=2)`, min = `r min(dftot$age,na.rm=T)`, max = `r max(dftot$age,na.rm=T)`, *SD* = `r round(sd(dftot$age,na.rm=T),digits=2)`) were collected. Participants were excluded for lying in the need for closure scale (a combined score of \> 15 on selected items).
+
+-   `r length(df3$InCS)` participants
+    -   `r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male;
+    -   *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`
+
+```{r dch5s4change in judgement}
+
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r checkingchangesd4}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+chisq.test(table(dftot$InCS,dftot$condition))
+```
+
+## Results
+
+-   There was no difference in initial judgement depending on distance manipulation:
+    -   *t*(`r t_j1$parameter`) = `r t_j1$statistic`, *p* `r paste(p_report(t_j1$p.value))`.
+-   No significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+-   The responses to the critical slide for the increased distance group (*N* = `r sum(df3$condition=="long")`) and the decreased distance group (*N* = `r sum(df3$condition=="short")`) are displayed in Figure \@ref(fig:dch5S4fig2criticalcondition).
+
+```{r prepch5Sd40fig2}
+
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+```
+
+```{r dch5S4fig2criticalcondition_old, include=FALSE}
+
+
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Increased Distance","Reduced Distance")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+
+
+```
+
+```{r dch5S4fig2criticalcondition, fig.cap="Study 5: Responses to critical slide for the experimental group (*N* = 38) and the control group (*N* = 33)", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+```{r logits4}
+
+df3$InCS <- relevel(df3$InCS, ref = 2)
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC, data = df3a)# , reflevel = 2)
+
+summary_InCS_model <- summary(InCSModel)
+summary_InCS_model$lratio$parameter
+summary_InCS_model$lratio$statistic
+summary_InCS_model$lratio$p.value
+
+InCSModel$coefficients[3]
+InCSModel$coefficients[4]
+
+cox <- PseudoR2(multinom(InCS~NFC,df3), "all")
+
+cox[3]
+cox[4]
+#PseudoR2(x, "all")
+#summary_InCS_model
+
+
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[7]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[8]^2
+
+
+summary_InCS_model
+summary_InCS_model$coefficients[3]
+data.frame(exp(InCSModel$coefficients))
+
+exp(InCSModel$coefficients)[3]
+
+
+a <- exp(confint(InCSModel))
+c(a[3],a[7])
+
+residuals(InCSModel)
+fitted(InCSModel, outcome = F)
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+pw$power
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(InCS~NFC,df3, family = binomial(link = "logit"))
+cox <- revised_PseudoR2s(logits_rsquared)
+
+```
+
+### Need for Closure
+
+-   No significant association between Need for Closure and response to the critical slide:
+    -   χ^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`. See Figure \@ref(fig:ggplotlogits5).
+
+```{r prepplottinglogits4}
+
+df3 <- df3[which(is.na(df3$NFC)==FALSE),]
+
+x <- df3$NFC
+y <- as.numeric(df3$InCS)
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+
+```
+
+```{r ggplotlogits5_old, include=FALSE}
+
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, color=factor(variable,labels=c("dumb","reason","nothing")))) +
+  geom_line()+
+  xlab("Need for Closure") + ylab("Predicted Probability") +
+  scale_y_continuous(limits = c(0, 1)) + 
+  #scale_x_continuous(limits = c(-4, 4))+
+  scale_color_discrete(name="Response to \nCritical Slide", labels=c("Dumbfounded","Nothing Wrong","Reasons"))+
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+  ),
+  legend.text=element_text(family="Times",
+                           size=8
+  ),
+  legend.title=element_text(family="Times",
+                            size=10
+  ),
+  axis.text=element_text(family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(family="Times",
+                          size=12
+  ),
+  strip.text=element_text(family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+
+```
+
+```{r ggplotlogits5, fig.cap="Study 5: Probability of selecting each response to the critical slide depending on Need for Closure", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+# Study 6: Temporal (3rd person [ca] - scale)
+
+```{r load distancing 6 data}
+
+rm(list = ls())
+
+load("pilot_data/loaded_data/six.RData")
+df3 <- six
+dftot <- six_tot
+
+df1x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_6/scale_short_time_long_psy_ mar19.sav', to.data.frame = TRUE)
+df2x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_6/scale_long_time_long_psy_mar19.sav', to.data.frame = TRUE)
+  
+N <- length(df1x$gender)+length(df2x$gender)
+rm(df1x,df2x)
+
+
+```
+
+## Design
+
+### Manipulation
+
+-   **Temporal Distance**: Increased vs Deceased
+-   Anne vignette: two levels - 5 week deadline vs 5pm today
+
+#### Manipulation Materials:
+
+##### 'Long time'
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.<br>
+She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. [**She must complete and submit this assignment within the next five weeks**]{.underline}.<br>
+While reading the story on the next page, try to think about the story from Anne's perspective rather than your own.
+
+##### Short time:
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.<br>
+She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. [**She must complete and submit this assignment today**]{.underline}.<br>
+While reading the story on the next page, try to think about the story from Anne’s perspective rather than your own.
+
+### Vignette
+
+-   *Cannibal*
+
+### Dependent Variable
+
+-   Alternative *critical slide*
+    -   Jennifer's actions did not harm anyone, or negatively affect anyone. How can there be anything wrong with what she did?
+        -   7 point Likert scale 1 = *There is nothing wrong*; 7 = *It is definitely wrong*
+    -   Please indicate how well you can justify your response above
+        -   7 point Likert scale 1 = *I can provide a valid reason*; 7 = *I can't think of a reason*
+
+## Participants
+
+An initial sample of `r N` participants took part. After initial screening (3 attention checks) we were left with a sample of `r length(dftot$gender)` participants (`r sum(dftot$gender=="Female",na.rm=T)` female, `r sum(dftot$gender=="Male",na.rm=T)` male; *M*~age~ = `r round(mean(dftot$age,na.rm=T),digits=2)`, min = `r min(dftot$age,na.rm=T)`, max = `r max(dftot$age,na.rm=T)`, *SD* = `r round(sd(dftot$age,na.rm=T),digits=2)`) were collected. Participants were excluded for lying in the need for closure scale (a combined score of \> 15 on selected items).
+
+-   `r length(df3$InCS_rsn)` participants
+    -   `r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male;
+    -   *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`
+
+```{r dch5s6change in judgement}
+
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r checkingchangesd6}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+t_j2 <- t.test(df3$InCS_ju ~ df3$condition)
+t_j3 <- t.test(df3$InCS_rsn ~ df3$condition)
+
+
+
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+# 
+# c <- chisq.test(table(df3$InCS,df3$condition))
+# w <- sqrt(c[]$statistic/length(df3$gender))
+# pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+t.test(dftot$InCS_rsn ~ dftot$condition)
+
+```
+
+## Results
+
+-   There was no difference in initial judgement depending on distance manipulation:
+    -   *t*(`r t_j1$parameter`) = `r t_j1$statistic`, *p* `r paste(p_report(t_j1$p.value))`.
+-   There was no difference in judgement at time of critical slide depending on distance manipulation:
+    -   *t*(`r t_j2$parameter`) = `r t_j2$statistic`, *p* `r paste(p_report(t_j2$p.value))`.
+-   There was no difference self report ability to provide reasons depending on distance manipulation:
+    -   *t*(`r t_j3$parameter`) = `r t_j3$statistic`, *p* `r paste(p_report(t_j3$p.value))`.
+
+```{r, include=TRUE}
+tapply(df3$InCS_rsn, df3$condition, descriptives)
+
+```
+
+
+```{r plottingmeansS7}
+ggplot(df3, aes(x=condition,y=InCS_rsn))+
+  geom_violin()+
+  geom_jitter(width = 0.25)
+
+```
+
+```{r logits6j}
+
+#library(QuantPsyc)
+
+fit <- lm(InCS_rsn~NFC+InJu1, data=df3)
+fit <- lm(InCS_ju~NFC, data=df3)
+
+apa_lm <- apa_print(fit)
+
+summary(fit)
+#lm.beta(fit)
+
+
+qplot(df3$InCS_rsn,df3$NFC)
+
+ggplot(df3, aes(NFC,InCS_rsn))+
+  geom_point()+
+  #stat_summary(fun.data = mean_cl_normal)+
+  geom_smooth(method='lm', formula=y~x)
+
+```
+
+### Need for Closure and judgement made
+
+-   A linear regression was conducted:
+    -   The model did not predict valence of judgement, `r apa_lm$full_result$modelfit`
+    -   Need for closure was not a significant predictor, `r apa_lm$full_result$NFC`
+
+```{r logits6}
+
+#library(QuantPsyc)
+
+fit <- lm(InCS_rsn~NFC+InCS_ju, data=df3)
+fit <- lm(InCS_rsn~NFC, data=df3)
+
+apa_lm <- apa_print(fit)
+
+summary(fit)
+#lm.beta(fit)
+
+
+qplot(df3$InCS_rsn,df3$NFC)
+
+ggplot(df3, aes(NFC,InCS_rsn))+
+  geom_point()+
+  #stat_summary(fun.data = mean_cl_normal)+
+  geom_smooth(method='lm', formula=y~x)
+
+```
+
+### Need for Closure and providing reasons
+
+-   A linear regression was conducted:
+    -   The model as a whole predicted self reported ability to provide reasons, `r apa_lm$full_result$modelfit`
+    -   Need for closure was a significant predictor, `r apa_lm$full_result$NFC`
+
+```{r logits6jr}
+
+#library(QuantPsyc)
+
+fit <- lm(InCS_rsn~NFC+InJu1, data=df3)
+#fit <- lm(InCS_ju~NFC, data=df3)
+
+apa_lm <- apa_print(fit)
+
+summary(fit)
+#lm.beta(fit)
+
+
+qplot(df3$InCS_rsn,df3$NFC)
+
+ggplot(df3, aes(NFC,InCS_rsn))+
+  geom_point()+
+  #stat_summary(fun.data = mean_cl_normal)+
+  geom_smooth(method='lm', formula=y~x)
+
+```
+
+### Need for Closure + initial judgement
+
+-   A linear regression was conducted:
+    -   The model as a whole predicted self reported ability to provide reasons, `r apa_lm$full_result$modelfit`
+    -   Need for closure was a significant predictor, `r apa_lm$full_result$NFC`
+    -   Initial judgement was not a significant predictor `r apa_lm$full_result$InJu1`
+
+```{r presentregression6, results="asis", include=FALSE}
+
+apa_table(
+  apa_lm$table
+  , caption = "A full regression table."
+  , escape = FALSE
+)
+
+```
+
+# Study 7: Temporal (3rd person [ca])
+
+```{r load distancing 7 data}
+
+rm(list = ls())
+
+load("pilot_data/loaded_data/seven.RData")
+df3 <- seven
+dftot <- seven_tot
+  
+df1x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_7/ca_shorttime_longpsy_b.sav', to.data.frame = TRUE)
+df2x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_7/ca_longtime_longpsy_b.sav', to.data.frame = TRUE)
+  
+N <- length(df1x$gender)+length(df2x$gender)
+rm(df1x,df2x)
+
+
+```
+
+## Design
+
+### Manipulation
+
+-   **Temporal Distance**: Increased vs Deceased
+    -   Anne style vignette: two levels - 5 week deadline vs 5pm today
+
+#### Manipulation Materials:
+
+##### 'Long time'
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.<br>
+She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. [**She must complete and submit this assignment within the next five weeks**]{.underline}.<br>
+While reading the story on the next page, try to think about the story from Anne's perspective rather than your own.
+
+##### Short time:
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.<br>
+She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. [**She must complete and submit this assignment today**]{.underline}.<br>
+While reading the story on the next page, try to think about the story from Anne’s perspective rather than your own.
+
+### Vignette
+
+-   *Cannibal*
+
+### Dependent Variable
+
+-   Response to *critical slide*
+    -   (categorical: 3 response options)
+
+## Participants
+
+An initial sample of `r N` participants took part. After initial screening (3 attention checks) we were left with a sample of `r length(dftot$gender)` participants (`r sum(dftot$gender=="Female",na.rm=T)` female, `r sum(dftot$gender=="Male",na.rm=T)` male; *M*~age~ = `r round(mean(dftot$age,na.rm=T),digits=2)`, min = `r min(dftot$age,na.rm=T)`, max = `r max(dftot$age,na.rm=T)`, *SD* = `r round(sd(dftot$age,na.rm=T),digits=2)`) were collected. Participants were excluded for lying in the need for closure scale (a combined score of \> 15 on selected items).
+
+-   `r length(df3$InCS)` participants
+    -   `r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male;
+    -   *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`
+
+```{r dch5s7change in judgement}
+
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r checkingchangesd7}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+chisq.test(table(dftot$InCS,dftot$condition))
+
+```
+
+## Results
+
+-   There was no difference in initial judgement depending on distance manipulation:
+    -   *t*(`r t_j1$parameter`) = `r t_j1$statistic`, *p* `r paste(p_report(t_j1$p.value))`.
+-   No significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+-   The responses to the critical slide for the increased distance group (*N* = `r sum(df3$condition=="long")`) and the decreased distance group (*N* = `r sum(df3$condition=="short")`) are displayed in Figure \@ref(fig:dch5S4fig2criticalcondition).
+
+```{r prepch5Sd70fig2}
+
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+```
+
+```{r dch5S7fig2criticalcondition_old, include=FALSE}
+
+
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Increased Distance","Reduced Distance")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+```
+
+```{r dch5S7fig2criticalcondition, fig.cap="Study 7: Responses to critical slide for the experimental group (*N* = 39) and the control group (*N* = 48)", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+```{r logits7}
+
+df3$InCS <- relevel(df3$InCS, ref = 2)
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC, data = df3a)# , reflevel = 2)
+
+summary_InCS_model <- summary(InCSModel)
+summary_InCS_model$lratio$parameter
+summary_InCS_model$lratio$statistic
+summary_InCS_model$lratio$p.value
+
+InCSModel$coefficients[3]
+InCSModel$coefficients[4]
+
+cox <- PseudoR2(multinom(InCS~NFC,df3), "all")
+
+cox[3]
+cox[4]
+#PseudoR2(x, "all")
+#summary_InCS_model
+
+
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[7]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[8]^2
+
+
+summary_InCS_model
+summary_InCS_model$coefficients[3]
+data.frame(exp(InCSModel$coefficients))
+
+exp(InCSModel$coefficients)[3]
+
+
+a <- exp(confint(InCSModel))
+c(a[3],a[7])
+
+residuals(InCSModel)
+fitted(InCSModel, outcome = F)
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+pw$power
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(InCS~NFC,df3, family = binomial(link = "logit"))
+cox <- revised_PseudoR2s(logits_rsquared)
+
+```
+
+### Need for Closure
+
+-   No significant association between Need for Closure and response to the critical slide:
+    -   χ^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`. See Figure \@ref(fig:ggplotlogits7).
+
+```{r prepplottinglogits7}
+
+df3 <- df3[which(is.na(df3$NFC)==FALSE),]
+
+x <- df3$NFC
+y <- as.numeric(df3$InCS)
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+
+```
+
+```{r ggplotlogits7_old, include=FALSE}
+
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, color=factor(variable,labels=c("dumb","reason","nothing")))) +
+  geom_line()+
+  xlab("Need for Closure") + ylab("Predicted Probability") +
+  scale_y_continuous(limits = c(0, 1)) + 
+  #scale_x_continuous(limits = c(-4, 4))+
+  scale_color_discrete(name="Response to \nCritical Slide", labels=c("Dumbfounded","Nothing Wrong","Reasons"))+
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+  ),
+  legend.text=element_text(family="Times",
+                           size=8
+  ),
+  legend.title=element_text(family="Times",
+                            size=10
+  ),
+  axis.text=element_text(family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(family="Times",
+                          size=12
+  ),
+  strip.text=element_text(family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+
+```
+
+```{r ggplotlogits7, fig.cap="Study 7: Probability of selecting each response to the critical slide depending on Need for Closure", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+# Study 8: Temporal (3rd person [in] Vignette)
+
+```{r load distancing 8 data}
+
+rm(list = ls())
+
+load("pilot_data/loaded_data/eight.RData")
+df3 <- eight
+dftot <- eight_tot
+  
+  
+df1x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_8/in_distanced_vignette_manip.sav', to.data.frame = TRUE)
+df2x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_8/in_distanced_vignette_control.sav', to.data.frame = TRUE)
+
+
+df <- haven::read_sav('pilot_data/raw_SPSS_files/pilot_study_8/in_distanced_vignette_manip.sav')
+
+N <- length(df1x$gender)+length(df2x$gender)
+rm(df1x,df2x)
+
+
+```
+
+## Design
+
+### Manipulation
+
+-   **Temporal Distance**: Increased vs Deceased
+    -   Incest vignette set in the past vs the present
+
+### Vignette
+
+-   *Incest*
+
+#### Materials
+
+##### 'Long' vignette
+
+> 60 years ago, Julie and Mark, who are brother and sister, were travelling together in France. They were both on summer vacation from college. One night they were staying alone in a cabin near the beach. They decided that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark used a condom too, just to be safe. They both enjoyed it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other.
+
+##### 'Short' vignette
+
+> Julie and Mark, who are brother and sister, are travelling together in France. They are both on summer vacation from college. One night they are staying alone in a cabin near the beach. They decide that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark uses a condom too, just to be safe. They both enjoy it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other.
+
+
+### Dependent Variable
+
+-   Response to *critical slide*
+    -   (categorical: 3 response options)
+
+## Participants
+
+An initial sample of `r N` participants took part. After initial screening (3 attention checks) we were left with a sample of `r length(dftot$gender)` participants (`r sum(dftot$gender=="Female",na.rm=T)` female, `r sum(dftot$gender=="Male",na.rm=T)` male; *M*~age~ = `r round(mean(dftot$age,na.rm=T),digits=2)`, min = `r min(dftot$age,na.rm=T)`, max = `r max(dftot$age,na.rm=T)`, *SD* = `r round(sd(dftot$age,na.rm=T),digits=2)`) were collected. Participants were excluded for lying in the need for closure scale (a combined score of \> 15 on selected items).
+
+-   `r length(df3$InCS)` participants
+    -   `r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male;
+    -   *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`
+
+```{r dch5s8change in judgement}
+
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r checkingchangesd8}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+chisq.test(table(dftot$InCS,dftot$condition))
+
+```
+
+## Results
+
+-   There was no difference in initial judgement depending on distance manipulation:
+    -   *t*(`r t_j1$parameter`) = `r t_j1$statistic`, *p* `r paste(p_report(t_j1$p.value))`.
+-   A significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+-   The responses to the critical slide for the increased distance group (*N* = `r sum(df3$condition=="long")`) and the decreased distance group (*N* = `r sum(df3$condition=="short")`) are displayed in Figure \@ref(fig:dch5S8fig2criticalcondition).
+
+```{r prepch5Sd80fig2}
+
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+```
+
+```{r dch5S8fig2criticalcondition_old, include=FALSE}
+
+
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Increased Distance","Reduced Distance")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+
+
+```
+
+```{r dch5S8fig2criticalcondition, fig.cap="Study 8: Responses to critical slide for the experimental group (*N* = 68) and the control group (*N* = 56)", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+```{r logits8}
+
+df3$InCS <- relevel(df3$InCS, ref = 2)
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC, data = df3a)# , reflevel = 2)
+
+summary_InCS_model <- summary(InCSModel)
+summary_InCS_model$lratio$parameter
+summary_InCS_model$lratio$statistic
+summary_InCS_model$lratio$p.value
+
+InCSModel$coefficients[3]
+InCSModel$coefficients[4]
+
+cox <- PseudoR2(multinom(InCS~NFC,df3), "all")
+
+cox[3]
+cox[4]
+#PseudoR2(x, "all")
+#summary_InCS_model
+
+
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[7]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[8]^2
+
+
+summary_InCS_model
+summary_InCS_model$coefficients[3]
+data.frame(exp(InCSModel$coefficients))
+
+exp(InCSModel$coefficients)[3]
+
+
+a <- exp(confint(InCSModel))
+c(a[3],a[7])
+
+residuals(InCSModel)
+fitted(InCSModel, outcome = F)
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+pw$power
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(InCS~NFC,df3, family = binomial(link = "logit"))
+cox <- revised_PseudoR2s(logits_rsquared)
+
+```
+
+### Need for Closure
+
+-   A significant association between Need for Closure and response to the critical slide:
+    -   χ^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+-   Need for Closure explained between `r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and `r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide.
+-   As Need for Closure increased, participants were significantly more likely to provide reasons than to present as dumbfounded:
+    -   Wald = `r round(wald1,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[15]))`, odds ratio = `r exp(InCSModel$coefficients)[3]`, 95% CI [`r a[3]`, `r a[7]`].
+-   As Need for Closure increased, participants were also significantly more likely to select there is nothing wrong than present as dumbfounded:
+    -   Wald = `r round(wald2,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[16]))`, odds ratio = `r exp(InCSModel$coefficients)[4]`, 95% CI [`r a[4]`, `r a[8]`]. See Figure \@ref(fig:ggplotlogits3).
+
+```{r prepplottinglogits8}
+
+df3 <- df3[which(is.na(df3$NFC)==FALSE),]
+
+x <- df3$NFC
+y <- as.numeric(df3$InCS)
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+
+```
+
+```{r ggplotlogits8_old, include=FALSE}
+
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, color=factor(variable,labels=c("dumb","reason","nothing")))) +
+  geom_line()+
+  xlab("Need for Closure") + ylab("Predicted Probability") +
+  scale_y_continuous(limits = c(0, 1)) + 
+  #scale_x_continuous(limits = c(-4, 4))+
+  scale_color_discrete(name="Response to \nCritical Slide", labels=c("Dumbfounded","Nothing Wrong","Reasons"))+
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+  ),
+  legend.text=element_text(family="Times",
+                           size=8
+  ),
+  legend.title=element_text(family="Times",
+                            size=10
+  ),
+  axis.text=element_text(family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(family="Times",
+                          size=12
+  ),
+  strip.text=element_text(family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+
+```
+
+```{r ggplotlogits8, fig.cap="Study 8: Probability of selecting each response to the critical slide depending on Need for Closure", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+# Combined (no-exclusions)
+
+```{r combining all tot}
+# one: psych
+# two: psych
+# three: temp
+# four: temp
+# five: temp (psych short)
+         # six: temp (scale)
+# seven: temp
+         # eight: temp (confounded)
+
+
+
+load("pilot_data/loaded_data/onetoseven.RData")
+
+
+df3 <- onetoseven_tot
+
+
+```
+
+```{r totalldch5s5change in judgement}
+
+
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r totcheckingchangesdall}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+#t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+#t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+# df_aov1 <- function(a){
+#     aov <- a
+#     print(paste0(c(aov[[1]][["Df"]], " ", ",")[c(1, 4, 3, 2)]))
+# }
+
+aov1 <- aov(InJu1~condition,df3)
+aov1 <- summary(aov(InJu1~condition,df3))
+
+eta1 <- (aov1[[1]][["Sum Sq"]][1])/((aov1[[1]][["Sum Sq"]][1])+(aov1[[1]][["Sum Sq"]][2]))
+
+tapply(df3$InJu1,df3$condition,descriptives)
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+df_aov(aov1)
+
+```
+
+## Participants
+-   `r length(df3$InCS)` participants
+    -   `r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male;
+    -   *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`
+
+## Results
+
+### Combined Increased Distance vs Reduced Distance
+
+-   There was no difference in initial judgement depending on distance manipulation:
+    -   *F*(`r aov1[[1]][["Df"]][1]`, `r aov1[[1]][["Df"]][2]`) = `r paste(round(F_aov(aov1),digits=3))` *p* `r paste(p_aov(aov1))`, partial $\eta$^2^ `r paste(p_report(eta1))`
+-   No significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+-   The responses to the critical slide for the control group (*N* = `r sum(df3$condition=="control")`), the increased distance group (*N* = `r sum(df3$condition=="long")`) and the decreased distance group (*N* = `r sum(df3$condition=="short")`) are displayed in Figure \@ref(fig:totdch5allafig2criticalcondition).
+
+```{r totprepch5Salla0fig2}
+
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+abc_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+c <- df3[which(df3$condition==levels(as.factor(df3$condition))[3]),]
+
+a$condition <- droplevels(as.factor(a$condition))
+b$condition <- droplevels(as.factor(b$condition))
+c$condition <- droplevels(as.factor(c$condition))
+
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+cy <- as.data.frame(table(c$InCS,c$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+cperc <- cy$Freq/length(c$gender)
+cy <- cbind(cy,cperc)
+colnames(cy) <- c("InCS","condition","Freq","perc")
+
+x <- rbind(ay,by,cy)
+
+x
+}
+
+test <- abc_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+
+c <- chisq.test(df3$condition,df3$InCS)
+c$stdres
+
+```
+
+```{r totdch5allafig2criticalcondition_old, include=FALSE}
+
+
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             #,labels=c("Increased Distance","Reduced Distance")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+
+
+```
+
+```{r totdch5allafig2criticalcondition, fig.cap="Studies 1, 2, 3, 4, 5, and 7: Responses to critical slide depending on condition", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+```{r totcheckingchangesdall_four}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+#t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+#t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+aov1 <- aov(InJu1~temp_psych,df3)
+aov1 <- summary(aov(InJu1~temp_psych,df3))
+
+eta1 <- (aov1[[1]][["Sum Sq"]][1])/((aov1[[1]][["Sum Sq"]][1])+(aov1[[1]][["Sum Sq"]][2]))
+
+tapply(df3$InJu1,df3$temp_psych,descriptives)
+
+tuk <- TukeyHSD(aov(InJu1~temp_psych,df3))
+
+#(aov[[1]][["Sum Sq"]][1])
+#(aov[[1]][["Sum Sq"]][1])/((aov[[1]][["Sum Sq"]][1])+(aov[[1]][["Sum Sq"]][2]))
+
+
+tuk[[1]][33]
+#
+
+c <- chisq.test(table(df3$InCS,df3$temp_psych))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+### Different types of manipulations (Temporal / Psychological)
+
+-   There was no significant difference in initial judgement depending on distance manipulation:
+    -   *F*(`r aov1[[1]][["Df"]][1]`, `r aov1[[1]][["Df"]][2]`) = `r paste(round(F_aov(aov1),digits=3))` *p* `r paste(p_aov(aov1))`, partial $\eta$^2^ `r paste(p_report(eta1))`
+        -   when there was no manipulation, participants ratings were significantly higher (*M* = `r round(mean(df3$InJu1[which(df3$temp_psych=="control")], na.rm=TRUE), digits = 2)`, *SD* = `r round(sd(df3$InJu1[which(df3$temp_psych=="control")], na.rm=TRUE), digits = 2)`) than when temporal distance was increased and psychological distance was reduced (*M* = `r round(mean(df3$InJu1[which(df3$temp_psych=="long_short")], na.rm=TRUE), digits = 2)`, *SD* = `r round(sd(df3$InJu1[which(df3$temp_psych=="long_short")], na.rm=TRUE), digits = 2)`)
+        -   *p* `r paste(p_report(tuk[[1]][33]))`
+-   No significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+-   The responses to the critical slide for each type of manipulation (the total samples are displayed below) are displayed in Figure \@ref(fig:totdch5Sallfig2criticalcondition).
+
+```{r, residualscombined, include=TRUE}
+c$stdres
+
+```
+
+
+```{r totresiduals, include=TRUE}
+
+table(df3$temp_psych)
+
+```
+
+```{r totpreptableS1}
+c <- chisq.test(table(df3$InCS,df3$temp_psych))
+rownames(rbind(c$observed,c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame( c(ps(x[1]) ,ps(x[2]) ,ps(x[3]))
+                   ,c(ps(x[4]) ,ps(x[5]) ,ps(x[6]))
+                   ,c(ps(x[7]) ,ps(x[8]) ,ps(x[9]))
+                   ,c(ps(x[10]),ps(x[11]),ps(x[12]))
+                   ,c(ps(x[13]),ps(x[14]),ps(x[15]))),
+  c("control","long_long","long_short","short_long","short_short")
+)
+
+rownames(x) <- row.names(c$observed)  
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Nothing Wrong","Dumbfounded","Reasons",
+        "Nothing Wrong","Dumbfounded","Reasons",
+        "Nothing Wrong","Dumbfounded","Reasons"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c("","","no manipulation"
+                                                      ,"long / long"
+                                                      ,"long / short"
+                                                      ,"short / long"
+                                                      ,"short / short")
+
+
+
+
+```
+
+```{r totS1tab1dumb,results = 'asis', include=TRUE}
+
+
+apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c","c","c")
+   , caption = "Studies 1, 2, 3, 4, 5, and 7 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on cognitive load"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+```{r totprepch5Sdall0fig2}
+
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+abcde_graph <- function(){
+  a <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[1]),]
+  b <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[2]),]
+  c <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[3]),]
+  d <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[4]),]
+  e <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[5]),]
+
+  a#levels(as.factor(df3$temp_psych))[1]
+  
+  ay <- as.data.frame(table(a$InCS,as.character(a$temp_psych)))
+  by <- as.data.frame(table(b$InCS,as.character(b$temp_psych)))
+  cy <- as.data.frame(table(c$InCS,as.character(c$temp_psych)))
+  dy <- as.data.frame(table(d$InCS,as.character(d$temp_psych)))
+  ey <- as.data.frame(table(e$InCS,as.character(e$temp_psych)))
+
+  aperc <- ay$Freq/length(a$gender)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("InCS","condition","Freq","perc")
+  
+  bperc <- by$Freq/length(b$gender)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("InCS","condition","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$gender)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("InCS","condition","Freq","perc")
+  
+  dperc <- dy$Freq/length(d$gender)
+  dy <- cbind(dy,dperc)
+  colnames(dy) <- c("InCS","condition","Freq","perc")
+
+  eperc <- ey$Freq/length(e$gender)
+  ey <- cbind(ey,eperc)
+  colnames(ey) <- c("InCS","condition","Freq","perc")
+      
+  cx <- rbind(ay,by,cy,dy,ey)
+  
+  cx
+}
+
+test2 <- abcde_graph()
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+a$condition <- droplevels(as.factor(a$condition))
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+b$condition <- droplevels(as.factor(b$condition))
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+```
+
+```{r totdch5Sallfig2criticalcondition_old, include=FALSE}
+
+
+
+g <- ggplot(test2, aes(x=InCS, y=perc, fill=factor(condition
+                                            ,labels=c("no manipulation"
+                                                      ,"long / long"
+                                                      ,"long / short"
+                                                      ,"short / long"
+                                                      ,"short / short")
+                                             )))+
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=3,
+            aes( label = scales::percent(test2$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=3.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Temporal / Psychological") +
+  
+  geom_text(family = "Times", size=3,
+            aes( label = scales::percent(test2$perc),
+                 y= test2$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+
+
+```
+
+```{r totdch5Sallfig2criticalcondition, fig.cap="Studies 1, 2, 3, 4, 5, and 7: Responses to critical slide depending on condition", include=TRUE}
+
+suppressWarnings(print(g))
+
+```
+
+# Combined (liars excluded)
+
+```
+need to check the legend on the combined plot
+
+Currently the Temporal / Psychologyical label seems wrong
+
+e.g., long / long adds up to long_short in the box above
+
+
+
+
+```
+
+```{r combining all}
+# one: psych
+# two: psych
+# three: temp
+# four: temp
+# five: temp (psych short)
+         # six: temp (scale)
+# seven: temp
+         # eight: temp (confounded)
+
+
+
+load("pilot_data/loaded_data/onetoseven.RData")
+
+
+df3 <- onetoseven
+
+
+```
+
+```{r alldch5s5change in judgement}
+
+
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r checkingchangesdall}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+#t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+#t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+# df_aov1 <- function(a){
+#     aov <- a
+#     print(paste0(c(aov[[1]][["Df"]], " ", ",")[c(1, 4, 3, 2)]))
+# }
+
+aov1 <- aov(InJu1~condition,df3)
+aov1 <- summary(aov(InJu1~condition,df3))
+
+eta1 <- (aov1[[1]][["Sum Sq"]][1])/((aov1[[1]][["Sum Sq"]][1])+(aov1[[1]][["Sum Sq"]][2]))
+
+tapply(df3$InJu1,df3$condition,descriptives)
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+df_aov(aov1)
+
+```
+
+
+## Participants
+-   `r length(df3$InCS)` participants
+    -   `r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male;
+    -   *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`
+
+## Results
+
+### Combined Increased Distance vs Reduced Distance
+
+-   There was no difference in initial judgement depending on distance manipulation:
+    -   *F*(`r aov1[[1]][["Df"]][1]`, `r aov1[[1]][["Df"]][2]`) = `r paste(round(F_aov(aov1),digits=3))` *p* `r paste(p_aov(aov1))`, partial $\eta$^2^ `r paste(p_report(eta1))`
+-   A significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+-   The responses to the critical slide for the control group (*N* = `r sum(df3$condition=="control")`), the increased distance group (*N* = `r sum(df3$condition=="long")`) and the decreased distance group (*N* = `r sum(df3$condition=="short")`) are displayed inn Figure \@ref(fig:dch5allafig2criticalcondition).
+
+```{r samplesizes, include=TRUE}
+table(df3$condition)
+```
+
+```{r prepch5Salla0fig2}
+
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+abc_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+c <- df3[which(df3$condition==levels(as.factor(df3$condition))[3]),]
+
+a$condition <- droplevels(as.factor(a$condition))
+b$condition <- droplevels(as.factor(b$condition))
+c$condition <- droplevels(as.factor(c$condition))
+
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+cy <- as.data.frame(table(c$InCS,c$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+cperc <- cy$Freq/length(c$gender)
+cy <- cbind(cy,cperc)
+colnames(cy) <- c("InCS","condition","Freq","perc")
+
+x <- rbind(ay,by,cy)
+
+x
+}
+
+test <- abc_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+```
+
+```{r dch5allafig2criticalcondition_old, include=FALSE}
+
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             #,labels=c("Increased Distance","Reduced Distance")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+
+
+```
+
+```{r dch5allafig2criticalcondition, fig.cap="Studies 1, 2, 3, 4, 5, and 7: Responses to critical slide depending on condition", include=TRUE}
+
+suppressWarnings(print(g))
+```
+
+```{r checkingchangesdall_four}
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+#t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+#t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+aov1 <- aov(InJu1~temp_psych,df3)
+aov1 <- summary(aov(InJu1~temp_psych,df3))
+
+eta1 <- (aov1[[1]][["Sum Sq"]][1])/((aov1[[1]][["Sum Sq"]][1])+(aov1[[1]][["Sum Sq"]][2]))
+
+tapply(df3$InJu1,df3$temp_psych,descriptives)
+
+tuk <- TukeyHSD(aov(InJu1~temp_psych,df3))
+
+#(aov[[1]][["Sum Sq"]][1])
+#(aov[[1]][["Sum Sq"]][1])/((aov[[1]][["Sum Sq"]][1])+(aov[[1]][["Sum Sq"]][2]))
+
+
+tuk[[1]][33]
+#
+
+c <- chisq.test(table(df3$InCS,df3$temp_psych))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+### Different types of manipulations (Temporal / Psychological)
+
+-   There was a significant difference in initial judgement depending on distance manipulation:
+    -   *F*(`r aov1[[1]][["Df"]][1]`, `r aov1[[1]][["Df"]][2]`) = `r paste(round(F_aov(aov1),digits=3))` *p* `r paste(p_aov(aov1))`, partial $\eta$^2^ `r paste(p_report(eta1))`
+        -   when there was no manipulation, participants ratings were significantly higher (*M* = `r round(mean(df3$InJu1[which(df3$temp_psych=="control")], na.rm=TRUE), digits = 2)`, *SD* = `r round(sd(df3$InJu1[which(df3$temp_psych=="control")], na.rm=TRUE), digits = 2)`) than when temporal distance was increased and psychological distance was reduced (*M* = `r round(mean(df3$InJu1[which(df3$temp_psych=="long_short")], na.rm=TRUE), digits = 2)`, *SD* = `r round(sd(df3$InJu1[which(df3$temp_psych=="long_short")], na.rm=TRUE), digits = 2)`)
+        -   *p* `r paste(p_report(tuk[[1]][33]))`
+-   A significant association between experimental condition and response to the critical slide:
+    -   χ^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r w`, the observed power was `r pw$power`
+-   The responses to the critical slide for each type of manipulation (the total samples are displayed below) are displayed in Figure \@ref(fig:dch5Sallfig2criticalcondition).
+
+```{r samplesizesagain, include=TRUE}
+
+table(df3$temp_psych)
+
+```
+
+```{r preptableS1}
+c <- chisq.test(table(df3$InCS,df3$temp_psych))
+rownames(rbind(c$observed,c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+
+  cbind.data.frame( c(ps(x[1]) ,ps(x[2]) ,ps(x[3]))
+                   ,c(ps(x[4]) ,ps(x[5]) ,ps(x[6]))
+                   ,c(ps(x[7]) ,ps(x[8]) ,ps(x[9]))
+                   ,c(ps(x[10]),ps(x[11]),ps(x[12]))
+                   ,c(ps(x[13]),ps(x[14]),ps(x[15])))
+
+x <- `colnames<-`(
+  cbind.data.frame( c(ps(x[1]) ,ps(x[2]) ,ps(x[3]))
+                   ,c(ps(x[4]) ,ps(x[5]) ,ps(x[6]))
+                   ,c(ps(x[7]) ,ps(x[8]) ,ps(x[9]))
+                   ,c(ps(x[10]),ps(x[11]),ps(x[12]))
+                   ,c(ps(x[13]),ps(x[14]),ps(x[15]))),
+  c("control","long_long","long_short","short_long", "short_short")
+)
+
+rownames(x) <- row.names(c$observed)  
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Nothing Wrong","Dumbfounded","Reasons",
+        "Nothing Wrong","Dumbfounded","Reasons",
+        "Nothing Wrong","Dumbfounded","Reasons"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c("","","no manipulation"
+                                                      ,"long / long"
+                                                      ,"long / short"
+                                                      ,"short / long"
+                                                      ,"short / short")
+
+
+
+
+```
+
+```{r S1tab1dumb,results = 'asis', include=TRUE}
+
+
+apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c","c","c")
+   , caption = "Studies 1, 2, 3, 4, 5, and 7 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on cognitive load"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+```{r prepch5Sdall0fig2}
+
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+abcde_graph <- function(){
+  a <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[1]),]
+  b <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[2]),]
+  c <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[3]),]
+  d <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[4]),]
+  e <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[5]),]
+
+  a#levels(as.factor(df3$temp_psych))[1]
+  
+  ay <- as.data.frame(table(a$InCS,as.character(a$temp_psych)))
+  by <- as.data.frame(table(b$InCS,as.character(b$temp_psych)))
+  cy <- as.data.frame(table(c$InCS,as.character(c$temp_psych)))
+  dy <- as.data.frame(table(d$InCS,as.character(d$temp_psych)))
+  ey <- as.data.frame(table(e$InCS,as.character(e$temp_psych)))
+
+  aperc <- ay$Freq/length(a$gender)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("InCS","condition","Freq","perc")
+  
+  bperc <- by$Freq/length(b$gender)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("InCS","condition","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$gender)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("InCS","condition","Freq","perc")
+  
+  dperc <- dy$Freq/length(d$gender)
+  dy <- cbind(dy,dperc)
+  colnames(dy) <- c("InCS","condition","Freq","perc")
+
+  eperc <- ey$Freq/length(e$gender)
+  ey <- cbind(ey,eperc)
+  colnames(ey) <- c("InCS","condition","Freq","perc")
+      
+  cx <- rbind(ay,by,cy,dy,ey)
+  
+  cx
+}
+
+test2 <- abcde_graph()
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+a$condition <- droplevels(as.factor(a$condition))
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+b$condition <- droplevels(as.factor(b$condition))
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+```
+
+```{r dch5Sallfig2criticalcondition_old, include=FALSE}
+
+
+
+g <- ggplot(test2, aes(x=InCS, y=perc, fill=factor(condition
+                                            ,labels=c("no manipulation"
+                                                      ,"long / long"
+                                                      ,"long / short"
+                                                      ,"short / long"
+                                                      ,"short / short")
+                                             )))+
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=3,
+            aes( label = scales::percent(test2$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=3.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Temporal / Psychological") +
+  
+  geom_text(family = "Times", size=3,
+            aes( label = scales::percent(test2$perc),
+                 y= test2$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+
+
+```
+
+```{r dch5Sallfig2criticalcondition, fig.cap="Studies 1, 2, 3, 4, 5, and 7: Responses to critical slide depending on condition", include=TRUE}
+suppressWarnings(print(g))
+
+```
+
+```{r logitsall}
+df3 <- onetoseven
+df3$InCS <- relevel(df3$InCS, ref = 3)
+levels(df3$InCS)
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC, data = df3a) #, reflevel = 1)
+
+summary_InCS_model <- summary(InCSModel)
+summary_InCS_model
+summary_InCS_model$lratio$parameter
+summary_InCS_model$lratio$statistic
+summary_InCS_model$lratio$p.value
+
+InCSModel$coefficients[3]
+InCSModel$coefficients[4]
+
+cox <- PseudoR2(multinom(InCS~NFC,df3), "all")
+test <- multinom(InCS~NFC,df3)
+test
+cox
+multinom(InCS~NFC,df3)
+summary(multinom(InCS~NFC,df3))
+cox[3]
+cox[4]
+#PseudoR2(x, "all")
+#summary_InCS_model
+
+
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[7]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[8]^2
+
+
+summary_InCS_model
+summary_InCS_model$coefficients[3]
+data.frame(exp(InCSModel$coefficients))
+
+exp(InCSModel$coefficients)[3]
+
+
+a <- exp(confint(InCSModel))
+c(a[3],a[7])
+
+residuals(InCSModel)
+fitted(InCSModel, outcome = F)
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+pw$power
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(InCS~NFC,df3, family = binomial(link = "logit"))
+cox <- revised_PseudoR2s(logits_rsquared)
+
+```
+
+### Need for Closure
+
+-   A significant association between Need for Closure and response to the critical slide:
+    -   χ^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+-   Need for Closure explained between `r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and `r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide.
+-   As Need for Closure increased, participants were significantly more likely to provide reasons:
+    -   than to present as dumbfounded, Wald = `r round(wald1,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[15]))`, odds ratio = `r exp(InCSModel$coefficients)[3]`, 95% CI [`r a[3]`, `r a[7]`]
+    -   Or select there is nothing wrong, Wald = `r round(wald2,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[16]))`, odds ratio = `r exp(InCSModel$coefficients)[4]`, 95% CI [`r a[4]`, `r a[8]`]. See Figure \@ref(fig:ggplotlogitsall).
+
+```{r prepplottinglogitsall}
+
+df3 <- df3[which(is.na(df3$NFC)==FALSE),]
+
+x <- df3$NFC
+df3$InCS
+cbind(paste(df3$InCS),as.numeric(df3$InCS))
+y <- as.numeric(df3$InCS)
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+
+# g1 <- ggplot_build(g)
+# unique(g1$data[[1]]["colour"])
+# 
+# F8766D
+# 00BA38
+# 619CFF
+
+
+```
+
+```{r ggplotlogitsall_old, include=FALSE}
+
+#g1 <- ggplot_build(g)
+#unique(g1$data[[1]]["colour"])
+
+#F8766D
+#00BA38
+#619CFF
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, color=factor(variable
+                                  #    ,labels=c("reason","nothing","dumb")
+                                      ))) +
+  geom_line()+
+  xlab("Need for Closure") + ylab("Predicted Probability") +
+  scale_y_continuous(limits = c(0, 1)) + 
+  #scale_x_continuous(limits = c(-4, 4))+
+  scale_color_manual(name="Response to \nCritical Slide"
+                       ,values=c("#619CFF","#00BA38","#F8766D")
+                       , labels=c("Reasons","Nothing Wrong","Dumbfounded")
+                       )+
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+  ),
+  legend.text=element_text(family="Times",
+                           size=8
+  ),
+  legend.title=element_text(family="Times",
+                            size=10
+  ),
+  axis.text=element_text(family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(family="Times",
+                          size=12
+  ),
+  strip.text=element_text(family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+
+```
+
+```{r ggplotlogitsall, fig.cap="Studies 1, 2, 3, 4, 5, and 7: Probability of selecting each response to the critical slide depending on Need for Closure", include=TRUE}
+
+suppressWarnings(print(g))
+```
+
+# Some notes
+
+-   Temporal distance appears to be the most reliable manipulation.
+-   I suspect a confound for psychological distance is motivation (competing intuitions discussed in the cognitive load paper): people care more about successfully identifying reasons when it is from their own perspective rather than for Anne
+    -   I didn't test increased vs decreased psychological distance directly
+        -   Studies 1 and 2 compare increased distance to no manipulation
+        -   Study 5 is a temporal distance manipulation but in the first person
+-   I've included attention checks and even despite this we're losing huge numbers of participants because of "lying" on the need for closure scale
+-   I included CRT in a good few of these studies but I haven't coded the responses yet (open ended responses - need to score them as correct / incorrect)
+
+# Follow-up
+
+-   I think there is scope for another study (or 2) pre-registered and with higher power that tests:
+    -   Temporal distance; not clear on manipulation/control to be used
+    -   Individual differences: Need for Closure, Need for Cognition, and Social Desirability. None of these alone seem to be too convincing, but when sufficiently powered there seems to be something going on
