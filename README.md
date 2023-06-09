@@ -2,7 +2,7 @@
 
 - This repository contains data and analysis code for 8 pilot studies investigating the influence of Distancing on Moral dumbfounding. A larger pre-registered study is in development based on these studies.
 
-- An overview of the studies is available here.
+- An overview of the studies is available [here](https://cillianmiltown.github.io/distancing_and_dumbfounding/pilot_studies_overview.html).
 
 - The table below provides a summary overview:
 

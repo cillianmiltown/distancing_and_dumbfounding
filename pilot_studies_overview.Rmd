@@ -4773,6 +4773,8 @@ cox <- revised_PseudoR2s(logits_rsquared)
     -   than to present as dumbfounded, Wald = `r round(wald1,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[15]))`, odds ratio = `r exp(InCSModel$coefficients)[3]`, 95% CI [`r a[3]`, `r a[7]`]
     -   Or select there is nothing wrong, Wald = `r round(wald2,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[16]))`, odds ratio = `r exp(InCSModel$coefficients)[4]`, 95% CI [`r a[4]`, `r a[8]`]. See Figure \@ref(fig:ggplotlogitsall).
 
+#### NEED TO FIX THIS NFC NOT RECORDED IN PS1
+
 ```{r prepplottinglogitsall}
 
 df3 <- df3[which(is.na(df3$NFC)==FALSE),]

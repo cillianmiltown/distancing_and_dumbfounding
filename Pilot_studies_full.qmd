@@ -176,22 +176,29 @@ library(reshape2)
 ```
 
 
-Below we present eight pilot studies to test the hypothesized relationship between distancing and dumbfounded responding. We hypothesized that increased distance would facilitate the identification of reasons, leading to lower rates of dumbfounded responding or changing of judgments (or both).
+Below we present eight pilot studies to test the hypothesized relationship between distancing and dumbfounded responding. Recent work [@mchugh_cognitive_2023] has provided a conflict in dual-processes [e.g., @bonner_conflict_2010] explanation of moral dumbfounding. According to this view, dumbfounding occurs when a habitual (moral judgment) response is in conflict with a deliberative response (providing reasons). This explanation is consistent with dual-process approaches to moral judgment [e.g., @bago_intuitive_2019; @cushman_action_2013; @sinnott-armstrong_secret_2008], as well as with a unimodel [@kruglanski_intuitive_2011] and categorization [@mchugh_moral_2022-1 approaches].
 
-Across the 8 studies we employed various manipulations of both psychological and temporal distance and used two different moral scenarios *Incest* and *Cannibal*. 
-
-Study 6 trialed a scale measure of dumbfounded responding (as opposed to the usual categorical critical slide).
-
-Study 8 manipulated temporal distance using a vignette that set the Julie and Mark activity in the distant past.
-
-This is my introductory paragraph. The title will be placed above it automatically. *Do not start with an introductory heading* (e.g., "Introduction"). The title acts as your Level 1 heading for the introduction. @mchugh_moral_2022-1
-
-Readers are better able to follow your ideas if you differentiate sections in your introduction with headings. Mostly stick to level 2 headers. Sometimes level 3 headings are needed, though. Be sparing to the point of stinginess with levels 4 and 5.
+A key prediction of this explanation is that rates of reason-giving should be influenced by experimental manipulations that impact intuitive vs deliberative thinking. Previous work has demonstrated that inhibiting deliberative thinking through a cognitive load manipulation can reduce reason-giving, leading to higher rates of dumbfounding [@mchugh_cognitive_2023]. A corollary of this finding is that reason-giving should be increased under manipulations that encourage deliberative thinking. Drawing on construal-level theory [@liberman_effect_2002; @forster_temporal_2004], we predict that increased distance will facilitate the identification of reasons, leading to lower levels of dumbfounded responding.
 
 
-# Overall Results
+```{r}
+#| label: apriori_power_analyses_reporting
+#| echo: false
+#| include: false 
 
-The designs and results of Pilot Studies 1-8 are summarized in {apafg-summaryfigure}.
+
+large <- pwr.chisq.test(w=.35,df=(3-1),sig.level = .05, power=.8)
+med   <- pwr.chisq.test(w=.21,df=(3-1),sig.level = .05, power=.8)
+small <- pwr.chisq.test(w=.07,df=(3-1),sig.level = .05, power=.8)
+
+
+```
+
+## The Current Pilot Studies
+
+We tested the feasibility of different manipulations of both temporal distance and psychological distance. A-priori power analysis indicated that in order to detect a large effect size (*V* = .35) with 80% power, a sample of *N* = `r round(large$N)` participants is required, in order to detect a medium effect size (*V* = .21) with 80% power a sample of *N* = `r round(med$N)` participants is required, and in order to detect, a small effect size (*V* = . 07) with 80% power a sample of *N* = `r round(small$N)` is required. The pilot studies below are sufficiently powered to detect large effects only. Based on previous research investigating influences on moral dumbfounding we anticipate a small to medium effect size [e.g., @mchugh_cognitive_2023, report *V* = 0.12]. Despite being under-powered, these studies are descriptively informative, and provide a preliminary estimate of the direction of any possible effect that would be expected from a higher powered study.
+
+Pilot Studies 1 and 2 employ a manipulation of psychological distance compared against no manipulation. Pilot Studies 3, 4, 6, and 7 employ a temporal distance manipulation, comparing increased temporal distance against decreased temporal distance. For consistency across conditions, and in order to enhance the plausibility of the materials, participants in these studies were encouraged to think about the scenarios from the perspective of a third person (thus these studies additionally included a psychological distance manipulation, however this was kept constant across conditions). Pilot Studies 5 and 8 were also employed a temporal distance manipulation, and participants were encouraged to think about the scenarios from a first person perspective. Pilot Studies 1-5, and 8 used the *Julie and Mark* scenario while Pilot Studies 6 and 7 used the *Jennifer* scenario. Pilot Studies 1, 2, 3, 4, 5, 7, and 8, recorded dumbfounded responding using the 'critical slide' [@mchugh_searching_2017; @mchugh_cognitive_2023], while Pilot Study 6 trialed a more continuous measure of dumbfounded responding. The designs and results of Pilot Studies 1-8 are summarized in {apafg-summaryfigure}.
 
 ```{r}
 #| label: apafg-summaryfigure
@@ -199,6 +206,70 @@ The designs and results of Pilot Studies 1-8 are summarized in {apafg-summaryfig
 #| apa-note: Sample sizes listed are the total samples that passed the attention checks, without exclusion based on responses to Need for Closure, followed by the sample size when excluding participants who failed the Need for Closure attention check.
 knitr::include_graphics("resources/img/summary_figure.png")
 ```
+
+
+# Pilot Study 1: Psychological Distance, "Julie and Mark"
+
+The aim of Pilot Study 1 was to investigate if a psychological distance manipulation influenced participants' ability to justify their moral judgment. We also measured social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972] as a potential correlate/moderator variable.
+
+```{r}
+#| include: false
+#rm(list = ls())
+
+load("pilot_data/loaded_data/one.RData")
+df3 <- one
+
+df4 <- df3[which(df3$condition=="1manip"),]
+df5 <- df3[which(df3$condition=="2control"),]
+
+variable.names(df3)
+
+```
+
+## Pilot Study 1: Method
+
+### Pilot Study 1: Participants and Design
+
+Pilot Study 1 was a between subjects design. The dependent variable was rates of providing reasons/dumbfounding (measured using to the critical slide with 3 response options: 1: reason-giving; 2: nothing-wrong; 3: dumbfounded response - an admission of not having reasons). The independent variable was psychological distancing with two levels: present and absent. To manipulate distancing participants were told that a philosophy student (Anne) had been asked to consider the moral scenario, and participants were asked to consider the reasons they might use to justify Anne's judgement. Social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972] was included as an additional potential predictor variable.
+
+A total sample of `r length(df3$InCS)` participants (`r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male; *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`) took part. Participants were recruited through MTurk. Participation was voluntary and participants were paid 0.50 US dollars for their participation. Participants were recruited from English speaking countries or from countries where residents generally have a high level of English (e.g., The Netherlands, Denmark, Sweden).
+
+### Pilot Study 1: Procedure and Materials
+
+Data were collected using an online survey generated using Questback [@unipark_questback_2013]. The survey opened with questions relating to basic demographics. Following this, participants were presented with two statements relating to the norm principle [taken from @mchugh_reasons_2020; @royzman_curious_2015].[^1]  At this point, the distancing group were presented with an additional set of instructions prior to being presented with the the *Julie and Mark* scenario [taken from @haidt_moral_2000]. Participants in the control group did not receive the additional instructions, and proceeded directly to the *Julie and Mark* scenario. The distancing instructions, and the *Julie and Mark* scenario read as follows:
+
+[^1]: Responses to this are not relevant for the research question of interest here and as such we do not discuss this in our analyses.
+
+#### Distancing Instructions
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.
+
+> She is currently taking a course in ethics and has been asked to study the following scenario.
+
+> How should Anne judge the actions of the two people involved?
+
+> What reasons would you use to explain why she should make that judgement?
+
+
+#### Julie and Mark Scenario
+
+> Julie and Mark, who are brother and sister, are travelling together in France. They are both on summer vacation from college. One night they are staying alone in a cabin near the beach. They decide that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark uses a condom too, just to be safe. They both enjoy it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other.
+
+Participants rated how right or wrong the behaviour of Julie and Mark was on a 7-point Likert scale (where, 1 = *Morally wrong*; 4 = *neutral*; 7 = *Morally right*), and were asked to provide reasons for their judgement. Participants then read a series of counter-arguments [developed by @mchugh_searching_2017], which refuted commonly used justifications for rating the behaviour as "wrong".
+
+
+# Done as far as here
+
+Dumbfounding was measured using the critical slide [McHugh et al., -@mchugh_searching_2017].  This contained a statement defending the behaviour and a question as to how the behaviour could be wrong ("Julie and Mark's behaviour did not harm anyone, how can there be anything wrong with what they did?").  There were three possible answer options: (a) "There is nothing wrong"; (b) an admission of not having reasons ("It's wrong but I can't think of a reason"); and finally a judgement with accompanying justification (c) "It's wrong and I can provide a valid reason".  The order of these response options was randomised. Participants who selected (c) were prompted to type a reason.  The selecting of option (b), the admission of not having reasons, was taken to be a dumbfounded response. We note that this measure provides a conservative measure of dumbfounded responding [see McHugh et al., -@mchugh_searching_2017a for discussion].
+
+
+
+
+The substantive content of the questionnaire was the same as was used in Studies 6 through 9.  It opened with questions relating to basic demographics.  The two statements relating to the norm principle were then presented.  At this point, the distancing group were presented with an additional set of instructions which read as follows:
+Anne is a student of philosophy.  She generally shows a good understanding of the subject matter, and this is reflected in her grades.  Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.
+She is currently taking a course in ethics and has been asked to study the following scenario.
+How should Anne judge the actions of the two people involved?
+What reasons would you use to explain why she should make that judgement?
+
 
 
 {{< pagebreak >}}
@@ -293,14 +364,15 @@ Here we describe the basic characteristics of our primary variables.
 Let's make a figure. A reference label for a figure in APA format must have the prefix `apafg-`. This is different from the usual Quarto prefix `fig-`.
 
 ```{r}
-#| label: apafg-myplot
+#| label: apafg-myplot1
+#| include: true
 #| apa-cap: This is the figure caption.
 #| apa-note: This is a note below the figure.
 
 plot(1:10)
 ```
 
-To refer to any figure or table, put the chunk label in curly braces. For example, see {apafg-myplot}. In {apafg-importedgraphic}, we import an image.
+To refer to any figure or table, put the chunk label in curly braces. For example, see {apafg-myplot1}. In {apafg-importedgraphic}, we import an image.
 
 
 
