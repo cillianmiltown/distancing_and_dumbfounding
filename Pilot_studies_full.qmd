@@ -176,7 +176,7 @@ library(reshape2)
 ```
 
 
-Below we present eight pilot studies to test the hypothesized relationship between distancing and dumbfounded responding. Recent work [@mchugh_cognitive_2023] has provided a conflict in dual-processes [e.g., @bonner_conflict_2010] explanation of moral dumbfounding. According to this view, dumbfounding occurs when a habitual (moral judgment) response is in conflict with a deliberative response (providing reasons). This explanation is consistent with dual-process approaches to moral judgment [e.g., @bago_intuitive_2019; @cushman_action_2013; @sinnott-armstrong_secret_2008], as well as with a unimodel [@kruglanski_intuitive_2011] and categorization [@mchugh_moral_2022-1 approaches].
+Below we present eight pilot studies to test the hypothesized relationship between distancing and dumbfounded responding. Recent work [@mchugh_cognitive_2023] has proposed a conflict in dual-processes [e.g., @bonner_conflict_2010] explanation of moral dumbfounding. According to this view, dumbfounding occurs when a habitual (moral judgment) response is in conflict with a deliberative response (providing reasons). This explanation is consistent with dual-process approaches to moral judgment [e.g., @bago_intuitive_2019; @cushman_action_2013; @sinnott-armstrong_secret_2008], as well as with a unimodel [@kruglanski_intuitive_2011] and categorization [@mchugh_moral_2022-1] approaches.
 
 A key prediction of this explanation is that rates of reason-giving should be influenced by experimental manipulations that impact intuitive vs deliberative thinking. Previous work has demonstrated that inhibiting deliberative thinking through a cognitive load manipulation can reduce reason-giving, leading to higher rates of dumbfounding [@mchugh_cognitive_2023]. A corollary of this finding is that reason-giving should be increased under manipulations that encourage deliberative thinking. Drawing on construal-level theory [@liberman_effect_2002; @forster_temporal_2004], we predict that increased distance will facilitate the identification of reasons, leading to lower levels of dumbfounded responding.
 
@@ -208,9 +208,38 @@ knitr::include_graphics("resources/img/summary_figure.png")
 ```
 
 
-# Pilot Study 1: Psychological Distance, "Julie and Mark"
+# Pilot Study 1 - Psychological Distance, "Julie and Mark"
 
 The aim of Pilot Study 1 was to investigate if a psychological distance manipulation influenced participants' ability to justify their moral judgment. We also measured social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972] as a potential correlate/moderator variable.
+
+```{r}
+#| include: false
+
+rm(list = setdiff(
+  ls(),
+  c("affiliation_namer" 
+    , "character2name" ,"correspondings"
+    , "d_author_affiliations","display_abstract"
+    , "display_affiliations" ,"display_author_affiliations"
+    , "display_author_note" ,"display_authors"
+    , "display_corresponding_author" ,"display_keywords"
+    , "display_orcids" ,"display_title"
+    , "display_title_heading" ,"f_abstract_display"
+    , "f_affiliations_display" ,"f_author_affiliations"
+    , "f_author_affiliations_display" ,"f_author_display"
+    , "f_author_note_blanks" ,"f_author_note_display"
+    , "f_author_note_second_paragraph" ,"f_author_note_third_paragraph"
+    , "f_author_roles" ,"f_corresponding_author_display"
+    , "f_correspondings" ,"f_keywords_display"
+    , "f_orcids_display" ,"f_title_blanks"
+    , "f_title_display" ,"f_title_heading_display"
+    , "get_metadata" ,"has_annotations"
+    , "is_docx" ,"is_empty"
+    , "is_pdf" 
+    , "yml_metadata")
+))
+```
+
 
 ```{r}
 #| include: false
@@ -254,21 +283,1585 @@ Data were collected using an online survey generated using Questback [@unipark_q
 
 > Julie and Mark, who are brother and sister, are travelling together in France. They are both on summer vacation from college. One night they are staying alone in a cabin near the beach. They decide that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark uses a condom too, just to be safe. They both enjoy it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other.
 
-Participants rated how right or wrong the behaviour of Julie and Mark was on a 7-point Likert scale (where, 1 = *Morally wrong*; 4 = *neutral*; 7 = *Morally right*), and were asked to provide reasons for their judgement. Participants then read a series of counter-arguments [developed by @mchugh_searching_2017], which refuted commonly used justifications for rating the behaviour as "wrong".
+Participants rated how right or wrong the behavior of Julie and Mark was on a 7-point Likert scale (where, 1 = *Morally wrong*; 4 = *neutral*; 7 = *Morally right*), and were asked to provide reasons for their judgement (or what reasons they would use to explain to Anne why she should make that judgment). Participants then read a series of counter-arguments [developed by @mchugh_searching_2017], which refuted commonly used justifications for rating the behavior as "wrong".
+
+To measure dumbfounding we used the *critical slide* developed by @mchugh_searching_2017. This included a statement defending the behavior and a question asking how the behavior could be wrong ("Julie and Mark's behaviour did not harm anyone, how can there be anything wrong with what they did?").  There were three possible answer options: (a) "It's wrong and I can provide a valid reason" (reason-giving), (b) "It's wrong but I can't think of a reason" (dumbfounding), and (c) "There is nothing wrong" (nothing-wrong). The order of these response options was randomized.  The selecting of option (b), the admission of not having reasons, was taken to be a dumbfounded response, and we note that this measure provides a conservative measure of dumbfounded responding [@mchugh_searching_2017]. Participants who selected (a) were prompted to type a reason once they progressed to the next page.
+
+Following the critical slide rated the behavior again on a 7-point Likert scale (where, 1 = *Morally wrong*; 4 = *neutral*; 7 = *Morally right*). They then responded to the credulity check questions devised by @royzman_curious_2015, and answered the three questions relating to the application of the harm principle [@mchugh_reasons_2020].[^2] Finally participants completed the short version of the Marlowe-Crowne [@crowne_new_1960] social desirability scale [devised by @strahan_short_1972; see also @ballard_short_1992]. This consisted of ten questions (e.g., “There have been occasions when I took advantage of someone.”, “I never resent being asked to return a favor.”) to which participants selected “True” or “False”.
+
+[^2]: As with the norm principles questions above responses to these questions are not relevant for the research question of interest here and as such we do not discuss this in our analyses.
+
+{{< pagebreak >}}
+
+## Pilot Study 1: Results
+
+```{r}
+#| label: dprepch5S1fig2
+#| include: false
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
 
 
-# Done as far as here
-
-Dumbfounding was measured using the critical slide [McHugh et al., -@mchugh_searching_2017].  This contained a statement defending the behaviour and a question as to how the behaviour could be wrong ("Julie and Mark's behaviour did not harm anyone, how can there be anything wrong with what they did?").  There were three possible answer options: (a) "There is nothing wrong"; (b) an admission of not having reasons ("It's wrong but I can't think of a reason"); and finally a judgement with accompanying justification (c) "It's wrong and I can provide a valid reason".  The order of these response options was randomised. Participants who selected (c) were prompted to type a reason.  The selecting of option (b), the admission of not having reasons, was taken to be a dumbfounded response. We note that this measure provides a conservative measure of dumbfounded responding [see McHugh et al., -@mchugh_searching_2017a for discussion].
-
-
+y <- table(df3$condition,df3$Dumb_incl_string)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
 
 
-The substantive content of the questionnaire was the same as was used in Studies 6 through 9.  It opened with questions relating to basic demographics.  The two statements relating to the norm principle were then presented.  At this point, the distancing group were presented with an additional set of instructions which read as follows:
-Anne is a student of philosophy.  She generally shows a good understanding of the subject matter, and this is reflected in her grades.  Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.
-She is currently taking a course in ethics and has been asked to study the following scenario.
-How should Anne judge the actions of the two people involved?
-What reasons would you use to explain why she should make that judgement?
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+x <- df3
+
+se_fun <- function(a,b){
+  k <- length(a$gender)
+  n <- length(b$gender)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong and I can provide a valid reason."),]
+         ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong and I can provide a valid reason."),]
+          ,x[which(x$condition=="2control"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="2control"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="2control"),])
+)
+
+y1 <- y %>% select("InCS","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","InCS") )
+
+rm(x,y)
+```
+
+```{r}
+#| label: dch5S1fig2criticalcondition_old
+#| include: false
+
+
+g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Distanced","Control")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), size=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+```
+
+```{r}
+#| label: apafg-dch5S1fig2criticalcondition
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Study 1: Responses to critical slide for the experimental group (N = 60) and the control group (N = 60); (error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+```{r}
+#| label: dprepplottinglogit1
+#| include: false
+df3 <- df3[which(is.na(df3$SocDes)==FALSE),]
+table(df3$InCS)
+df3 <- df3 %>% dplyr::mutate(incs_num = dplyr::recode(
+  InCS,
+    "It's wrong and I can provide a valid reason."=1
+  , "There is nothing wrong."=2
+  , "It's wrong but I can't think of a reason."=3)) 
+df3$incs_num <- car::recode(df3$InCS, "" )
+
+x <- df3$SocDes
+y <- as.numeric(df3$incs_num)
+
+cbind.data.frame(df3$InCS, as.numeric(df3$incs_num))
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+logit_plot
+
+```
+
+```{r}
+#| label: dggplotlogit1_old
+#| include: false
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, 
+           #color=factor(variable,labels=c("dumb","nothing","dumb"))
+           linetype=factor(variable#,labels=c("dumb","reason","nothing")
+                           )
+           )) +
+  geom_line()+
+  xlab("Social Desirability") + ylab("Predicted Probability") +
+  scale_y_continuous(limits = c(0, 1)) + 
+  scale_x_continuous(limits = c(0, 10))+
+  # scale_color_discrete(name="Response to \nCritical Slide", labels=c("Dumbfounded","Nothing Wrong","Reasons"))+
+  scale_linetype_discrete(name="Response to \nCritical Slide"
+                          #, labels=c("Reasons", "Dumbfounded", "Nothing Wrong")
+                          , labels=c("Reasons","Nothing Wrong","Dumbfounded")
+                          )+
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+  ),
+  legend.text=element_text(#family="Times",
+                           size=8
+  ),
+  legend.title=element_text(#family="Times",
+                            size=10
+  ),
+  axis.text=element_text(#family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(#family="Times",
+                          size=12
+  ),
+  strip.text=element_text(#family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+g
+```
+
+```{r}
+#| label: apafg-dggplotlogit1
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Study 1: Probability of selecting each response to the critical slide depending on Social Desirability"
+
+suppressWarnings(print(g))
+
+```
+
+```{r}
+#| include: false
+#| echo: false
+
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+
+t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
+t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
+d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
+
+
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+### Judgments
+
+`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+
+
+```{r}
+#| include: false
+# 
+# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+# 
+# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+table(df3$condition)
+round(mean(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+
+round(mean(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+```
+
+### Distancing and Judgments
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`).
+
+### Distancing and Dumbfounding
+
+There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$Ju1_bin)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="1manip")`) and the control group (*N* = `r sum(df3$condition=="2control")`) are displayed in {apafg-dch5S1fig2criticalcondition}.
+
+
+
+
+
+```{r}
+#| label: dlogit1
+#| include: false
+df3$InCS <- relevel(df3$InCS, ref = 2)
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | SocDes, data = df3a)# , reflevel = 2)
+
+summary_InCS_model <- summary(InCSModel)
+summary_InCS_model$lratio$parameter
+summary_InCS_model$lratio$statistic
+summary_InCS_model$lratio$p.value
+
+InCSModel$coefficients[3]
+InCSModel$coefficients[4]
+
+cox <- PseudoR2(multinom(InCS~SocDes,df3), "all")
+
+cox[3]
+cox[4]
+#PseudoR2(x, "all")
+#summary_InCS_model
+
+
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[7]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[8]^2
+
+
+summary_InCS_model
+summary_InCS_model$coefficients[3]
+data.frame(exp(InCSModel$coefficients))
+
+exp(InCSModel$coefficients)[3]
+
+
+a <- exp(confint(InCSModel))
+c(a[3],a[7])
+
+residuals(InCSModel)
+fitted(InCSModel, outcome = F)
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+pw$power
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(InCS~SocDes,df3, family = binomial(link = "logit"))
+cox <- revised_PseudoR2s(logits_rsquared)
+
+```
+
+### Social Desirability and Dumbfounding
+
+There was no significant association between Social Desirability and response to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`. The predicted probabilies of each response depending on social desirability are displayed in {apafg-dggplotlogit1}.
+
+
+
+```{r}
+#| include: false
+
+ls()
+```
+
+# Pilot Study 2 - Psychological Distance, "Julie and Mark"
+
+As with Pilot Study 1, the aim of Pilot Study 2 was to investigate if a psychological distance manipulation influenced participants' ability to justify their moral judgment. There were two changes from Pilot Study 1. First, we modified our distancing manipulation to include an explicit instruction to think about the scenario from the perspective of a third party. In addition to recording social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972], Pilot Study 2 additionally included need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] and the short form of the cognitive reflection test [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016] as potential correlate/moderator variables.
+
+```{r}
+#| include: false
+
+rm(list = setdiff(
+  ls(),
+  c("affiliation_namer" 
+    , "character2name" ,"correspondings"
+    , "d_author_affiliations","display_abstract"
+    , "display_affiliations" ,"display_author_affiliations"
+    , "display_author_note" ,"display_authors"
+    , "display_corresponding_author" ,"display_keywords"
+    , "display_orcids" ,"display_title"
+    , "display_title_heading" ,"f_abstract_display"
+    , "f_affiliations_display" ,"f_author_affiliations"
+    , "f_author_affiliations_display" ,"f_author_display"
+    , "f_author_note_blanks" ,"f_author_note_display"
+    , "f_author_note_second_paragraph" ,"f_author_note_third_paragraph"
+    , "f_author_roles" ,"f_corresponding_author_display"
+    , "f_correspondings" ,"f_keywords_display"
+    , "f_orcids_display" ,"f_title_blanks"
+    , "f_title_display" ,"f_title_heading_display"
+    , "get_metadata" ,"has_annotations"
+    , "is_docx" ,"is_empty"
+    , "is_pdf" 
+    , "yml_metadata")
+))
+```
+
+```{r}
+#| label: loadDistancingData2
+#| include: false
+
+
+load("pilot_data/loaded_data/two.RData")
+df3 <- two
+dftot <- two_tot
+
+df4 <- df3[which(df3$condition=="1manip"),]
+df5 <- df3[which(df3$condition=="2control"),]
+
+variable.names(df3)
+
+df3$crt
+```
+
+
+## Pilot Study 2: Method
+
+### Pilot Study 2: Participants and Design
+
+Pilot Study 2 was a between subjects design. As in Pilot Study 1, the dependent variable was rates of providing reasons/dumbfounding - measured using to the critical slide (with the same 3 response options: 1: reason-giving; 2: nothing-wrong; 3: dumbfounded response - an admission of not having reasons). The independent variable was psychological distancing with two levels: present and absent. The distancing manipulation was the same as in Pilot Study 1 (the *Anne* vignette) with the inclusion of an explicit instruction to consider the scenario from Anne's perspective. Social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972], need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] cognitive reflection [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016] were recorded as potential correlate/moderator variables.
+
+A total sample of `r length(dftot$InCS)` participants (`r sum(dftot$gender=="Female")` female, `r sum(dftot$gender=="Male")` male; *M*~age~ = `r round(mean(dftot$age),digits=2)`, min = `r min(dftot$age)`, max = `r max(dftot$age)`, *SD* = `r round(sd(dftot$age),digits=2)`) took part. The measure of need for closure includes a "lie score", whereby if participants score above a threshold on a combination of specific items they are deemed to be lying (example lie score items include claiming to never have been late for an appointment, or never having met someone the didn't like). Following the removal of participants who scored above the lie score threshold, we were left with a sample of `r length(df3$InCS)` participants (`r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male; *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`) who were eligible for analysis. Participants were recruited through MTurk in the same way as in Pilot Study 1 (same payment amount, same country selection).
+
+### Pilot Study 2: Procedure and Materials
+
+The procedure and materials were similar to Pilot Study 1 with a change to the distance manipulation and the inclusion of additional measures. The distance manipulation for Pilot Study 2 included an explicit instruction to think about the scenario from the perspective of a third party. The revised manipulation read as follows:
+
+#### Distancing Instructions
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she adopts a position on an issue in class and struggles (or fails) to defend it when challenged by others.
+
+> She is currently taking a course in ethics and has been asked to study the following scenario.
+
+> While reading the story on the next page, try to imagine how the philosophy student Anne will judge the actions of the two people.
+
+> In particular try to think about reasons she may use to defend her judgement.
+
+> Try to think about the story from Anne’s perspective rather than your own.
+
+In addition to social desirability, we additionally measured need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] cognitive reflection [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016]. The Need for Closure Scale contains 47 questions (e.g., “I'd rather know bad news than stay in a state of uncertainty.”) to which participants respond on a 6 point Likert scale, where 1 = *strongly disagree*, and 6 = *strongly agree*.  The CRT is a brief test of analytical thinking.  It contains three questions, each of which has an answer that seems intuitively correct, but is actually wrong (e.g., If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?)
+
+## Pilot Study 2: Results
+
+Below we present two sets of results. First we present the results for the full sample, second we present the results for the sample with exclusions based on participants' "lie score".
+
+```{r}
+#| include: false
+
+df3 <- two_tot
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+x <- df3
+
+se_fun <- function(a,b){
+  k <- length(a$gender)
+  n <- length(b$gender)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong and I can provide a valid reason."),]
+         ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong and I can provide a valid reason."),]
+          ,x[which(x$condition=="2control"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="2control"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="2control"),])
+)
+
+y1 <- y %>% select("InCS","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","InCS") )
+
+rm(x,y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Distanced","Control")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), size=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+```
+
+```{r}
+#| label: apafg-dch5S2fig2criticalconditionNoExcl
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Pilot Study 2: Responses to critical slide for the experimental group (N = 52) and the control group (N = 52); (No exclusions; error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+```{r}
+#| include: false
+#| echo: false
+
+df3 <- two_tot
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+
+t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
+t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
+d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
+
+
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+### Judgments (no exclusions)
+
+`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+
+
+```{r}
+#| include: false
+# 
+# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+# 
+# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+table(df3$condition)
+round(mean(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+
+round(mean(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+```
+
+### Distancing and Judgments (no exclusions)
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`).
+
+### Distancing and Dumbfounding (no exclusions)
+
+There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$Ju1_bin)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="1manip")`) and the control group (*N* = `r sum(df3$condition=="2control")`) are displayed in {apafg-dch5S2fig2criticalconditionNoExcl}.
+
+
+### Individual Difference Predictors (no exclusions)
+
+```{r}
+#| include: false
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC + SocDes +crt, data = df3a)# , reflevel = 2)
+summary_InCS_model <- summary(InCSModel)
+
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+
+```
+
+A multinomial logistic regression was conducted to test if the individual difference measures predicted dumbfounding. Overall the model did not significantly predict responses to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+
+
+
+```{r}
+#| include: false
+
+df3 <- two
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+x <- df3
+
+se_fun <- function(a,b){
+  k <- length(a$gender)
+  n <- length(b$gender)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong and I can provide a valid reason."),]
+         ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong and I can provide a valid reason."),]
+          ,x[which(x$condition=="2control"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="2control"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="2control"),])
+)
+
+y1 <- y %>% select("InCS","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","InCS") )
+
+rm(x,y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Distanced","Control")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), size=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+```
+
+```{r}
+#| label: apafg-dch5S2fig2criticalconditionWithExcl
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Pilot Study 2: Responses to critical slide for the experimental group (N = 39) and the control group (N = 37); (With exclusions; error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+```{r}
+#| include: false
+#| echo: false
+df3 <- two
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+
+t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
+t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
+d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
+
+
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+### Judgments (with exclusions)
+
+`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+
+
+```{r}
+#| include: false
+# 
+# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+# 
+# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+table(df3$condition)
+round(mean(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+
+round(mean(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+```
+
+### Distancing and Judgments (with exclusions)
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`).
+
+### Distancing and Dumbfounding (with exclusions)
+
+There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$Ju1_bin)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="1manip")`) and the control group (*N* = `r sum(df3$condition=="2control")`) are displayed in {apafg-dch5S2fig2criticalconditionWithExcl}.
+
+### Individual Difference Predictors (with exclusions)
+
+```{r}
+#| include: false
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC + SocDes +crt, data = df3a)# , reflevel = 2)
+summary_InCS_model <- summary(InCSModel)
+
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+
+```
+
+A multinomial logistic regression was conducted to test if the individual difference measures predicted dumbfounding. Overall the model did not significantly predict responses to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+
+
+# Pilot Study 3 - Temporal Distance, "Julie and Mark"
+
+For both Pilot Studies 1 and 2 there was no significant association between response to the critical slide and the psychological distance manipulation. Pilot Study 3 was designed to test an alternative distance manipulation, temporal distance. The aim of Pilot Study 3 was to investigate if manipulating temporal distance influenced participants' ability to justify their moral judgment. There were two changes from Pilot Study 1. First, we modified our distancing manipulation to include an explicit instruction to think about the scenario from the perspective of a third party. In addition to recording social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972], Pilot Study 2 additionally included need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] and the short form of the cognitive reflection test [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016] as potential correlate/moderator variables.
+
+```{r}
+#| include: false
+
+rm(list = setdiff(
+  ls(),
+  c("affiliation_namer" 
+    , "character2name" ,"correspondings"
+    , "d_author_affiliations","display_abstract"
+    , "display_affiliations" ,"display_author_affiliations"
+    , "display_author_note" ,"display_authors"
+    , "display_corresponding_author" ,"display_keywords"
+    , "display_orcids" ,"display_title"
+    , "display_title_heading" ,"f_abstract_display"
+    , "f_affiliations_display" ,"f_author_affiliations"
+    , "f_author_affiliations_display" ,"f_author_display"
+    , "f_author_note_blanks" ,"f_author_note_display"
+    , "f_author_note_second_paragraph" ,"f_author_note_third_paragraph"
+    , "f_author_roles" ,"f_corresponding_author_display"
+    , "f_correspondings" ,"f_keywords_display"
+    , "f_orcids_display" ,"f_title_blanks"
+    , "f_title_display" ,"f_title_heading_display"
+    , "get_metadata" ,"has_annotations"
+    , "is_docx" ,"is_empty"
+    , "is_pdf" 
+    , "yml_metadata")
+))
+```
+
+```{r}
+#| label: loadDistancingData3
+#| include: false
+
+
+load("pilot_data/loaded_data/three.RData")
+df3 <- three
+dftot <- three_tot
+
+df4 <- df3[which(df3$condition=="1manip"),]
+df5 <- df3[which(df3$condition=="2control"),]
+
+variable.names(df3)
+
+df3$crt_tot
+```
+
+
+## Pilot Study 2: Method
+
+### Pilot Study 2: Participants and Design
+
+Pilot Study 2 was a between subjects design. As in Pilot Study 1, the dependent variable was rates of providing reasons/dumbfounding - measured using to the critical slide (with the same 3 response options: 1: reason-giving; 2: nothing-wrong; 3: dumbfounded response - an admission of not having reasons). The independent variable was psychological distancing with two levels: present and absent. The distancing manipulation was the same as in Pilot Study 1 (the *Anne* vignette) with the inclusion of an explicit instruction to consider the scenario from Anne's perspective. Social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972], need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] cognitive reflection [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016] were recorded as potential correlate/moderator variables.
+
+A total sample of `r length(dftot$InCS)` participants (`r sum(dftot$gender=="Female")` female, `r sum(dftot$gender=="Male")` male; *M*~age~ = `r round(mean(dftot$age),digits=2)`, min = `r min(dftot$age)`, max = `r max(dftot$age)`, *SD* = `r round(sd(dftot$age),digits=2)`) took part. The measure of need for closure includes a "lie score", whereby if participants score above a threshold on a combination of specific items they are deemed to be lying (example lie score items include claiming to never have been late for an appointment, or never having met someone the didn't like). Following the removal of participants who scored above the lie score threshold, we were left with a sample of `r length(df3$InCS)` participants (`r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male; *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`) who were eligible for analysis. Participants were recruited through MTurk in the same way as in Pilot Study 1 (same payment amount, same country selection).
+
+### Pilot Study 2: Procedure and Materials
+
+The procedure and materials were similar to Pilot Study 1 with a change to the distance manipulation and the inclusion of additional measures. The distance manipulation for Pilot Study 2 included an explicit instruction to think about the scenario from the perspective of a third party. The revised manipulation read as follows:
+
+#### Distancing Instructions
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she adopts a position on an issue in class and struggles (or fails) to defend it when challenged by others.
+
+> She is currently taking a course in ethics and has been asked to study the following scenario.
+
+> While reading the story on the next page, try to imagine how the philosophy student Anne will judge the actions of the two people.
+
+> In particular try to think about reasons she may use to defend her judgement.
+
+> Try to think about the story from Anne’s perspective rather than your own.
+
+In addition to social desirability, we additionally measured need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] cognitive reflection [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016]. The Need for Closure Scale contains 47 questions (e.g., “I'd rather know bad news than stay in a state of uncertainty.”) to which participants respond on a 6 point Likert scale, where 1 = *strongly disagree*, and 6 = *strongly agree*.  The CRT is a brief test of analytical thinking.  It contains three questions, each of which has an answer that seems intuitively correct, but is actually wrong (e.g., If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?)
+
+## Pilot Study 2: Results
+
+Below we present two sets of results. First we present the results for the full sample, second we present the results for the sample with exclusions based on participants' "lie score".
+
+```{r}
+#| include: false
+
+df3 <- two_tot
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+x <- df3
+
+se_fun <- function(a,b){
+  k <- length(a$gender)
+  n <- length(b$gender)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong and I can provide a valid reason."),]
+         ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong and I can provide a valid reason."),]
+          ,x[which(x$condition=="2control"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="2control"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="2control"),])
+)
+
+y1 <- y %>% select("InCS","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","InCS") )
+
+rm(x,y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Distanced","Control")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), size=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+```
+
+```{r}
+#| label: apafg-dch5S2fig2criticalconditionNoExcl
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Pilot Study 2: Responses to critical slide for the experimental group (N = 52) and the control group (N = 52); (No exclusions; error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+```{r}
+#| include: false
+#| echo: false
+
+df3 <- two_tot
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+
+t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
+t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
+d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
+
+
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+### Judgments (no exclusions)
+
+`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+
+
+```{r}
+#| include: false
+# 
+# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+# 
+# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+table(df3$condition)
+round(mean(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+
+round(mean(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+```
+
+### Distancing and Judgments (no exclusions)
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`).
+
+### Distancing and Dumbfounding (no exclusions)
+
+There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$Ju1_bin)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="1manip")`) and the control group (*N* = `r sum(df3$condition=="2control")`) are displayed in {apafg-dch5S2fig2criticalconditionNoExcl}.
+
+
+### Individual Difference Predictors (no exclusions)
+
+```{r}
+#| include: false
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC + SocDes +crt, data = df3a)# , reflevel = 2)
+summary_InCS_model <- summary(InCSModel)
+
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+
+```
+
+A multinomial logistic regression was conducted to test if the individual difference measures predicted dumbfounding. Overall the model did not significantly predict responses to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+
+
+
+```{r}
+#| include: false
+
+df3 <- two
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+x <- df3
+
+se_fun <- function(a,b){
+  k <- length(a$gender)
+  n <- length(b$gender)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong and I can provide a valid reason."),]
+         ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong and I can provide a valid reason."),]
+          ,x[which(x$condition=="2control"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="2control"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="2control"),])
+)
+
+y1 <- y %>% select("InCS","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","InCS") )
+
+rm(x,y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Distanced","Control")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), size=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+```
+
+```{r}
+#| label: apafg-dch5S2fig2criticalconditionWithExcl
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Pilot Study 2: Responses to critical slide for the experimental group (N = 39) and the control group (N = 37); (With exclusions; error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+```{r}
+#| include: false
+#| echo: false
+df3 <- two
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+
+t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
+t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
+d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
+
+
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+### Judgments (with exclusions)
+
+`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+
+
+```{r}
+#| include: false
+# 
+# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+# 
+# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+table(df3$condition)
+round(mean(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+
+round(mean(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+```
+
+### Distancing and Judgments (with exclusions)
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`).
+
+### Distancing and Dumbfounding (with exclusions)
+
+There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$Ju1_bin)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="1manip")`) and the control group (*N* = `r sum(df3$condition=="2control")`) are displayed in {apafg-dch5S2fig2criticalconditionWithExcl}.
+
+### Individual Difference Predictors (with exclusions)
+
+```{r}
+#| include: false
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC + SocDes +crt, data = df3a)# , reflevel = 2)
+summary_InCS_model <- summary(InCSModel)
+
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+
+
+```
+
+A multinomial logistic regression was conducted to test if the individual difference measures predicted dumbfounding. Overall the model did not significantly predict responses to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+
+
 
 
 
@@ -276,6 +1869,8 @@ What reasons would you use to explain why she should make that judgement?
 
 
 {{< pagebreak >}}
+
+# Template bits
 
 ## Level 2 Heading: Flush Left, Bold, Title Case
 

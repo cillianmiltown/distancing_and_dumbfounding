@@ -18,7 +18,7 @@ output:
     toc_depth: 4
     number_sections: false
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ```{=html}
@@ -881,6 +881,8 @@ df3$InCS <- relevel(df3$InCS, ref = 2)
 
 df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
 InCSModel<-mlogit(InCS ~ 1 | NFC, data = df3a)# , reflevel = 2)
+#InCSModel<-mlogit(InCS ~ 1 | NFC + SocDes +crt, data = df3a)# , reflevel = 2)
+
 
 summary_InCS_model <- summary(InCSModel)
 summary_InCS_model$lratio$parameter

@@ -469,7 +469,7 @@ distance_three <- function(){
   df2 <- screen(df2)
   df1 <- screen(df1)
   
-  df3 <- rbind.data.frame(df1[1:146],df2[1:146])
+  df3 <- rbind.data.frame(df1[1:149],df2[1:149])
   df3$condition <- c(df1$condition,df2$condition)
   #df3 <- df3[which(df3$attn1!=3 ),]
   
@@ -567,6 +567,8 @@ distance_three <- function(){
   x$nfc_clos <- x$v_220 + x$v_222 + x$v_228 + x$v_243 + x$v_247 + x$v_254 + x$v_259 + x$v_262
   
   #x$attnJM <- c(x$attn1=="right") + c(x$attn2=="right") + c(x$attn3=="right")
+  
+  x$crt_tot <- x$crt1+x$crt2+x$crt3
   
   df3 <- x
   
@@ -673,7 +675,7 @@ distance_four <- function(){
   df2 <- screen(df2)
   df1 <- screen(df1)
   
-  df3 <- rbind.data.frame(df1[1:146],df2[1:146])
+  df3 <- rbind.data.frame(df1[1:149],df2[1:149])
   df3$condition <- c(df1$condition,df2$condition)
   #df3 <- df3[which(df3$attn1!=3 ),]
   
@@ -771,7 +773,7 @@ distance_four <- function(){
   x$nfc_clos <- x$v_220 + x$v_222 + x$v_228 + x$v_243 + x$v_247 + x$v_254 + x$v_259 + x$v_262
   
   #x$attnJM <- c(x$attn1=="right") + c(x$attn2=="right") + c(x$attn3=="right")
-  
+  x$crt_tot <- x$crt1+x$crt2+x$crt3
   df3 <- x
   
   #df3$crt <- c(df3$baseball=="right")+ c(df3$machine=="right")+ c(df3$lillypad=="right")
@@ -881,7 +883,7 @@ distance_five <- function(){
   df2 <- screen(df2)
   df1 <- screen(df1)
   
-  df3 <- rbind.data.frame(df1[1:146],df2[1:146])
+  df3 <- rbind.data.frame(df1[1:149],df2[1:149])
   df3$condition <- c(df1$condition,df2$condition)
   #df3 <- df3[which(df3$attn1!=3 ),]
   
@@ -979,6 +981,7 @@ distance_five <- function(){
   x$nfc_clos <- x$v_220 + x$v_222 + x$v_228 + x$v_243 + x$v_247 + x$v_254 + x$v_259 + x$v_262
   
   #x$attnJM <- c(x$attn1=="right") + c(x$attn2=="right") + c(x$attn3=="right")
+  x$crt_tot <- x$crt1+x$crt2+x$crt3
   
   df3 <- x
   
@@ -1089,7 +1092,7 @@ distance_ca_scale <- function(){
   df2 <- screen(df2)
   df1 <- screen(df1)
   
-  df3 <- rbind.data.frame(df1[1:146],df2[1:146])
+  df3 <- rbind.data.frame(df1[1:149],df2[1:149])
   df3$condition <- c(df1$condition,df2$condition)
   #df3 <- df3[which(df3$attn1!=3 ),]
   
@@ -1187,6 +1190,7 @@ distance_ca_scale <- function(){
   x$nfc_clos <- x$v_220 + x$v_222 + x$v_228 + x$v_243 + x$v_247 + x$v_254 + x$v_259 + x$v_262
   
   #x$attnJM <- c(x$attn1=="right") + c(x$attn2=="right") + c(x$attn3=="right")
+  x$crt_tot <- x$crt1+x$crt2+x$crt3
   
   df3 <- x
   
@@ -1298,7 +1302,7 @@ distance_ca <- function(){
   df2 <- screen(df2)
   df1 <- screen(df1)
   
-  df3 <- rbind.data.frame(df1[1:146],df2[1:146])
+  df3 <- rbind.data.frame(df1[1:149],df2[1:149])
   df3$condition <- c(df1$condition,df2$condition)
   #df3 <- df3[which(df3$attn1!=3 ),]
   
@@ -1396,6 +1400,8 @@ distance_ca <- function(){
   x$nfc_clos <- x$v_220 + x$v_222 + x$v_228 + x$v_243 + x$v_247 + x$v_254 + x$v_259 + x$v_262
   
   #x$attnJM <- c(x$attn1=="right") + c(x$attn2=="right") + c(x$attn3=="right")
+  
+  x$crt_tot <- x$crt1+x$crt2+x$crt3
   
   df3 <- x
   
@@ -1504,7 +1510,7 @@ distance_vig <- function(){
   df2 <- screen(df2)
   df1 <- screen(df1)
   
-  df3 <- rbind.data.frame(df1[1:146],df2[1:146])
+  df3 <- rbind.data.frame(df1[1:149],df2[1:149])
   df3$condition <- c(df1$condition,df2$condition)
   #df3 <- df3[which(df3$attn1!=3 ),]
   
@@ -1602,6 +1608,7 @@ distance_vig <- function(){
   x$nfc_clos <- x$v_220 + x$v_222 + x$v_228 + x$v_243 + x$v_247 + x$v_254 + x$v_259 + x$v_262
   
   #x$attnJM <- c(x$attn1=="right") + c(x$attn2=="right") + c(x$attn3=="right")
+  x$crt_tot <- x$crt1+x$crt2+x$crt3
   
   df3 <- x
   
