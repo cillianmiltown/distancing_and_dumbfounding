@@ -1038,7 +1038,7 @@ rm(df1x,df2x)
 ### Manipulation
 
 -   **Temporal Distance**: Increased vs Deceased
--   Anne vignette: two levels - 5 week deadline vs 5pm today
+-   Anne vignette: two levels - 5 week deadline vs today
 
 #### Manipulation Materials:
 
@@ -1614,7 +1614,7 @@ rm(df1x,df2x)
 ### Manipulation
 
 -   **Temporal Distance**: Increased vs Deceased
--   Anne vignette: two levels - 5 week deadline vs 5pm today
+-   Anne vignette: two levels - 5 week deadline vs today
 
 #### Manipulation Materials:
 
@@ -2198,7 +2198,7 @@ rm(df1x,df2x)
 ### Manipulation
 
 -   **Temporal Distance**: Increased vs Deceased
--   Anne style vignette in first person: two levels - 5 week deadline vs 5pm today
+-   Anne style vignette in first person: two levels - 5 week deadline vs today
 
 #### Manipulation Materials:
 
@@ -2583,7 +2583,7 @@ rm(df1x,df2x)
 ### Manipulation
 
 -   **Temporal Distance**: Increased vs Deceased
--   Anne vignette: two levels - 5 week deadline vs 5pm today
+-   Anne vignette: two levels - 5 week deadline vs today
 
 #### Manipulation Materials:
 
@@ -2824,7 +2824,7 @@ rm(df1x,df2x)
 ### Manipulation
 
 -   **Temporal Distance**: Increased vs Deceased
-    -   Anne style vignette: two levels - 5 week deadline vs 5pm today
+    -   Anne style vignette: two levels - 5 week deadline vs today
 
 #### Manipulation Materials:
 
