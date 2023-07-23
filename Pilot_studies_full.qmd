@@ -1,26 +1,23 @@
 ---
 title: "Supplementary Materials: Distancing and Moral Dumbfounding Pilot Studies"
-# Lines above title in .docx format
 blank-lines-above-title: 2
-# If blank, the running header is the title in upper case.
 shorttitle: "Supplementary Materials: Pilot Studies"
-# Set names and affiliations.
-# It is nice to specify everyone's orcid, if possible.
-# There can be only one corresponding author.
 author:
+    # Roles are optional
+    # Conceptualization, Data curation, Formal Analysis, Funding acquisition, Investigation, 
+    # Methodology, Project administration, Resources, Software, Supervision, Validation, 
+    # Visualization, Writing – original draft, Writing – review & editing
+    #   - Conceptualization
+    #   - Writing - original draft
+    #   - Project administration
+    #   - Formal Analysis
   - name: Cillian McHugh
     corresponding: true
     #orcid: 0000-0002-9701-3232
     email: cillian.mchugh@ul.ie
     #url: https://example.org/
-    # Roles are optional
     # Select from the CRediT: Contributor Roles Taxonomy https://credit.niso.org/
-    # Conceptualization, Data curation, Formal Analysis, Funding acquisition, Investigation, 
-    # Methodology, Project administration, Resources, Software, Supervision, Validation, 
-    # Visualization, Writing – original draft, Writing – review & editing
     # role:
-    #   - Conceptualization
-    #   - Writing - original draft
     affiliations:
       - id: id1
         name: University of Limerick
@@ -32,7 +29,6 @@ author:
   - name: Marek McGann
     #orcid: 0000-0002-2452-6053
     # role:
-    #   - Project administration
     affiliations: 
       - id: id2
         name: Mary Immaculate College
@@ -43,18 +39,13 @@ author:
   - name: Eric R. Igou
     #orcid: 0000-0001-7744-9648
     # role:
-    #   - Formal Analysis
     affiliations:
       - ref: id1
       # - name: Carina's Primary Affiliation
       # - name: Carina's Secondary Affiliation
-    # Because Dolorita is unaffiliated, specify her city instead
   - name: Elaine L. Kinsella
     #orcid: 0000-0003-4835-8581
     # role:
-    #   - Writing - review & editing
-    #   - Methodology
-    #   - Formal Analysis
     affiliations:
       - ref: id1 #~
         # city: Buffalo
@@ -68,23 +59,22 @@ author-note:
     # deceased: Carina Mengana is deceased.
     # Disclosures condensed to one paragraph, but you can start a field with two line breaks to break them up: \n\nNew Paragraph
   disclosures: 
+    # Example. Because the authors are equal contributors, order of authorship was determined by a fair coin toss.
     # Example: "All procedures performed in studies involving human participants"
     study-registration: All procedures performed in studies involving human participants were approved by the Institutional Research Ethics Committee and conducted in accordance with the Code of Professional Ethics of the Psychological Society of Ireland and with the 1964 Helsinki declaration and its later amendments or comparable ethical standards. Informed consent was obtained from all individual participants included in the study. The authors declare that there are no potential conflicts of interest with respect to the research, authorship, and/or publication of this article.
-    data-sharing: ~
+    data-sharing: null
     # Example: This article is based on data published in Pulaski (2017).
     # Example: This article is based on the dissertation completed by Graham (2018).    
     related-report: ~ # This article is based on data published in Pulaski (2017). 
     # Example: Sally Jones earns royalties from the sale of Test X.
-    conflict-of-interest: ~
+    conflict-of-interest: null
     # Example: This study was supported by Grant A123 from the National Science Foundation.
-    financial-support: ~
+    financial-support: null
     # Example: The authors are grateful for the technical assistance of Dr. X during the initial design and setup of our lab equipment.
-    gratitude: ~
-    # Example. Because the authors are equal contributors, order of authorship was determined by a fair coin toss.
-    authorship-agreements: ~
+    gratitude: null
+    authorship-agreements: null
 abstract: "Moral dumbfounding occurs when people maintain a moral judgment in the absence of supporting reasons. Drawing on dual-process approaches to moral judgment, one possible explanation for moral dumbfounding proposes that it occurs as a result of a conflict between intuitive and deliberative processes. Consistent with this explanation, previous research has shown that under manipulations designed to lead to more intuitive thinking rather than deliberative thinking (such as increased cognitive load), people are less likely to provide reasons for their judgments, and more likely to provide dumbfounded responses in a moral dumbfounding task. Building on this work the present research examines if dumbfounded responding can be reduced through experimental manipulations designed to facilitate deliberative thinking (over intuitive thinking). Drawing on construal-level theory, and the finding that distancing facilitates deliberative thinking, we predict that including a distancing manipulation in a moral dumbfounding task will increase reason-giving, and reduce dumbfounded responding. We propose a pre-registered study to test this prediction."
 keywords: [moral dumbfounding, distancing, construal-level theory, dual-processes, reasons, intuitions]
-# I like using Zotero with BetterBibTeX to output a continuously updated "Better CSL JSON" file. But BibTeX works, too.
 bibliography: "resources/bib/My Library.bib"
 format:
   # apaquarto-docx: default
@@ -92,42 +82,44 @@ format:
   apaquarto-pdf:
     # can be jou (journal), man (manuscript), stu (student), or doc (document)
     # for now, tables and figures do not render properly in jou mode. 
-    documentmode: man
     # can be 10pt, 11pt, or 12pt
-    fontsize: 12pt
     # Integrate tables and figures in text
-    floatsintext: true
     # a4 paper if true, letter size if false
-    a4paper: true
     # suppresses loading of the lmodern font package
-    nolmodern: false
     # Suppresses loading of the fontenc package
-    nofontenc: false
     # Suppress the title above the introduction
-    donotrepeattitle: false
     # In jou mode, use times or pslatex instead of txfonts
-    notxfonts: false
     # In jou mode, use Computer Modern font instead of times
-    notimes: false
     # In jou mode, cancels automatic stretching of tables to column width 
-    notab: false
     # Uses Helvetica font in stu and man mode
-    helv: false
     # In man and stu mode, neutralizes the \helvetica command.
-    nosf: false
     # In man and stu mode, uses typewriter font
-    tt: false
     # Puts draft watermark on first page
-    draftfirst: false
     # Puts draft watermakr on all pages
-    draftall: false
     # Masks references that are marked as the author's own
+    documentmode: man
+    fontsize: 12pt
+    floatsintext: true
+    a4paper: true
+    nolmodern: false
+    nofontenc: false
+    donotrepeattitle: false
+    notxfonts: false
+    notimes: false
+    notab: false
+    helv: false
+    nosf: false
+    tt: false
+    draftfirst: false
+    draftall: false
     mask: false
-    journal: ~
-    volume: ~
-    course: ~
-    professor: ~
-    duedate: ~
+    journal: null
+    volume: null
+    course: null
+    professor: null
+    duedate: null
+editor_options: 
+  chunk_output_type: console
 ---
 
 {{< include _extensions/wjschne/apaquarto/_apa_title.qmd >}}
@@ -172,7 +164,9 @@ library(VGAM)
 library(nnet)
 library(mlogit)
 library(reshape2)
-
+library(ggpubr)
+library(gridExtra)
+library(grid)
 ```
 
 
@@ -206,6 +200,8 @@ Pilot Studies 1 and 2 employ a manipulation of psychological distance compared a
 #| apa-note: Sample sizes listed are the total samples that passed the attention checks, without exclusion based on responses to Need for Closure, followed by the sample size when excluding participants who failed the Need for Closure attention check.
 knitr::include_graphics("resources/img/summary_figure.png")
 ```
+
+{{< pagebreak >}}
 
 
 # Pilot Study 1 - Psychological Distance, "Julie and Mark" (First Person)
@@ -444,7 +440,6 @@ g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
           strip.background = element_rect(fill = "white"),
           legend.position="right")
 
-
 ```
 
 ```{r}
@@ -454,6 +449,35 @@ g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
 #| apa-cap: "Study 1: Responses to critical slide for the experimental group (N = 60) and the control group (N = 60); (error bars represent standard error of the proportion)"
 
 suppressWarnings(print(g))
+
+```
+
+```{r}
+
+# Saving on object in RData format
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 1")
+g1a <- p
+save(g1a, file = "plots.RData")
 
 ```
 
@@ -534,6 +558,7 @@ g <- ggplot(logit_plot,
   legend.position="right")
 
 g
+
 ```
 
 ```{r}
@@ -543,6 +568,34 @@ g
 #| apa-cap: "Study 1: Probability of selecting each response to the critical slide depending on Social Desirability"
 
 suppressWarnings(print(g))
+
+```
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+g1_prob <- p
+load("plots.RData")
+save(g1a, g1_prob, file = "plots.RData")
+
 
 ```
 
@@ -697,6 +750,8 @@ There was no significant association between Social Desirability and response to
 
 ls()
 ```
+
+{{< pagebreak >}}
 
 # Pilot Study 2 - Psychological Distance, "Julie and Mark" (First Person vs Third Person)
 
@@ -926,8 +981,6 @@ g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
                                   ),
           strip.background = element_rect(fill = "white"),
           legend.position="right")
-
-
 ```
 
 ```{r}
@@ -937,6 +990,34 @@ g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
 #| apa-cap: "Pilot Study 2: Responses to critical slide for the experimental group (N = 52) and the control group (N = 52); (No exclusions; error bars represent standard error of the proportion)"
 
 suppressWarnings(print(g))
+
+```
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 2 (full)")
+g2a <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, file = "plots.RData")
 
 ```
 
@@ -1181,7 +1262,6 @@ g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
           strip.background = element_rect(fill = "white"),
           legend.position="right")
 
-
 ```
 
 ```{r}
@@ -1191,6 +1271,34 @@ g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
 #| apa-cap: "Pilot Study 2: Responses to critical slide for the experimental group (N = 39) and the control group (N = 37); (With exclusions; error bars represent standard error of the proportion)"
 
 suppressWarnings(print(g))
+
+```
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 2 (clean)")
+g2b <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, file = "plots.RData")
 
 ```
 
@@ -1281,6 +1389,7 @@ pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
 
 A multinomial logistic regression was conducted to test if the individual difference measures predicted dumbfounding. Overall the model did not significantly predict responses to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
 
+{{< pagebreak >}}
 
 # Pilot Study 3 - Temporal Distance, "Julie and Mark" (Third Person)
 
@@ -1527,6 +1636,32 @@ suppressWarnings(print(g))
 
 ```
 
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 3 (full)")
+g3a <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, file = "plots.RData")
+```
 
 ```{r}
 #| include: false
@@ -1641,7 +1776,7 @@ res <- cbind(c("Observed count","","","Expected count","","","Standardised resid
       )
 
 row.names(res) <- NULL
-colnames(res) <- c("","","Increased","Decreased")
+colnames(res) <- c(" ","  ","Increased","Decreased")
 
 x
 y
@@ -1657,7 +1792,7 @@ res
 papaja::apa_table(
    res
    , align = c("l", "l", "c", "c", "c")
-   , caption = "Pilot Suty 3 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on cognitive load"
+   , caption = "Pilot Suty 3 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on distancing (no exclusions)"
    #, added_stub_head = "Response to critical slide"
    #, col_spanners = makespanners()
    , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
@@ -1668,9 +1803,28 @@ papaja::apa_table(
 ```
 
 
+```{r apatb-S3S3tab1dumbNoExcl}
+#| apa-cap: Pilot Suty 3 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on distancing (no exclusions)
+#| apa-note: "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+#| include: false
+
+
+tibble(res) %>% 
+  flextable() %>% 
+  theme_apa() %>% 
+  flextable::line_spacing(space = .5, part = "all"#, unit = "mm"
+                          ) %>% 
+  padding(padding.top = 5, padding.bottom = 5) %>% 
+  align(align = c("left","left","center","center")) %>% 
+  #align_nottext_col(align = "center") %>% 
+  autofit()
+
+
+```
+
 #### Distancing and Dumbfounding (no exclusions)
 
-There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="long")`) and the control group (*N* = `r sum(df3$condition=="short")`) are displayed in {apafg-dch5S3fig2criticalconditionNoExcl}. The observed counts, expected counts and standardized residuals are displayed in {S3S3tab1dumbNoExcl}.
+There was a significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="long")`) and the control group (*N* = `r sum(df3$condition=="short")`) are displayed in {apafg-dch5S3fig2criticalconditionNoExcl}. The observed counts, expected counts and standardized residuals are displayed in Table 1.
 
 
 
@@ -1723,7 +1877,7 @@ a <- exp(confint(InCSModel))
 cox
 ```
 
-A multinomial logistic regression was conducted to test if the individual difference measures predicted dumbfounding. Overall the model significantly predicted responses to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`. The model explained between `r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and `r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide. Need for closure was a significant predictor in the model. As need for closure increased, participants were significantly more likely to provide reasons than to present as dumbfounded, Wald = `r round(wald1,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[21]))`, odds ratio = `r round(exp(InCSModel$coefficients)[3],digits=2)`, 95% CI [`r round(a[3],digits=2)`, `r round(a[9],digits=2)`], or to select nothing-wrong, Wald = `r round(wald2,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[22]))`, odds ratio = `r round(exp(InCSModel$coefficients)[4],digits=2)`, 95% CI [`r round(a[4],digits=2)`, `r round(a[10],digits=2)`]. The predicted probabilities of each response depending on social desirability are displayed in {apafg-dggplotlogit3}.
+A multinomial logistic regression was conducted to test if the individual difference measures predicted dumbfounding. Overall the model significantly predicted responses to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`. The model explained between `r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and `r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide. Need for closure was a significant predictor in the model. As need for closure increased, participants were significantly more likely to provide reasons than to present as dumbfounded, Wald = `r round(wald1,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[21]))`, odds ratio = `r round(exp(InCSModel$coefficients)[3],digits=2)`, 95% CI [`r round(a[3],digits=2)`, `r round(a[9],digits=2)`], or to select nothing-wrong, Wald = `r round(wald2,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[22]))`, odds ratio = `r round(exp(InCSModel$coefficients)[4],digits=2)`, 95% CI [`r round(a[4],digits=2)`, `r round(a[10],digits=2)`]. The predicted probabilities of each response depending on need for closure are displayed in {apafg-dggplotlogit3}.
 
 
 
@@ -1804,6 +1958,8 @@ g <- ggplot(logit_plot,
   legend.position="right")
 
 g
+
+
 ```
 
 ```{r}
@@ -1815,6 +1971,35 @@ g
 suppressWarnings(print(g))
 
 ```
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+
+g3_prob <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, file = "plots.RData")
+
+```
+
 
 
 ```{r}
@@ -1981,6 +2166,34 @@ suppressWarnings(print(g))
 
 ```
 
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 3 (clean)")
+g3b <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, file = "plots.RData")
+```
+
 ```{r}
 #| include: false
 #| echo: false
@@ -2091,7 +2304,7 @@ res <- cbind(c("Observed count","","","Expected count","","","Standardised resid
       )
 
 row.names(res) <- NULL
-colnames(res) <- c("","","Increased","Decreased")
+colnames(res) <- c(" ","  ","Increased","Decreased")
 
 x
 y
@@ -2107,7 +2320,7 @@ res
 papaja::apa_table(
    res
    , align = c("l", "l", "c", "c", "c")
-   , caption = "Pilot Study 3 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on cognitive load"
+   , caption = "Pilot Study 3 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on distancing (with exclusions)"
    #, added_stub_head = "Response to critical slide"
    #, col_spanners = makespanners()
    , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
@@ -2117,10 +2330,30 @@ papaja::apa_table(
 
 ```
 
+```{r}
+#| label: apatb-S3S3tab1dumbwithexclusions
+#| apa-cap: Pilot Study 3 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on distancing (with exclusions)
+#| apa-note: "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+#| include: false
+
+
+tibble(res) %>% 
+  flextable() %>% 
+  theme_apa() %>% 
+  flextable::line_spacing(space = .5, part = "all"#, unit = "mm"
+                          ) %>% 
+  padding(padding.top = 5, padding.bottom = 5) %>% 
+  align_text_col(align = c("left","left","center","center")) %>% 
+  align_nottext_col(align = "center") %>% 
+  autofit()
+
+
+```
+
 
 #### Distancing and Dumbfounding (with exclusions)
 
-There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="long")`) and the control group (*N* = `r sum(df3$condition=="short")`) are displayed in {apafg-dch5S3fig2criticalconditionWithExcl}. The observed counts, expected counts and standardized residuals are displayed in {S3S3tab1dumbwithexclusions}.
+There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="long")`) and the control group (*N* = `r sum(df3$condition=="short")`) are displayed in {apafg-dch5S3fig2criticalconditionWithExcl}. The observed counts, expected counts and standardized residuals are displayed in Table 2.
 
 #### Individual Difference Predictors (with exclusions)
 
@@ -2147,8 +2380,6 @@ A multinomial logistic regression was conducted to test if the individual differ
 
 {{< pagebreak >}}
 
-
-{{< pagebreak >}}
 
 
 
@@ -2380,6 +2611,33 @@ suppressWarnings(print(g))
 
 ```
 
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 4 (full)")
+g4a <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, file = "plots.RData")
+```
 
 ```{r}
 #| include: false
@@ -2751,6 +3009,36 @@ suppressWarnings(print(g))
 
 ```
 
+
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 4 (clean)")
+g4b <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b, file = "plots.RData")
+```
+
+
 ```{r}
 #| include: false
 #| echo: false
@@ -2845,8 +3133,6 @@ A multinomial logistic regression was conducted to test if the individual differ
 {{< pagebreak >}}
 
 
-{{< pagebreak >}}
-
 
 
 # Pilot Study 5 - Temporal Distance, "Julie and Mark" (First Person)
@@ -2905,29 +3191,25 @@ Pilot Study 5 was a between-subjects design. The dependent variable was rates of
 
 A total sample of `r length(dftot$InCS)` participants (`r sum(dftot$gender=="Female")` female, `r sum(dftot$gender=="Male")` male; *M*~age~ = `r round(mean(dftot$age),digits=1)`, min = `r min(dftot$age)`, max = `r max(dftot$age)`, *SD* = `r round(sd(dftot$age),digits=1)`) took part. As in Pilot Study 2, participants who scored above the threshold on the need for closure lie score were removed, and this left a sample of `r length(df3$InCS)` participants (`r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male; *M*~age~ = `r round(mean(df3$age),digits=1)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=1)`). Participants were recruited through MTurk in the same way as in Pilot Study 1 (same payment amount, same country selection).
 
-### Pilot Study 3: Procedure and Materials
+### Pilot Study 5: Procedure and Materials
 
-The procedure and materials were similar to Pilot Study 2 with a change to the distance manipulation and the removal of the social desirability measure. The same moral scenario ("Julie and Mark") was used. The revised manipulation read as follows:
+The procedure and materials were similar to Pilot Studies 3 and 4 with a change to the distance manipulation. Rather than a third person perspective (Anne), participants in Study 5 were asked to consider the "Julie and Mark" vignette in the first person. Temporal distance was manipulated by presenting participants with different imagined deadlines. The experimental manipulations read as follows:
 
 #### Increased Temporal Distance
 
-> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.
+> Imagine you taking a philosophy course on ethics. For this ethics course you have been asked to study the scenario below.
 
-> She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. **She must complete and submit this assignment within the next five weeks**.
-
-> While reading the story on the next page, try to think about the story from Anne's perspective rather than your own.
+> You must identify if the behaviour described is right or wrong, and provide reasons for your judgement. **Imagine you must complete and submit this assignment within the next five weeks**.
 
 #### Decreased Temporal Distance:
 
-> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.
+> Imagine you taking a philosophy course on ethics. For this ethics course you have been asked to study the scenario below.
 
-> She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. **She must complete and submit this assignment today**.
+> You must identify if the behaviour described is right or wrong, and provide reasons for your judgement. **Imagine you must complete and submit this assignment today**.
 
-> While reading the story on the next page, try to think about the story from Anne’s perspective rather than your own.
+## Pilot Study 5: Results
 
-## Pilot Study 3: Results
-
-As for Pilot Study 2, we present two sets of results. First we present the results for the full sample, second we present the results for the sample with exclusions based on participants' "lie score".
+As with previous studies, we present two sets of results. First we present the results for the full sample, second we present the results for the cleaned sample with exclusions based on participants' "lie score".
 
 ```{r}
 #| include: false
@@ -3086,11 +3368,41 @@ g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
 #| label: apafg-dch5S5fig2criticalconditionNoExcl
 #| include: true
 #| fig-height: 5
-#| apa-cap: "Pilot Study 5: Responses to critical slide for the increased temporal distance group (N = 53) and the reduced temporal distance group (N = 52); (No exclusions; error bars represent standard error of the proportion)"
+#| apa-cap: "Pilot Study 5: Responses to critical slide for the increased temporal distance group (N = 47) and the reduced temporal distance group (N = 46); (No exclusions; error bars represent standard error of the proportion)"
 
 suppressWarnings(print(g))
 
 ```
+
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 5 (full)")
+g5a <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b, g5a, file = "plots.RData")
+```
+
+
 
 
 ```{r}
@@ -3206,7 +3518,7 @@ res <- cbind(c("Observed count","","","Expected count","","","Standardised resid
       )
 
 row.names(res) <- NULL
-colnames(res) <- c("","","Increased","Decreased")
+colnames(res) <- c(" ","  ","Increased","Decreased")
 
 x
 y
@@ -3222,7 +3534,7 @@ res
 papaja::apa_table(
    res
    , align = c("l", "l", "c", "c", "c")
-   , caption = "Pilot Suty 5 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on cognitive load"
+   , caption = "Pilot Suty 5 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on distancing"
    #, added_stub_head = "Response to critical slide"
    #, col_spanners = makespanners()
    , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
@@ -3235,7 +3547,7 @@ papaja::apa_table(
 
 #### Distancing and Dumbfounding (no exclusions)
 
-There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="long")`) and the control group (*N* = `r sum(df3$condition=="short")`) are displayed in {apafg-dch5S3fig2criticalconditionNoExcl}. The observed counts, expected counts and standardized residuals are displayed in {S3S3tab1dumbNoExcl}.
+There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="long")`) and the control group (*N* = `r sum(df3$condition=="short")`) are displayed in {apafg-dch5S5fig2criticalconditionNoExcl}. 
 
 
 
@@ -3381,6 +3693,33 @@ suppressWarnings(print(g))
 
 ```
 
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+
+g5_prob <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b, g5a, g5_prob, file = "plots.RData")
+```
 
 ```{r}
 #| include: false
@@ -3540,10 +3879,38 @@ g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
 #| label: apafg-dch5S5fig2criticalconditionWithExcl
 #| include: true
 #| fig-height: 5
-#| apa-cap: "Pilot Study 3: Responses to critical slide for the increased temporal distance group (N = 34) and the reduced temporal distance group (N = 37); (With exclusions; error bars represent standard error of the proportion)"
+#| apa-cap: "Pilot Study 3: Responses to critical slide for the increased temporal distance group (N = 38) and the reduced temporal distance group (N = 33); (With exclusions; error bars represent standard error of the proportion)"
 
 suppressWarnings(print(g))
 
+```
+
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 5 (clean)")
+g5b <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b, g5a, g5_prob, g5b, file = "plots.RData")
 ```
 
 ```{r}
@@ -3571,6 +3938,8 @@ pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
 
 
 ```
+
+
 
 ### With Exclusions
 #### Judgments (with exclusions)
@@ -3656,7 +4025,7 @@ res <- cbind(c("Observed count","","","Expected count","","","Standardised resid
       )
 
 row.names(res) <- NULL
-colnames(res) <- c("","","Increased","Decreased")
+colnames(res) <- c(" ","  ","Increased","Decreased")
 
 x
 y
@@ -3708,7 +4077,316 @@ A multinomial logistic regression was conducted to test if the individual differ
 
 
 
+{{< pagebreak >}}
 
+
+
+
+
+# Pilot Study 6 - Temporal Distance, "Jennifer" (Third Person)
+
+Pilot Study 6 was similar to the previous Pilot Studies, with two notable changes. Across Pilot Studies 1-5 participants responded to the most widely used dumbfounding scenario, the *classic* "Julie and Mark" scenario [@mchugh_cognitive_2023]. In Pilot Study 6 we replaced the "Julie and Mark" scenario with the "Jennifer" scenario, which describes an act of cannibalism involving a cadaver that is already dead. In all previous Pilot Studies dumbfounding was measured using the the critical slide which contained three categorical response options. The categorical nature of the response options means that this measure may not be well suited to detecting small effects. To address this possibility we trialed a scale measure of dumbfounding in Pilot Study 6.
+
+We manipulated temporal distance using the same "Anne" vignette as in Pilot Studies 3 and 4. The aim of Pilot Study 6 was to investigate if temporal distance influenced participants ability to justify their judgments in the "Jennifer" scenario.
+
+```{r}
+#| include: false
+
+rm(list = setdiff(
+  ls(),
+  c("affiliation_namer" 
+    , "character2name" ,"correspondings"
+    , "d_author_affiliations","display_abstract"
+    , "display_affiliations" ,"display_author_affiliations"
+    , "display_author_note" ,"display_authors"
+    , "display_corresponding_author" ,"display_keywords"
+    , "display_orcids" ,"display_title"
+    , "display_title_heading" ,"f_abstract_display"
+    , "f_affiliations_display" ,"f_author_affiliations"
+    , "f_author_affiliations_display" ,"f_author_display"
+    , "f_author_note_blanks" ,"f_author_note_display"
+    , "f_author_note_second_paragraph" ,"f_author_note_third_paragraph"
+    , "f_author_roles" ,"f_corresponding_author_display"
+    , "f_correspondings" ,"f_keywords_display"
+    , "f_orcids_display" ,"f_title_blanks"
+    , "f_title_display" ,"f_title_heading_display"
+    , "get_metadata" ,"has_annotations"
+    , "is_docx" ,"is_empty"
+    , "is_pdf" 
+    , "yml_metadata")
+))
+```
+
+```{r}
+#| label: loadDistancingData6
+#| include: false
+
+
+load("pilot_data/loaded_data/six.RData")
+df3 <- six
+dftot <- six_tot
+
+variable.names(df3)
+df3$condition
+
+df3$crt_tot
+df3$InCS_rsn
+```
+
+
+## Pilot Study 6: Method
+
+### Pilot Study 6: Participants and Design
+
+Pilot Study 6 was a between-subjects design. The dependent variable was rates of providing reasons/dumbfounding, measured using a revised critical slide. The independent variable was temporal distance with two levels: increased and decreased. All participants read a brief vignette where temporal distance was manipulated by varying the deadline by which an assignment would need to be completed by - either five weeks in the future (increased) or today (decreased). Need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] and cognitive reflection [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016] were recorded as potential correlate/moderator variables. Social desirability was not recorded.
+
+A total sample of `r length(dftot$InCS_rsn)` participants (`r sum(dftot$gender=="Female")` female, `r sum(dftot$gender=="Male")` male; *M*~age~ = `r round(mean(dftot$age),digits=1)`, min = `r min(dftot$age)`, max = `r max(dftot$age)`, *SD* = `r round(sd(dftot$age),digits=1)`) took part. Again, participants who scored above the threshold on the need for closure lie score were removed, and this left a sample of `r length(df3$InCS_rsn)` participants (`r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male; *M*~age~ = `r round(mean(df3$age),digits=1)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=1)`). Participants were recruited through MTurk under the same conditions as previous Pilot Studies.
+
+### Pilot Study 6: Procedure and Materials
+
+The procedure and materials remained similar to previous Pilot Studies, with a change in the scenario being considered and a change to the way dumbfounding was measured.
+
+Participants were presented with the "Jennifer" scenario (below).
+
+Temporal distance was manipulated using the same instructions as in Pilot Studies 3 and 4.
+
+Dumbfounding was measured using a revised version of the *critical slide*, which presented a statement defending the actions of Jennifer followed by two questions, one regarding participants judgments, and one regarding participants ability to justify their response, responses to both questions were recorded on 7 point Likert scales. The revised slide read as follows: "Jennifer's actions did not harm anyone, or negatively affect anyone. How can there be anything wrong with what she did?". Participants responded on a 7-point Likert scale (1 = *There is nothing wrong*; 7 = *It is definitely wrong*). Below this, the following question was presented: "Please indicate how well you can justify your response above", again, participants responded on a 7-point Likert scale (1 = *I can provide a valid reason*; 7 = *I can't think of a reason*).
+
+#### Jennifer Scenario
+
+> Jennifer works in a medical school pathology lab as a research assistant. The lab prepares human cadavers that are used to teach medical students about anatomy. The cadavers come from people who had donated their body to science for research. One night Jennifer is leaving the lab when she sees a body that is going to be discarded the next day. Jennifer was a vegetarian, for moral reasons. She thought it was wrong to kill animals for food. But then, when she saw a body about to be cremated, she thought it was irrational to waste perfectly edible meat. So she cut off a piece of flesh, and took it home and cooked it. The person had died recently of a heart attack, and she cooked the meat thoroughly, so there was no risk of disease
+
+
+#### Increased Temporal Distance
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.
+
+> She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. **She must complete and submit this assignment within the next five weeks**.
+
+> While reading the story on the next page, try to think about the story from Anne's perspective rather than your own.
+
+#### Decreased Temporal Distance:
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.
+
+> She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. **She must complete and submit this assignment today**.
+
+> While reading the story on the next page, try to think about the story from Anne’s perspective rather than your own.
+
+
+## Pilot Study 6: Results
+
+Again, we present two sets of results. First we present the results for the full sample, second we present the results for the cleaned sample with exclusions based on participants' "lie score".
+
+
+```{r}
+#| label: dch5s6changeinjudgement
+#| include: false
+
+
+df3 <- six_tot
+
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r}
+#| label: checkingchangesd6
+#| include: false
+
+
+#sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+t_j1b <- t.test(df3$InJu2 ~ df3$condition)
+t_j2 <- t.test(df3$InCS_ju ~ df3$condition)
+t_j3 <- t.test(df3$InCS_rsn ~ df3$condition)
+
+df3$InJu2
+
+
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+# 
+# c <- chisq.test(table(df3$InCS,df3$condition))
+# w <- sqrt(c[]$statistic/length(df3$gender))
+# pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+t.test(dftot$InCS_rsn ~ dftot$condition)
+
+```
+
+
+### No Exclusions
+#### Judgments (no exclusions)
+
+
+```{r}
+#| include: false
+#| echo: false
+
+df3 <- six_tot
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+
+t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
+t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
+d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
+
+
+t_j3
+d_j3
+
+```
+
+`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Jennifer as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+
+
+```{r}
+#| include: false
+# 
+# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+# 
+# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+table(df3$condition)
+round(mean(df3$InJu1[which(df3$condition=="long")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="long")]), digits = 1)
+
+round(mean(df3$InJu1[which(df3$condition=="short")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="short")]), digits = 1)
+```
+
+#### Distancing and Judgments (no exclusions)
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~increased~ = `r round(mean(df3$InJu1[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InJu1[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(df3$InJu1[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(df3$InJu1[which(df3$condition=="short")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~increased~ = `r round(mean(df3$InJu2[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InJu2[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(df3$InJu2[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(df3$InJu2[which(df3$condition=="short")],na.rm=T), digits = 1)`).
+
+
+```{r}
+#| include: false
+
+
+t_j2 <- t.test(df3$InCS_ju ~ df3$condition)
+t_j3 <- t.test(df3$InCS_rsn ~ df3$condition)
+```
+
+#### Distancing and Dumbfounding (no exclusions)
+
+At the point when dumbfounding was recorded, there was no significant difference in judgment depending on the distance manipulation,
+*t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`
+(*M*~increased~ = `r round(mean(df3$InCS_ju[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InCS_ju[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(df3$InCS_ju[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(df3$InCS_ju[which(df3$condition=="short")],na.rm=T), digits = 1)`). There was also no difference self report ability to provide reasons depending on distance manipulation, *t*(`r round(t_j3$parameter,digits=2)`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`
+(*M*~increased~ = `r round(mean(df3$InCS_rsn[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InCS_rsn[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(df3$InCS_rsn[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(df3$InCS_rsn[which(df3$condition=="short")],na.rm=T), digits = 1)`).
+
+```{r, include=FALSE}
+#| include: false
+
+
+tapply(df3$InCS_rsn, df3$condition, descriptives)
+
+```
+
+
+```{r}
+#| label: plottingmeansS7
+#| include: false
+
+
+ggplot(df3, aes(x=condition,y=InCS_rsn))+
+  geom_violin()+
+  geom_jitter(width = 0.25)
+
+```
+
+
+#### Individual Difference Predictors (no exclusions)
+Two linear regressions were conducted to investigate the potential influence of need for closure and cognitive reflection on both responses on the revised critical slide.
+
+```{r}
+#| include: false
+
+
+fit <- lm(InCS_ju~NFC + crt_tot, data=df3)
+apa_lm <- papaja::apa_print(fit)
+apa_lm
+summary(fit)
+```
+
+
+For the first regression the outcome variable was judgment. Overall the model did not significantly predict participants judgments on the revised critical slide, `r apa_lm$full_result$modelfit`.
+
+```{r}
+#| include: false
+
+fit <- lm(InCS_rsn~NFC + crt_tot, data=df3)
+apa_lm <- papaja::apa_print(fit)
+apa_lm
+summary(fit)
+```
+
+
+For the second regression the outcome variable was self-report ability to provide reasons. Overall the model significantly predicted participants self-reported ability to provide reasons, `r apa_lm$full_result$modelfit`. Need for closure was a significant predictor in the model, `r apa_lm$full_result$NFC`, while cognitive reflection was not `r apa_lm$full_result$crt_tot`.
 
 {{< pagebreak >}}
 
@@ -3718,149 +4396,3637 @@ A multinomial logistic regression was conducted to test if the individual differ
 
 
 
-# Template bits
 
-## Level 2 Heading: Flush Left, Bold, Title Case
 
-Subsections of the introduction have level 2 headings. A paragraph after a level 2 Heading is on a new line. Regular paragraphs are indented, flush left, and double-spaced.
+### With Exclusions
+#### Judgments (with exclusions)
 
-You do not need to put text after a heading. You can put a higher-level heading directly underneath if you want.
 
-## A Level 2 Heading Without Text Below It
+```{r}
+#| include: false
+#| echo: false
 
-### Level 3 Heading: Flush Left, Bold Italic, Title Case
+df3 <- six
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
 
-Subsections of a level 2 heading are placed under level 3 headings.
+t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+t_paragraph(df3$InJu2, df3$condition, "revised judgement")
 
-### Another Level 3 Heading
 
-#### Level 4 Heading.
+t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
+t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
+d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
 
-A level 4 heading should be indented, flush left, bold, title case, and end with a period. A paragraph after a level 4 or 5 heading is on a new line in this markdown document but will appear as if it were in the same paragraph when rendered. You need at least one paragraph after a level 4 or 5 heading. If you forget the period at the end of the level 4 or 5 heading, it will be added automatically. A period will not be added if the heading ends with a question mark or an exclamation point.
 
-Subsequent paragraphs go on their own lines.
+t_j3
+d_j3
 
-##### Level 5 Heading
+```
 
-A level 5 heading should be indented, flush left, bold italic, title case, and end with a period. Notice that there was no period after this level 5 heading in the markdown document, but it does appear in the rendered document.
+`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Jennifer as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
 
-Subsequent paragraphs go on their own lines.
 
-## How to Cite References
+```{r}
+#| include: false
+# 
+# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+# 
+# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
 
-I am going to cite a reference here in square brackets [@CameronTrivedi2013]. This reference was in my bibliography file. Here are some variations on parenthetical citations:
+#
+table(df3$condition)
+round(mean(df3$InJu1[which(df3$condition=="long")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="long")]), digits = 1)
 
--   Page references (or any other suffixes are placed after the reference. If you want a comma, you'll need to insert it yourself: [@CameronTrivedi2013, pp. 35--41]
+round(mean(df3$InJu1[which(df3$condition=="short")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="short")]), digits = 1)
+```
 
--   Prefixes (with or without a comma) are placed before the reference: [e.g., @CameronTrivedi2013]
+#### Distancing and Judgments (with exclusions)
 
--   2 or more citations separated by a semicolon [@CameronTrivedi2013; @cohen2003applied]
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~increased~ = `r round(mean(df3$InJu1[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InJu1[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(df3$InJu1[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(df3$InJu1[which(df3$condition=="short")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~increased~ = `r round(mean(df3$InJu2[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InJu2[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(df3$InJu2[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(df3$InJu2[which(df3$condition=="short")],na.rm=T), digits = 1)`).
 
--   Any prefixes or suffixes needing a literal semicolon will confuse Quarto (actually Pandoc). To make it clear that you need to print a semicolon, put a backslash before the semicolon: [FOIL; @CameronTrivedi2013]
 
-Text references are possible, too.
+```{r}
+#| include: false
 
--   @CameronTrivedi2013 said some interesting things.
 
--   @cohen2003applied [pp. 101--103] said specific things on specific pages.
+t_j2 <- t.test(df3$InCS_ju ~ df3$condition)
+t_j3 <- t.test(df3$InCS_rsn ~ df3$condition)
+```
 
--   Place the reference's year by itself with a minus sign: [-@CameronTrivedi2013]
+#### Distancing and Dumbfounding (with exclusions)
 
-## Hypotheses, Aims, and Objectives
+At the point when dumbfounding was recorded, there was no significant difference in judgment depending on the distance manipulation,
+*t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`
+(*M*~increased~ = `r round(mean(df3$InCS_ju[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InCS_ju[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(df3$InCS_ju[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(df3$InCS_ju[which(df3$condition=="short")],na.rm=T), digits = 1)`). There was also no difference self report ability to provide reasons depending on distance manipulation, *t*(`r round(t_j3$parameter,digits=2)`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`
+(*M*~increased~ = `r round(mean(df3$InCS_rsn[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InCS_rsn[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(df3$InCS_rsn[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(df3$InCS_rsn[which(df3$condition=="short")],na.rm=T), digits = 1)`).
 
-The last paragraph of the introduction usually states the specific hypotheses of the study, often in a way that links them to the research design.
+```{r, include=FALSE}
+#| include: false
 
-# Method
 
-General remarks on method. This paragraph is optional.
+tapply(df3$InCS_rsn, df3$condition, descriptives)
 
-Not all papers require each of these sections. Edit them as needed. Consult the [Journal Article Reporting Standards](https://apastyle.apa.org/jars) for what is needed for your type of article.
+```
+
+
+```{r}
+#| label: plottingmeansS7exclusions
+#| include: false
+
+
+ggplot(df3, aes(x=condition,y=InCS_rsn))+
+  geom_violin()+
+  geom_jitter(width = 0.25)
+
+```
+
+
+#### Individual Difference Predictors (with exclusions)
+Two linear regressions were conducted to investigate the potential influence of need for closure and cognitive reflection on both responses on the revised critical slide.
+
+```{r}
+#| include: false
+
+
+fit <- lm(InCS_ju~NFC + crt_tot, data=df3)
+apa_lm <- papaja::apa_print(fit)
+apa_lm
+summary(fit)
+```
+
+
+For the first regression the outcome variable was judgment. Overall the model did not significantly predict participants judgments on the revised critical slide, `r apa_lm$full_result$modelfit`.
+
+```{r}
+#| include: false
+
+fit <- lm(InCS_rsn~NFC + crt_tot, data=df3)
+apa_lm <- papaja::apa_print(fit)
+apa_lm
+summary(fit)
+```
+
+
+For the second regression the outcome variable was self-report ability to provide reasons. Overall the model significantly predicted participants self-reported ability to provide reasons, `r apa_lm$full_result$modelfit`. Need for closure was a significant predictor in the model, `r apa_lm$full_result$NFC`, while cognitive reflection was not `r apa_lm$full_result$crt_tot`.
+
+{{< pagebreak >}}
+
+
+
+
+# Pilot Study 7 - Temporal Distance, "Jennifer" (Third Person)
+Pilot Study 6 did not provide a strong case for adopting the continuous measure of dumbfounding in the revised critical slide. As such, Pilot Study 7 reverted to the validated critical slide [@mchugh_searching_2017; @mchugh_reasons_2020] to measure dumbfounded responding. We used the "Jennifer" scenario again. The aim of Study 7 was to test the influence of temporal distancing on participants' ability to justify their judgments of the Jennifer scenario.
+
+```{r}
+#| include: false
+
+rm(list = setdiff(
+  ls(),
+  c("affiliation_namer" 
+    , "character2name" ,"correspondings"
+    , "d_author_affiliations","display_abstract"
+    , "display_affiliations" ,"display_author_affiliations"
+    , "display_author_note" ,"display_authors"
+    , "display_corresponding_author" ,"display_keywords"
+    , "display_orcids" ,"display_title"
+    , "display_title_heading" ,"f_abstract_display"
+    , "f_affiliations_display" ,"f_author_affiliations"
+    , "f_author_affiliations_display" ,"f_author_display"
+    , "f_author_note_blanks" ,"f_author_note_display"
+    , "f_author_note_second_paragraph" ,"f_author_note_third_paragraph"
+    , "f_author_roles" ,"f_corresponding_author_display"
+    , "f_correspondings" ,"f_keywords_display"
+    , "f_orcids_display" ,"f_title_blanks"
+    , "f_title_display" ,"f_title_heading_display"
+    , "get_metadata" ,"has_annotations"
+    , "is_docx" ,"is_empty"
+    , "is_pdf" 
+    , "yml_metadata")
+))
+```
+
+```{r}
+#| label: loadDistancingData7
+#| include: false
+
+
+load("pilot_data/loaded_data/seven.RData")
+df3 <- seven
+dftot <- seven_tot
+
+variable.names(df3)
+df3$condition
+
+df3$crt_tot
+```
+
+
+## Pilot Study 7: Method
+
+### Pilot Study 7: Participants and Design
+
+Pilot Study 7 was a between-subjects design. The dependent variable was rates of providing reasons/dumbfounding measured using the critical slide (with three response options, reason-giving, dumbfounding, and nothing-wrong). The independent variable was temporal distance with two levels: increased and decreased. All participants the distancing manipulation vignette used in Pilot Studies 3 and 4. Temporal distance was manipulated by varying the deadline by which the assignment would need to be completed by - either five weeks in the future (increased) or today (decreased). Need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] and cognitive reflection [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016] were recorded as potential correlate/moderator variables. 
+
+A total sample of `r length(dftot$InCS)` participants (`r sum(dftot$gender=="Female")` female, `r sum(dftot$gender=="Male")` male; *M*~age~ = `r round(mean(dftot$age),digits=1)`, min = `r min(dftot$age)`, max = `r max(dftot$age)`, *SD* = `r round(sd(dftot$age),digits=1)`) took part. As in Pilot Study 2, participants who scored above the threshold on the need for closure lie score were removed, and this left a sample of `r length(df3$InCS)` participants (`r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male; *M*~age~ = `r round(mean(df3$age),digits=1)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=1)`). Participants were recruited through MTurk under the same conditions as in previous pilot studies.
+
+### Pilot Study 7: Procedure and Materials
+
+The procedure and materials were similar to Pilot Studies 3 and 4 with a single change. Rather than the "Julie and Mark" scenario, participants were asked to consider the "Jennifer" dilemma used in Pilot Study 6. The scenario and distance manipulations read as follows.
+
+
+#### Jennifer Scenario
+
+> Jennifer works in a medical school pathology lab as a research assistant. The lab prepares human cadavers that are used to teach medical students about anatomy. The cadavers come from people who had donated their body to science for research. One night Jennifer is leaving the lab when she sees a body that is going to be discarded the next day. Jennifer was a vegetarian, for moral reasons. She thought it was wrong to kill animals for food. But then, when she saw a body about to be cremated, she thought it was irrational to waste perfectly edible meat. So she cut off a piece of flesh, and took it home and cooked it. The person had died recently of a heart attack, and she cooked the meat thoroughly, so there was no risk of disease
+
+
+#### Increased Temporal Distance
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.
+
+> She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. **She must complete and submit this assignment within the next five weeks**.
+
+> While reading the story on the next page, try to think about the story from Anne's perspective rather than your own.
+
+#### Decreased Temporal Distance:
+
+> Anne is a student of philosophy. She generally shows a good understanding of the subject matter, and this is reflected in her grades. Sometimes, however, she may adopt a position on an issue and struggle (or even fail) to defend it.
+
+> She is currently taking a course in ethics. For this ethics course, Anne and has been asked to study the following scenario. She must identify if the behaviour described is right or wrong, and provide reasons for her judgement. **She must complete and submit this assignment today**.
+
+> While reading the story on the next page, try to think about the story from Anne’s perspective rather than your own.
+
+
+## Pilot Study 7: Results
+
+Again, we present two sets of results below. First we present the results for the full sample, second we present the results for the cleaned sample with exclusions based on participants' "lie score".
+
+```{r}
+#| include: false
+
+df3 <- seven_tot
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+x <- df3
+
+se_fun <- function(a,b){
+  k <- length(a$gender)
+  n <- length(b$gender)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$condition=="long"&x$InCS=="It's wrong and I can provide a valid reason."),]
+         ,x[which(x$condition=="long"),])
+  ,se_fun(x[which(x$condition=="long"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="long"),])
+  ,se_fun(x[which(x$condition=="long"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="long"),])
+  ,se_fun(x[which(x$condition=="short"&x$InCS=="It's wrong and I can provide a valid reason."),]
+          ,x[which(x$condition=="short"),])
+  ,se_fun(x[which(x$condition=="short"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="short"),])
+  ,se_fun(x[which(x$condition=="short"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="short"),])
+)
+
+y1 <- y %>% select("InCS","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","InCS") )
+
+rm(x,y)
+```
+
+```{r}
+#| include: false
+
+table(dftot$condition)
+
+g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), size=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+```
+
+```{r}
+#| label: apafg-dch5S7fig2criticalconditionNoExcl
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Pilot Study 7: Responses to critical slide for the increased temporal distance group (N = 70) and the reduced temporal distance group (N = 68); (No exclusions; error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 7 (full)")
+
+g7a <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b, g5a, g5_prob, g5b, g7a, file = "plots.RData")
+```
+
+
+
+
+```{r}
+#| include: false
+#| echo: false
+
+df3 <- seven_tot
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+
+t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
+t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
+d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
+
+
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+### No Exclusions
+#### Judgments (no exclusions)
+
+`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+
+
+```{r}
+#| include: false
+# 
+# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+# 
+# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+table(df3$condition)
+round(mean(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+
+round(mean(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+```
+
+#### Distancing and Judgments (no exclusions)
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~increased~ = `r round(mean(df3$InJu1[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InJu1[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(df3$InJu1[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(df3$InJu1[which(df3$condition=="short")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~increased~ = `r round(mean(df3$InJu2[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InJu2[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(df3$InJu2[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(df3$InJu2[which(df3$condition=="short")],na.rm=T), digits = 1)`).
+
+
+```{r}
+#| include: false
+c <- chisq.test(table(df3$InCS,df3$condition))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6]))),
+  c("long","short")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: S3S7tab1dumbNoExcl
+#| results: asis
+#| include: false
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Pilot Suty 7 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+#### Distancing and Dumbfounding (no exclusions)
+
+There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="long")`) and the control group (*N* = `r sum(df3$condition=="short")`) are displayed in {apafg-dch5S7fig2criticalconditionNoExcl}. 
+
+
+
+
+
+
+#### Individual Difference Predictors (no exclusions)
+
+```{r}
+#| include: false
+df3 <- dftot
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC + crt_tot, data = df3a)# , reflevel = 2)
+summary_InCS_model <- summary(InCSModel)
+
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+summary_InCS_model
+
+
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(InCS~NFC+crt_tot,df3, family = binomial(link = "logit"))
+cox <- revised_PseudoR2s(logits_rsquared)
+summary_InCS_model
+summary_InCS_model$CoefTable[7]
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[9]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[10]^2
+
+a <- exp(confint(InCSModel))
+
+cox
+```
+
+A multinomial logistic regression was conducted to test if the individual difference measures predicted dumbfounding. Overall the model did not significantly predict responses to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+
+
+
+```{r}
+#| label: dprepplottinglogit7
+#| include: false
+df3 <- df3[which(is.na(df3$NFC)==FALSE),]
+#df3$NFC <- df3$NFC/42
+table(df3$InCS)
+df3 <- df3 %>% dplyr::mutate(incs_num = dplyr::recode(
+  InCS,
+    "It's wrong and I can provide a valid reason."=1
+  , "There is nothing wrong."=2
+  , "It's wrong but I can't think of a reason."=3)) 
+df3$incs_num <- car::recode(df3$InCS, "" )
+
+x <- df3$NFC
+y <- as.numeric(df3$incs_num)
+
+cbind.data.frame(df3$InCS, as.numeric(df3$incs_num))
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+logit_plot
+
+```
+
+```{r}
+#| label: dggplotlogit7_old
+#| include: false
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, 
+           #color=factor(variable,labels=c("dumb","nothing","dumb"))
+           linetype=factor(variable#,labels=c("dumb","reason","nothing")
+                           )
+           )) +
+  geom_line()+
+  xlab("Need for Closure") + ylab("Predicted Probability") +
+  # scale_y_continuous(limits = c(0, 1)) + 
+  # scale_x_continuous(limits = c(0, 10))+
+  # scale_color_discrete(name="Response to \nCritical Slide", labels=c("Dumbfounded","Nothing Wrong","Reasons"))+
+  scale_linetype_discrete(name="Response to \nCritical Slide"
+                          #, labels=c("Reasons", "Dumbfounded", "Nothing Wrong")
+                          , labels=c("Reasons","Nothing Wrong","Dumbfounded")
+                          )+
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+  ),
+  legend.text=element_text(#family="Times",
+                           size=8
+  ),
+  legend.title=element_text(#family="Times",
+                            size=10
+  ),
+  axis.text=element_text(#family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(#family="Times",
+                          size=12
+  ),
+  strip.text=element_text(#family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+g
+```
+
+```{r}
+#| label: apafg-dggplotlogit7
+#| include: false
+#| fig-height: 5
+#| apa-cap: "Study 7: Probability of selecting each response to the critical slide depending on Social Desirability"
+
+suppressWarnings(print(g))
+
+```
+
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+g7_prob <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b
+     , g5a, g5_prob, g5b, g7a, g7_prob, file = "plots.RData")
+```
+
+```{r}
+#| include: false
+
+df3 <- seven
+
+table(df3$condition)
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+x <- df3
+
+se_fun <- function(a,b){
+  k <- length(a$gender)
+  n <- length(b$gender)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$condition=="long"&x$InCS=="It's wrong and I can provide a valid reason."),]
+         ,x[which(x$condition=="long"),])
+  ,se_fun(x[which(x$condition=="long"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="long"),])
+  ,se_fun(x[which(x$condition=="long"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="long"),])
+  ,se_fun(x[which(x$condition=="short"&x$InCS=="It's wrong and I can provide a valid reason."),]
+          ,x[which(x$condition=="short"),])
+  ,se_fun(x[which(x$condition=="short"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="short"),])
+  ,se_fun(x[which(x$condition=="short"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="short"),])
+)
+
+y1 <- y %>% select("InCS","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","InCS") )
+
+rm(x,y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), size=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+```
+
+```{r}
+#| label: apafg-dch5S7fig2criticalconditionWithExcl
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Pilot Study 7: Responses to critical slide for the increased temporal distance group (N = 39) and the reduced temporal distance group (N = 48); (With exclusions; error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 7 (clean)")
+g7b <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b
+     , g5a, g5_prob, g5b, g7a, g7_prob, g7b, file = "plots.RData")
+```
+
+```{r}
+#| include: false
+#| echo: false
+df3 <- seven
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+
+t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
+t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
+d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
+
+
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+
+
+### With Exclusions
+#### Judgments (with exclusions)
+
+`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+
+
+```{r}
+#| include: false
+# 
+# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+# 
+# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+table(df3$condition)
+round(mean(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+
+round(mean(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+```
+
+#### Distancing and Judgments (with exclusions)
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu1[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu1[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(df3$InJu1[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(df3$InJu1[which(df3$condition=="short")],na.rm=T), digits = 1)`). Revised judgments were significantly more severe in the increased temporal distance condition (*M*~increased~ = `r round(mean(df3$InJu2[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InJu2[which(df3$condition=="long")],na.rm=T), digits = 1)`) than in the reduced temporal distance condition (*M*~decreased~ = `r round(mean(df3$InJu2[which(df3$condition=="short")],na.rm=T), digits = 1)`,
+*SD*~decreased~ = `r round(sd(df3$InJu2[which(df3$condition=="short")],na.rm=T), digits = 1)`), *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+
+
+```{r}
+#| include: false
+c <- chisq.test(table(df3$InCS,df3$condition))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6]))),
+  c("long","short")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: S3S7tab1dumbwithexclusions
+#| results: asis
+#| include: false
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Pilot Study 3 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on cognitive load"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+#### Distancing and Dumbfounding (with exclusions)
+
+There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="long")`) and the control group (*N* = `r sum(df3$condition=="short")`) are displayed in {apafg-dch5S7fig2criticalconditionWithExcl}. 
+
+#### Individual Difference Predictors (with exclusions)
+
+```{r}
+#| include: false
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC + crt_tot, data = df3a)# , reflevel = 2)
+summary_InCS_model <- summary(InCSModel)
+
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+summary_InCS_model
+
+```
+
+A multinomial logistic regression was conducted to test if the individual difference measures predicted dumbfounding. Overall the model did not significantly predict responses to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`.
+
+{{< pagebreak >}}
+
+
+# Pilot Study 8 - Temporal Distance, "Julie and Mark" (First Person)
+All previous manipulations of temporal distance involved an additional vignette that included instructions to consider the moral scenario on either an extended timeline (increased temporal distance), or a short timeline (reduced temporal distance). In Pilot Study 8 we embedded the distance manipulation into the main moral scenario being judged. The scenario was depicted as either happening in the distant past (increased temporal distance) or no information was provided about when the event happened (control). We hypothesized that for the increased temporal distance condition rates of reason-giving would be higher.
+
+```{r}
+#| include: false
+
+rm(list = setdiff(
+  ls(),
+  c("affiliation_namer" 
+    , "character2name" ,"correspondings"
+    , "d_author_affiliations","display_abstract"
+    , "display_affiliations" ,"display_author_affiliations"
+    , "display_author_note" ,"display_authors"
+    , "display_corresponding_author" ,"display_keywords"
+    , "display_orcids" ,"display_title"
+    , "display_title_heading" ,"f_abstract_display"
+    , "f_affiliations_display" ,"f_author_affiliations"
+    , "f_author_affiliations_display" ,"f_author_display"
+    , "f_author_note_blanks" ,"f_author_note_display"
+    , "f_author_note_second_paragraph" ,"f_author_note_third_paragraph"
+    , "f_author_roles" ,"f_corresponding_author_display"
+    , "f_correspondings" ,"f_keywords_display"
+    , "f_orcids_display" ,"f_title_blanks"
+    , "f_title_display" ,"f_title_heading_display"
+    , "get_metadata" ,"has_annotations"
+    , "is_docx" ,"is_empty"
+    , "is_pdf" 
+    , "yml_metadata")
+))
+```
+
+```{r}
+#| label: loadDistancingData8
+#| include: false
+
+
+load("pilot_data/loaded_data/eight.RData")
+df3 <- eight
+dftot <- eight_tot
+
+variable.names(df3)
+df3$condition
+
+df3$crt_tot
+
+df1x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_8/in_distanced_vignette_manip.sav', to.data.frame = TRUE)
+df2x <- read.spss('pilot_data/raw_SPSS_files/pilot_study_8/in_distanced_vignette_control.sav', to.data.frame = TRUE)
+
+
+df <- haven::read_sav('pilot_data/raw_SPSS_files/pilot_study_8/in_distanced_vignette_manip.sav')
+
+N <- length(df1x$gender)+length(df2x$gender)
+rm(df1x,df2x)
+
+
+```
+
+
+## Pilot Study 8: Method
+
+### Pilot Study 8: Participants and Design
+
+Pilot Study 8 was a between-subjects design. The dependent variable was rates of providing reasons/dumbfounding measured using the critical slide (with three response options, reason-giving, dumbfounding, and nothing-wrong). The independent variable was temporal distance with two levels: increased and control. All participants read a modified version of the "Julie and Mark" vignette. Temporal distance was manipulated by the addition of a sentence indicating the event happened in the distant past (60 years ago). The control condition did not include information about when the event happened. Need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] and cognitive reflection [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016] were recorded as potential correlate/moderator variables. 
+
+An initial sample of `r N` participants took part. After initial screening (3 attention checks) we were left with a sample of `r length(dftot$gender)` participants (`r sum(dftot$gender=="Female")` female, `r sum(dftot$gender=="Male")` male; *M*~age~ = `r round(mean(dftot$age),digits=1)`, min = `r min(dftot$age)`, max = `r max(dftot$age)`, *SD* = `r round(sd(dftot$age),digits=1)`) took part. When participants who scored above the threshold on the need for closure lie score were removed, and this left a sample of `r length(df3$InCS)` participants (`r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male; *M*~age~ = `r round(mean(df3$age),digits=1)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=1)`). Participants were recruited through MTurk under the same conditions as in previous pilot studies.
+
+### Pilot Study 8: Procedure and Materials
+
+The procedure was similar to previous studies with some changes. The distance manipulation was embedded into the moral scenario rather than through an additional vignette. Reason-giving/dumbfounded responding was recorded using the critical slide, with three response options (reason-giving, nothing-wrong, dumbfounded). All participants read an rated the "Julie and Mark" scenario. In the experimental (increased temporal distance) condition this was modified to include information about when the event took place. The control condition did not include this information. The scenarios read as follows:
+
+#### Increased Temporal Distance
+
+> 60 years ago, Julie and Mark, who are brother and sister, were travelling together in France. They were both on summer vacation from college. One night they were staying alone in a cabin near the beach. They decided that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark used a condom too, just to be safe. They both enjoyed it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other.
+
+#### Control
+
+> Julie and Mark, who are brother and sister, are travelling together in France. They are both on summer vacation from college. One night they are staying alone in a cabin near the beach. They decide that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark uses a condom too, just to be safe. They both enjoy it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other.
+
+
+
+## Pilot Study 8: Results
+
+Again, we present two sets of results below. First we present the results for the full sample, second we present the results for the cleaned sample with exclusions based on participants' "lie score".
+
+```{r}
+#| include: false
+
+df3 <- eight_tot
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+x <- df3
+
+se_fun <- function(a,b){
+  k <- length(a$gender)
+  n <- length(b$gender)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$condition=="long"&x$InCS=="It's wrong and I can provide a valid reason."),]
+         ,x[which(x$condition=="long"),])
+  ,se_fun(x[which(x$condition=="long"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="long"),])
+  ,se_fun(x[which(x$condition=="long"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="long"),])
+  ,se_fun(x[which(x$condition=="short"&x$InCS=="It's wrong and I can provide a valid reason."),]
+          ,x[which(x$condition=="short"),])
+  ,se_fun(x[which(x$condition=="short"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="short"),])
+  ,se_fun(x[which(x$condition=="short"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="short"),])
+)
+
+y1 <- y %>% select("InCS","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","InCS") )
+
+rm(x,y)
+```
+
+```{r}
+#| include: false
+
+table(dftot$condition)
+
+g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Increased","Control")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), size=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+```
+
+```{r}
+#| label: apafg-dch5S8fig2criticalconditionNoExcl
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Pilot Study 8: Responses to critical slide for the increased temporal distance group (N = 128) and the control group (N = 116); (No exclusions; error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 8 (full)")
+
+g8a <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a,
+     g4b, g5a, g5_prob, g5b, g7a, g7b, g8a,
+     file = "plots.RData")
+```
+
+
+
+
+```{r}
+#| include: false
+#| echo: false
+
+df3 <- eight_tot
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+
+t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
+t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
+d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
+
+
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+### No Exclusions
+#### Judgments (no exclusions)
+
+`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+
+
+```{r}
+#| include: false
+# 
+# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+# 
+# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+table(df3$condition)
+round(mean(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+
+round(mean(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+```
+
+#### Distancing and Judgments (no exclusions)
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~increased~ = `r round(mean(df3$InJu1[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InJu1[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu1[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu1[which(df3$condition=="short")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~increased~ = `r round(mean(df3$InJu2[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InJu2[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu2[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu2[which(df3$condition=="short")],na.rm=T), digits = 1)`).
+
+
+```{r}
+#| include: false
+c <- chisq.test(table(df3$InCS,df3$condition))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6]))),
+  c("long","short")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: S3S8tab1dumbNoExcl
+#| results: asis
+#| include: false
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Pilot Suty 7 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+#### Distancing and Dumbfounding (no exclusions)
+
+There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="long")`) and the control group (*N* = `r sum(df3$condition=="short")`) are displayed in {apafg-dch5S8fig2criticalconditionNoExcl}. 
+
+
+
+
+
+
+#### Individual Difference Predictors (no exclusions)
+
+```{r}
+#| include: false
+df3 <- dftot
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC + crt_tot, data = df3a)# , reflevel = 2)
+summary_InCS_model <- summary(InCSModel)
+
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+summary_InCS_model
+
+
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(InCS~NFC+crt_tot,df3, family = binomial(link = "logit"))
+cox <- revised_PseudoR2s(logits_rsquared)
+summary_InCS_model
+summary_InCS_model$CoefTable[7]
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[9]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[10]^2
+
+a <- exp(confint(InCSModel))
+
+cox
+```
+
+A multinomial logistic regression was conducted to test if the individual difference measures predicted dumbfounding. Overall the model significantly predicted responses to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`. The model explained between `r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and `r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide. Need for closure was a significant predictor in the model. As need for closure increased, participants were significantly more likely to provide reasons than to select nothing-wrong, Wald = `r round(wald2,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[22]))`, odds ratio = `r round(exp(InCSModel$coefficients)[4],digits=2)`, 95% CI [`r round(a[4],digits=2)`, `r round(a[10],digits=2)`]. The predicted probabilities of each response depending on need for cognition are displayed in {apafg-dggplotlogit8}.
+
+```{r}
+#| label: dprepplottinglogit8
+#| include: false
+df3 <- df3[which(is.na(df3$NFC)==FALSE),]
+#df3$NFC <- df3$NFC/42
+table(df3$InCS)
+df3 <- df3 %>% dplyr::mutate(incs_num = dplyr::recode(
+  InCS,
+    "It's wrong and I can provide a valid reason."=1
+  , "There is nothing wrong."=2
+  , "It's wrong but I can't think of a reason."=3)) 
+df3$incs_num <- car::recode(df3$InCS, "" )
+
+x <- df3$NFC
+y <- as.numeric(df3$incs_num)
+
+cbind.data.frame(df3$InCS, as.numeric(df3$incs_num))
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+logit_plot
+
+```
+
+```{r}
+#| label: dggplotlogit8_old
+#| include: false
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, 
+           #color=factor(variable,labels=c("dumb","nothing","dumb"))
+           linetype=factor(variable#,labels=c("dumb","reason","nothing")
+                           )
+           )) +
+  geom_line()+
+  xlab("Need for Closure") + ylab("Predicted Probability") +
+  # scale_y_continuous(limits = c(0, 1)) + 
+  # scale_x_continuous(limits = c(0, 10))+
+  # scale_color_discrete(name="Response to \nCritical Slide", labels=c("Dumbfounded","Nothing Wrong","Reasons"))+
+  scale_linetype_discrete(name="Response to \nCritical Slide"
+                          #, labels=c("Reasons", "Dumbfounded", "Nothing Wrong")
+                          , labels=c("Reasons","Nothing Wrong","Dumbfounded")
+                          )+
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+  ),
+  legend.text=element_text(#family="Times",
+                           size=8
+  ),
+  legend.title=element_text(#family="Times",
+                            size=10
+  ),
+  axis.text=element_text(#family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(#family="Times",
+                          size=12
+  ),
+  strip.text=element_text(#family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+g
+```
+
+```{r}
+#| label: apafg-dggplotlogit8
+#| include: false
+#| fig-height: 5
+#| apa-cap: "Pilot Study 8: Probability of selecting each response to the critical slide depending on Social Desirability"
+
+suppressWarnings(print(g))
+
+```
+
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+g8_prob <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a,
+     g4b, g5a, g5_prob, g5b, g7a, g7b, g8a, g8_prob,
+     file = "plots.RData")
+```
+
+```{r}
+#| include: false
+
+df3 <- eight
+
+table(df3$condition)
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+x <- df3
+
+se_fun <- function(a,b){
+  k <- length(a$gender)
+  n <- length(b$gender)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$condition=="long"&x$InCS=="It's wrong and I can provide a valid reason."),]
+         ,x[which(x$condition=="long"),])
+  ,se_fun(x[which(x$condition=="long"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="long"),])
+  ,se_fun(x[which(x$condition=="long"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="long"),])
+  ,se_fun(x[which(x$condition=="short"&x$InCS=="It's wrong and I can provide a valid reason."),]
+          ,x[which(x$condition=="short"),])
+  ,se_fun(x[which(x$condition=="short"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="short"),])
+  ,se_fun(x[which(x$condition=="short"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="short"),])
+)
+
+y1 <- y %>% select("InCS","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","InCS") )
+
+rm(x,y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Increased","Control")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), size=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+```
+
+```{r}
+#| label: apafg-dch5S8fig2criticalconditionWithExcl
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Pilot Study 8: Responses to critical slide for the increased temporal distance group (N = 68) and the control group (N = 56); (With exclusions; error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 8 (clean)")
+g8b <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a,
+     g4b, g5a, g5_prob, g5b, g7a, g7b, g8a, g8_prob, g8b,
+     file = "plots.RData")
+```
+
+
+
+```{r}
+#| label: dprepplottinglogit8b
+#| include: false
+
+df3 <- eight
+df3 <- df3[which(is.na(df3$NFC)==FALSE),]
+#df3$NFC <- df3$NFC/42
+table(df3$InCS)
+df3 <- df3 %>% dplyr::mutate(incs_num = dplyr::recode(
+  InCS,
+    "It's wrong and I can provide a valid reason."=1
+  , "There is nothing wrong."=2
+  , "It's wrong but I can't think of a reason."=3)) 
+df3$incs_num <- car::recode(df3$InCS, "" )
+table(df3$condition)
+x <- df3$NFC
+y <- as.numeric(df3$incs_num)
+
+cbind.data.frame(df3$InCS, as.numeric(df3$incs_num))
+
+m1 <- multinom(y ~ x)
+# summary(m1)
+newdata <- data.frame(x = seq(min(x), max(x), length.out = 100))
+p1 <- predict(m1, newdata, type = "class")
+p2 <- predict(m1, newdata, type = "probs")
+
+
+logit_plot <- cbind.data.frame(newdata,p2)
+
+logit_plot <- `colnames<-`(logit_plot, c("x","one_l","two_l","three_l"))
+logit_plot <- melt(logit_plot, id="x")
+logit_plot
+
+```
+
+```{r}
+#| label: dggplotlogit8b_old
+#| include: false
+
+g <- ggplot(logit_plot,
+       aes(x=x, y=value, 
+           #color=factor(variable,labels=c("dumb","nothing","dumb"))
+           linetype=factor(variable#,labels=c("dumb","reason","nothing")
+                           )
+           )) +
+  geom_line()+
+  xlab("Need for Closure") + ylab("Predicted Probability") +
+  # scale_y_continuous(limits = c(0, 1)) + 
+  # scale_x_continuous(limits = c(0, 10))+
+  # scale_color_discrete(name="Response to \nCritical Slide", labels=c("Dumbfounded","Nothing Wrong","Reasons"))+
+  scale_linetype_discrete(name="Response to \nCritical Slide"
+                          #, labels=c("Reasons", "Dumbfounded", "Nothing Wrong")
+                          , labels=c("Reasons","Nothing Wrong","Dumbfounded")
+                          )+
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+  ),
+  legend.text=element_text(#family="Times",
+                           size=8
+  ),
+  legend.title=element_text(#family="Times",
+                            size=10
+  ),
+  axis.text=element_text(#family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(#family="Times",
+                          size=12
+  ),
+  strip.text=element_text(#family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+g
+```
+
+```{r}
+#| label: apafg-dggplotlogit8b
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Pilot Study 8: Probability of selecting each response to the critical slide depending on need for closure"
+
+suppressWarnings(print(g))
+
+```
+
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+g8_prob_b <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a,
+     g4b, g5a, g5_prob, g5b, g7a, g7b, g8a, g8_prob, g8b, g8_prob_b,
+     file = "plots.RData")
+```
+
+
+
+```{r}
+#| include: false
+#| echo: false
+df3 <- eight
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+
+t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
+t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
+d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
+
+
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+
+
+### With Exclusions
+#### Judgments (with exclusions)
+
+`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+
+
+```{r}
+#| include: false
+# 
+# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+# 
+# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+table(df3$condition)
+round(mean(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+
+round(mean(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+```
+
+#### Distancing and Judgments (with exclusions)
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu1[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu1[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(df3$InJu1[which(df3$condition=="short")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(df3$InJu1[which(df3$condition=="short")],na.rm=T), digits = 1)`). Revised judgments were significantly more severe in the increased temporal distance condition (*M*~increased~ = `r round(mean(df3$InJu2[which(df3$condition=="long")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(df3$InJu2[which(df3$condition=="long")],na.rm=T), digits = 1)`) than in the reduced temporal distance condition (*M*~decreased~ = `r round(mean(df3$InJu2[which(df3$condition=="short")],na.rm=T), digits = 1)`,
+*SD*~decreased~ = `r round(sd(df3$InJu2[which(df3$condition=="short")],na.rm=T), digits = 1)`), *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+
+
+```{r}
+#| include: false
+c <- chisq.test(table(df3$InCS,df3$condition))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6]))),
+  c("long","short")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: S3S8tab1dumbwithexclusions
+#| results: asis
+#| include: false
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Pilot Study 8 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on cognitive load"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+{{< pagebreak >}}
+
+#### Distancing and Dumbfounding (with exclusions)
+
+There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="long")`) and the control group (*N* = `r sum(df3$condition=="short")`) are displayed in {apafg-dch5S8fig2criticalconditionWithExcl}. 
+
+
+{{< pagebreak >}}
+
+#### Individual Difference Predictors (with exclusions)
+
+```{r}
+#| include: false
+
+df3a <- mlogit.data(df3, choice = "InCS", shape = "wide")
+InCSModel<-mlogit(InCS ~ 1 | NFC + crt_tot, data = df3a)# , reflevel = 2)
+summary_InCS_model <- summary(InCSModel)
+
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+summary_InCS_model
+
+```
+
+A multinomial logistic regression was conducted to test if the individual difference measures predicted dumbfounding. Overall the model significantly predicted responses to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`. The model explained between `r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and `r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide. Need for closure was a significant predictor in the model. As need for closure increased, participants were significantly more likely to provide reasons than to select nothing-wrong, Wald = `r round(wald2,digits=2)`, *p* `r paste(p_report(summary_InCS_model$CoefTable[22]))`, odds ratio = `r round(exp(InCSModel$coefficients)[4],digits=2)`, 95% CI [`r round(a[4],digits=2)`, `r round(a[10],digits=2)`]. The predicted probabilities of each response depending on need for cognition are displayed in {apafg-dggplotlogit8b}.
+
+{{< pagebreak >}}
+
+
+
+# Combined Results
+
+```{r}
+#| include: false
+
+load("pilot_data/loaded_data/onetoeight.RData")
+
+
+df3 <- onetoeight_tot
+
+
+```
+
+
+```{r}
+#| include: false
+
+
+
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+abc_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+c <- df3[which(df3$condition==levels(as.factor(df3$condition))[3]),]
+
+a$condition <- droplevels(as.factor(a$condition))
+b$condition <- droplevels(as.factor(b$condition))
+c$condition <- droplevels(as.factor(c$condition))
+
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+cy <- as.data.frame(table(c$InCS,c$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+cperc <- cy$Freq/length(c$gender)
+cy <- cbind(cy,cperc)
+colnames(cy) <- c("InCS","condition","Freq","perc")
+
+x <- rbind(ay,by,cy)
+
+x
+}
+
+test <- abc_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+
+c <- chisq.test(df3$condition,df3$InCS)
+c$stdres
+
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Control", "Increased Distance","Reduced Distance")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc, accuracy=1L),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+
+
+```
+
+```{r}
+#| label: apafg-totdch5allafig2criticalcondition
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Studies 1, 2, 3, 4, 5, 7, and 8: Responses to critical slide depending on condition"
+
+
+suppressWarnings(print(g))
+
+```
+
+
+
+```{r}
+#| include: false
+
+c <- chisq.test(df3$InCS,df3$condition)
+rownames(rbind(c$observed,c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+x
+
+x <- `colnames<-`(
+  cbind.data.frame( c(ps(x[1]) ,ps(x[2]) ,ps(x[3]))
+                   ,c(ps(x[4]) ,ps(x[5]) ,ps(x[6]))
+                   ,c(ps(x[7]) ,ps(x[8]) ,ps(x[9]))
+                   ),
+  c("control","long","short")
+)
+
+rownames(x) <- row.names(c$observed)  
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Nothing Wrong","Dumbfounded","Reasons",
+        "Nothing Wrong","Dumbfounded","Reasons",
+        "Nothing Wrong","Dumbfounded","Reasons"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c("","","Control"
+                   , "Long"
+                   ,"Short")
+
+
+
+
+```
+
+```{r}
+#| label: pilots1to8residuals
+#| include: true
+#| results: asis
+
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c","c","c")
+   , caption = "Studies 1, 2, 3, 4, 5, 7, and 8 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending distance manipulation"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+
+```{r}
+#| include: false
+
+c$stdres
+
+```
+
+
+```{r}
+#| include: false
+
+table(df3$temp_psych)
+
+```
+
+```{r}
+#| include: false
+
+c <- chisq.test(table(df3$InCS,df3$temp_psych))
+rownames(rbind(c$observed,c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame( c(ps(x[1]) ,ps(x[2]) ,ps(x[3]))
+                   ,c(ps(x[4]) ,ps(x[5]) ,ps(x[6]))
+                   ,c(ps(x[7]) ,ps(x[8]) ,ps(x[9]))
+                   ,c(ps(x[10]),ps(x[11]),ps(x[12]))
+                   ,c(ps(x[13]),ps(x[14]),ps(x[15]))
+                   ,c(ps(x[16]),ps(x[17]),ps(x[18]))
+                   ),
+  c("control_long","control_short","long_long","long_short","short_long","short_short")
+)
+
+rownames(x) <- row.names(c$observed)  
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Obs","","","Exp","","","Res","",""),
+      c("N-W","Dumb","Rsn",
+        "N-W","Dumb","Rsn",
+        "N-W","Dumb","Rsn"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c("","","ctrl-long"
+                   , "ctrl-short"
+                   ,"long-long"
+                   ,"long-short"
+                   ,"short-long"
+                   ,"short-short")
+
+
+
+
+```
+
+```{r}
+#| label: pilots1to8residualssmall
+#| include: true
+#| results: asis
+
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c","c","c")
+   , caption = "Studies 1, 2, 3, 4, 5, 7, and 8 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on distance manipulation"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001. Obs = Observed Count; Exp = Expected Count; Res = Standardized Residuals. N-W = Nothing Wrong; Dumb = Dumbfounded; Rsn = Reasons"
+   , escape = FALSE
+   
+)
+
+```
+
+```{r}
+#| include: false
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+
+
+
+
+abcdef_graph <- function(){
+  a <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[1]),]
+  b <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[2]),]
+  c <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[3]),]
+  d <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[4]),]
+  e <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[5]),]
+  f <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[6]),]
+
+  a#levels(as.factor(df3$temp_psych))[1]
+  
+  ay <- as.data.frame(table(a$InCS,as.character(a$temp_psych)))
+  by <- as.data.frame(table(b$InCS,as.character(b$temp_psych)))
+  cy <- as.data.frame(table(c$InCS,as.character(c$temp_psych)))
+  dy <- as.data.frame(table(d$InCS,as.character(d$temp_psych)))
+  ey <- as.data.frame(table(e$InCS,as.character(e$temp_psych)))
+  fy <- as.data.frame(table(f$InCS,as.character(f$temp_psych)))
+
+  aperc <- ay$Freq/length(a$gender)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("InCS","condition","Freq","perc")
+  
+  bperc <- by$Freq/length(b$gender)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("InCS","condition","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$gender)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("InCS","condition","Freq","perc")
+  
+  dperc <- dy$Freq/length(d$gender)
+  dy <- cbind(dy,dperc)
+  colnames(dy) <- c("InCS","condition","Freq","perc")
+
+  eperc <- ey$Freq/length(e$gender)
+  ey <- cbind(ey,eperc)
+  colnames(ey) <- c("InCS","condition","Freq","perc")
+  
+  fperc <- fy$Freq/length(f$gender)
+  fy <- cbind(fy,fperc)
+  colnames(fy) <- c("InCS","condition","Freq","perc")
+  
+  cx <- rbind(ay,by,cy,dy,ey,fy)
+  
+  cx
+}
+
+test2 <- abcdef_graph()
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+a$condition <- droplevels(as.factor(a$condition))
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+b$condition <- droplevels(as.factor(b$condition))
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test2, aes(x=InCS, y=perc, fill=factor(condition
+                                                   ,labels=c(#"no manipulation"
+                                                     "ctrl / long"
+                                                     , "ctrl / short"
+                                                     ,"long / long"
+                                                     ,"long / short"
+                                                     ,"short / long"
+                                                     ,"short / short")
+)))+
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=2.5,
+            aes( label = scales::percent(test2$perc,accuracy = 1L),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+  )+
+  geom_text(family = "Times", size=3.2,
+            aes(label = format(Freq),
+                y= -2.5*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+  ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Temporal /\n Psychological") +
+  
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+  ),
+  legend.text=element_text(family="Times",
+                           size=8
+  ),
+  legend.title=element_text(family="Times",
+                            size=9
+  ),
+  axis.text=element_text(family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(family="Times",
+                          size=12
+  ),
+  strip.text=element_text(family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+g
+
+
+
+```
+
+```{r}
+#| include: true
+#| label: apafg-summaryfigureplotoverall
+#| apa-cap: Response to the critical slide depending in different distancing manipulations across all pilot studies
+#| out-width: 100%
+
+
+
+suppressWarnings(print(g))
+
+```
+
+
+
+```{r}
+#| include: false
+
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r}
+#| include: false
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+#t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+#t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+# df_aov1 <- function(a){
+#     aov <- a
+#     print(paste0(c(aov[[1]][["Df"]], " ", ",")[c(1, 4, 3, 2)]))
+# }
+
+aov1 <- aov(InJu1~condition,df3)
+aov1 <- summary(aov(InJu1~condition,df3))
+
+eta1 <- (aov1[[1]][["Sum Sq"]][1])/((aov1[[1]][["Sum Sq"]][1])+(aov1[[1]][["Sum Sq"]][2]))
+
+tapply(df3$InJu1,df3$condition,descriptives)
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+df_aov(aov1)
+
+```
 
 ## Participants
 
-Who are they? How were they recruited? Report criteria for participant inclusion and exclusion. Perhaps some basic demographic stats are in order. A table is a great way to avoid repetition in statistical reporting.
-
-## Measures
-
-This section can also be titled **Materials** or **Apparatus**. Whatever tools, equipment, or measurement devices used in the study should be described.
-
-### Measure A
-
-Describe Measure A.
-
-### Measure B
-
-Describe Measure B.
-
-## Procedure
-
-What did participants do?
-
-How are the data going to be analyzed?
-
-# Results
-
-## Descriptive Statistics
-
-Here we describe the basic characteristics of our primary variables.
-
-Let's make a figure. A reference label for a figure in APA format must have the prefix `apafg-`. This is different from the usual Quarto prefix `fig-`.
+When not excluding participants based on their need for cognition "lie" scores, the combined sample included a total of `r length(df3$InCS)` participants (`r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male; *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`)
 
 ```{r}
-#| label: apafg-myplot1
-#| include: true
-#| apa-cap: This is the figure caption.
-#| apa-note: This is a note below the figure.
-
-plot(1:10)
+df3 <- onetoeight
 ```
 
-To refer to any figure or table, put the chunk label in curly braces. For example, see {apafg-myplot1}. In {apafg-importedgraphic}, we import an image.
-
-
+When participants who exceeded the threshold on the "lie" score were excluded the  combined sample included a total of `r length(df3$InCS)` participants (`r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male; *M*~age~ = `r round(mean(df3$age),digits=2)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=2)`)
+{{< pagebreak >}}
 
 ```{r}
-#| label: apafg-importedgraphic
-#| apa-cap: This is an imported graphic.
-#| apa-note: My note.
-knitr::include_graphics("resources/img/orcid2.png")
+df3 <- onetoeight_tot
 ```
 
-We can make a table the same way as a figure except that the label prefix is `apatb-`. Again, this is different from the usual quarto prefix `tbl-`, which will put the table table caption in the wrong place and with non-APA formatting.
+## Combined Results: No Exclusions
 
-```{r apatb-mytable}
-#| apa-cap: Here is the table caption.
-#| apa-note: Here is the note below the table.
-#| ft.align: left
+### Combined Increased Distance vs Reduced Distance (no exclusions)
+
+Our first analysis did not distinguish between temporal and psychological distance. We created a new variable with three levels, increased distance, decreased distance, and control. A chi-squared test for association revealed a significant a significant association between experimental condition and response to the critical slide:
+$\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w, digits=2)`, the observed power was `r round(pw$power, digits=2)`
+The responses to the critical slide for the control group (*N* = `r sum(df3$condition=="control")`), the increased distance group (*N* = `r sum(df3$condition=="long")`) and the decreased distance group (*N* = `r sum(df3$condition=="short")`) are displayed in Table.
+
+```{r}
+#| include: false
 
 
-tibble(Numbers = seq(1,4), Letters = LETTERS[seq(Numbers)]) %>% 
-  flextable() %>% 
-  theme_apa() %>% 
-  line_spacing(part = "all") %>% 
-  padding(padding.top = 5, padding.bottom = 5)
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+#t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+#t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+aov1 <- aov(InJu1~temp_psych,df3)
+aov1 <- summary(aov(InJu1~temp_psych,df3))
+
+eta1 <- (aov1[[1]][["Sum Sq"]][1])/((aov1[[1]][["Sum Sq"]][1])+(aov1[[1]][["Sum Sq"]][2]))
+
+tapply(df3$InJu1,df3$temp_psych,descriptives)
+
+tuk <- TukeyHSD(aov(InJu1~temp_psych,df3))
+
+#(aov[[1]][["Sum Sq"]][1])
+#(aov[[1]][["Sum Sq"]][1])/((aov[[1]][["Sum Sq"]][1])+(aov[[1]][["Sum Sq"]][2]))
+
+
+tuk[[1]][33]
+#
+
+c <- chisq.test(table(df3$InCS,df3$temp_psych))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
 
 ```
 
-To refer to this table in text, put the table's reference label in curly braces like so: As seen in {apatb-mytable}, there is not much information.
-
-What if you want the tables and figures to be at the end of the document? In the .pdf format, you can set the `floatsintext` option to false. For .html and .docx documents, there is not yet an automatic way to put tables and figures at the end. You can, of course, just put them all at the end, in order. The reference labels will work no matter where they are in the text.
-
-<!-- Add Additional Sections as Needed -->
-
-# Discussion
-
-Describe results in non-statistical terms. <!-- Add sections as needed. -->
-
-## Limitations and Future Directions
-
-Every study has limitations. Based on this study, some additional steps might include...
-
-## Conclusion
-
-Let's sum this up.
 
 {{< pagebreak >}}
+
+### Different types of manipulations (Temporal / Psychological)
+
+
+Overall, there was no significant association between experimental condition and response to the critical slide:
+$\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for each type of manipulation (the total samples are displayed below) are displayed in {apafg-summaryfigureplotoverall}. The observed counts, expected counts and standardized residuals are displayed in Table 4. 
+
+
+
+
+
+## Combined Results: With Exclusions
+
+```{r}
+#| include: false
+
+load("pilot_data/loaded_data/onetoeight.RData")
+
+
+df3 <- onetoeight
+
+
+```
+
+
+```{r}
+#| include: false
+
+
+
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+abc_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+c <- df3[which(df3$condition==levels(as.factor(df3$condition))[3]),]
+
+a$condition <- droplevels(as.factor(a$condition))
+b$condition <- droplevels(as.factor(b$condition))
+c$condition <- droplevels(as.factor(c$condition))
+
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+cy <- as.data.frame(table(c$InCS,c$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+cperc <- cy$Freq/length(c$gender)
+cy <- cbind(cy,cperc)
+colnames(cy) <- c("InCS","condition","Freq","perc")
+
+x <- rbind(ay,by,cy)
+
+x
+}
+
+test <- abc_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+
+c <- chisq.test(df3$condition,df3$InCS)
+c$stdres
+
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Control", "Increased Distance","Reduced Distance")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=4.2,
+            aes( label = scales::percent(test$perc, accuracy=1L),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+
+
+```
+
+```{r}
+#| label: apafg-totdch5allafig2criticalconditionExcl
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Studies 1, 2, 3, 4, 5, 7, and 8: Responses to critical slide depending on condition"
+
+
+suppressWarnings(print(g))
+
+```
+
+
+
+```{r}
+#| include: false
+
+c <- chisq.test(df3$InCS,df3$condition)
+rownames(rbind(c$observed,c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+x
+
+x <- `colnames<-`(
+  cbind.data.frame( c(ps(x[1]) ,ps(x[2]) ,ps(x[3]))
+                   ,c(ps(x[4]) ,ps(x[5]) ,ps(x[6]))
+                   ,c(ps(x[7]) ,ps(x[8]) ,ps(x[9]))
+                   ),
+  c("control","long","short")
+)
+
+rownames(x) <- row.names(c$observed)  
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Nothing Wrong","Dumbfounded","Reasons",
+        "Nothing Wrong","Dumbfounded","Reasons",
+        "Nothing Wrong","Dumbfounded","Reasons"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c("","","Control"
+                   , "Long"
+                   ,"Short")
+
+
+
+
+```
+
+```{r}
+#| label: pilots1to8residualsExcl
+#| include: true
+#| results: asis
+
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c","c","c")
+   , caption = "Studies 1, 2, 3, 4, 5, 7, and 8 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending distance manipulation"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+
+```{r}
+#| include: false
+
+c$stdres
+
+```
+
+
+```{r}
+#| include: false
+
+table(df3$temp_psych)
+
+```
+
+```{r}
+#| include: false
+
+c <- chisq.test(table(df3$InCS,df3$temp_psych))
+rownames(rbind(c$observed,c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame( c(ps(x[1]) ,ps(x[2]) ,ps(x[3]))
+                   ,c(ps(x[4]) ,ps(x[5]) ,ps(x[6]))
+                   ,c(ps(x[7]) ,ps(x[8]) ,ps(x[9]))
+                   ,c(ps(x[10]),ps(x[11]),ps(x[12]))
+                   ,c(ps(x[13]),ps(x[14]),ps(x[15]))
+                   ,c(ps(x[16]),ps(x[17]),ps(x[18]))
+                   ),
+  c("control_long","control_short","long_long","long_short","short_long","short_short")
+)
+
+rownames(x) <- row.names(c$observed)  
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Obs","","","Exp","","","Res","",""),
+      c("N-W","Dumb","Rsn",
+        "N-W","Dumb","Rsn",
+        "N-W","Dumb","Rsn"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c("","","ctrl-long"
+                   , "ctrl-short"
+                   ,"long-long"
+                   ,"long-short"
+                   ,"short-long"
+                   ,"short-short")
+
+
+
+
+```
+
+```{r}
+#| label: pilots1to8residualssmallExcl
+#| include: true
+#| results: asis
+
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c","c","c")
+   , caption = "Studies 1, 2, 3, 4, 5, 7, and 8 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on distance manipulation"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001. Obs = Observed Count; Exp = Expected Count; Res = Standardized Residuals. N-W = Nothing Wrong; Dumb = Dumbfounded; Rsn = Reasons"
+   , escape = FALSE
+   
+)
+
+```
+
+```{r}
+#| include: false
+
+y <- table(df3$condition,df3$InCS)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","InCS","Freq")
+
+z <- as.data.frame(table(df3$condition,df3$InCS)/length(df3$gender)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+
+
+
+
+abcdef_graph <- function(){
+  a <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[1]),]
+  b <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[2]),]
+  c <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[3]),]
+  d <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[4]),]
+  e <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[5]),]
+  f <- df3[which(df3$temp_psych==levels(as.factor(df3$temp_psych))[6]),]
+
+  a#levels(as.factor(df3$temp_psych))[1]
+  
+  ay <- as.data.frame(table(a$InCS,as.character(a$temp_psych)))
+  by <- as.data.frame(table(b$InCS,as.character(b$temp_psych)))
+  cy <- as.data.frame(table(c$InCS,as.character(c$temp_psych)))
+  dy <- as.data.frame(table(d$InCS,as.character(d$temp_psych)))
+  ey <- as.data.frame(table(e$InCS,as.character(e$temp_psych)))
+  fy <- as.data.frame(table(f$InCS,as.character(f$temp_psych)))
+
+  aperc <- ay$Freq/length(a$gender)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("InCS","condition","Freq","perc")
+  
+  bperc <- by$Freq/length(b$gender)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("InCS","condition","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$gender)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("InCS","condition","Freq","perc")
+  
+  dperc <- dy$Freq/length(d$gender)
+  dy <- cbind(dy,dperc)
+  colnames(dy) <- c("InCS","condition","Freq","perc")
+
+  eperc <- ey$Freq/length(e$gender)
+  ey <- cbind(ey,eperc)
+  colnames(ey) <- c("InCS","condition","Freq","perc")
+  
+  fperc <- fy$Freq/length(f$gender)
+  fy <- cbind(fy,fperc)
+  colnames(fy) <- c("InCS","condition","Freq","perc")
+  
+  cx <- rbind(ay,by,cy,dy,ey,fy)
+  
+  cx
+}
+
+test2 <- abcdef_graph()
+
+
+ab_graph <- function(){
+a <- df3[which(df3$condition==levels(as.factor(df3$condition))[1]),]
+a$condition <- droplevels(as.factor(a$condition))
+b <- df3[which(df3$condition==levels(as.factor(df3$condition))[2]),]
+b$condition <- droplevels(as.factor(b$condition))
+#levels(as.factor(df3$condition))[1]
+
+ay <- as.data.frame(table(a$InCS,a$condition))
+by <- as.data.frame(table(b$InCS,b$condition))
+
+aperc <- ay$Freq/length(a$gender)
+ay <- cbind(ay,aperc)
+colnames(ay) <- c("InCS","condition","Freq","perc")
+
+bperc <- by$Freq/length(b$gender)
+by <- cbind(by,bperc)
+colnames(by) <- c("InCS","condition","Freq","perc")
+
+c <- rbind(ay,by)
+
+c
+}
+
+test <- ab_graph()
+
+# y <- table(df3$condition,df3$Dumb_incl_string)
+# y <- as.data.frame(y)
+# colnames(y) <- c("condition","InCS","Freq")
+
+rm(x,y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test2, aes(x=InCS, y=perc, fill=factor(condition
+                                                   ,labels=c(#"no manipulation"
+                                                     "ctrl / long"
+                                                     , "ctrl / short"
+                                                     ,"long / long"
+                                                     ,"long / short"
+                                                     ,"short / long"
+                                                     ,"short / short")
+)))+
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=2.5,
+            aes( label = scales::percent(test2$perc,accuracy = 1L),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+  )+
+  geom_text(family = "Times", size=3.2,
+            aes(label = format(Freq),
+                y= -2.5*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+  ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  #scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Temporal /\n Psychological") +
+  
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(family="Times",
+                                size=12
+  ),
+  legend.text=element_text(family="Times",
+                           size=8
+  ),
+  legend.title=element_text(family="Times",
+                            size=9
+  ),
+  axis.text=element_text(family="Times",
+                         colour = "black",
+                         size=8
+  ),
+  axis.ticks.x = element_blank(),
+  axis.title=element_text(family="Times",
+                          size=12
+  ),
+  strip.text=element_text(family = "Times",
+                          size = 12
+  ),
+  strip.background = element_rect(fill = "white"),
+  legend.position="right")
+
+g
+
+
+
+```
+
+```{r}
+#| include: true
+#| label: apafg-summaryfigureplotoverallExcl
+#| apa-cap: Response to the critical slide depending in different distancing manipulations across all pilot studies
+#| out-width: 100%
+
+
+
+suppressWarnings(print(g))
+
+```
+
+
+
+```{r}
+#| include: false
+
+# create variables for reporting t.tests
+t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
+
+#chisquare test function
+
+custom_chi <- function(x,y){
+  a <- length(x)
+  b <- length(y)
+  c <- rep(1, a)
+  d <- rep(2, b)
+  e <- c(c,d)
+  f <- c(x, y)
+  
+  g <- data.frame(e,f)
+  h <- table(g$e,g$f)
+  suppressWarnings(chisq.test(h))
+}
+
+c <- suppressWarnings(custom_chi(df3$InJu1,df3$InJu2))
+
+changed_num <- function(x, judgement_1, judgement_2){
+  b <- b <- x[which(x$Ju1_bin==judgement_1 & x$Ju2_bin==judgement_2),]
+  length(b$Ju1_bin)
+  
+}
+
+tot_changed_num <- function(x, query){
+  
+  c <- cbind.data.frame(x$Ju1_bin[which(x$Ju1_bin!=x$Ju2_bin)],x$Ju2_bin[which(x$Ju1_bin!=x$Ju2_bin)])
+  colnames(c) <- c("initial_judgement","revised_judgement")
+  
+  c
+  if(query == "table") print(c)
+  if(query == "total") print(length(c$initial_judgement))}
+
+```
+
+```{r}
+#| include: false
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+#t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+#t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+# df_aov1 <- function(a){
+#     aov <- a
+#     print(paste0(c(aov[[1]][["Df"]], " ", ",")[c(1, 4, 3, 2)]))
+# }
+
+aov1 <- aov(InJu1~condition,df3)
+aov1 <- summary(aov(InJu1~condition,df3))
+
+eta1 <- (aov1[[1]][["Sum Sq"]][1])/((aov1[[1]][["Sum Sq"]][1])+(aov1[[1]][["Sum Sq"]][2]))
+
+tapply(df3$InJu1,df3$condition,descriptives)
+
+#
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+df_aov(aov1)
+
+```
+
+
+### Combined Increased Distance vs Reduced Distance (with exclusions)
+
+Our first analysis did not distinguish between temporal and psychological distance. We created a new variable with three levels, increased distance, decreased distance, and control. A chi-squared test for association revealed a significant a significant association between experimental condition and response to the critical slide:
+$\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w, digits=2)`, the observed power was `r round(pw$power, digits=2)`
+The responses to the critical slide for the control group (*N* = `r sum(df3$condition=="control")`), the increased distance group (*N* = `r sum(df3$condition=="long")`) and the decreased distance group (*N* = `r sum(df3$condition=="short")`) are displayed in Table.
+
+```{r}
+#| include: false
+
+
+sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+
+#t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+#t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+aov1 <- aov(InJu1~temp_psych,df3)
+aov1 <- summary(aov(InJu1~temp_psych,df3))
+
+eta1 <- (aov1[[1]][["Sum Sq"]][1])/((aov1[[1]][["Sum Sq"]][1])+(aov1[[1]][["Sum Sq"]][2]))
+
+tapply(df3$InJu1,df3$temp_psych,descriptives)
+
+tuk <- TukeyHSD(aov(InJu1~temp_psych,df3))
+
+#(aov[[1]][["Sum Sq"]][1])
+#(aov[[1]][["Sum Sq"]][1])/((aov[[1]][["Sum Sq"]][1])+(aov[[1]][["Sum Sq"]][2]))
+
+
+tuk[[1]][33]
+#
+
+c <- chisq.test(table(df3$InCS,df3$temp_psych))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+
+{{< pagebreak >}}
+
+### Different types of manipulations: Temporal / Psychological (with exclusions)
+
+
+Overall, there was no significant association between experimental condition and response to the critical slide:
+$\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for each type of manipulation (the total samples are displayed below) are displayed in {apafg-summaryfigureplotoverall}. The observed counts, expected counts and standardized residuals are displayed in Table 4. 
+
+
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+&nbsp;
+
+## Overview of All Pilot Studies
+
+```{r}
+#| include: false
+
+
+
+load("plots.RData")
+p <- g8b
+#scale_fill_grey(start = .5, end = .8)
+p <- p +
+  scale_fill_grey(start = .5, end = .8, labels=c("Increased","Reduced/Control")) +
+  theme(legend.text = element_text(size=20)
+        ,legend.title=element_text(#family="Times",
+                                    size=25
+                                    ))
+
+get_legend<-function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+
+legend_for_plot <- get_legend(p)
+#plot.title=element_text(size=25)
+
+overall_plot <- grid.arrange(arrangeGrob(
+  g1a + theme(legend.position="none",
+              plot.title=element_text(size=25))
+  , g2a + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g2b + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g3a + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g3b + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g4a + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g4b + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g5a + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g5b + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g7a + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g7b + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g8a + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g8b + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , nrow=4)
+  , legend_for_plot
+  , nrow=2,heights=c(15, 2)
+)
+
+#overall_plot
+
+# 
+# load("plots.RData")
+# overall_plot <- 
+#   ggarrange(g1a
+#             #, g1b
+#             , g2a
+#             , g2b
+#             , g3a
+#             , g3b
+#             , g4a
+#             , g4b
+#             , g5a
+#             #, g5_prob
+#             , g5b
+#             , g7a
+#             , g7b
+#             , g8a
+#             , g8b
+#             , ncol = 4, nrow = 4
+#             , l1a
+#             , legend = "bottom"
+#             #, common.legend = TRUE
+#             )
+# overall_plot
+ggsave("resources/img/overallplot.png", plot = overall_plot, width = 20, height = 18, units = "in")
+
+
+
+
+# 
+# layers <- lapply(p$layers, function(x) {
+#     
+#       class(x$geom)[1]
+#     
+#   })
+# layers  
+# # Delete the unwanted layers.
+#   layers <- layers[!sapply(layers, is.null)]
+#   ggplot2_object$layers <- layers
+#   ggplot2_object
+# 
+# class(p$layers[[1]]$geom)
+# 
+# p$layers[[3]]
+# class()
+# class(p$layers[[2]])
+
+
+
+```
+
+```{r}
+#| label: apafg-summaryfigureplot
+#| apa-cap: Results of Studies 1-8.
+#| out-width: 100%
+
+knitr::include_graphics("resources/img/overallplot.png")
+```
+
 
 
 # References
@@ -3873,10 +8039,6 @@ Let's sum this up.
 <!-- Delete any unnecessary sections or pagebreaks. -->
 
 {{< pagebreak >}}
-
-# Appendix
-
-If there are multiple appendices, label them with level 1 headings as Appendix A, Appendix B, and so forth.
 
 <!-- I like my tables and figures intermingled with the text, -->
 

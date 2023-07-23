@@ -1,0 +1,406 @@
+---
+title: "Distancing and Moral Dumbfounding:"
+subtitle: " Facilitating the Identification of Reasons"
+author: "Cillian McHugh"
+institute: "London Reasoning Workshop - 25th July 2023"
+bibliography: "resources/bib/My Library.bib"
+csl: resources/bib/apa.csl
+format:
+  revealjs:
+    transition: none
+    transition-speed: fast
+    slide-number: false
+    logo: "resources/img/ul-psychology-logos.png"
+    footer: "Cillian McHugh - 25/7/23"
+    theme: resources/mytheme.scss
+    chalkboard: 
+      buttons: true
+editor: source
+---
+
+
+
+```{r colors}
+
+r_slidetot <- 82
+
+
+#Color Format
+colFmt = function(x,color){
+  outputFormat = knitr::opts_knit$get("rmarkdown.pandoc.to")
+  if(outputFormat == 'latex')
+    paste("\\textcolor{",color,"}{",x,"}",sep="")
+  else if(outputFormat == 'html')
+    paste("<font color='",color,"'>",x,"</font>",sep="")
+  else
+    x
+}
+
+#rgb(255, 0, 0);
+
+sentiment <- '#ff744e'
+rational1 <- '#2faace'
+rational <- '#248aa8'
+conflict1 <- '#7d0552'
+conflict <- '#2f8d2f'
+cogload <- '#a0522d'
+dual <- '#b93b8f'
+lightgrey <- '#c0c0c0'
+
+
+# \definecolor{sentiment}{RGB}{255, 115, 115} #ff7300 or #ff744e
+# 
+# % \definecolor{rational}{RGB}{47,170,206} #2faace
+# 
+# \definecolor{rational}{RGB}{36, 138, 168} #248aa8
+# 
+# % \definecolor{conflict}{RGB}{125, 5, 82} #7d0552
+# 
+# \definecolor{cogload}{RGB}{160, 82, 45} #a0522d
+# 
+# \definecolor{conflict}{RGB}{47,141,47} #2f8d2f
+# 
+# \definecolor{dual}{RGB}{185, 59, 143} #b93b8f
+# 
+# \definecolor{lightgrey}{RGB}{192,192,192} #c0c0c0
+
+
+# plotting:
+# red dumbfounded
+# yellow reasons
+# blue nothing wrong
+dumb_palette <- c('#ff3801','#ff4c1b','#ff6035','#ff744e','#ff8868','#ff9c81','#ffb09b','#ff744e') # https://www.colorhexa.com/ff744e
+reasons_palette <- c('#ffb701','#ffbf1b','#ffc635','#ffcd4e','#ffd468','#ffdb81','#ffe39b','#ffcd4e') #https://www.colorhexa.com/ffcd4e
+nothing_palette <- c('#0149ff','#1b5bff','#356eff','#4e80ff','#6892ff','#81a5ff','#9bb7ff','#4e80ff') # https://www.colorhexa.com/4e80ff
+
+
+
+
+```
+
+## Overview
+
+- Background to Moral Dumbfounding
+- Moral Dumbfounding & Dual Processes
+- The Current Studies
+- Looking Forward
+
+
+
+## Moral Dilemmas
+
+:::{.incremental}
+- Is it wrong to steal a drug to save a loved one?/Is it wrong to demand profit from a life saving drug?
+- Is it wrong to push someone off a bridge to save five?
+- Is it wrong to eat meat from a dead body?
+- Is it wrong for a brother and sister (Julie and Mark) to make love? (using multiple forms of contraception)<br><br>
+
+- <font color="#FF7575">**Have you got a reason for your Judgement?**</font>
+:::
+
+## What Moral Dumbfounding?
+
+. . .
+
+Moral Dumbfounding occurs when people <font color="ff744e">defend</font> a moral judgement even though they cannot provide a <font color="6892ff">reason</font> in support of this judgment [@haidt_moral_2000; @mchugh_searching_2017]<br><br>
+
+:::{.incremental}
+
+- Admission of not having reasons 
+- Unsupported declarations
+  - <font size="54px" color="ff744e">"*It's just wrong *"</font>
+
+- Typically occurs for harmless taboos
+
+:::
+
+
+## Dumbfounded by *Incest*
+
+<iframe width="900" height="600" src="resources/video/Participant_26_subs.mp4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+
+
+## Influence of Moral Dumbfounding
+
+- Moral Dumbfounding is cited as evidence for
+  - ***`r colFmt("intuitionist",sentiment)`*** or ***`r colFmt("dual-process",dual)`*** theories of moral judgement 
+    - e.g., @crockett_models_2013; @cushman_action_2013; @greene_secret_2008; @haidt_emotional_2001
+  - over more ***`r colFmt("rationalist",rational)`*** approaches
+    - e.g., @kohlberg_stages_1969; @topolski_choosing_2013
+
+
+## Research on Moral Dumbfounding {.smaller}
+
+:::{.incremental}
+- Original unpublished study [@haidt_moral_2000]
+- Replication and development of methods [@mchugh_searching_2017]
+- Replication in non-Western samples [China, India, MENA, @mchugh_just_2023]
+- <font color="6892ff">Principle/reason</font>-based challenges [@sneddon_social_2007; @gray_myth_2014; @jacobson_moral_2012; @stanley_reasonbased_2019]
+  - @royzman_curious_2015
+- Response to challenges [@mchugh_reasons_2020]
+- Dual-Processes/Cognitive Load [@mchugh_cognitive_2023]
+
+:::
+
+
+## Robust to Challenges
+
+:::{.incremental}
+- @royzman_curious_2015 exclusion criteria
+  - Endorsing
+
+- @mchugh_reasons_2020 exclusion criteria
+  - Endorsing, Articulating, *and* Applying
+  
+- False Exclusions
+  - Selected "nothing wrong"
+
+:::
+
+## Robust to Challenges
+
+![False exclusions by exclusion criteria](resources/img/S3reasonsfig3.png){height=500}
+
+
+# Moral Dumbfounding & Dual Processes
+
+
+## Moral Dumbfounding & Dual Processes {.smaller}
+
+
+- <font color="2f8d2f">Conflict</font> in <font color="b93b8f">dual-process</font> occurs when
+  - a <font color="ff744e">habitual (System 1)</font> response is <font color="2f8d2f">different</font>
+  - from a response that results from <font color="248aa8">deliberation (System 2)</font>
+
+
+Three response options in the <font color="2f8d2f">dumbfounding paradigm</font>
+
+::: {.fragment .highlight-blue}
+  - It’s wrong and I can provide a valid reason
+  
+:::
+::: {.fragment .highlight-red}
+  - It’s wrong but I can’t think of a reason
+
+:::
+::: {.fragment .highlight-red}
+  - There is nothing wrong (competing intuitions)
+
+:::
+
+
+# Complexity of Morality
+
+
+## Goodies vs Baddies
+
+![](resources/images/batman.png){width="600"}
+
+
+
+
+## Known Influences on Moral Judgements {.smaller}
+
+#### ... some of them anyway...
+
+- Emotional influences [e.g., @cameron_morality_2013]
+- Intentionality, Evitability, benefit recipient [@christensen_moral_2014; @christensen_moral_2012]
+- Action-outcome distinction [@crockett_models_2013; @cushman_action_2013]
+- Trustworthiness and social evaluation [@everett_inference_2016; @everett_costs_2018]
+- Personal-impersonal distinction [@greene_fmri_2001]
+- Doctrine of double effect [@mikhail_rawls_2000]
+- Level of physical contact [@valdesolo_manipulations_2006]
+- Order effects [@wiegmann_order_2012]
+
+
+
+# Understanding this complexity
+
+
+## Existing Approaches {.smaller}
+
+> - **Moral Emotions**: @prinz_passionate_2005
+>   - *'Emotions, I will suggest are perceptions of our bodily states. To recognise the moral value of an event is, thus, to perceive the perturbation that it causes'* [@prinz_passionate_2005, p. 99]
+> - **Social Intuitionist Model** [@haidt_emotional_2001]
+>   - e.g., intuitions as phonemes [@haidt_emotional_2001, p. 827]
+>   - ‘brain has a kind of gauge’, a ‘like-ometer’ [@haidt_social_2008, p. 187]
+
+> - **Theory of Dyadic Morality**: [@gray_mind_2012; @schein_theory_2018]
+>   - Content focused (rather than underlying processes)
+
+> - **Dual Process Theories**: [e.g., @greene_secret_2008]
+>   - 'Emotion' vs 'Cognition' (not well defined)
+
+# Theory of Dyadic Morality (TDM)
+
+## Theory of Dyadic Morality (TDM) {.smaller}
+
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+<br>
+
+- "an intentional agent causing damage to a vulnerable patient" [@schein_theory_2018, p. 33]
+
+<br>
+
+
+- "an intentional moral agent and a suffering moral patient [@gray_mind_2012, p. 101].
+
+<br>
+
+- "interpersonal harm is the essence of morality" [@gray_mind_2012, p. 109]
+
+:::
+
+::: {.column width="40%"}
+
+<br>
+<br>
+<br>
+
+:::
+
+::::
+
+## Issues with TDM
+
+
+### Harmless Wrongs: Moral Dumbfounding
+
+::: {.columns}
+
+::: {.column width="60%"}
+
+- Moral dumbfounding occurs when people defend a moral judgement even though they cannot provide supporting reasons<br>
+[@mchugh_searching_2017; @haidt_moral_2000]
+
+
+:::
+
+::: {.column width="40%"}
+
+:::
+
+::::
+
+## Moral Dumbfounding {.smaller}
+
+<br>
+
+> Jennifer works in a medical school pathology lab as a research assistant. The lab prepares human cadavers that are used to teach medical students about anatomy. The cadavers come from people who had donated their body to science for research. One night Jennifer is leaving the lab when she sees a body that is going to be discarded the next day. Jennifer was a vegetarian, for moral reasons. She thought it was wrong to kill animals for food. But then, when she saw a body about to be cremated, she thought it was irrational to waste perfectly edible meat. So she cut off a piece of flesh, and took it home and cooked it. The person had died recently of a heart attack, and she cooked the meat thoroughly, so there was no risk of disease.
+
+
+## Challenges to Moral Dumbfounding {.smaller}
+
+- Failure to provide reasons does not mean there are no reasons [@sneddon_social_2007]
+- People implicitly perceive harm [@gray_myth_2014]
+- People have do have reasons but are “beaten into submission” [@jacobson_moral_2012] 
+- Evidence for principles or reasons guiding judgements
+  - Harm based Norm based [@royzman_curious_2015]
+    - Excluding participants who endorsed either principle
+      - Moral Dumbfounding effectively disappeared…
+
+## Responding to Challenges {.smaller}
+
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+- People do not consistently articulate or apply harm or norm-based reasons [@mchugh_reasons_2020]
+- Demonstrably more accurate exclusion criteria
+  - fewer false exclusions<br>(<8% from >50%)
+- Interesting order effect
+
+> *"it is wrong for two people to engage in an activity whereby harm may occur"*
+
+(Boxing/Rugby)
+
+:::
+
+::: {.column width="50%"}
+
+
+:::
+
+::::
+
+
+## More Evidence for Dumbfounding {.smaller}
+
+
+
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+:::
+
+::: {.column width="40%"}
+
+
+@mchugh_just_2023
+:::
+
+::::
+
+
+
+
+## Understanding Dumbfounding?
+
+:::: {.columns}
+
+::: {.column width="60%"}
+- Trying to understand moral judgments and moral dumbfounding
+  - e.g., testing explanations of dumbfounding<br>[@mchugh_cognitive_2023]
+:::
+
+::: {.column width="40%"}
+![](resources/images/cog_load.png)
+
+:::
+
+::::
+
+## Issues with TDM
+
+### Wrongless Harms
+
+::: {.columns}
+
+::: {.column width="60%"}
+
+- Harmful acts that are not viewed as wrong
+- e.g., Boxing / Rugby
+- @royzman_puzzle_2022
+  - *The puzzle of wrongless harms*
+    - Dating, Fired, Mask, Chess
+
+:::
+
+::: {.column width="40%"}
+
+
+:::
+
+::::
+
+
+## Issues with TDM
+
+- Harmless Wrongs
+- Wrongless Harms
+
+# Dual-Process approaches
+
+
+
+
+## References {.smallest}

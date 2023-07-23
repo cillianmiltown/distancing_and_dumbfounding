@@ -1682,7 +1682,7 @@ colnames(one_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","g
 # distinguish between psychological distance 'psych' and temporal distance 'temp'
 x <- one_cb
 x$condition <- recode(x$condition, "'1manip'='long'; '2control'='control'")
-x$temp_psych <- recode(x$temp, "'1manip'='short_long'; '2control'='control'")
+x$temp_psych <- recode(x$temp, "'1manip'='control_long'; '2control'='control_short'")
 x$psych <- recode(x$psych, "'1manip'='long'; '2control'='control'")
 x$temp <- rep("short", length(x$gender))
 one_cb <- x
@@ -1695,7 +1695,7 @@ colnames(two_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","g
 
 x <- two_cb
 x$condition <- recode(x$condition, "'1manip'='long'; '2control'='control'")
-x$temp_psych <- recode(x$temp, "'1manip'='short_long'; '2control'='control'")
+x$temp_psych <- recode(x$temp, "'1manip'='control_long'; '2control'='control_short'")
 x$psych <- recode(x$psych, "'1manip'='long'; '2control'='control'")
 x$temp <- rep("short", length(x$gender))
 two_cb <- x
@@ -1743,11 +1743,22 @@ x$temp_psych <- recode(x$temp, "'short'='short_long'; 'long'='long_long'")
 seven_cb <- x
 
 
+x <- eight_tot
+
+eight_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
+colnames(eight_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+
+x <- eight_cb
+x$psych <- rep("long", length(x$gender))
+x$temp_psych <- recode(x$temp, "'short'='short_short'; 'long'='long_short'")
+eight_cb <- x
+
 # onetofive <- rbind(one_cb, two_cb, three_cb, four_cb, five_cb)
 # twotofive <- rbind(two_cb, three_cb, four_cb, five_cb)
 # threetofive <- rbind(three_cb, four_cb, five_cb)
 
 onetoseven_tot <- rbind(one_cb, two_cb, three_cb, four_cb, five_cb, seven_cb)
+onetoeight_tot <- rbind(one_cb, two_cb, three_cb, four_cb, five_cb, seven_cb, eight_cb)
 
 #### Combined ####
 
@@ -1759,7 +1770,7 @@ colnames(one_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","g
 # distinguish between psychological distance 'psych' and temporal distance 'temp'
 x <- one_cb
 x$condition <- recode(x$condition, "'1manip'='long'; '2control'='control'")
-x$temp_psych <- recode(x$temp, "'1manip'='short_long'; '2control'='control'")
+x$temp_psych <- recode(x$temp, "'1manip'='control_long'; '2control'='control_short'")
 x$psych <- recode(x$psych, "'1manip'='long'; '2control'='control'")
 x$temp <- rep("short", length(x$gender))
 one_cb <- x
@@ -1772,7 +1783,7 @@ colnames(two_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","g
 
 x <- two_cb
 x$condition <- recode(x$condition, "'1manip'='long'; '2control'='control'")
-x$temp_psych <- recode(x$temp, "'1manip'='short_long'; '2control'='control'")
+x$temp_psych <- recode(x$temp, "'1manip'='control_long'; '2control'='control_short'")
 x$psych <- recode(x$psych, "'1manip'='long'; '2control'='control'")
 x$temp <- rep("short", length(x$gender))
 two_cb <- x
@@ -1820,11 +1831,23 @@ x$temp_psych <- recode(x$temp, "'short'='short_long'; 'long'='long_long'")
 seven_cb <- x
 
 
+x <- eight
+
+eight_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
+colnames(eight_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+
+x <- eight_cb
+x$psych <- rep("long", length(x$gender))
+x$temp_psych <- recode(x$temp, "'short'='short_short'; 'long'='long_short'")
+eight_cb <- x
+
+
 # onetofive <- rbind(one_cb, two_cb, three_cb, four_cb, five_cb)
 # twotofive <- rbind(two_cb, three_cb, four_cb, five_cb)
 # threetofive <- rbind(three_cb, four_cb, five_cb)
 
 onetoseven <- rbind(one_cb, two_cb, three_cb, four_cb, five_cb, seven_cb)
+onetoeight <- rbind(one_cb, two_cb, three_cb, four_cb, five_cb, seven_cb, eight_cb)
 # 
 # df3 <- onetoseven
 # df3$condition <- recode(df3$condition, "'1manip'='long'")
@@ -1852,6 +1875,7 @@ save(six,six_tot, file = "pilot_data/loaded_data/six.RData")
 save(seven,seven_tot, file = "pilot_data/loaded_data/seven.RData")
 save(eight,eight_tot, file = "pilot_data/loaded_data/eight.RData")
 save(onetoseven,onetoseven_tot, file = "pilot_data/loaded_data/onetoseven.RData")
+save(onetoeight,onetoeight_tot, file = "pilot_data/loaded_data/onetoeight.RData")
 
 
 ## save Study 1
@@ -1890,6 +1914,9 @@ write.csv(eight, file="pilot_data/csv_files/pilot_study_8_clean.csv",row.names =
 write.csv(onetoseven_tot, file="pilot_data/csv_files/pilot_combined_123457_full.csv",row.names = FALSE)
 write.csv(onetoseven, file="pilot_data/csv_files/pilot_combined123457_clean.csv",row.names = FALSE)
 
+## save combined (Studies 1,2,3,4,5,7,8)
+write.csv(onetoeight_tot, file="pilot_data/csv_files/pilot_combined_1234578_full.csv",row.names = FALSE)
+write.csv(onetoeight, file="pilot_data/csv_files/pilot_combined1234578_clean.csv",row.names = FALSE)
 
 
 

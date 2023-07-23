@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="LRW_2023_files/libs/clipboard/clipboard.min.js"></script>
+<script src="LRW_2023_files/libs/quarto-html/tabby.min.js"></script>
+<script src="LRW_2023_files/libs/quarto-html/popper.min.js"></script>
+<script src="LRW_2023_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="LRW_2023_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="LRW_2023_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="LRW_2023_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="LRW_2023_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.287">
+
+  <meta name="author" content="Cillian McHugh">
+  <title>Distancing and Moral Dumbfounding:</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="LRW_2023_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="LRW_2023_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="LRW_2023_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="LRW_2023_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="LRW_2023_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="LRW_2023_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="LRW_2023_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="LRW_2023_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="LRW_2023_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Distancing and Moral Dumbfounding:</h1>
+  <p class="subtitle">Facilitating the Identification of Reasons</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Cillian McHugh 
+</div>
+        <p class="quarto-title-affiliation">
+            London Reasoning Workshop - 25th July 2023
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="overview" class="slide level2">
+<h2>Overview</h2>
+<ul>
+<li>Background to Moral Dumbfounding</li>
+<li>Moral Dumbfounding &amp; Dual Processes</li>
+<li>The Current Studies</li>
+<li>Looking Forward</li>
+</ul>
+</section>
+<section id="moral-dilemmas" class="slide level2">
+<h2>Moral Dilemmas</h2>
+<div>
+<ul>
+<li class="fragment"><p>Is it wrong to steal a drug to save a loved one?/Is it wrong to demand profit from a life saving drug?</p></li>
+<li class="fragment"><p>Is it wrong to push someone off a bridge to save five?</p></li>
+<li class="fragment"><p>Is it wrong to eat meat from a dead body?</p></li>
+<li class="fragment"><p>Is it wrong for a brother and sister (Julie and Mark) to make love? (using multiple forms of contraception)<br><br></p></li>
+<li class="fragment"><p><font color="#FF7575"><strong>Have you got a reason for your Judgement?</strong></font></p></li>
+</ul>
+</div>
+</section>
+<section id="what-moral-dumbfounding" class="slide level2">
+<h2>What Moral Dumbfounding?</h2>
+<div class="fragment">
+<p>Moral Dumbfounding occurs when people <font color="ff744e">defend</font> a moral judgement even though they cannot provide a <font color="6892ff">reason</font> in support of this judgment <span class="citation" data-cites="haidt_moral_2000 mchugh_searching_2017">(<a href="#/references" role="doc-biblioref" onclick="">Haidt, Björklund, &amp; Murphy, 2000</a>; <a href="#/references" role="doc-biblioref" onclick="">McHugh, McGann, Igou, &amp; Kinsella, 2017</a>)</span><br><br></p>
+<div>
+<ul>
+<li class="fragment">Admission of not having reasons</li>
+<li class="fragment">Unsupported declarations
+<ul>
+<li class="fragment"><font size="54px" color="ff744e">“<em>It’s just wrong </em>”</font></li>
+</ul></li>
+<li class="fragment">Typically occurs for harmless taboos</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="dumbfounded-by-incest" class="slide level2">
+<h2>Dumbfounded by <em>Incest</em></h2>
+<iframe width="900" height="600" src="resources/video/Participant_26_subs.mp4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="">
+</iframe>
+</section>
+<section id="influence-of-moral-dumbfounding" class="slide level2">
+<h2>Influence of Moral Dumbfounding</h2>
+<ul>
+<li>Moral Dumbfounding is cited as evidence for
+<ul>
+<li><strong><em>intuitionist</em></strong> or <strong><em>dual-process</em></strong> theories of moral judgement
+<ul>
+<li>e.g., <span class="citation" data-cites="crockett_models_2013">Crockett (<a href="#/references" role="doc-biblioref" onclick="">2013</a>)</span>; <span class="citation" data-cites="cushman_action_2013">Cushman (<a href="#/references" role="doc-biblioref" onclick="">2013</a>)</span>; <span class="citation" data-cites="greene_secret_2008">Greene (<a href="#/references" role="doc-biblioref" onclick="">2008</a>)</span>; <span class="citation" data-cites="haidt_emotional_2001">Haidt (<a href="#/references" role="doc-biblioref" onclick="">2001</a>)</span></li>
+</ul></li>
+<li>over more <strong><em>rationalist</em></strong> approaches
+<ul>
+<li>e.g., <span class="citation" data-cites="kohlberg_stages_1969">Kohlberg (<a href="#/references" role="doc-biblioref" onclick="">1969</a>)</span>; <span class="citation" data-cites="topolski_choosing_2013">Topolski, Weaver, Martin, &amp; McCoy (<a href="#/references" role="doc-biblioref" onclick="">2013</a>)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="research-on-moral-dumbfounding" class="slide level2 smaller">
+<h2>Research on Moral Dumbfounding</h2>
+<div>
+<ul>
+<li class="fragment">Original unpublished study <span class="citation" data-cites="haidt_moral_2000">(<a href="#/references" role="doc-biblioref" onclick="">Haidt et al., 2000</a>)</span></li>
+<li class="fragment">Replication and development of methods <span class="citation" data-cites="mchugh_searching_2017">(<a href="#/references" role="doc-biblioref" onclick="">McHugh et al., 2017</a>)</span></li>
+<li class="fragment">Replication in non-Western samples <span class="citation" data-cites="mchugh_just_2023">(China, India, MENA, <a href="#/references" role="doc-biblioref" onclick="">McHugh, Zhang, Karnatak, Lamba, &amp; Khokhlova, 2023</a>)</span></li>
+<li class="fragment"><font color="6892ff">Principle/reason</font>-based challenges <span class="citation" data-cites="sneddon_social_2007 gray_myth_2014 jacobson_moral_2012 stanley_reasonbased_2019">(<a href="#/references" role="doc-biblioref" onclick="">Gray, Schein, &amp; Ward, 2014</a>; <a href="#/references" role="doc-biblioref" onclick="">Jacobson, 2012</a>; <a href="#/references" role="doc-biblioref" onclick="">Sneddon, 2007</a>; <a href="#/references" role="doc-biblioref" onclick="">Stanley, Yin, &amp; Sinnott-Armstrong, 2019</a>)</span>
+<ul>
+<li class="fragment"><span class="citation" data-cites="royzman_curious_2015">Royzman, Kim, &amp; Leeman (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span></li>
+</ul></li>
+<li class="fragment">Response to challenges <span class="citation" data-cites="mchugh_reasons_2020">(<a href="#/references" role="doc-biblioref" onclick="">McHugh, McGann, Igou, &amp; Kinsella, 2020</a>)</span></li>
+<li class="fragment">Dual-Processes/Cognitive Load <span class="citation" data-cites="mchugh_cognitive_2023">(<a href="#/references" role="doc-biblioref" onclick="">McHugh, McGann, Igou, &amp; Kinsella, 2023</a>)</span></li>
+</ul>
+</div>
+</section>
+<section id="robust-to-challenges" class="slide level2">
+<h2>Robust to Challenges</h2>
+<div>
+<ul>
+<li class="fragment"><span class="citation" data-cites="royzman_curious_2015">Royzman et al. (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span> exclusion criteria
+<ul>
+<li class="fragment">Endorsing</li>
+</ul></li>
+<li class="fragment"><span class="citation" data-cites="mchugh_reasons_2020">McHugh et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span> exclusion criteria
+<ul>
+<li class="fragment">Endorsing, Articulating, <em>and</em> Applying</li>
+</ul></li>
+<li class="fragment">False Exclusions
+<ul>
+<li class="fragment">Selected “nothing wrong”</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="robust-to-challenges-1" class="slide level2">
+<h2>Robust to Challenges</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="resources/img/S3reasonsfig3.png" class="quarto-discovered-preview-image" height="500"></p>
+<p></p><figcaption>False exclusions by exclusion criteria</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section>
+<section id="moral-dumbfounding-dual-processes" class="title-slide slide level1 center">
+<h1>Moral Dumbfounding &amp; Dual Processes</h1>
+
+</section>
+<section id="moral-dumbfounding-dual-processes-1" class="slide level2 smaller">
+<h2>Moral Dumbfounding &amp; Dual Processes</h2>
+<ul>
+<li><font color="2f8d2f">Conflict</font> in <font color="b93b8f">dual-process</font> occurs when
+<ul>
+<li>a <font color="ff744e">habitual (System 1)</font> response is <font color="2f8d2f">different</font></li>
+<li>from a response that results from <font color="248aa8">deliberation (System 2)</font></li>
+</ul></li>
+</ul>
+<p>Three response options in the <font color="2f8d2f">dumbfounding paradigm</font></p>
+<div class="fragment highlight-blue">
+<ul>
+<li>It’s wrong and I can provide a valid reason</li>
+</ul>
+</div>
+<div class="fragment highlight-red">
+<ul>
+<li>It’s wrong but I can’t think of a reason</li>
+</ul>
+</div>
+<div class="fragment highlight-red">
+<ul>
+<li>There is nothing wrong (competing intuitions)</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="complexity-of-morality" class="title-slide slide level1 center">
+<h1>Complexity of Morality</h1>
+
+</section>
+<section id="goodies-vs-baddies" class="slide level2">
+<h2>Goodies vs Baddies</h2>
+
+<img data-src="resources/images/batman.png" width="600" class="r-stretch"></section>
+<section id="known-influences-on-moral-judgements" class="slide level2 smaller">
+<h2>Known Influences on Moral Judgements</h2>
+<h4 id="some-of-them-anyway">… some of them anyway…</h4>
+<ul>
+<li>Emotional influences <span class="citation" data-cites="cameron_morality_2013">(e.g., <a href="#/references" role="doc-biblioref" onclick="">Cameron, Payne, &amp; Doris, 2013</a>)</span></li>
+<li>Intentionality, Evitability, benefit recipient <span class="citation" data-cites="christensen_moral_2014 christensen_moral_2012">(<a href="#/references" role="doc-biblioref" onclick="">Christensen, Flexas, Calabrese, Gut, &amp; Gomila, 2014</a>; <a href="#/references" role="doc-biblioref" onclick="">Christensen &amp; Gomila, 2012</a>)</span></li>
+<li>Action-outcome distinction <span class="citation" data-cites="crockett_models_2013 cushman_action_2013">(<a href="#/references" role="doc-biblioref" onclick="">Crockett, 2013</a>; <a href="#/references" role="doc-biblioref" onclick="">Cushman, 2013</a>)</span></li>
+<li>Trustworthiness and social evaluation <span class="citation" data-cites="everett_inference_2016 everett_costs_2018">(<a href="#/references" role="doc-biblioref" onclick="">Everett, Faber, Savulescu, &amp; Crockett, 2018</a>; <a href="#/references" role="doc-biblioref" onclick="">Everett, Pizarro, &amp; Crockett, 2016</a>)</span></li>
+<li>Personal-impersonal distinction <span class="citation" data-cites="greene_fmri_2001">(<a href="#/references" role="doc-biblioref" onclick="">Greene, Sommerville, Nystrom, Darley, &amp; Cohen, 2001</a>)</span></li>
+<li>Doctrine of double effect <span class="citation" data-cites="mikhail_rawls_2000">(<a href="#/references" role="doc-biblioref" onclick="">Mikhail, 2000</a>)</span></li>
+<li>Level of physical contact <span class="citation" data-cites="valdesolo_manipulations_2006">(<a href="#/references" role="doc-biblioref" onclick="">Valdesolo &amp; DeSteno, 2006</a>)</span></li>
+<li>Order effects <span class="citation" data-cites="wiegmann_order_2012">(<a href="#/references" role="doc-biblioref" onclick="">Wiegmann, Okan, &amp; Nagel, 2012</a>)</span></li>
+</ul>
+</section></section>
+<section>
+<section id="understanding-this-complexity" class="title-slide slide level1 center">
+<h1>Understanding this complexity</h1>
+
+</section>
+<section id="existing-approaches" class="slide level2 smaller">
+<h2>Existing Approaches</h2>
+<ul>
+<li class="fragment"><strong>Moral Emotions</strong>: <span class="citation" data-cites="prinz_passionate_2005">Prinz (<a href="#/references" role="doc-biblioref" onclick="">2005</a>)</span>
+<ul>
+<li class="fragment"><em>‘Emotions, I will suggest are perceptions of our bodily states. To recognise the moral value of an event is, thus, to perceive the perturbation that it causes’</em> <span class="citation" data-cites="prinz_passionate_2005">(<a href="#/references" role="doc-biblioref" onclick="">Prinz, 2005, p. 99</a>)</span></li>
+</ul></li>
+<li class="fragment"><strong>Social Intuitionist Model</strong> <span class="citation" data-cites="haidt_emotional_2001">(<a href="#/references" role="doc-biblioref" onclick="">Haidt, 2001</a>)</span>
+<ul>
+<li class="fragment">e.g., intuitions as phonemes <span class="citation" data-cites="haidt_emotional_2001">(<a href="#/references" role="doc-biblioref" onclick="">Haidt, 2001, p. 827</a>)</span></li>
+<li class="fragment">‘brain has a kind of gauge’, a ‘like-ometer’ <span class="citation" data-cites="haidt_social_2008">(<a href="#/references" role="doc-biblioref" onclick="">Haidt &amp; Björklund, 2008, p. 187</a>)</span></li>
+</ul></li>
+</ul>
+<ul>
+<li class="fragment"><strong>Theory of Dyadic Morality</strong>: <span class="citation" data-cites="gray_mind_2012 schein_theory_2018">(<a href="#/references" role="doc-biblioref" onclick="">Gray, Young, &amp; Waytz, 2012</a>; <a href="#/references" role="doc-biblioref" onclick="">Schein &amp; Gray, 2018</a>)</span>
+<ul>
+<li class="fragment">Content focused (rather than underlying processes)</li>
+</ul></li>
+</ul>
+<ul>
+<li class="fragment"><strong>Dual Process Theories</strong>: <span class="citation" data-cites="greene_secret_2008">(e.g., <a href="#/references" role="doc-biblioref" onclick="">Greene, 2008</a>)</span>
+<ul>
+<li class="fragment">‘Emotion’ vs ‘Cognition’ (not well defined)</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="theory-of-dyadic-morality-tdm" class="title-slide slide level1 center">
+<h1>Theory of Dyadic Morality (TDM)</h1>
+
+</section>
+<section id="theory-of-dyadic-morality-tdm-1" class="slide level2 smaller">
+<h2>Theory of Dyadic Morality (TDM)</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><br></p>
+<ul>
+<li>“an intentional agent causing damage to a vulnerable patient” <span class="citation" data-cites="schein_theory_2018">(<a href="#/references" role="doc-biblioref" onclick="">Schein &amp; Gray, 2018, p. 33</a>)</span></li>
+</ul>
+<p><br></p>
+<ul>
+<li>“an intentional moral agent and a suffering moral patient <span class="citation" data-cites="gray_mind_2012">(<a href="#/references" role="doc-biblioref" onclick="">Gray et al., 2012, p. 101</a>)</span>.</li>
+</ul>
+<p><br></p>
+<ul>
+<li>“interpersonal harm is the essence of morality” <span class="citation" data-cites="gray_mind_2012">(<a href="#/references" role="doc-biblioref" onclick="">Gray et al., 2012, p. 109</a>)</span></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<p><br> <br> <br></p>
+</div>
+</div>
+</section>
+<section id="issues-with-tdm" class="slide level2">
+<h2>Issues with TDM</h2>
+<h3 id="harmless-wrongs-moral-dumbfounding">Harmless Wrongs: Moral Dumbfounding</h3>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li>Moral dumbfounding occurs when people defend a moral judgement even though they cannot provide supporting reasons<br> <span class="citation" data-cites="mchugh_searching_2017 haidt_moral_2000">(<a href="#/references" role="doc-biblioref" onclick="">Haidt et al., 2000</a>; <a href="#/references" role="doc-biblioref" onclick="">McHugh et al., 2017</a>)</span></li>
+</ul>
+</div><div class="column" style="width:40%;">
+
+</div>
+</div>
+</section>
+<section id="moral-dumbfounding" class="slide level2 smaller">
+<h2>Moral Dumbfounding</h2>
+<p><br></p>
+<blockquote>
+<p>Jennifer works in a medical school pathology lab as a research assistant. The lab prepares human cadavers that are used to teach medical students about anatomy. The cadavers come from people who had donated their body to science for research. One night Jennifer is leaving the lab when she sees a body that is going to be discarded the next day. Jennifer was a vegetarian, for moral reasons. She thought it was wrong to kill animals for food. But then, when she saw a body about to be cremated, she thought it was irrational to waste perfectly edible meat. So she cut off a piece of flesh, and took it home and cooked it. The person had died recently of a heart attack, and she cooked the meat thoroughly, so there was no risk of disease.</p>
+</blockquote>
+</section>
+<section id="challenges-to-moral-dumbfounding" class="slide level2 smaller">
+<h2>Challenges to Moral Dumbfounding</h2>
+<ul>
+<li>Failure to provide reasons does not mean there are no reasons <span class="citation" data-cites="sneddon_social_2007">(<a href="#/references" role="doc-biblioref" onclick="">Sneddon, 2007</a>)</span></li>
+<li>People implicitly perceive harm <span class="citation" data-cites="gray_myth_2014">(<a href="#/references" role="doc-biblioref" onclick="">Gray et al., 2014</a>)</span></li>
+<li>People have do have reasons but are “beaten into submission” <span class="citation" data-cites="jacobson_moral_2012">(<a href="#/references" role="doc-biblioref" onclick="">Jacobson, 2012</a>)</span></li>
+<li>Evidence for principles or reasons guiding judgements
+<ul>
+<li>Harm based Norm based <span class="citation" data-cites="royzman_curious_2015">(<a href="#/references" role="doc-biblioref" onclick="">Royzman et al., 2015</a>)</span>
+<ul>
+<li>Excluding participants who endorsed either principle
+<ul>
+<li>Moral Dumbfounding effectively disappeared…</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="responding-to-challenges" class="slide level2 smaller">
+<h2>Responding to Challenges</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>People do not consistently articulate or apply harm or norm-based reasons <span class="citation" data-cites="mchugh_reasons_2020">(<a href="#/references" role="doc-biblioref" onclick="">McHugh et al., 2020</a>)</span></li>
+<li>Demonstrably more accurate exclusion criteria
+<ul>
+<li>fewer false exclusions<br>(&lt;8% from &gt;50%)</li>
+</ul></li>
+<li>Interesting order effect</li>
+</ul>
+<blockquote>
+<p><em>“it is wrong for two people to engage in an activity whereby harm may occur”</em></p>
+</blockquote>
+<p>(Boxing/Rugby)</p>
+</div><div class="column" style="width:50%;">
+
+</div>
+</div>
+</section>
+<section id="more-evidence-for-dumbfounding" class="slide level2 smaller">
+<h2>More Evidence for Dumbfounding</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+
+</div><div class="column" style="width:40%;">
+<p><span class="citation" data-cites="mchugh_just_2023">McHugh, Zhang, et al. (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></p>
+</div>
+</div>
+</section>
+<section id="understanding-dumbfounding" class="slide level2">
+<h2>Understanding Dumbfounding?</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li>Trying to understand moral judgments and moral dumbfounding
+<ul>
+<li>e.g., testing explanations of dumbfounding<br><span class="citation" data-cites="mchugh_cognitive_2023">(<a href="#/references" role="doc-biblioref" onclick="">McHugh, McGann, et al., 2023</a>)</span></li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<p><img data-src="resources/images/cog_load.png"></p>
+</div>
+</div>
+</section>
+<section id="issues-with-tdm-1" class="slide level2">
+<h2>Issues with TDM</h2>
+<h3 id="wrongless-harms">Wrongless Harms</h3>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li>Harmful acts that are not viewed as wrong</li>
+<li>e.g., Boxing / Rugby</li>
+<li><span class="citation" data-cites="royzman_puzzle_2022">Royzman &amp; Borislow (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>
+<ul>
+<li><em>The puzzle of wrongless harms</em>
+<ul>
+<li>Dating, Fired, Mask, Chess</li>
+</ul></li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:40%;">
+
+</div>
+</div>
+</section>
+<section id="issues-with-tdm-2" class="slide level2">
+<h2>Issues with TDM</h2>
+<ul>
+<li>Harmless Wrongs</li>
+<li>Wrongless Harms</li>
+</ul>
+</section></section>
+<section>
+<section id="dual-process-approaches" class="title-slide slide level1 center">
+<h1>Dual-Process approaches</h1>
+
+</section>
+<section id="references" class="slide level2 smallest smaller scrollable">
+<h2>References</h2>
+
+<img src="resources/img/ul-psychology-logos.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<p>Cillian McHugh - 25/7/23</p>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list">
+<div id="ref-cameron_morality_2013" class="csl-entry" role="listitem">
+Cameron, C. D., Payne, B. K., &amp; Doris, J. M. (2013). Morality in high definition: <span>Emotion</span> differentiation calibrates the influence of incidental disgust on moral judgments. <em>Journal of Experimental Social Psychology</em>, <em>49</em>(4), 719–725. <a href="https://doi.org/10.1016/j.jesp.2013.02.014">https://doi.org/10.1016/j.jesp.2013.02.014</a>
+</div>
+<div id="ref-christensen_moral_2014" class="csl-entry" role="listitem">
+Christensen, J. F., Flexas, A., Calabrese, M., Gut, N. K., &amp; Gomila, A. (2014). Moral judgment reloaded: A moral dilemma validation study. <em>Frontiers in Psychology</em>, <em>5</em>, 1–18. <a href="https://doi.org/10.3389/fpsyg.2014.00607">https://doi.org/10.3389/fpsyg.2014.00607</a>
+</div>
+<div id="ref-christensen_moral_2012" class="csl-entry" role="listitem">
+Christensen, J. F., &amp; Gomila, A. (2012). Moral dilemmas in cognitive neuroscience of moral decision-making: <span>A</span> principled review. <em>Neuroscience &amp; Biobehavioral Reviews</em>, <em>36</em>(4), 1249–1264. <a href="https://doi.org/10.1016/j.neubiorev.2012.02.008">https://doi.org/10.1016/j.neubiorev.2012.02.008</a>
+</div>
+<div id="ref-crockett_models_2013" class="csl-entry" role="listitem">
+Crockett, M. J. (2013). Models of morality. <em>Trends in Cognitive Sciences</em>, <em>17</em>(8), 363–366. <a href="https://doi.org/10.1016/j.tics.2013.06.005">https://doi.org/10.1016/j.tics.2013.06.005</a>
+</div>
+<div id="ref-cushman_action_2013" class="csl-entry" role="listitem">
+Cushman, F. A. (2013). Action, <span>Outcome</span>, and <span>Value A Dual-System Framework</span> for <span>Morality</span>. <em>Personality and Social Psychology Review</em>, <em>17</em>(3), 273–292. <a href="https://doi.org/10.1177/1088868313495594">https://doi.org/10.1177/1088868313495594</a>
+</div>
+<div id="ref-everett_costs_2018" class="csl-entry" role="listitem">
+Everett, J. A. C., Faber, N. S., Savulescu, J., &amp; Crockett, M. J. (2018). The costs of being consequentialist: <span>Social</span> inference from instrumental harm and impartial beneficence. <em>Journal of Experimental Social Psychology</em>, <em>79</em>, 200–216. <a href="https://doi.org/10.1016/j.jesp.2018.07.004">https://doi.org/10.1016/j.jesp.2018.07.004</a>
+</div>
+<div id="ref-everett_inference_2016" class="csl-entry" role="listitem">
+Everett, J. A. C., Pizarro, D. A., &amp; Crockett, M. J. (2016). Inference of trustworthiness from intuitive moral judgments. <em>Journal of Experimental Psychology: General</em>, <em>145</em>(6), 772–787. <a href="https://doi.org/10.1037/xge0000165">https://doi.org/10.1037/xge0000165</a>
+</div>
+<div id="ref-gray_myth_2014" class="csl-entry" role="listitem">
+Gray, K. J., Schein, C., &amp; Ward, A. F. (2014). The myth of harmless wrongs in moral cognition: <span>Automatic</span> dyadic completion from sin to suffering. <em>Journal of Experimental Psychology: General</em>, <em>143</em>(4), 1600–1615. <a href="https://doi.org/10.1037/a0036149">https://doi.org/10.1037/a0036149</a>
+</div>
+<div id="ref-gray_mind_2012" class="csl-entry" role="listitem">
+Gray, K. J., Young, L., &amp; Waytz, A. (2012). Mind <span>Perception Is</span> the <span>Essence</span> of <span>Morality</span>. <em>Psychological Inquiry</em>, <em>23</em>(2), 101–124. <a href="https://doi.org/10.1080/1047840X.2012.651387">https://doi.org/10.1080/1047840X.2012.651387</a>
+</div>
+<div id="ref-greene_secret_2008" class="csl-entry" role="listitem">
+Greene, J. D. (2008). The <span>Secret Joke</span> of <span>Kant</span>’s <span>Soul</span>. In <em>Moral <span>Psychology Volume</span> 3: <span>The</span> neurosciences of morality: Emotion, brain disorders, and development</em> (pp. 35–79). <span>Cambridge (Mass.)</span>: <span>the MIT press</span>.
+</div>
+<div id="ref-greene_fmri_2001" class="csl-entry" role="listitem">
+Greene, J. D., Sommerville, R. B., Nystrom, L. E., Darley, J. M., &amp; Cohen, J. D. (2001). An <span class="nocase">fMRI</span> investigation of emotional engagement in moral judgment. <em>Science (New York, N.Y.)</em>, <em>293</em>(5537), 2105–2108. <a href="https://doi.org/10.1126/science.1062872">https://doi.org/10.1126/science.1062872</a>
+</div>
+<div id="ref-haidt_emotional_2001" class="csl-entry" role="listitem">
+Haidt, J. (2001). The emotional dog and its rational tail: <span>A</span> social intuitionist approach to moral judgment. <em>Psychological Review</em>, <em>108</em>(4), 814–834. <a href="https://doi.org/10.1037/0033-295X.108.4.814">https://doi.org/10.1037/0033-295X.108.4.814</a>
+</div>
+<div id="ref-haidt_social_2008" class="csl-entry" role="listitem">
+Haidt, J., &amp; Björklund, F. (2008). Social <span>Intuitionists Answer Six Questions</span> about <span>Moral Psychology</span>. In W. Sinnott-Armstrong (Ed.), <em>Moral psychology <span>Volume</span> 2, <span>The</span> cognitive science of morality: Intuition and diversity</em> (pp. 181–217). <span>London</span>: <span>MIT</span>.
+</div>
+<div id="ref-haidt_moral_2000" class="csl-entry" role="listitem">
+Haidt, J., Björklund, F., &amp; Murphy, S. (2000). Moral dumbfounding: <span>When</span> intuition finds no reason. <em>Unpublished Manuscript, University of Virginia</em>.
+</div>
+<div id="ref-jacobson_moral_2012" class="csl-entry" role="listitem">
+Jacobson, D. (2012). Moral <span>Dumbfounding</span> and <span>Moral Stupefaction</span>. In <em>Oxford studies in normative ethics</em> (Vol. 2, p. 289).
+</div>
+<div id="ref-kohlberg_stages_1969" class="csl-entry" role="listitem">
+Kohlberg, L. (1969). <em>Stages in the development of moral thought and action</em>. <span>New York: Holt, Rinehart &amp; Winston</span>.
+</div>
+<div id="ref-mchugh_searching_2017" class="csl-entry" role="listitem">
+McHugh, C., McGann, M., Igou, E. R., &amp; Kinsella, E. L. (2017). Searching for <span>Dumbfounding</span>. <em>Open Science Framework</em>. <a href="https://doi.org/10.17605/OSF.IO/WM6VC">https://doi.org/10.17605/OSF.IO/WM6VC</a>
+</div>
+<div id="ref-mchugh_reasons_2020" class="csl-entry" role="listitem">
+McHugh, C., McGann, M., Igou, E. R., &amp; Kinsella, E. L. (2020). Reasons or rationalizations: <span>The</span> role of principles in the moral dumbfounding paradigm. <em>Journal of Behavioral Decision Making</em>, <em>33</em>(3), 376–392. <a href="https://doi.org/10.1002/bdm.2167">https://doi.org/10.1002/bdm.2167</a>
+</div>
+<div id="ref-mchugh_cognitive_2023" class="csl-entry" role="listitem">
+McHugh, C., McGann, M., Igou, E. R., &amp; Kinsella, E. L. (2023). Cognitive <span>Load Can Reduce Reason-Giving</span> in a <span>Moral Dumbfounding Task</span>. <em>Collabra: Psychology</em>, <em>9</em>(1), 73818. <a href="https://doi.org/10.1525/collabra.73818">https://doi.org/10.1525/collabra.73818</a>
+</div>
+<div id="ref-mchugh_just_2023" class="csl-entry" role="listitem">
+McHugh, C., Zhang, R., Karnatak, T., Lamba, N., &amp; Khokhlova, O. (2023). Just wrong? <span>Or</span> just <span>WEIRD</span>? <span>Investigating</span> the prevalence of moral dumbfounding in non-<span>Western</span> samples. <em>Memory &amp; Cognition</em>. <a href="https://doi.org/10.3758/s13421-022-01386-z">https://doi.org/10.3758/s13421-022-01386-z</a>
+</div>
+<div id="ref-mikhail_rawls_2000" class="csl-entry" role="listitem">
+Mikhail, J. (2000). <em>Rawls’ <span>Linguistic Analogy</span>: <span>A Study</span> of the ’<span>Generative Grammar</span>’ <span>Model</span> of <span>Moral Theory Described</span> by <span>John Rawls</span> in ’<span>A Theory</span> of <span>Justice</span>.’ (<span>Phd Dissertation</span>, <span>Cornell University</span>, 2000)</em> ({{SSRN Scholarly Paper}}). Social Science Research Network, <span>Rochester, NY</span>.
+</div>
+<div id="ref-prinz_passionate_2005" class="csl-entry" role="listitem">
+Prinz, J. J. (2005). Passionate <span>Thoughts</span>: <span>The Emotional Embodiment</span> of <span>Moral Concepts</span>. In D. Pecher &amp; R. A. Zwaan (Eds.), <em>Grounding <span>Cognition</span>: <span>The Role</span> of <span>Perception</span> and <span>Action</span> in <span>Memory</span>, <span>Language</span>, and <span>Thinking</span></em> (pp. 93–114). <span>Cambridge University Press</span>.
+</div>
+<div id="ref-royzman_puzzle_2022" class="csl-entry" role="listitem">
+Royzman, E. B., &amp; Borislow, S. H. (2022). The puzzle of wrongless harms: <span>Some</span> potential concerns for dyadic morality and related accounts. <em>Cognition</em>, <em>220</em>, 104980. <a href="https://doi.org/10.1016/j.cognition.2021.104980">https://doi.org/10.1016/j.cognition.2021.104980</a>
+</div>
+<div id="ref-royzman_curious_2015" class="csl-entry" role="listitem">
+Royzman, E. B., Kim, K., &amp; Leeman, R. F. (2015). The curious tale of <span>Julie</span> and <span>Mark</span>: <span>Unraveling</span> the moral dumbfounding effect. <em>Judgment and Decision Making</em>, <em>10</em>(4), 296–313.
+</div>
+<div id="ref-schein_theory_2018" class="csl-entry" role="listitem">
+Schein, C., &amp; Gray, K. J. (2018). The <span>Theory</span> of <span>Dyadic Morality</span>: <span>Reinventing Moral Judgment</span> by <span>Redefining Harm</span>. <em>Personality and Social Psychology Review</em>, <em>22</em>(1), 32–70. <a href="https://doi.org/10.1177/1088868317698288">https://doi.org/10.1177/1088868317698288</a>
+</div>
+<div id="ref-sneddon_social_2007" class="csl-entry" role="listitem">
+Sneddon, A. (2007). A <span>Social Model</span> of <span>Moral Dumbfounding</span>: <span>Implications</span> for <span>Studying Moral Reasoning</span> and <span>Moral Judgment</span>. <em>Philosophical Psychology</em>, <em>20</em>(6), 731–748. <a href="https://doi.org/10.1080/09515080701694110">https://doi.org/10.1080/09515080701694110</a>
+</div>
+<div id="ref-stanley_reasonbased_2019" class="csl-entry" role="listitem">
+Stanley, M. L., Yin, S., &amp; Sinnott-Armstrong, W. (2019). A reason-based explanation for moral dumbfounding. <em>Judgment and Decision Making</em>, <em>14</em>(2), 10.
+</div>
+<div id="ref-topolski_choosing_2013" class="csl-entry" role="listitem">
+Topolski, R., Weaver, J. N., Martin, Z., &amp; McCoy, J. (2013). Choosing between the emotional dog and the rational pal: <span>A</span> moral dilemma with a tail. <em>Anthrozoös</em>, <em>26</em>(2), 253–263. <a href="https://doi.org/10.2752/175303713X13636846944321">https://doi.org/10.2752/175303713X13636846944321</a>
+</div>
+<div id="ref-valdesolo_manipulations_2006" class="csl-entry" role="listitem">
+Valdesolo, P., &amp; DeSteno, D. (2006). Manipulations of <span>Emotional Context Shape Moral Judgment</span>. <em>Psychological Science</em>, <em>17</em>(6), 476–477. <a href="https://doi.org/10.1111/j.1467-9280.2006.01731.x">https://doi.org/10.1111/j.1467-9280.2006.01731.x</a>
+</div>
+<div id="ref-wiegmann_order_2012" class="csl-entry" role="listitem">
+Wiegmann, A., Okan, Y., &amp; Nagel, J. (2012). Order effects in moral judgment. <em>Philosophical Psychology</em>, <em>25</em>(6), 813–836. <a href="https://doi.org/10.1080/09515089.2011.631995">https://doi.org/10.1080/09515089.2011.631995</a>
+</div>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="LRW_2023_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="LRW_2023_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="LRW_2023_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="LRW_2023_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="LRW_2023_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="LRW_2023_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="LRW_2023_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="LRW_2023_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="LRW_2023_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="LRW_2023_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="LRW_2023_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'fast',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
