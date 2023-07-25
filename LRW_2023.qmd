@@ -274,6 +274,11 @@ Three response options in the <font color="2f8d2f">dumbfounding paradigm</font>
 :::
 
 
+## Dual Processes and Dumbfounding
+
+![Hypothesized relationship between deliberation and responses in the dumbfounding paradigm](resources/img/responses_figure4.jpg)
+
+
 ## Moral Dumbfounding & Cognitive Load {.smaller}
 
 - Manipulations of  <font color="a0522d">Cognitive load</font> are known to inhibit <font color="248aa8">deliberative responding</font>
