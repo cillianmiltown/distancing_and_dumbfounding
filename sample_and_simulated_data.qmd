@@ -1,0 +1,38 @@
+---
+title: "Sample and Simulated Data"
+keywords          : "moral dumbfounding, dual-processes, reasons, intuitions, need for cognition"
+bibliography: "resources/bib/My Library.bib"
+figsintext        : yes
+figurelist        : yes
+tablelist         : yes
+footnotelist      : no
+lineno            : yes
+lang              : "english"
+class             : "man"
+format:
+  html:
+    toc: true
+    toc-depth: 4
+    toc-location: left
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+rm(list=ls())
+
+library(tidyverse)
+
+```
+
+```{r}
+df <- read_csv("sample_data/sample_data.csv")
+
+head(df)
+variable.names(df)
+
+df <- df[-c(1:2),]
+
+
+```
+
