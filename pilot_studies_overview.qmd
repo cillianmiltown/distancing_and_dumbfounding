@@ -2707,7 +2707,56 @@ tapply(df3$InCS_rsn, df3$condition, descriptives)
 ```
 
 
-```{r plottingmeansS7}
+```{r}
+
+df3$InCS_rsn
+g <- ggplot(df3, aes(condition, InCS_rsn, fill=factor(condition
+                                             #,labels=c("Increased","Decreased")
+                                             ))) + 
+  ggdist::stat_halfeye(adjust = .5, width = .3, .width = 0, justification = -.3, point_colour = NA) + 
+  geom_boxplot(width = .1, outlier.shape = NA) +
+  gghalves::geom_half_point(side = "l", range_scale = .4, alpha = .5)+
+  stat_summary(fun.y=mean, colour="black", geom="point", shape=23, size=3, show.legend = FALSE)+
+  xlab("Condition") +
+  ylab("Response to Critical Slide")+
+  scale_x_discrete(labels=c("Increased Distance", "Decreased Distance")) +
+  
+  labs(fill="Condition")+
+  theme_bw() +
+   theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+```
+```{r}
+#| include: true
+
+
+suppressWarnings(print(g))
+```
+
+```{r plottingmeansS7, include=FALSE}
 ggplot(df3, aes(x=condition,y=InCS_rsn))+
   geom_violin()+
   geom_jitter(width = 0.25)

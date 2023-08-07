@@ -308,6 +308,9 @@ Following the critical slide rated the behavior again on a 7-point Likert scale 
 #| label: dprepch5S1fig2
 #| include: false
 
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
+
 y <- table(df3$condition,df3$InCS)
 y <- as.data.frame(y)
 colnames(y) <- c("condition","InCS","Freq")
@@ -346,6 +349,9 @@ c
 }
 
 test <- ab_graph()
+
+#test1
+
 
 x <- df3
 
@@ -851,6 +857,10 @@ Below we present two sets of results. First we present the results for the full 
 
 df3 <- two_tot
 
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
+
+
 y <- table(df3$condition,df3$InCS)
 y <- as.data.frame(y)
 colnames(y) <- c("condition","InCS","Freq")
@@ -1000,7 +1010,7 @@ g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
 #| label: apafg-dch5S2fig2criticalconditionNoExcl
 #| include: true
 #| fig-height: 5
-#| apa-cap: "Pilot Study 2: Responses to critical slide for the experimental group (N = 52) and the control group (N = 52); (No exclusions; error bars represent standard error of the proportion)"
+#| apa-cap: "Pilot Study 2: Responses to critical slide for the experimental group (N = 47) and the control group (N = 46); (No exclusions; error bars represent standard error of the proportion)"
 
 suppressWarnings(print(g))
 
@@ -1130,6 +1140,9 @@ A multinomial logistic regression was conducted to test if the individual differ
 #| include: false
 
 df3 <- two
+
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
 
 y <- table(df3$condition,df3$InCS)
 y <- as.data.frame(y)
@@ -1281,7 +1294,7 @@ g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
 #| label: apafg-dch5S2fig2criticalconditionWithExcl
 #| include: true
 #| fig-height: 5
-#| apa-cap: "Pilot Study 2: Responses to critical slide for the experimental group (N = 39) and the control group (N = 37); (With exclusions; error bars represent standard error of the proportion)"
+#| apa-cap: "Pilot Study 2: Responses to critical slide for the experimental group (N = 34) and the control group (N = 31); (With exclusions; error bars represent standard error of the proportion)"
 
 suppressWarnings(print(g))
 
@@ -1490,6 +1503,9 @@ As for Pilot Study 2, we present two sets of results. First we present the resul
 #| include: false
 
 df3 <- three_tot
+
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
 
 y <- table(df3$condition,df3$InCS)
 y <- as.data.frame(y)
@@ -2020,6 +2036,9 @@ save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, file = "plots.RData")
 
 df3 <- three
 
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
+
 table(df3$condition)
 
 y <- table(df3$condition,df3$InCS)
@@ -2390,9 +2409,6 @@ A multinomial logistic regression was conducted to test if the individual differ
 
 
 
-
-{{< pagebreak >}}
-&nbsp;
 {{< pagebreak >}}
 
 
@@ -2463,6 +2479,9 @@ Again, we present two sets of results. First we present the results for the full
 #| include: false
 
 df3 <- four_tot
+
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
 
 y <- table(df3$condition,df3$InCS)
 y <- as.data.frame(y)
@@ -2863,6 +2882,9 @@ suppressWarnings(print(g))
 
 df3 <- four
 
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
+
 table(df3$condition)
 
 y <- table(df3$condition,df3$InCS)
@@ -3230,6 +3252,9 @@ As with previous studies, we present two sets of results. First we present the r
 #| include: false
 
 df3 <- five_tot
+
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
 
 y <- table(df3$condition,df3$InCS)
 y <- as.data.frame(y)
@@ -3740,6 +3765,9 @@ save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b, g5a, g5_prob, file = "
 
 df3 <- five
 
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
+
 table(df3$condition)
 
 y <- table(df3$condition,df3$InCS)
@@ -4204,6 +4232,13 @@ Again, we present two sets of results. First we present the results for the full
 
 df3 <- six_tot
 
+df3 <- df3[which(is.na(df3$InCS_rsn)==FALSE),]
+table(df3$condition)
+
+# df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+# table(df3$condition)
+
+
 # create variables for reporting t.tests
 t <- t.test(df3$InJu1,df3$InJu2, paired = TRUE)
 
@@ -4281,6 +4316,8 @@ t.test(dftot$InCS_rsn ~ dftot$condition)
 #| echo: false
 
 df3 <- six_tot
+
+
 t_j1 <- t.test(df3$InJu1 ~ df3$condition)
 d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
 t_paragraph(df3$InJu1, df3$condition, "initial judgement")
@@ -4366,6 +4403,96 @@ tapply(df3$InCS_rsn, df3$condition, descriptives)
 ```
 
 
+
+```{r}
+#| include: false
+
+
+df3$InCS_rsn
+g <- ggplot(df3, aes(condition, InCS_rsn, fill=factor(condition
+                                             ,labels=c("Increased","Decreased")
+                                             ))) + 
+  ggdist::stat_halfeye(adjust = .5, width = .3, .width = 0, justification = -.3, point_colour = NA) + 
+  geom_boxplot(width = .1, outlier.shape = NA, show.legend = FALSE) +
+  gghalves::geom_half_point(side = "l", range_scale = .4, alpha = .5, show.legend = FALSE)+
+  stat_summary(fun.y=mean, colour="black", geom="point", shape=23, size=3, show.legend = FALSE)+
+  xlab("Condition") +
+  ylab("Response to Critical Slide")+
+  scale_x_discrete(labels=c("Increased Distance", "Decreased Distance")) +
+  
+  labs(fill="Condition")+
+  scale_fill_grey(start = .5, end = .8) +
+  theme_bw() +
+   theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+g
+```
+
+```{r}
+#| label: apafg-dch5S6fig2criticalconditionNoExcl
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Pilot Study 6: Responses to critical slide for the increased temporal distance group (N = 65) and the reduced temporal distance group (N = 69); (No exclusions; 1 = *I can provide a valid reason*; 7 = *I can't think of a reason*)"
+
+suppressWarnings(print(g))
+```
+
+
+
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 6 (full)")
+
+g6a <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b, g5a, g5_prob, g5b, g6a, file = "plots.RData")
+```
+
+
+
+
 ```{r}
 #| label: plottingmeansS7
 #| include: false
@@ -4425,6 +4552,13 @@ For the second regression the outcome variable was self-report ability to provid
 #| echo: false
 
 df3 <- six
+
+df3 <- df3[which(is.na(df3$InCS_rsn)==FALSE),]
+table(df3$condition)
+
+# df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+# table(df3$condition)
+
 t_j1 <- t.test(df3$InJu1 ~ df3$condition)
 d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
 t_paragraph(df3$InJu1, df3$condition, "initial judgement")
@@ -4510,6 +4644,92 @@ tapply(df3$InCS_rsn, df3$condition, descriptives)
 ```
 
 
+
+```{r}
+#| include: false
+
+df3$InCS_rsn
+g <- ggplot(df3, aes(condition, InCS_rsn, fill=factor(condition
+                                             ,labels=c("Increased","Decreased")
+                                             ))) + 
+  ggdist::stat_halfeye(adjust = .5, width = .3, .width = 0, justification = -.3, point_colour = NA) + 
+  geom_boxplot(width = .1, outlier.shape = NA, show.legend = FALSE) +
+  gghalves::geom_half_point(side = "l", range_scale = .4, alpha = .5, show.legend = FALSE)+
+  stat_summary(fun.y=mean, colour="black", geom="point", shape=23, size=3, show.legend = FALSE)+
+  xlab("Condition") +
+  ylab("Response to Critical Slide")+
+  scale_x_discrete(labels=c("Increased Distance", "Decreased Distance")) +
+  
+  labs(fill="Condition")+
+  scale_fill_grey(start = .5, end = .8) +
+  theme_bw() +
+   theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+g
+```
+
+```{r}
+#| label: apafg-dch5S6fig2criticalconditionCLEAN
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Pilot Study 6: Responses to critical slide for the increased temporal distance group (N = 32) and the reduced temporal distance group (N = 44); (With exclusions; 1 = *I can provide a valid reason*; 7 = *I can't think of a reason*)"
+
+suppressWarnings(print(g))
+```
+
+
+
+```{r}
+remove_geom <- function(ggplot2_object, geom_type) {
+  # Delete layers that match the requested type.
+  layers <- lapply(ggplot2_object$layers, function(x) {
+    if (class(x$geom)[1] == geom_type) {
+      NULL
+    } else {
+      x
+    }
+  })
+  # Delete the unwanted layers.
+  layers <- layers[!sapply(layers, is.null)]
+  ggplot2_object$layers <- layers
+  ggplot2_object
+}
+p <- g
+p <- p +
+  rremove("xlab") +
+  rremove("ylab") 
+# p <- remove_geom(p, "GeomText")
+# p <- remove_geom(p, "GeomErrorbar")
+p <- p + ggtitle("Study 6 (clean)")
+
+g6b <- p
+load("plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b, g5a, g5_prob, g5b, g6a, g6b, file = "plots.RData")
+```
+
+
 ```{r}
 #| label: plottingmeansS7exclusions
 #| include: false
@@ -4550,6 +4770,10 @@ summary(fit)
 
 For the second regression the outcome variable was self-report ability to provide reasons. Overall the model significantly predicted participants self-reported ability to provide reasons, `r apa_lm$full_result$modelfit`. Need for closure was a significant predictor in the model, `r apa_lm$full_result$NFC`, while cognitive reflection was not `r apa_lm$full_result$crt_tot`.
 
+
+
+{{< pagebreak >}}
+&nbsp;
 {{< pagebreak >}}
 
 
@@ -4645,6 +4869,9 @@ Again, we present two sets of results below. First we present the results for th
 #| include: false
 
 df3 <- seven_tot
+
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
 
 y <- table(df3$condition,df3$InCS)
 y <- as.data.frame(y)
@@ -4830,7 +5057,7 @@ p <- p + ggtitle("Study 7 (full)")
 
 g7a <- p
 load("plots.RData")
-save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b, g5a, g5_prob, g5b, g7a, file = "plots.RData")
+save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b, g5a, g5_prob, g5b, g6a, g6b, g7a, file = "plots.RData")
 ```
 
 
@@ -5149,13 +5376,16 @@ p <- p +
 g7_prob <- p
 load("plots.RData")
 save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b
-     , g5a, g5_prob, g5b, g7a, g7_prob, file = "plots.RData")
+     , g5a, g5_prob, g5b, g6a, g6b, g7a, g7_prob, file = "plots.RData")
 ```
 
 ```{r}
 #| include: false
 
 df3 <- seven
+
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
 
 table(df3$condition)
 
@@ -5342,7 +5572,7 @@ p <- p + ggtitle("Study 7 (clean)")
 g7b <- p
 load("plots.RData")
 save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a, g4b
-     , g5a, g5_prob, g5b, g7a, g7_prob, g7b, file = "plots.RData")
+     , g5a, g5_prob, g5b, g6a, g6b, g7a, g7_prob, g7b, file = "plots.RData")
 ```
 
 ```{r}
@@ -5601,6 +5831,9 @@ Again, we present two sets of results below. First we present the results for th
 
 df3 <- eight_tot
 
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
+
 y <- table(df3$condition,df3$InCS)
 y <- as.data.frame(y)
 colnames(y) <- c("condition","InCS","Freq")
@@ -5786,7 +6019,7 @@ p <- p + ggtitle("Study 8 (full)")
 g8a <- p
 load("plots.RData")
 save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a,
-     g4b, g5a, g5_prob, g5b, g7a, g7b, g8a,
+     g4b, g5a, g5_prob, g5b, g6a, g6b, g7a, g7b, g8a,
      file = "plots.RData")
 ```
 
@@ -6104,7 +6337,7 @@ p <- p +
 g8_prob <- p
 load("plots.RData")
 save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a,
-     g4b, g5a, g5_prob, g5b, g7a, g7b, g8a, g8_prob,
+     g4b, g5a, g5_prob, g5b, g6a, g6b, g7a, g7b, g8a, g8_prob,
      file = "plots.RData")
 ```
 
@@ -6112,6 +6345,9 @@ save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a,
 #| include: false
 
 df3 <- eight
+
+df3 <- df3[which(is.na(df3$InCS)==FALSE),]
+table(df3$condition)
 
 table(df3$condition)
 
@@ -6298,7 +6534,7 @@ p <- p + ggtitle("Study 8 (clean)")
 g8b <- p
 load("plots.RData")
 save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a,
-     g4b, g5a, g5_prob, g5b, g7a, g7b, g8a, g8_prob, g8b,
+     g4b, g5a, g5_prob, g5b, g6a, g6b, g7a, g7b, g8a, g8_prob, g8b,
      file = "plots.RData")
 ```
 
@@ -6420,7 +6656,7 @@ p <- p +
 g8_prob_b <- p
 load("plots.RData")
 save(g1a, g1_prob, g2a, g2b, g3a, g3_prob, g3b, g4a,
-     g4b, g5a, g5_prob, g5b, g7a, g7b, g8a, g8_prob, g8b, g8_prob_b,
+     g4b, g5a, g5_prob, g5b, g6a, g6b, g7a, g7b, g8a, g8_prob, g8b, g8_prob_b,
      file = "plots.RData")
 ```
 
@@ -7991,6 +8227,10 @@ overall_plot <- grid.arrange(arrangeGrob(
   , g5a + theme(legend.position="none",
                 plot.title=element_text(size=25))
   , g5b + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g6a + theme(legend.position="none",
+                plot.title=element_text(size=25))
+  , g6b + theme(legend.position="none",
                 plot.title=element_text(size=25))
   , g7a + theme(legend.position="none",
                 plot.title=element_text(size=25))

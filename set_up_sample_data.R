@@ -1,5 +1,4 @@
 
-
 rm(list=ls())
 
 library(tidyverse)
@@ -15,34 +14,57 @@ df <- df[-c(1:2),]
 df$ctrl
 df$slf_fut
 df$slf_now
+df$oth_ctrl
 df$oth_fut
 df$oth_now
 
 df$condition5 <- NA
 df$scenario <- NA
+df$conditino6 <- NA
 
 ctrl <- df[which(is.na(df$ctrl)==F),]
 ctrl$condition5 <- rep("ctrl")
+ctrl$condition6 <- rep("ctrl")
+# 
+# n <- length(ctrl$conditino6)
+# ind <- sample(c(TRUE, FALSE), n, replace=TRUE, prob=c(0.5, 0.5))
+# ctrl1 <- ctrl[ind, ]
+# ctrl2 <- ctrl[!ind, ]
+# 
+# ctrl1$condition6 <- rep("ctrl_psych")
+# ctrl2$condition6 <- rep("ctrl_temp")
+# ctrl <- rbind(ctrl1,ctrl2)
+# 
+# rm(n,ind,ctrl1,ctrl2)
+
+oth_ctrl <- df[which(is.na(df$oth_ctrl)==F),]
+oth_ctrl$condition5 <- rep("oth_ctrl")
+oth_ctrl$condition6 <- rep("oth_ctrl")
 
 slf_fut <- df[which(is.na(df$slf_fut)==F),]
 slf_fut$condition5 <- rep("slf_fut")
+slf_fut$condition6 <- rep("slf_fut")
 
 slf_now <- df[which(is.na(df$slf_now)==F),]
 slf_now$condition5 <- rep("slf_now")
+slf_now$condition6 <- rep("slf_now")
 
 oth_fut <- df[which(is.na(df$oth_fut)==F),]
 oth_fut$condition5 <- rep("oth_fut")
+oth_fut$condition6 <- rep("oth_fut")
 
 oth_now <- df[which(is.na(df$oth_now)==F),]
 oth_now$condition5 <- rep("oth_now")
+oth_now$condition6 <- rep("oth_now")
 
 
-df <- rbind(ctrl, slf_fut, slf_now, oth_fut, oth_now)
+df <- rbind(ctrl, slf_fut, slf_now, oth_ctrl, oth_fut, oth_now)
 
 
 Jen <- df %>% select(
   "ResponseId"
   , "condition5"
+  , "condition6"
   , "scenario"
   , "attn_1","attn_2"
   , "before", "before_dtls"
@@ -50,6 +72,7 @@ Jen <- df %>% select(
 Jen$scenario <- rep("Jennifer")
 Jen <- `colnames<-`(Jen, c("ResponseId"
                            ,"condition5"
+                           ,"condition6"
                            ,"scenario"
                            ,"attn_1"
                            ,"attn_2"
@@ -83,6 +106,7 @@ Jen <- `colnames<-`(Jen, c("ResponseId"
 Jmk <- df %>% select(
   "ResponseId"
   , "condition5"
+  , "condition6"
   , "scenario"
   , "attn_1","attn_2"
   , "before", "before_dtls"
@@ -90,6 +114,7 @@ Jmk <- df %>% select(
 Jmk$scenario <- rep("Julie and Mark")
 Jmk <- `colnames<-`(Jmk, c("ResponseId"
                            ,"condition5"
+                           ,"condition6"
                            ,"scenario"
                            ,"attn_1"
                            ,"attn_2"
@@ -123,6 +148,7 @@ Jmk <- `colnames<-`(Jmk, c("ResponseId"
 Try <- df %>% select(
   "ResponseId"
   , "condition5"
+  , "condition6"
   , "scenario"
   , "attn_1","attn_2"
   , "before", "before_dtls"
@@ -130,6 +156,7 @@ Try <- df %>% select(
 Try$scenario <- rep("Trolley")
 Try <- `colnames<-`(Try, c("ResponseId"
                            ,"condition5"
+                           ,"condition6"
                            ,"scenario"
                            ,"attn_1"
                            ,"attn_2"
@@ -163,6 +190,7 @@ Try <- `colnames<-`(Try, c("ResponseId"
 Hnz <- df %>% select(
   "ResponseId"
   , "condition5"
+  , "condition6"
   , "scenario"
   , "attn_1","attn_2"
   , "before", "before_dtls"
@@ -170,6 +198,7 @@ Hnz <- df %>% select(
 Hnz$scenario <- rep("Heinz")
 Hnz <- `colnames<-`(Hnz, c("ResponseId"
                            ,"condition5"
+                           ,"condition6"
                            ,"scenario"
                            ,"attn_1"
                            ,"attn_2"
@@ -212,14 +241,24 @@ df$psych <- rep(NA)
 df$temp <- rep(NA)
 
 ctrl <- df[which(df$condition5=="ctrl"),]
+# ctrl_psych <- df[which(df$condition6=="ctrl_psych"),]
+# ctrl_temp <- df[which(df$condition6=="ctrl_temp"),]
+oth_ctrl  <- df[which(df$condition6=="oth_ctrl"),]
 oth_fut <- df[which(df$condition5=="oth_fut"),]
 oth_now <- df[which(df$condition5=="oth_now"),]
 slf_fut <- df[which(df$condition5=="slf_fut"),]
 slf_now <- df[which(df$condition5=="slf_now"),]
 
-ctrl$psych <- rep("control")
-ctrl$temp <- rep("control")
+# ctrl_psych$psych <- rep("self")
+# ctrl_psych$temp <- rep("control")
+# 
+# ctrl_temp$psych <- rep("self")
+# ctrl_temp$temp <- rep("control")
 
+ctrl$psych <- rep("self")
+ctrl$temp <- rep("control")
+oth_ctrl$psych <- rep("other")
+oth_ctrl$temp <- rep("control")
 oth_fut$psych <- rep("other")
 oth_now$psych <- rep("other")
 slf_fut$psych <- rep("self")
@@ -230,7 +269,10 @@ slf_fut$temp <- rep("future")
 slf_now$temp <- rep("now")
 
 df <- rbind(
+  # ctrl_psych
+  # , ctrl_temp
   ctrl
+  , oth_ctrl
   , oth_fut
   , oth_now
   , slf_fut
@@ -256,9 +298,12 @@ df$cf2_2
 as.numeric(df$cf2_2)
 df$cf2_2 <- as.numeric(df$cf2_2)
 
+as.factor(df$condition5)
+as.factor(df$condition6)
 
 df$scenario <- as.factor(df$scenario)
 df$condition5 <- as.factor(df$condition5)
+df$condition6 <- as.factor(df$condition6)
 df$psych <- as.factor(df$psych)
 df$temp <- as.factor(df$temp)
 df$cs <- as.factor(df$cs)

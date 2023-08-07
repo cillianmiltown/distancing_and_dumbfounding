@@ -1,6 +1,8 @@
 ---
 title: "Sample and Simulated Data"
-keywords          : "moral dumbfounding, dual-processes, reasons, intuitions, need for cognition"
+author: "Cillian McHugh"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+keywords          : "moral dumbfounding, dual-processes, reasons, intuitions"
 bibliography: "resources/bib/My Library.bib"
 figsintext        : yes
 figurelist        : yes
@@ -18,13 +20,32 @@ editor_options:
   chunk_output_type: console
 ---
 
+
+```{r ch5setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(include = FALSE)
+options(scipen=1, digits=2)
+# knitr::opts_chunk$set(fig.path='figure/graphics-', 
+#                       cache.path='cache/graphics-', 
+#                       fig.align='center',
+#                       external=TRUE,
+#                       echo=FALSE,
+#                       warning=FALSE,
+#                       fig.pos='H'
+# )
+```
+
+
 ```{r}
 rm(list=ls())
-
+library(conflicted)
 library(tidyverse)
 library(mlogit)
+library(DescTools)
+library(nnet)
+library(pwr)
 #library(reshape2)
-
+#conflicts_prefer(dplyr::filter, .quiet = TRUE)
 
 ```
 
@@ -42,50 +63,60 @@ df3 <- simulated_data
 
 ```
 
+```{r}
+x <- simulated_data
+table(x$condition6)
+table(x$psych,x$temp)
+
+```
+
 
 ```{r}
+#| include: false
 
-x <- rbind(simulated_data,simulated_data)
-
-lme4::lmer(cs ~ 
-              psych
-            + temp
-            + (1|ResponseId)
-           , data = x
-           , family = gaussian)
-
-help(lmer)
-x$ResponseId
-
-nlme::lme(cs ~ 
-            ju1_2
-            #   psych
-            # + temp
-    ,
-          data = x, random = ~ 1 | ResponseId)
-
-
-
-model0 <- lmerTest::lmer(cs ~ 1
-                #   condition
-                 + (1|ResponseId)
-                # + (1|ResponseId:condition)
-                , data = x
-          #      , contrasts = list(condition = contr.sum  , valence = contr.sum)
-            )
-
-
-
-summary(model0)
-model1 <- lmerTest::lmer(ju1_2 ~
-                  condition5#*scenario
-                 + (1|ResponseId)
-                # + (1|ResponseId:condition)
-                , data = x
-                #, contrasts = list(condition = contr.sum  )#, valence = contr.sum)
-            )
-summary(model1)
-anova(model1)
+# 
+# x <- rbind(simulated_data,simulated_data)
+# 
+# lme4::lmer(cs ~ 
+#               psych
+#             + temp
+#             + (1|ResponseId)
+#            , data = x
+#            #, family = gaussian
+#            )
+# 
+# help(lmer)
+# x$ResponseId
+# 
+# nlme::lme(cs ~ 
+#             ju1_2
+#             #   psych
+#             # + temp
+#     ,
+#           data = x, random = ~ 1 | ResponseId)
+# 
+# 
+# 
+# model0 <- lmerTest::lmer(cs ~ 1
+#                 #   condition
+#                  + (1|ResponseId)
+#                 # + (1|ResponseId:condition)
+#                 , data = x
+#           #      , contrasts = list(condition = contr.sum  , valence = contr.sum)
+#             )
+# 
+# 
+# 
+# summary(model0)
+# model1 <- lmerTest::lmer(ju1_2 ~
+#                   condition5#*scenario
+#                  + (1|ResponseId)
+#                 # + (1|ResponseId:condition)
+#                 , data = x
+#                 #, contrasts = list(condition = contr.sum  )#, valence = contr.sum)
+#             )
+# summary(model1)
+# anova(model1)
 
 
 ```
@@ -99,7 +130,7 @@ anova(model1)
 #df3$cs <- relevel(df3$cs, ref = 2)
 
 df3a <- mlogit.data(df3, choice = "cs", shape = "wide")
-InCSModel<-mlogit(cs ~ 1 | psych + temp, data = df3a)# , reflevel = 2)
+InCSModel<-mlogit(cs ~ 1 | psych+temp, data = df3a)# , reflevel = 2)
 
 InCSModel
 
@@ -114,7 +145,7 @@ summary_InCS_model$lratio$p.value
 InCSModel$coefficients[3]
 InCSModel$coefficients[4]
 
-cox <- PseudoR2(multinom(InCS~SocDes,df3), "all")
+cox <- DescTools::PseudoR2(multinom(cs~psych,df3), "all")
 
 cox[3]
 cox[4]
@@ -146,7 +177,7 @@ fitted(InCSModel, outcome = F)
 
 c <- summary_InCS_model$lratio$statistic
 w <- sqrt(c/length(df3$gender))
-pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(2),sig.level = .05)
+pw <- pwr.chisq.test(w=w,N=length(df3$cs),df=(2),sig.level = .05)
 
 pw$power
 
@@ -162,12 +193,24 @@ revised_PseudoR2s <- function(LogModel) {
   all
 }
 
-logits_rsquared <- glm(InCS~SocDes,df3, family = binomial(link = "logit"))
+logits_rsquared <- glm(cs~psych*temp*scenario,x, family = binomial(link = "logit"))
 cox <- revised_PseudoR2s(logits_rsquared)
+cox
+summary(logits_rsquared)
+
+logits_rsquared
+
+
+glm1 <- glm(cs~psych+temp,x, family = binomial(link = "logit"))
+glm0 <- update(glm1, . ~ 1)
+anova(glm0,glm1,test="Chisq")
+
+# https://stats.stackexchange.com/questions/69664/comparing-nested-glms-via-chi-squared-and-loglikelihood#69777
+
 
 ```
 
 ### Distancing and Dumbfounding
 
-There was no significant association between Social Desirability and response to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$gender)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`. 
+There was a significant association between experimental condition and response to the critical slide $\chi$^2^(`r summary_InCS_model$lratio$parameter`, *N* = `r length(df3$cs)`) = `r round(summary_InCS_model$lratio$statistic, digits=2)`, *p* `r paste(p_report(summary_InCS_model$lratio$p.value))`, The observed power was `r round(pw$power,digits=2)`. 
 
