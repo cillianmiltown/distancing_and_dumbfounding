@@ -74,3 +74,270 @@ c("affiliation_namer"
   , "is_docx" ,"is_empty"
   , "is_pdf" 
   , "yml_metadata"))
+
+
+
+##### Logistic Regression prep 7 Aug 2023 #####
+
+
+
+# 
+# x <- rbind(simulated_data,simulated_data)
+# 
+# lme4::lmer(cs ~ 
+#               psych
+#             + temp
+#             + (1|ResponseId)
+#            , data = x
+#            #, family = gaussian
+#            )
+# 
+# help(lmer)
+# x$ResponseId
+# 
+# nlme::lme(cs ~ 
+#             ju1_2
+#             #   psych
+#             # + temp
+#     ,
+#           data = x, random = ~ 1 | ResponseId)
+# 
+# 
+# 
+# model0 <- lmerTest::lmer(cs ~ 1
+#                 #   condition
+#                  + (1|ResponseId)
+#                 # + (1|ResponseId:condition)
+#                 , data = x
+#           #      , contrasts = list(condition = contr.sum  , valence = contr.sum)
+#             )
+# 
+# 
+# 
+# summary(model0)
+# model1 <- lmerTest::lmer(ju1_2 ~
+#                   condition5#*scenario
+#                  + (1|ResponseId)
+#                 # + (1|ResponseId:condition)
+#                 , data = x
+#                 #, contrasts = list(condition = contr.sum  )#, valence = contr.sum)
+#             )
+# summary(model1)
+# anova(model1)
+
+
+
+#df3$cs <- relevel(df3$cs, ref = 2)
+df3 <- x
+df3a <- mlogit.data(df3, choice = "cs", shape = "wide")
+
+x_logit <- mlogit.data(x, choice = "cs", shape = "wide")
+
+logitmodel <- mlogit(cs ~ 1 | psych+temp, data = x_logit)# , reflevel = 2)
+logitmodel <- mlogit(cs ~ 1 | psych + temp + scenario + psych:temp, data = x_logit)# , reflevel = 2)
+mlog
+
+logitmodel
+
+
+summary_logitmodel <- summary(logitmodel)
+summary_logitmodel
+
+summary_logitmodel$lratio$parameter
+summary_logitmodel$lratio$statistic
+summary_logitmodel$lratio$p.value
+
+logitmodel$coefficients[3]
+logitmodel$coefficients[4]
+
+cox <- DescTools::PseudoR2(multinom(cs~psych,df3), "all")
+
+cox[3]
+cox[4]
+#PseudoR2(x, "all")
+#summary_InCS_model
+
+
+wald1 <- 
+  summary_InCS_model$CoefTable[3]^2 /
+  summary_InCS_model$CoefTable[7]^2
+
+wald2 <- 
+  summary_InCS_model$CoefTable[4]^2 /
+  summary_InCS_model$CoefTable[8]^2
+
+
+summary_InCS_model
+summary_InCS_model$coefficients[3]
+data.frame(exp(InCSModel$coefficients))
+
+exp(InCSModel$coefficients)[3]
+
+
+a <- exp(confint(InCSModel))
+c(a[3],a[7])
+
+residuals(InCSModel)
+fitted(InCSModel, outcome = F)
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$cs),df=(2),sig.level = .05)
+
+pw$power
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+logits_rsquared <- glm(cs~psych*temp*scenario,x, family = binomial(link = "logit"))
+
+
+logits_rsquared <- glm(cs~psych+temp,x, family = binomial(link = "logit"))
+
+cox <- revised_PseudoR2s(logits_rsquared)
+cox
+summary(logits_rsquared)
+
+summary_InCS_model
+
+model0 <- glm(cs~1,x, family = binomial(link = "logit"))
+model0
+summary(model0)
+model0
+
+anova(model1, test = "Chisq")
+
+anova(model0,model1, test = "Chisq")
+
+model1 <- glm(cs~psych+temp,x, family = binomial(link = "logit"))
+summary(model1)
+
+
+multi1 <- multinom(cs ~ psych+temp, data = x)
+summary(multi1)
+multi1$
+  
+  glm1 <- glm(cs~psych+temp,x, family = binomial(link = "logit"))
+glm0 <- update(glm1, . ~ 1)
+anova(glm0,glm1,test="Chisq")
+
+# https://stats.stackexchange.com/questions/69664/comparing-nested-glms-via-chi-squared-and-loglikelihood#69777
+x <- df3
+
+
+
+
+model0 <- glm(cs~1,x, family = binomial(link = "logit"))
+model0
+summary(model0)
+
+model1 <- glm(cs~psych+temp,x, family = binomial(link = "logit"))
+summary(model1)
+
+
+
+model2 <- glm(cs~psych*temp,x, family = binomial(link = "logit"))
+summary(model2)
+
+model3 <- glm(cs~psych*temp+scenario,x, family = binomial(link = "logit"))
+
+anova(model0,model1, test = "Chisq")
+anova(model1,model2, test = "Chisq")
+anova(model0,model1,model2, test = "Chisq")
+anova(model0,model1,model2,model3, test = "Chisq")
+
+
+
+summary(model3)
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+cox <- revised_PseudoR2s(model1)
+
+aov1 <- anova(model0,model1, test = "Chisq")
+
+aov1$Df[2]
+aov1$`Pr(>Chi)`[2]
+aov1$Deviance[2]
+
+aov1[2,]$Deviance
+
+a <- exp(confint(model1))
+
+
+
+
+
+model0 <- glm(cs~1,x, family = binomial(link = "logit"))
+model1 <- glm(cs~psych+temp,x, family = binomial(link = "logit"))
+
+chi1 <- anova(model0,model1, test = "Chisq")[2,]
+a <- exp(confint(model1))
+
+cox <- revised_PseudoR2s(model1)
+
+
+chi1$Deviance
+
+summary(model1)
+
+c <- summary_InCS_model$lratio$statistic
+w <- sqrt(c/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$cs),df=(2),sig.level = .05)
+
+c_full <- chisq.test(table(x$cs,x$psych))
+c_full
+
+c_full$statistic
+c <- c_full$statistic
+w <- sqrt(c/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(df3$cs),df=(2),sig.level = .05)
+pw
+
+
+#model1_summary <- 
+
+test <- as.data.frame(summary(model1)$coefficients)
+test <- as.data.frame(test)
+
+test$`z value`
+model1_summary$coefficients[2,]
+
+
+
+model0 <- nnet::multinom(cs~1,x) 
+model1 <- nnet::multinom(cs~psych+temp+psych*temp,x) 
+
+anova(model0,model1)
+
+model0$deviance
+
+summary(model1)
+
+model5$deviance - model0$deviance
+broom::tidy(model5)
+summary(model5)
+model5$deviance
+
+
+
+

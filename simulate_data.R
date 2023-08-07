@@ -9,8 +9,11 @@ conflicts_prefer(dplyr::mutate, .quiet = TRUE)
 
 source("set_up_sample_data.R")
 
-N <- 4800
-session_seed <- 4
+# N <- 4800
+# session_seed <- 4
+# save(N,file = "N.RData")
+
+load("N.RData")
 
 df <- sample_data
 
@@ -69,11 +72,8 @@ x <- data.frame(
   select(-c(attn_1,attn_2,before,before_dtls)) %>% 
   select(-c(rsn_st1, ca1, sw1, rsn1, ca2, sw2, rsn2, ca3, sw3, rsn3, rsn_st2))
 
-
-
-head(x)
 x$ResponseId <- c(1:length(x$ResponseId))
-
+head(x)
 
 control <- x[which(x$condition5=="ctrl"),]
 oth_ctrl <- x[which(x$condition5=="oth_ctrl"),]
@@ -82,6 +82,8 @@ oth_now <- x[which(x$condition5=="oth_now"),]
 slf_fut <- x[which(x$condition5=="slf_fut"),]
 slf_now <- x[which(x$condition5=="slf_now"),]
 
+
+#### Create Scenario variable and set up overall simulation ####
 
 y <- control
 y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
@@ -132,7 +134,7 @@ y <- slf_now
 y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
 y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
 y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
-y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T, prob=c(0.64, 0.12, 0.24))
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T, prob=c(0.62, 0.14, 0.24))
 y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
 y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
 slf_now <- y
@@ -161,6 +163,446 @@ make_factors <- function(x){
 
 x <- make_factors(x)
 
-simulated_data <- x
+simulated_data_overall <- x
 
-rm(list=setdiff(ls(), c("simulated_data")))
+
+
+
+#### Set up simulation with scenario differences ####
+
+
+x <- simulated_data_overall
+x$scenario
+
+# Heinz Jennifer Julie and Mark Trolley
+
+#### Heinz ####
+
+x <- simulated_data_overall
+
+x <- x[which(x$scenario=="Heinz"),]
+
+reasons <- .66
+dumb <- .16
+nothing <- .18
+
+control <- x[which(x$condition5=="ctrl"),]
+oth_ctrl <- x[which(x$condition5=="oth_ctrl"),]
+oth_fut <- x[which(x$condition5=="oth_fut"),]
+oth_now <- x[which(x$condition5=="oth_now"),]
+slf_fut <- x[which(x$condition5=="slf_fut"),]
+slf_now <- x[which(x$condition5=="slf_now"),]
+
+
+y <- control
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons, dumb, nothing))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+control <- y
+
+y <- oth_ctrl
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons+.03, dumb-.03, nothing))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+oth_ctrl <- y
+
+y <- oth_fut
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons+.09, dumb-.11, nothing+.02))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+oth_fut <- y
+
+y <- oth_now
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons-.02, dumb-.08, nothing+.10))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+oth_now <- y
+
+y <- slf_fut
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons-.03, dumb-.08, nothing+.11))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+slf_fut <- y
+
+y <- slf_now
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons-.05, dumb-.06, nothing+.11))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+slf_now <- y
+
+
+x <- rbind(control
+           , oth_ctrl
+           , oth_fut
+           , oth_now
+           , slf_fut
+           , slf_now)
+
+head(x)
+
+
+make_factors <- function(x){
+  df <- x
+  df$scenario <- as.factor(df$scenario)
+  df$condition5 <- as.factor(df$condition5)
+  df$condition6 <- as.factor(df$condition6)
+  df$psych <- as.factor(df$psych)
+  df$temp <- as.factor(df$temp)
+  df$cs <- as.factor(df$cs)
+  df
+}
+
+x <- make_factors(x)
+Heinz <- x
+
+#### Julie and Mark ####
+
+x <- simulated_data_overall
+
+x <- x[which(x$scenario=="Julie and Mark"),]
+
+reasons <- .63
+dumb <- .19
+nothing <- .18
+
+control <- x[which(x$condition5=="ctrl"),]
+oth_ctrl <- x[which(x$condition5=="oth_ctrl"),]
+oth_fut <- x[which(x$condition5=="oth_fut"),]
+oth_now <- x[which(x$condition5=="oth_now"),]
+slf_fut <- x[which(x$condition5=="slf_fut"),]
+slf_now <- x[which(x$condition5=="slf_now"),]
+
+
+
+y <- control
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons, dumb, nothing))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+control <- y
+
+y <- oth_ctrl
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons+.03, dumb-.03, nothing))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+oth_ctrl <- y
+
+y <- oth_fut
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons+.09, dumb-.11, nothing+.02))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+oth_fut <- y
+
+y <- oth_now
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons-.02, dumb-.08, nothing+.10))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+oth_now <- y
+
+y <- slf_fut
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons-.03, dumb-.08, nothing+.11))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+slf_fut <- y
+
+y <- slf_now
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons-.05, dumb-.06, nothing+.11))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+slf_now <- y
+
+
+
+x <- rbind(control
+           , oth_ctrl
+           , oth_fut
+           , oth_now
+           , slf_fut
+           , slf_now)
+
+head(x)
+
+
+make_factors <- function(x){
+  df <- x
+  df$scenario <- as.factor(df$scenario)
+  df$condition5 <- as.factor(df$condition5)
+  df$condition6 <- as.factor(df$condition6)
+  df$psych <- as.factor(df$psych)
+  df$temp <- as.factor(df$temp)
+  df$cs <- as.factor(df$cs)
+  df
+}
+
+x <- make_factors(x)
+
+J_and_M <- x
+
+#### Jennifer ####
+
+x <- simulated_data_overall
+
+x <- x[which(x$scenario=="Jennifer"),]
+
+reasons <- .72
+dumb <- .16
+nothing <- .12
+
+
+control <- x[which(x$condition5=="ctrl"),]
+oth_ctrl <- x[which(x$condition5=="oth_ctrl"),]
+oth_fut <- x[which(x$condition5=="oth_fut"),]
+oth_now <- x[which(x$condition5=="oth_now"),]
+slf_fut <- x[which(x$condition5=="slf_fut"),]
+slf_now <- x[which(x$condition5=="slf_now"),]
+
+
+
+y <- control
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons, dumb, nothing))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+control <- y
+
+y <- oth_ctrl
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons+.03, dumb-.03, nothing))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+oth_ctrl <- y
+
+y <- oth_fut
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons+.09, dumb-.11, nothing+.02))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+oth_fut <- y
+
+y <- oth_now
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons-.02, dumb-.08, nothing+.10))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+oth_now <- y
+
+y <- slf_fut
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons-.03, dumb-.08, nothing+.11))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+slf_fut <- y
+
+y <- slf_now
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons-.05, dumb-.06, nothing+.11))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+slf_now <- y
+
+
+
+x <- rbind(control
+           , oth_ctrl
+           , oth_fut
+           , oth_now
+           , slf_fut
+           , slf_now)
+
+head(x)
+
+
+make_factors <- function(x){
+  df <- x
+  df$scenario <- as.factor(df$scenario)
+  df$condition5 <- as.factor(df$condition5)
+  df$condition6 <- as.factor(df$condition6)
+  df$psych <- as.factor(df$psych)
+  df$temp <- as.factor(df$temp)
+  df$cs <- as.factor(df$cs)
+  df
+}
+
+x <- make_factors(x)
+
+Jennifer <- x
+
+#### Trolley ####
+
+x <- simulated_data_overall
+
+x <- x[which(x$scenario=="Trolley"),]
+
+reasons <- .68
+dumb <- .12
+nothing <- .20
+
+
+control <- x[which(x$condition5=="ctrl"),]
+oth_ctrl <- x[which(x$condition5=="oth_ctrl"),]
+oth_fut <- x[which(x$condition5=="oth_fut"),]
+oth_now <- x[which(x$condition5=="oth_now"),]
+slf_fut <- x[which(x$condition5=="slf_fut"),]
+slf_now <- x[which(x$condition5=="slf_now"),]
+
+
+
+y <- control
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons, dumb, nothing))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+control <- y
+
+y <- oth_ctrl
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons+.03, dumb-.03, nothing))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+oth_ctrl <- y
+
+y <- oth_fut
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons+.09, dumb-.11, nothing+.02))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+oth_fut <- y
+
+y <- oth_now
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons-.02, dumb-.08, nothing+.10))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+oth_now <- y
+
+y <- slf_fut
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons-.03, dumb-.08, nothing+.11))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+slf_fut <- y
+
+y <- slf_now
+#y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
+y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
+y$cf1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.5, sd=1.3)
+y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T
+                     , prob=c(reasons-.05, dumb-.06, nothing+.11))
+y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
+y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
+slf_now <- y
+
+
+
+x <- rbind(control
+           , oth_ctrl
+           , oth_fut
+           , oth_now
+           , slf_fut
+           , slf_now)
+
+head(x)
+
+
+make_factors <- function(x){
+  df <- x
+  df$scenario <- as.factor(df$scenario)
+  df$condition5 <- as.factor(df$condition5)
+  df$condition6 <- as.factor(df$condition6)
+  df$psych <- as.factor(df$psych)
+  df$temp <- as.factor(df$temp)
+  df$cs <- as.factor(df$cs)
+  df
+}
+
+x <- make_factors(x)
+
+Trolley <- x
+
+#### combine the scenarios ####
+
+simulated_data_scenarios <- rbind(Heinz,J_and_M,Jennifer,Trolley)
+
+simulated_data <- simulated_data_scenarios
+
+rm(list=setdiff(ls(), c("simulated_data","simulated_data_scenarios","simulated_data_overall")))
