@@ -340,4 +340,114 @@ model5$deviance
 
 
 
+#### 8th August 2023 ####
+
+
+
+revised_PseudoR2s <- function(LogModel) {
+  dev <- LogModel$deviance
+  nullDev <- LogModel$null.deviance
+  modelN <- length(LogModel$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all
+}
+
+
+model0 <- glm(cs~1,x, family = binomial(link = "logit"))
+model1 <- glm(cs~psych+temp,x, family = binomial(link = "logit"))
+
+chi1 <- anova(model0,model1, test = "Chisq")[2,]
+
+c <- chi1$Deviance
+w <- sqrt(c/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(chi1$Df),sig.level = .05)
+
+a <- exp(confint(model1))
+
+cox <- revised_PseudoR2s(model1)
+cox
+
+test <- as.data.frame(summary(model1)$coefficients)
+psych_coeffs <- test[2,] # model1_summary$coefficients[2,]
+
+psych_coeffs$`z value`
+
+
+
+
+
+#| include: false
+
+# mlogit_PseudoR2s <- function(model0R2,model1R2) {
+#   dev <- abs(model1R2$logLik)
+#   nullDev <- abs(model0R2$logLik)
+#   modelN <- length(model1R2$fitted.values)
+#   R.l <- 1 - dev / nullDev
+#   R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+#   R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+#   
+#   all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+#   all
+# }
+# 
+# x_interaction <- x[which(x$temp!="control"),]
+# x_interaction$temp <- droplevels(x_interaction$temp)
+# x_interaction <- 
+#   x_interaction %>% mutate(
+#     temp_recode = recode(temp, "now" = 0, "future" = 1)
+#     ,psych_recode = recode(psych, "self" = 0, "other" = 1)
+#   )
+# 
+# x_logit <- mlogit.data(x, choice = "cs", shape = "wide")
+# 
+# #logitmodel <- mlogit(cs ~ 1 | psych+temp, data = x_logit)# , reflevel = 2)
+# model0 <- mlogit(cs ~ 1| 1 , data = x_logit)# , reflevel = 2)
+# model1 <- mlogit(cs ~ 1 |  psych + temp + psych:temp, data = x_logit , reflevel = 2)
+# 
+# 
+# summary(model1)
+# summary(model0)
+# 
+# model1$logLik
+# model0$logLik
+# 
+# 
+# summary_model1 <- summary(model1)
+# 
+# 
+# 
+# c <- summary_model1$lratio$statistic
+# w <- sqrt(c/length(x$cs))
+# pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(chi1$Df),sig.level = .05)
+# 
+# 
+# 
+# 
+# 
+# summary_model1 <- summary(model1)
+# summary_model1$CoefTable
+# 
+# summary_model1$lratio$parameter
+# summary_model1$lratio$statistic
+# summary_model1$lratio$p.value
+# 
+# summary_model1$lratio$statistic
+# 
+# 
+# a <- exp(confint(model1))
+# 
+# cox <- mlogit_PseudoR2s(model0,model1)
+# cox
+# 
+# test <- as.data.frame(summary_model1$CoefTable)
+# 
+# future <- test[]
+
+
+
+
 

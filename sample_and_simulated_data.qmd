@@ -70,6 +70,256 @@ table(x$psych,x$temp)
 
 
 
+## Psychological Distancing and Dumbfounding
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$temp)
+
+
+y <- table(x$temp,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$temp,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abc_graph <- function(){
+  a <- x[which(x$temp==levels(as.factor(x$temp))[1]),]
+  b <- x[which(x$temp==levels(as.factor(x$temp))[2]),]
+  c <- x[which(x$temp==levels(as.factor(x$temp))[3]),]
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$temp))
+  by <- as.data.frame(table(b$cs,b$temp))
+  cy <- as.data.frame(table(c$cs,c$temp))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("CS","condition","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("CS","condition","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$cs)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("CS","condition","Freq","perc")
+  
+  tot <- rbind(ay, by, cy)
+  
+  tot
+}
+
+test <- abc_graph()
+
+x <- df3
+
+se_fun <- function(a,b){
+  k <- length(a$gender)
+  n <- length(b$gender)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong and I can provide a valid reason."),]
+         ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="1manip"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong and I can provide a valid reason."),]
+          ,x[which(x$condition=="2control"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="There is nothing wrong."),]
+          ,x[which(x$condition=="2control"),])
+  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong but I can't think of a reason."),]
+          ,x[which(x$condition=="2control"),])
+)
+
+y1 <- y %>% select("InCS","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","InCS") )
+
+rm(x,y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
+                                             ,labels=c("Distanced","Control")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), size=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  scale_fill_grey(start = .5, end = .8) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+```
+
+```{r}
+#| label: apafg-dch5S2fig2criticalconditionNoExcl
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Pilot Study 2: Responses to critical slide for the experimental group (N = 47) and the control group (N = 46); (No exclusions; error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+
+```{r}
+#| include: false
+#| echo: false
+
+df3 <- two_tot
+t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
+t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+
+t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
+t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
+d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
+
+
+
+c <- chisq.test(table(df3$InCS,df3$condition))
+w <- sqrt(c[]$statistic/length(df3$gender))
+pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+```
+
+### No Exclusions
+#### Overview of Judgments (no exclusions)
+
+`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+
+
+
+```{r}
+#| include: false
+# 
+# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
+# 
+# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
+# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+#t_paragraph(one$InJu1, one$condition, "initial judgement")
+#t_paragraph(two$InJu1, two$condition, "initial judgement")
+#t_paragraph(three$InJu1, three$condition, "initial judgement")
+
+#
+table(df3$condition)
+round(mean(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
+
+round(mean(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+round(sd(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
+```
+
+#### Distancing and Judgments Made
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~distanced~ = `r round(mean(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*SD*~distanced~ = `r round(sd(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
+*SD*~control~ = `r round(sd(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`).
+
+#### Distancing and Reason-Giving/Dumbfounding
+
+There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="1manip")`) and the control group (*N* = `r sum(df3$condition=="2control")`) are displayed in {apafg-dch5S2fig2criticalconditionNoExcl}.
+
+
+## Temporal Distancing and Dumbfounding
+
+
+
 ```{r}
 #| include: false
 
@@ -79,122 +329,6 @@ table(x$psych,x$temp)
 
 ### Distancing and Dumbfounding
 
-
-
-```{r}
-
-revised_PseudoR2s <- function(LogModel) {
-  dev <- LogModel$deviance
-  nullDev <- LogModel$null.deviance
-  modelN <- length(LogModel$fitted.values)
-  R.l <- 1 - dev / nullDev
-  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
-  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
-  
-  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
-  all
-}
-
-```
-
-
-
-```{r}
-
-model0 <- glm(cs~1,x, family = binomial(link = "logit"))
-model1 <- glm(cs~psych+temp,x, family = binomial(link = "logit"))
-
-chi1 <- anova(model0,model1, test = "Chisq")[2,]
-
-c <- chi1$Deviance
-w <- sqrt(c/length(x$cs))
-pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(chi1$Df),sig.level = .05)
-
-a <- exp(confint(model1))
-
-cox <- revised_PseudoR2s(model1)
-cox
-
-test <- as.data.frame(summary(model1)$coefficients)
-psych_coeffs <- test[2,] # model1_summary$coefficients[2,]
-
-psych_coeffs$`z value`
-
-```
-
-
-
-
-```{r}
-#| include: false
-
-# mlogit_PseudoR2s <- function(model0R2,model1R2) {
-#   dev <- abs(model1R2$logLik)
-#   nullDev <- abs(model0R2$logLik)
-#   modelN <- length(model1R2$fitted.values)
-#   R.l <- 1 - dev / nullDev
-#   R.cs <- 1- exp ( -(nullDev - dev) / modelN)
-#   R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
-#   
-#   all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
-#   all
-# }
-# 
-# x_interaction <- x[which(x$temp!="control"),]
-# x_interaction$temp <- droplevels(x_interaction$temp)
-# x_interaction <- 
-#   x_interaction %>% mutate(
-#     temp_recode = recode(temp, "now" = 0, "future" = 1)
-#     ,psych_recode = recode(psych, "self" = 0, "other" = 1)
-#   )
-# 
-# x_logit <- mlogit.data(x, choice = "cs", shape = "wide")
-# 
-# #logitmodel <- mlogit(cs ~ 1 | psych+temp, data = x_logit)# , reflevel = 2)
-# model0 <- mlogit(cs ~ 1| 1 , data = x_logit)# , reflevel = 2)
-# model1 <- mlogit(cs ~ 1 |  psych + temp + psych:temp, data = x_logit , reflevel = 2)
-# 
-# 
-# summary(model1)
-# summary(model0)
-# 
-# model1$logLik
-# model0$logLik
-# 
-# 
-# summary_model1 <- summary(model1)
-# 
-# 
-# 
-# c <- summary_model1$lratio$statistic
-# w <- sqrt(c/length(x$cs))
-# pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(chi1$Df),sig.level = .05)
-# 
-# 
-# 
-# 
-# 
-# summary_model1 <- summary(model1)
-# summary_model1$CoefTable
-# 
-# summary_model1$lratio$parameter
-# summary_model1$lratio$statistic
-# summary_model1$lratio$p.value
-# 
-# summary_model1$lratio$statistic
-# 
-# 
-# a <- exp(confint(model1))
-# 
-# cox <- mlogit_PseudoR2s(model0,model1)
-# cox
-# 
-# test <- as.data.frame(summary_model1$CoefTable)
-# 
-# future <- test[]
-
-
-```
 
 
 
@@ -209,11 +343,26 @@ multinom_PseudoR2s <- function(model0R2,model1R2) {
   R.cs <- 1- exp ( -(nullDev - dev) / modelN)
   R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
   
-  all <- list(hosmer_and_lemeshow = as.numeric(R.l), mcfadden = NA, cox_and_snell = as.numeric(R.cs), nagelkerke = as.numeric(R.n))
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l)
+              , mcfadden = NA
+              , cox_and_snell = as.numeric(R.cs)
+              , nagelkerke = as.numeric(R.n))
   all
 }
 
+wald_OR <- function(term){
+  term$wald <- (term$statistic)*2
+  term$OR <- exp(term$estimate)
+  term$lower <- term$`2.5 %`
+  term$upper <- term$`97.5 %`
+  term
+}
 
+```
+
+
+```{r}
+#| include: false
 
 model0 <- nnet::multinom(cs~1,x) 
 model1 <- nnet::multinom(cs~psych+temp+psych*temp,x) 
@@ -231,12 +380,7 @@ chi_full$`Resid. Dev`[1]
 chi_df <- chi1$`   Df`
 chi_p <- chi1$`Pr(Chi)`
 
-chi_df
-model0$deviance
-model1$deviance
-model1$fitted.values
 
-chi1$`LR stat.`
 c <- chi1$`LR stat.`
 w <- sqrt(c/length(x$cs))
 pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(chi_df),sig.level = .05)
@@ -247,37 +391,16 @@ cox
 
 c
 
-summary_model1
-summary_model1[2,]
-psych_self_dumb <- summary_model1[2,]
+a <- exp(confint(model1))
 
-wald_OR <- function(term){
-term$wald <- (term$statistic)*2
-term$OR <- exp(term$estimate)
-term
-}
 
 psych_self_dumb <- summary_model1[2,]
+psych_self_dumb <- cbind.data.frame(psych_self_dumb, as.data.frame(a[,,1])[2,])
 psych_self_dumb <- wald_OR(psych_self_dumb)
 
-
 temp_fututre_dumb <- summary_model1[3,]
+temp_fututre_dumb <- cbind.data.frame(temp_fututre_dumb, as.data.frame(a[,,1])[3,])
 temp_fututre_dumb <- wald_OR(temp_fututre_dumb)
-
-temp_fututre_dumb$wald
-temp_fututre_dumb$p.value
-
-psych_self_dumb$OR
-exp(confint(model1))
-
-x$ju1_2
-
-
-
-a <- exp(confint(model1))
-a[3]
-a[9]
-
 
 
 ```
@@ -296,4 +419,18 @@ $\chi$^2^(`r chi_df`,
 `r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide. 
 For scenarios in the future, participants were more likely to provide reasons than to present as dumbfounded
 Wald = `r round(temp_fututre_dumb$wald,digits=2)`,
-*p* `r paste(p_report(temp_fututre_dumb$p.value))`, odds ratio = `r round(temp_fututre_dumb$OR,digits=2)`, 95% CI [`r round(a[3],digits=2)`, `r round(a[9],digits=2)`],
+*p* `r paste(p_report(temp_fututre_dumb$p.value))`, odds ratio = `r round(temp_fututre_dumb$OR,digits=2)`, 95% CI
+[`r round(temp_fututre_dumb$lower,digits=2)`,
+`r round(temp_fututre_dumb$upper,digits=2)`].
+
+
+
+
+
+
+
+
+
+
+
+
