@@ -44,6 +44,7 @@ library(mlogit)
 library(DescTools)
 library(nnet)
 library(pwr)
+library(scales)
 #library(reshape2)
 #conflicts_prefer(dplyr::filter, .quiet = TRUE)
 
@@ -100,8 +101,11 @@ colnames(y) <- c("condition","CS","Freq")
 
 abc_graph <- function(){
   a <- x[which(x$temp==levels(as.factor(x$temp))[1]),]
+  a$temp <- droplevels(a$temp)
   b <- x[which(x$temp==levels(as.factor(x$temp))[2]),]
+  b$temp <- droplevels(b$temp)
   c <- x[which(x$temp==levels(as.factor(x$temp))[3]),]
+  c$temp <- droplevels(c$temp)
   #levels(as.factor(df3$condition))[1]
   
   ay <- as.data.frame(table(a$cs,a$temp))
@@ -110,15 +114,15 @@ abc_graph <- function(){
   
   aperc <- ay$Freq/length(a$cs)
   ay <- cbind(ay,aperc)
-  colnames(ay) <- c("CS","condition","Freq","perc")
+  colnames(ay) <- c("cs","temp","Freq","perc")
   
   bperc <- by$Freq/length(b$cs)
   by <- cbind(by,bperc)
-  colnames(by) <- c("CS","condition","Freq","perc")
+  colnames(by) <- c("cs","temp","Freq","perc")
   
   cperc <- cy$Freq/length(c$cs)
   cy <- cbind(cy,cperc)
-  colnames(cy) <- c("CS","condition","Freq","perc")
+  colnames(cy) <- c("cs","temp","Freq","perc")
   
   tot <- rbind(ay, by, cy)
   
@@ -126,12 +130,11 @@ abc_graph <- function(){
 }
 
 test <- abc_graph()
-
-x <- df3
+test
 
 se_fun <- function(a,b){
-  k <- length(a$gender)
-  n <- length(b$gender)
+  k <- length(a$cs)
+  n <- length(b$cs)
   
   pbar <- k/n
   a$pbar <- pbar
@@ -140,37 +143,44 @@ se_fun <- function(a,b){
 # https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
 
 y <- rbind(
-  se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong and I can provide a valid reason."),]
-         ,x[which(x$condition=="1manip"),])
-  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="There is nothing wrong."),]
-          ,x[which(x$condition=="1manip"),])
-  ,se_fun(x[which(x$condition=="1manip"&x$InCS=="It's wrong but I can't think of a reason."),]
-          ,x[which(x$condition=="1manip"),])
-  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong and I can provide a valid reason."),]
-          ,x[which(x$condition=="2control"),])
-  ,se_fun(x[which(x$condition=="2control"&x$InCS=="There is nothing wrong."),]
-          ,x[which(x$condition=="2control"),])
-  ,se_fun(x[which(x$condition=="2control"&x$InCS=="It's wrong but I can't think of a reason."),]
-          ,x[which(x$condition=="2control"),])
+  se_fun(x[which(x$temp=="control"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="control"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="control"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$temp=="now"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="now"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="now"),])
 )
 
-y1 <- y %>% select("InCS","condition","pbar","se")
+y1 <- y %>% select("cs","temp","pbar","se")
 rownames(y1) <- NULL
 test
 
 y1 <- y1[!duplicated(y1),]
 y1
-test1 <- dplyr::left_join(test,y1, by = c("condition","InCS") )
+test1 <- dplyr::left_join(test,y1, by = c("temp","cs") )
+table(x$temp)
 
-rm(x,y)
+rm(y)
 ```
 
 ```{r}
 #| include: false
 
 
-g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
-                                             ,labels=c("Distanced","Control")
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(temp
+                                             #,labels=c("Distanced","Control")
                                              ))) +
   scale_y_continuous(limits = c(-.03,1),
                      labels = percent_format()
@@ -234,10 +244,10 @@ g <- ggplot(test1, aes(x=InCS, y=perc, fill=factor(condition
 ```
 
 ```{r}
-#| label: apafg-dch5S2fig2criticalconditionNoExcl
+#| label: apafg-tempoverall
 #| include: true
 #| fig-height: 5
-#| apa-cap: "Pilot Study 2: Responses to critical slide for the experimental group (N = 47) and the control group (N = 46); (No exclusions; error bars represent standard error of the proportion)"
+#| apa-cap: "Simulated Dat: Responses to critical slide depending on temporal distance for the increased temporal distance group (future, N = 1,600), for the decreased temporal distance group (today, N = 1,600), and for the control group (N = 1,600) (error bars represent standard error of the proportion)"
 
 suppressWarnings(print(g))
 
@@ -249,71 +259,97 @@ suppressWarnings(print(g))
 #| include: false
 #| echo: false
 
-df3 <- two_tot
-t_j1 <- t.test(df3$InJu1 ~ df3$condition)
-d_j1 <- cohensD(df3$InJu1 ~ df3$condition)
-t_paragraph(df3$InJu1, df3$condition, "initial judgement")
+x <- simulated_data_scenarios
 
-t_j2 <- t.test(df3$InJu2 ~ df3$condition)
-d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
-t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+aov1 <- aov(ju1_2~temp, data = x)
+tuk <- TukeyHSD(aov1)
+tuk_temp1 <- as.data.frame(tuk$temp)
+apa_aov1 <- papaja::apa_print(aov1)
+apa_aov1$full_result$temp
+apa_aov1$estimate$temp
+
+aov1b <- summary(aov1)
+aov1b <- as.data.frame(aov1b[[1]])
+aov1_f <- aov1b$`F value`[1]
+aov1_df <- aov1b$Df
+aov1_p <- aov1b$`Pr(>F)`[1]
+eta1 <- EtaSq(aov1)[2]
 
 
-t_paired_paragraph(df3$InJu1,df3$InJu2, "judgment")
-t_j3 <- t.test(df3$InJu1,df3$InJu2,paired = TRUE)
-d_j3 <- cohensD(df3$InJu1,df3$InJu2, method = "paired")
+aov2 <- aov(ju2_2~temp, data = x)
+tuk <- TukeyHSD(aov2)
+tuk_temp2 <- as.data.frame(tuk$temp)
+apa_aov2 <- papaja::apa_print(aov2)
+apa_aov2$full_result$temp
+
+aov2b <- summary(aov2)
+aov2b <- as.data.frame(aov2b[[1]])
+aov2_f <- aov2b$`F value`[1]
+aov2_df <- aov2b$Df
+aov2_p <- aov2b$`Pr(>F)`[1]
+eta2 <- EtaSq(aov2)[2]
+
+
+# t_j1 <- t.test(x$ju1_2 ~ x$temp)
+# d_j1 <- cohensD(x$ju1_2 ~ x$temp)
+# t_paragraph(x$ju1_2, x$temp, "initial judgement")
+# 
+# t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+# d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+# t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(x$ju1_2,x$ju2_2, "judgment")
+t_j3 <- t.test(x$ju1_2,x$ju2_2,paired = TRUE)
+d_j3 <- lsr::cohensD(x$ju1_2,x$ju2_2, method = "paired")
 
 
 
-c <- chisq.test(table(df3$InCS,df3$condition))
-w <- sqrt(c[]$statistic/length(df3$gender))
-pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
+
+
+c <- chisq.test(table(x$cs,x$temp))
+w <- sqrt(c[]$statistic/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(4-1),sig.level = .05)
+
 
 
 ```
 
-### No Exclusions
-#### Overview of Judgments (no exclusions)
+#### Overview of Judgments
 
-`r numbers2words_cap1(sum(df3$InJu1<4,na.rm=T))` participants (`r round(((sum(df3$InJu1<4,na.rm=T)/length(df3$InJu1))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(df3$InJu2<4,na.rm=T))` participants (`r round(((sum(df3$InJu2<4,na.rm=T)/length(df3$InJu2))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(df3$InJu1,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu1,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(df3$InJu2,na.rm=T), digits = 1)`, *SD* = `r round(sd(df3$InJu2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+`r numbers2words_cap2(sum(x$ju1_2<4,na.rm=T))` participants (`r round(((sum(x$ju1_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(x$ju2_2<4,na.rm=T))` participants (`r round(((sum(x$ju2_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(x$ju1_2,na.rm=T), digits = 1)`, *SD* = `r round(sd(x$ju1_2,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(x$ju2_2,na.rm=T), digits = 1)`, *SD* = `r round(sd(x$ju2_2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
 
-
-
-```{r}
-#| include: false
-# 
-# sum(df3$InCS!="There is nothing wrong."&df3$Ju1_bin!="wrong")
-# 
-# t_j1 <- t.test(df3$InJu1 ~ df3$condition)
-# t_paragraph(df3$InJu1, df3$condition, "initial judgement")
-#t_paragraph(one$InJu1, one$condition, "initial judgement")
-#t_paragraph(two$InJu1, two$condition, "initial judgement")
-#t_paragraph(three$InJu1, three$condition, "initial judgement")
-
-#
-table(df3$condition)
-round(mean(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
-round(sd(df3$InJu1[which(df3$condition=="1manip")]), digits = 1)
-
-round(mean(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
-round(sd(df3$InJu1[which(df3$condition=="2control")]), digits = 1)
-```
 
 #### Distancing and Judgments Made
 
-There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
-(*M*~distanced~ = `r round(mean(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
-*SD*~distanced~ = `r round(sd(df3$InJu1[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
-*M*~control~ = `r round(mean(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
-*SD*~control~ = `r round(sd(df3$InJu1[which(df3$condition=="2control")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
-(*M*~distanced~ = `r round(mean(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
-*SD*~distanced~ = `r round(sd(df3$InJu2[which(df3$condition=="1manip")],na.rm=T), digits = 1)`,
-*M*~control~ = `r round(mean(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`, 
-*SD*~control~ = `r round(sd(df3$InJu2[which(df3$condition=="2control")],na.rm=T), digits = 1)`).
+There was no difference in initial judgement depending on distance manipulation:
+*F*(`r aov1_df[1]`,
+`r round(aov1_df[2],digits=2)`)
+= `r round(aov1_f,digits=2)`,
+*p* `r paste(p_report(aov1_p))`
+$\eta$*~p~*^2^ = `r round(eta1, digits=3)`, 
+(*M*~increased~ = `r round(mean(x$ju1_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju1_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju1_2[which(x$temp=="now")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju1_2[which(x$temp=="now")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(x$ju1_2[which(x$temp=="control")],na.rm=T), digits = 1)`,
+*SD*~control~ = `r round(sd(x$ju1_2[which(x$temp=="control")],na.rm=T), digits = 1)`).
+There was no difference in revised judgement depending on distance manipulation:
+*F*(`r aov2_df[1]`,
+`r round(aov2_df[2],digits=2)`)
+= `r round(aov2_f,digits=2)`,
+*p* `r paste(p_report(aov2_p))`
+$\eta$*~p~*^2^ = `r round(eta2, digits=3)`, 
+(*M*~increased~ = `r round(mean(x$ju2_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju2_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju2_2[which(x$temp=="now")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju2_2[which(x$temp=="now")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(x$ju2_2[which(x$temp=="control")],na.rm=T), digits = 1)`,
+*SD*~control~ = `r round(sd(x$ju2_2[which(x$temp=="control")],na.rm=T), digits = 1)`).
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="1manip")`) and the control group (*N* = `r sum(df3$condition=="2control")`) are displayed in {apafg-dch5S2fig2criticalconditionNoExcl}.
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in {apafg-tempoverall}.
 
 
 ## Temporal Distancing and Dumbfounding

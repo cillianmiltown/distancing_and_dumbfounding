@@ -1,3 +1,5 @@
+
+#devtools::install_github("jacobbien/simulator")
 suppressMessages(library(simulator))
 library(tidyverse)
 library(desnum)
