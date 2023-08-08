@@ -71,7 +71,7 @@ table(x$psych,x$temp)
 
 
 
-## Psychological Distancing and Dumbfounding
+## Temporal Distancing and Dumbfounding
 
 
 ```{r}
@@ -180,7 +180,7 @@ rm(y)
 
 
 g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(temp
-                                             #,labels=c("Distanced","Control")
+                                             ,labels=c("Control","Increased","Decreased")
                                              ))) +
   scale_y_continuous(limits = c(-.03,1),
                      labels = percent_format()
@@ -189,7 +189,7 @@ g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(temp
            color="black",
            size=.2
   )+
-  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), size=.2, width=.2,
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
                position=position_dodge(.9), color=#"black" #
                  "#5a5a5a"
                  )+
@@ -215,7 +215,7 @@ g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(temp
   xlab("Response to Critical Slide") +
   ylab("Percentage of participants selecting each response")+
   scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
-  scale_fill_grey(start = .5, end = .8) +
+  scale_fill_grey(start = .5, end = .9) +
   labs(fill="Condition") +
   #theme_apa() +
   theme_bw() +
@@ -317,7 +317,15 @@ pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(4-1),sig.level = .05)
 
 #### Overview of Judgments
 
-`r numbers2words_cap2(sum(x$ju1_2<4,na.rm=T))` participants (`r round(((sum(x$ju1_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(x$ju2_2<4,na.rm=T))` participants (`r round(((sum(x$ju2_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior as wrong at the end of the task. There was no significant difference between initial ratings (*M* = `r round(mean(x$ju1_2,na.rm=T), digits = 1)`, *SD* = `r round(sd(x$ju1_2,na.rm=T), digits = 1)`) and revised ratings (*M* = `r round(mean(x$ju2_2,na.rm=T), digits = 1)`, *SD* = `r round(sd(x$ju2_2,na.rm=T), digits = 1)`), *t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`, *p* `r paste(p_report(t_j3$p.value))`, *d* = `r round(d_j3, digits=2)`. 
+`r numbers2words_cap2(sum(x$ju1_2<4,na.rm=T))` participants (`r round(((sum(x$ju1_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(x$ju2_2<4,na.rm=T))` participants (`r round(((sum(x$ju2_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior as wrong at the end of the task.
+There was a significant difference between initial ratings
+(*M* = `r round(mean(x$ju1_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju1_2,na.rm=T), digits = 1)`) and revised ratings
+(*M* = `r round(mean(x$ju2_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju2_2,na.rm=T), digits = 1)`),
+*t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`,
+*p* `r paste(p_report(t_j3$p.value))`,
+*d* = `r round(d_j3, digits=2)`. 
 
 
 #### Distancing and Judgments Made
@@ -338,7 +346,7 @@ There was no difference in revised judgement depending on distance manipulation:
 *F*(`r aov2_df[1]`,
 `r round(aov2_df[2],digits=2)`)
 = `r round(aov2_f,digits=2)`,
-*p* `r paste(p_report(aov2_p))`
+*p* `r paste(p_report(aov2_p))`,
 $\eta$*~p~*^2^ = `r round(eta2, digits=3)`, 
 (*M*~increased~ = `r round(mean(x$ju2_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
 *SD*~increased~ = `r round(sd(x$ju2_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
@@ -352,18 +360,441 @@ $\eta$*~p~*^2^ = `r round(eta2, digits=3)`,
 There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in {apafg-tempoverall}.
 
 
-## Temporal Distancing and Dumbfounding
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+c <- chisq.test(table(x$cs,x$temp))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6])),
+                   c(ps(x[7]),ps(x[8]),ps(x[9]))
+                   ),
+  c("control","future","now")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Control","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: TempResiduals
+#| results: asis
+#| include: true
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on temporal distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+
+
+## Psychological Distancing and Dumbfounding
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$psych)
+
+
+y <- table(x$psych,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$psych,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+ab_graph <- function(){
+  a <- x[which(x$psych==levels(as.factor(x$psych))[1]),]
+  a$psych <- droplevels(a$psych)
+  b <- x[which(x$psych==levels(as.factor(x$psych))[2]),]
+  b$psych <- droplevels(b$psych)
+  # c <- x[which(x$psych==levels(as.factor(x$psych))[3]),]
+  # c$psych <- droplevels(c$psych)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$psych))
+  by <- as.data.frame(table(b$cs,b$psych))
+  # cy <- as.data.frame(table(c$cs,c$psych))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","psych","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","psych","Freq","perc")
+  
+  # cperc <- cy$Freq/length(c$cs)
+  # cy <- cbind(cy,cperc)
+  # colnames(cy) <- c("cs","psych","Freq","perc")
+  
+  tot <- rbind(ay, by)
+  
+  tot
+}
+
+test <- ab_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$psych=="other"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="other"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="other"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$psych=="self"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$psych=="self"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$psych=="self"),])
+)
+
+y1 <- y %>% select("cs","psych","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("psych","cs") )
+table(x$psych)
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(psych
+                                            ,labels=c("Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+```
+
+```{r}
+#| label: apafg-psychoverall
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Simulated Dat: Responses to critical slide depending on psychological distance for the increased psychological distance group (future, N = 2,400), and for the decreased psychological distance group (today, N = 2,400), (error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+
+```{r}
+#| include: false
+#| echo: false
+
+x <- simulated_data_scenarios
+
+aov1 <- aov(ju1_2~psych, data = x)
+tuk <- TukeyHSD(aov1)
+tuk_psych1 <- as.data.frame(tuk$psych)
+apa_aov1 <- papaja::apa_print(aov1)
+apa_aov1$full_result$psych
+apa_aov1$estimate$psych
+
+aov1b <- summary(aov1)
+aov1b <- as.data.frame(aov1b[[1]])
+aov1_f <- aov1b$`F value`[1]
+aov1_df <- aov1b$Df
+aov1_p <- aov1b$`Pr(>F)`[1]
+eta1 <- EtaSq(aov1)[2]
+
+
+aov2 <- aov(ju2_2~psych, data = x)
+tuk <- TukeyHSD(aov2)
+tuk_psych2 <- as.data.frame(tuk$psych)
+apa_aov2 <- papaja::apa_print(aov2)
+apa_aov2$full_result$psych
+
+aov2b <- summary(aov2)
+aov2b <- as.data.frame(aov2b[[1]])
+aov2_f <- aov2b$`F value`[1]
+aov2_df <- aov2b$Df
+aov2_p <- aov2b$`Pr(>F)`[1]
+eta2 <- EtaSq(aov2)[2]
+
+t_j1 <- t.test(x$ju1_2 ~ x$psych)
+d_j1 <- lsr::cohensD(x$ju1_2[which(x$psych=="other")], x$ju1_2[which(x$psych=="self")])
+t_paragraph(x$ju1_2, x$psych, "initial judgement")
+
+t_j2 <- t.test(x$ju2_2 ~ x$psych)
+d_j2 <- lsr::cohensD(x$ju2_2[which(x$psych=="other")], x$ju2_2[which(x$psych=="self")])
+t_paragraph(x$ju2_2, x$psych, "revised judgement")
+
+
+t_paired_paragraph(x$ju1_2,x$ju2_2, "judgment")
+t_j3 <- t.test(x$ju1_2,x$ju2_2,paired = TRUE)
+d_j3 <- lsr::cohensD(x$ju1_2,x$ju2_2, method = "paired")
+
+
+
+
+
+c <- chisq.test(table(x$cs,x$psych))
+w <- sqrt(c[]$statistic/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(4-1),sig.level = .05)
+
+
+
+```
+
+#### Overview of Judgments
+
+`r numbers2words_cap2(sum(x$ju1_2<4,na.rm=T))` participants (`r round(((sum(x$ju1_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r numbers2words_cap1(sum(x$ju2_2<4,na.rm=T))` participants (`r round(((sum(x$ju2_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior as wrong at the end of the task.
+There was a significant difference between initial ratings
+(*M* = `r round(mean(x$ju1_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju1_2,na.rm=T), digits = 1)`) and revised ratings
+(*M* = `r round(mean(x$ju2_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju2_2,na.rm=T), digits = 1)`),
+*t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`,
+*p* `r paste(p_report(t_j3$p.value))`,
+*d* = `r round(d_j3, digits=2)`. 
+
+
+#### Distancing and Judgments Made
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~increased~ = `r round(mean(x$ju1_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju1_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju1_2[which(x$psych=="self")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju1_2[which(x$psych=="self")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~increased~ = `r round(mean(x$ju2_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju2_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju2_2[which(x$psych=="self")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju2_2[which(x$psych=="self")],na.rm=T), digits = 1)`).
+
+#### Distancing and Reason-Giving/Dumbfounding
+
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychoverall}.
 
 
 
 ```{r}
 #| include: false
 
+x <- simulated_data_scenarios
+c <- chisq.test(table(x$cs,x$psych))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6]))),
+  c("other","self")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: PsychResiduals
+#| results: asis
+#| include: true
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on psychological distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
 
 ```
 
 
-### Distancing and Dumbfounding
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+```
+
+
+## Distancing and Dumbfounding
 
 
 
