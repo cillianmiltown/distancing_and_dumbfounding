@@ -1,5 +1,5 @@
 
-rm(list=ls())
+# rm(list=ls())
 
 library(tidyverse)
 
@@ -314,5 +314,8 @@ table(df$scenario,df$condition5)
 
 sample_data <- df
 
-rm(list=setdiff(ls(), c("sample_data")))
+# list=setdiff(ls(), c("sample_data"))
+# list
+# rm(list=setdiff(ls(), c("sample_data")))
 
+rm("ctrl", "df", "Hnz", "Jen", "Jmk", "oth_ctrl", "oth_fut", "oth_now", "slf_fut", "slf_now","Try")

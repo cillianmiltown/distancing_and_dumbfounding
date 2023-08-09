@@ -209,6 +209,7 @@ Pilot Studies 1 and 2 employ a manipulation of psychological distance compared a
 #| label: apafg-summaryfigure
 #| apa-cap: Overview of Pilot Studies 1-8.
 #| apa-note: Sample sizes listed are the total samples that passed the attention checks, without exclusion based on responses to Need for Closure, followed by the sample size when excluding participants who failed the Need for Closure attention check.
+
 knitr::include_graphics("resources/img/summary_figure.png")
 ```
 
@@ -1832,7 +1833,7 @@ papaja::apa_table(
 ```
 
 
-```{r apatb-S3S3tab1dumbNoExcl}
+```{r}
 #| apa-cap: Pilot Suty 3 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on distancing (no exclusions)
 #| apa-note: "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
 #| include: false
@@ -2363,8 +2364,6 @@ papaja::apa_table(
 ```
 
 ```{r}
-#| label: apatb-S3S3tab1dumbwithexclusions
-#| apa-cap: Pilot Study 3 – Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on distancing (with exclusions)
 #| apa-note: "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
 #| include: false
 

@@ -9,7 +9,6 @@ figurelist        : yes
 tablelist         : yes
 footnotelist      : no
 lineno            : yes
-lang              : "english"
 class             : "man"
 format:
   html:
@@ -189,22 +188,22 @@ g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(temp
            color="black",
            size=.2
   )+
-  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.16,
                position=position_dodge(.9), color=#"black" #
                  "#5a5a5a"
                  )+
   geom_text(#family = "Times",
-            size=3,
+            size=2.6,
             aes( label = scales::percent(perc, accuracy = 1),
                  y= perc ),
             stat= "identity",
-            vjust = -.5,
+            vjust = -.4,
             hjust = +1.1,
             position = position_dodge(.9),
             fontface='plain'
             )+
   geom_text(#family = "Times", 
-            size=4.2,
+            size=4,
             aes(label = format(Freq),
                 y= -3*(..count../100)/(..count..)),
             stat= "count",
@@ -830,9 +829,12 @@ wald_OR <- function(term){
 
 ```{r}
 #| include: false
+ 
+x <- simulated_data_scenarios
+
 
 model0 <- nnet::multinom(cs~1,x) 
-model1 <- nnet::multinom(cs~psych+temp+psych*temp,x) 
+model1 <- nnet::multinom(cs~psych+temp+psych*temp+scenario,x) 
 
 summary_model1 <- broom::tidy(model1)
 
@@ -869,11 +871,110 @@ temp_fututre_dumb <- summary_model1[3,]
 temp_fututre_dumb <- cbind.data.frame(temp_fututre_dumb, as.data.frame(a[,,1])[3,])
 temp_fututre_dumb <- wald_OR(temp_fututre_dumb)
 
+rbind(as.data.frame(a[,,1])
+      ,as.data.frame(a[,,2]))
+
+test <- summary_model1
+test <- cbind.data.frame(summary_model1
+                         , rbind(as.data.frame(a[,,1])
+                                 , as.data.frame(a[,,2]))
+)
+test <- wald_OR(test)
+
+
+
+ps_logit <- function(y){
+  e <- round(y, digits = 3)
+  if(as.numeric(sqrt( y*y) ) <.001) print(paste0("<", " ", ".001","**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) <.05) print(paste0(sub("^(-?)0.", "\\1.", sprintf("%.3f", e)),"*"), quote = FALSE)
+  else print(e)}
+
+
+test$ps <- sapply(test$p.value, ps_logit)
+test
+test$Response <- dplyr::recode(test$y.level,
+              "It's wrong but I cannot explain why" = "Dumbfounded"
+              , "There is nothing wrong" = "Nothing-Wrong"
+              )
+
+test$term
+
+c("(Intercept)"
+,"Psy-Self"
+,"Temp-Future"
+,"Temp-Now"
+,"Scenario-Jennifer"
+,"Scenario-Julie and Mark"
+,"Scenario-Trolley"
+,"Psy-Self&times;Temp-Future"
+,"Psy-Self&times;Temp-Now"
+,"(Intercept)"
+,"Psy-Self"
+,"Temp-Future"
+,"Temp-Now"
+,"Scenario-Jennifer"
+,"Scenario-Julie and Mark"
+,"Scenario-Trolley"
+,"Psy-Self&times;Temp-Future"
+,"Psy-Self&times;Temp-Now")
+
+
+test$Term <- c("(Intercept)"
+               ,"Psy-Self"
+               ,"Temp-Future"
+               ,"Temp-Now"
+               ,"Scenario-Jennifer"
+               ,"Scenario-Julie and Mark"
+               ,"Scenario-Trolley"
+               ,"Psy-Self$\\times$Temp-Future"
+               ,"Psy-Self&times;Temp-Now"
+               ,"(Intercept)"
+               ,"Psy-Self"
+               ,"Temp-Future"
+               ,"Temp-Now"
+               ,"Scenario-Jennifer"
+               ,"Scenario-Julie and Mark"
+               ,"Scenario-Trolley"
+               ,"Psy-Self&times;Temp-Future"
+               ,"Psy-Self&times;Temp-Now")
+
+test$Estimate <- round(test$estimate,digits=2)
+test$S.E. <- round(test$std.error,digits=2)
+test$z <- round(test$statistic,digits=2)
+test$Wald <- round(test$wald,digits=2)
+test$p <- test$ps
+test$O.R <- round(test$OR,digits=2)
+test$Lower <- round(test$lower,digits=2)
+test$Upper <- round(test$upper,digits=2)
+
+
+test1 <- test %>% select(Response,Term, Estimate, S.E., z, Wald, p, O.R, Lower, Upper )
+rownames(test1) <- NULL
+test1
+```
+
+
+```{r}
+#| include: true
+
+#| results: asis
+#| include: true
+
+papaja::apa_table(
+   test1
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on temporal distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = TRUE
+   
+)
 
 ```
 
 
-
+## where's the table
 
 Overall the model significantly predicted responses to the critical slide
 $\chi$^2^(`r chi_df`,

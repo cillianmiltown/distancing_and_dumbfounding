@@ -1,0 +1,134 @@
+---
+title: "Supplementary Materials: Distancing and Moral Dumbfounding Pilot Studies"
+blank-lines-above-title: 2
+shorttitle: "Supplementary Materials: Pilot Studies"
+author:
+    # Roles are optional
+    # Conceptualization, Data curation, Formal Analysis, Funding acquisition, Investigation, 
+    # Methodology, Project administration, Resources, Software, Supervision, Validation, 
+    # Visualization, Writing – original draft, Writing – review & editing
+    #   - Conceptualization
+    #   - Writing - original draft
+    #   - Project administration
+    #   - Formal Analysis
+  - name: Cillian McHugh
+    corresponding: true
+    #orcid: 0000-0002-9701-3232
+    email: cillian.mchugh@ul.ie
+    #url: https://example.org/
+    # Select from the CRediT: Contributor Roles Taxonomy https://credit.niso.org/
+    # role:
+    affiliations:
+      - id: id1
+        name: University of Limerick
+        department: Department of Psychology
+        #address: 1234 Capital St.
+        city: Limerick
+        region: Ireland
+        postal-code: V94 T9PX
+  - name: Marek McGann
+    #orcid: 0000-0002-2452-6053
+    # role:
+    affiliations: 
+      - id: id2
+        name: Mary Immaculate College
+        department: Department of Psychology
+        address: South Circular Road
+        city: Limerick
+        region: Ireland
+  - name: Eric R. Igou
+    #orcid: 0000-0001-7744-9648
+    # role:
+    affiliations:
+      - ref: id1
+      # - name: Carina's Primary Affiliation
+      # - name: Carina's Secondary Affiliation
+  - name: Elaine L. Kinsella
+    #orcid: 0000-0003-4835-8581
+    # role:
+    affiliations:
+      - ref: id1 #~
+        # city: Buffalo
+        # region: NY
+author-note:
+  blank-lines-above-author-note: 0
+  status-changes: 
+    # Example: [Author name] is now at [affiliation].
+    # affiliation-change: Ana Fulana is now at X University.
+    # Example: [Author name] is deceased.
+    # deceased: Carina Mengana is deceased.
+    # Disclosures condensed to one paragraph, but you can start a field with two line breaks to break them up: \n\nNew Paragraph
+  disclosures: 
+    # Example. Because the authors are equal contributors, order of authorship was determined by a fair coin toss.
+    # Example: "All procedures performed in studies involving human participants"
+    study-registration: All procedures performed in studies involving human participants were approved by the Institutional Research Ethics Committee and conducted in accordance with the Code of Professional Ethics of the Psychological Society of Ireland and with the 1964 Helsinki declaration and its later amendments or comparable ethical standards. Informed consent was obtained from all individual participants included in the study. The authors declare that there are no potential conflicts of interest with respect to the research, authorship, and/or publication of this article.
+    data-sharing: null
+    # Example: This article is based on data published in Pulaski (2017).
+    # Example: This article is based on the dissertation completed by Graham (2018).    
+    related-report: ~ # This article is based on data published in Pulaski (2017). 
+    # Example: Sally Jones earns royalties from the sale of Test X.
+    conflict-of-interest: null
+    # Example: This study was supported by Grant A123 from the National Science Foundation.
+    financial-support: null
+    # Example: The authors are grateful for the technical assistance of Dr. X during the initial design and setup of our lab equipment.
+    gratitude: null
+    authorship-agreements: null
+abstract: "Moral dumbfounding occurs when people maintain a moral judgment in the absence of supporting reasons. Drawing on dual-process approaches to moral judgment, one possible explanation for moral dumbfounding proposes that it occurs as a result of a conflict between intuitive and deliberative processes. Consistent with this explanation, previous research has shown that under manipulations designed to lead to more intuitive thinking rather than deliberative thinking (such as increased cognitive load), people are less likely to provide reasons for their judgments, and more likely to provide dumbfounded responses in a moral dumbfounding task. Building on this work the present research examines if dumbfounded responding can be reduced through experimental manipulations designed to facilitate deliberative thinking (over intuitive thinking). Drawing on construal-level theory, and the finding that distancing facilitates deliberative thinking, we predict that including a distancing manipulation in a moral dumbfounding task will increase reason-giving, and reduce dumbfounded responding. We propose a pre-registered study to test this prediction."
+keywords: [moral dumbfounding, distancing, construal-level theory, dual-processes, reasons, intuitions]
+bibliography: "resources/bib/My Library.bib"
+format:
+  # apaquarto-docx: default
+  # apaquarto-html: default
+  apaquarto-pdf:
+    # can be jou (journal), man (manuscript), stu (student), or doc (document)
+    # for now, tables and figures do not render properly in jou mode. 
+    # can be 10pt, 11pt, or 12pt
+    # Integrate tables and figures in text
+    # a4 paper if true, letter size if false
+    # suppresses loading of the lmodern font package
+    # Suppresses loading of the fontenc package
+    # Suppress the title above the introduction
+    # In jou mode, use times or pslatex instead of txfonts
+    # In jou mode, use Computer Modern font instead of times
+    # In jou mode, cancels automatic stretching of tables to column width 
+    # Uses Helvetica font in stu and man mode
+    # In man and stu mode, neutralizes the \helvetica command.
+    # In man and stu mode, uses typewriter font
+    # Puts draft watermark on first page
+    # Puts draft watermakr on all pages
+    # Masks references that are marked as the author's own
+    documentmode: man
+    fontsize: 12pt
+    floatsintext: true
+    a4paper: true
+    nolmodern: false
+    nofontenc: false
+    donotrepeattitle: false
+    notxfonts: false
+    notimes: false
+    notab: false
+    helv: false
+    nosf: false
+    tt: false
+    draftfirst: false
+    draftall: false
+    mask: false
+    journal: null
+    volume: null
+    course: null
+    professor: null
+    duedate: null
+editor_options: 
+  chunk_output_type: console
+---
+
+{{< include _extensions/wjschne/apaquarto/_apa_title.qmd >}}
+
+
+```{r child = 'Pilot_studies_full.qmd'}
+```
+
+
+
+```{r child = 'sample_and_simulated_data_PDF.qmd'}
+```

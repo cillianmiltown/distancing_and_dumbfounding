@@ -606,5 +606,12 @@ Trolley <- x
 simulated_data_scenarios <- rbind(Heinz,J_and_M,Jennifer,Trolley)
 
 simulated_data <- simulated_data_scenarios
+#rm(list = ls())
+#setdiff(ls(), c("simulated_data","simulated_data_scenarios","simulated_data_overall"))
+#rm(list=setdiff(ls(), c("simulated_data","simulated_data_scenarios","simulated_data_overall")))
 
-rm(list=setdiff(ls(), c("simulated_data","simulated_data_scenarios","simulated_data_overall")))
+
+rm("conditions", "control", "df", "dumb", "empty_df", "Heinz", "J_and_M",
+"Jennifer", "make_factors", "N", "nothing", "oth_ctrl", "oth_fut", "oth_now",
+"reasons", "sample_data", "slf_fut", "slf_now", "Trolley", "x", "y")
+
