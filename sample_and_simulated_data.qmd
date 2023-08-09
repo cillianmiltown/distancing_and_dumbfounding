@@ -68,7 +68,7 @@ table(x$psych,x$temp)
 
 ```
 
-
+# Analysis of Simulated Data
 
 ## Temporal Distancing and Dumbfounding
 

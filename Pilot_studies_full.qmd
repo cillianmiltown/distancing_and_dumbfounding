@@ -8310,16 +8310,7 @@ knitr::include_graphics("resources/img/overallplot.png")
 {{< pagebreak >}}
 
 
-# References
 
-<!-- References will auto-populate in the refs div below -->
-
-::: {#refs}
-:::
-
-<!-- Delete any unnecessary sections or pagebreaks. -->
-
-{{< pagebreak >}}
 
 <!-- I like my tables and figures intermingled with the text, -->
 

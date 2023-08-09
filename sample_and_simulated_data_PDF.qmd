@@ -125,7 +125,7 @@ editor_options:
 {{< include _extensions/wjschne/apaquarto/_apa_title.qmd >}}
 
 ```{r}
-#| label: setup
+#| label: setupsimulated
 #| include: false
 #| echo: false
 
@@ -955,9 +955,11 @@ x <- simulated_data_scenarios
 {{< pagebreak >}}
 
 
+
+
 ## Distancing and Dumbfounding
 
-
+### Without Scenario
 
 
 ```{r}
@@ -996,7 +998,7 @@ x <- simulated_data_scenarios
 
 
 model0 <- nnet::multinom(cs~1,x) 
-model1 <- nnet::multinom(cs~psych+temp+psych*temp+scenario,x) 
+model1 <- nnet::multinom(cs~psych+temp+psych*temp,x) 
 
 summary_model1 <- broom::tidy(model1)
 
@@ -1062,43 +1064,63 @@ test$Response <- dplyr::recode(test$y.level,
 test$term
 
 c("(Intercept)"
-,"Psy-Self"
-,"Temp-Future"
-,"Temp-Now"
-,"Scenario-Jennifer"
-,"Scenario-Julie and Mark"
-,"Scenario-Trolley"
-,"Psy-Self&times;Temp-Future"
-,"Psy-Self&times;Temp-Now"
-,"(Intercept)"
-,"Psy-Self"
-,"Temp-Future"
-,"Temp-Now"
-,"Scenario-Jennifer"
-,"Scenario-Julie and Mark"
-,"Scenario-Trolley"
-,"Psy-Self&times;Temp-Future"
-,"Psy-Self&times;Temp-Now")
+  , "psychself"
+  , "tempfuture"
+  , "tempnow"
+  , "psychself:tempfuture"
+  , "psychself:tempnow"
+  , "(Intercept)"
+  , "psychself"
+  , "tempfuture"
+  , "tempnow"
+  , "psychself:tempfuture"
+  , "psychself:tempnow")
+
+c("(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now"
+  , "(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now")
+
+c("(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Scenario-Jennifer"
+  ,"Scenario-Julie and Mark"
+  ,"Scenario-Trolley"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now"
+  ,"(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Scenario-Jennifer"
+  ,"Scenario-Julie and Mark"
+  ,"Scenario-Trolley"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now")
 
 
 test$Term <- c("(Intercept)"
-               ,"Psy-Self"
-               ,"Temp-Future"
-               ,"Temp-Now"
-               ,"Scenario-Jennifer"
-               ,"Scenario-Julie and Mark"
-               ,"Scenario-Trolley"
-               ,"Psy-Self $\\times$ Temp-Future"
-               ,"Psy-Self $\\times$ Temp-Now"
-               ,"(Intercept)"
-               ,"Psy-Self"
-               ,"Temp-Future"
-               ,"Temp-Now"
-               ,"Scenario-Jennifer"
-               ,"Scenario-Julie and Mark"
-               ,"Scenario-Trolley"
-               ,"Psy-Self $\\times$ Temp-Future"
-               ,"Psy-Self $\\times$ Temp-Now")
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now"
+  , "(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now")
 
 test$`$b$` <- round(test$estimate,digits=2)
 test$`$S.E.$` <- round(test$std.error,digits=2)
@@ -1114,6 +1136,27 @@ test1 <- test %>% select(Response,Term, `$b$`, `$S.E.$`, `$z$`, Wald, `$p$`, `$O
 rownames(test1) <- NULL
 test1
 ```
+
+
+Overall the model significantly predicted responses to the critical slide
+$\chi$^2^(`r chi_df`,
+*N* = `r length(x$cs)`) =
+`r round(c, digits=2)`,
+*p* `r paste(p_report(chi_p))`, The observed power was
+`r round(pw$power,digits=2)`.
+ The model explained between
+`r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and
+`r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide. 
+For scenarios in the future, participants were more likely to provide reasons than to present as dumbfounded
+Wald = `r round(temp_fututre_dumb$wald,digits=2)`,
+*p* `r paste(p_report(temp_fututre_dumb$p.value))`, odds ratio = `r round(temp_fututre_dumb$OR,digits=2)`, 95% CI
+[`r round(temp_fututre_dumb$lower,digits=2)`,
+`r round(temp_fututre_dumb$upper,digits=2)`].
+
+{{< pagebreak >}}
+
+
+
 
 
 ```{r}
@@ -1133,22 +1176,6 @@ papaja::apa_table(
 )
 
 ```
-
-
-Overall the model significantly predicted responses to the critical slide
-$\chi$^2^(`r chi_df`,
-*N* = `r length(x$cs)`) =
-`r round(c, digits=2)`,
-*p* `r paste(p_report(chi_p))`, The observed power was
-`r round(pw$power,digits=2)`.
- The model explained between
-`r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and
-`r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide. 
-For scenarios in the future, participants were more likely to provide reasons than to present as dumbfounded
-Wald = `r round(temp_fututre_dumb$wald,digits=2)`,
-*p* `r paste(p_report(temp_fututre_dumb$p.value))`, odds ratio = `r round(temp_fututre_dumb$OR,digits=2)`, 95% CI
-[`r round(temp_fututre_dumb$lower,digits=2)`,
-`r round(temp_fututre_dumb$upper,digits=2)`].
 
 
 
@@ -1399,6 +1426,5094 @@ g
 suppressWarnings(print(g))
 
 ```
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+&nbsp;
+
+{{< pagebreak >}}
+
+### Including Scenario
+
+```{r}
+#| include: false
+ 
+x <- simulated_data_scenarios
+
+
+model0 <- nnet::multinom(cs~1,x) 
+model1 <- nnet::multinom(cs~psych+temp+psych*temp+scenario,x) 
+
+summary_model1 <- broom::tidy(model1)
+
+summary_model1$p.value
+
+chi_full <- anova(model0,model1)
+chi1 <- anova(model0,model1)[2,]
+
+chi_full$`Resid. Dev`[2]
+chi_full$`Resid. Dev`[1]
+
+chi_df <- chi1$`   Df`
+chi_p <- chi1$`Pr(Chi)`
+
+
+c <- chi1$`LR stat.`
+w <- sqrt(c/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(chi_df),sig.level = .05)
+
+
+cox <- multinom_PseudoR2s(model0,model1)
+cox
+
+c
+
+a <- exp(confint(model1))
+
+
+psych_self_dumb <- summary_model1[2,]
+psych_self_dumb <- cbind.data.frame(psych_self_dumb, as.data.frame(a[,,1])[2,])
+psych_self_dumb <- wald_OR(psych_self_dumb)
+
+temp_fututre_dumb <- summary_model1[3,]
+temp_fututre_dumb <- cbind.data.frame(temp_fututre_dumb, as.data.frame(a[,,1])[3,])
+temp_fututre_dumb <- wald_OR(temp_fututre_dumb)
+
+rbind(as.data.frame(a[,,1])
+      ,as.data.frame(a[,,2]))
+
+test <- summary_model1
+test <- cbind.data.frame(summary_model1
+                         , rbind(as.data.frame(a[,,1])
+                                 , as.data.frame(a[,,2]))
+)
+test <- wald_OR(test)
+
+
+
+ps_logit <- function(y){
+  e <- round(y, digits = 3)
+  if(as.numeric(sqrt( y*y) ) <.001) print(paste0("<", " ", ".001","**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) <.05) print(paste0(sub("^(-?)0.", "\\1.", sprintf("%.3f", e)),"*"), quote = FALSE)
+  else print(e)}
+
+
+test$ps <- sapply(test$p.value, ps_logit)
+test
+test$Response <- dplyr::recode(test$y.level,
+              "It's wrong but I cannot explain why" = "D"
+              , "There is nothing wrong" = "NW"
+              )
+
+test$term
+
+c("(Intercept)"
+,"Psy-Self"
+,"Temp-Future"
+,"Temp-Now"
+,"Scenario-Jennifer"
+,"Scenario-Julie and Mark"
+,"Scenario-Trolley"
+,"Psy-Self&times;Temp-Future"
+,"Psy-Self&times;Temp-Now"
+,"(Intercept)"
+,"Psy-Self"
+,"Temp-Future"
+,"Temp-Now"
+,"Scenario-Jennifer"
+,"Scenario-Julie and Mark"
+,"Scenario-Trolley"
+,"Psy-Self&times;Temp-Future"
+,"Psy-Self&times;Temp-Now")
+
+
+test$Term <- c("(Intercept)"
+               ,"Psy-Self"
+               ,"Temp-Future"
+               ,"Temp-Now"
+               ,"Scenario-Jennifer"
+               ,"Scenario-Julie and Mark"
+               ,"Scenario-Trolley"
+               ,"Psy-Self $\\times$ Temp-Future"
+               ,"Psy-Self $\\times$ Temp-Now"
+               ,"(Intercept)"
+               ,"Psy-Self"
+               ,"Temp-Future"
+               ,"Temp-Now"
+               ,"Scenario-Jennifer"
+               ,"Scenario-Julie and Mark"
+               ,"Scenario-Trolley"
+               ,"Psy-Self $\\times$ Temp-Future"
+               ,"Psy-Self $\\times$ Temp-Now")
+
+test$`$b$` <- round(test$estimate,digits=2)
+test$`$S.E.$` <- round(test$std.error,digits=2)
+test$`$z$` <- round(test$statistic,digits=2)
+test$Wald <- round(test$wald,digits=2)
+test$`$p$` <- test$ps
+test$`$O.R.$` <- round(test$OR,digits=2)
+test$Lower <- round(test$lower,digits=2)
+test$Upper <- round(test$upper,digits=2)
+
+
+test1 <- test %>% select(Response,Term, `$b$`, `$S.E.$`, `$z$`, Wald, `$p$`, `$O.R.$`, Lower, Upper )
+rownames(test1) <- NULL
+test1
+```
+
+
+Overall the model significantly predicted responses to the critical slide
+$\chi$^2^(`r chi_df`,
+*N* = `r length(x$cs)`) =
+`r round(c, digits=2)`,
+*p* `r paste(p_report(chi_p))`, The observed power was
+`r round(pw$power,digits=2)`.
+ The model explained between
+`r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and
+`r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide. 
+For scenarios in the future, participants were more likely to provide reasons than to present as dumbfounded
+Wald = `r round(temp_fututre_dumb$wald,digits=2)`,
+*p* `r paste(p_report(temp_fututre_dumb$p.value))`, odds ratio = `r round(temp_fututre_dumb$OR,digits=2)`, 95% CI
+[`r round(temp_fututre_dumb$lower,digits=2)`,
+`r round(temp_fututre_dumb$upper,digits=2)`].
+
+
+{{< pagebreak >}}
+
+```{r}
+#| include: true
+#| results: asis
+
+papaja::apa_table(
+   test1
+   , align = c("l", "l", "c", "c", "c", "c", "c", "c", "c", "c")
+   , caption = "Predictors of each response with reason-giving as the reference response"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001; D = dumbfounded, NW = nothing-wrong"
+   , font_size = 'footnotesize'
+   , escape = FALSE
+   
+)
+
+```
+
+
+### Julie and Mark
+
+
+#### Temporal Distancing and Dumbfounding
+
+
+```{r}
+#| include: false
+#| echo: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Julie and Mark"),]
+
+
+aov1 <- aov(ju1_2~temp, data = x)
+tuk <- TukeyHSD(aov1)
+tuk_temp1 <- as.data.frame(tuk$temp)
+apa_aov1 <- papaja::apa_print(aov1)
+apa_aov1$full_result$temp
+apa_aov1$estimate$temp
+
+aov1b <- summary(aov1)
+aov1b <- as.data.frame(aov1b[[1]])
+aov1_f <- aov1b$`F value`[1]
+aov1_df <- aov1b$Df
+aov1_p <- aov1b$`Pr(>F)`[1]
+eta1 <- EtaSq(aov1)[2]
+
+
+aov2 <- aov(ju2_2~temp, data = x)
+tuk <- TukeyHSD(aov2)
+tuk_temp2 <- as.data.frame(tuk$temp)
+apa_aov2 <- papaja::apa_print(aov2)
+apa_aov2$full_result$temp
+
+aov2b <- summary(aov2)
+aov2b <- as.data.frame(aov2b[[1]])
+aov2_f <- aov2b$`F value`[1]
+aov2_df <- aov2b$Df
+aov2_p <- aov2b$`Pr(>F)`[1]
+eta2 <- EtaSq(aov2)[2]
+
+
+# t_j1 <- t.test(x$ju1_2 ~ x$temp)
+# d_j1 <- cohensD(x$ju1_2 ~ x$temp)
+# t_paragraph(x$ju1_2, x$temp, "initial judgement")
+# 
+# t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+# d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+# t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(x$ju1_2,x$ju2_2, "judgment")
+t_j3 <- t.test(x$ju1_2,x$ju2_2,paired = TRUE)
+d_j3 <- lsr::cohensD(x$ju1_2,x$ju2_2, method = "paired")
+
+
+
+
+
+c <- chisq.test(table(x$cs,x$temp))
+w <- sqrt(c[]$statistic/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(4-1),sig.level = .05)
+
+
+
+```
+
+#### Overview of Judgments
+A total of 
+`r sum(x$ju1_2<4,na.rm=T)` participants (`r round(((sum(x$ju1_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r sum(x$ju2_2<4,na.rm=T)` participants (`r round(((sum(x$ju2_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior as wrong at the end of the task.
+There was a significant difference between initial ratings
+(*M* = `r round(mean(x$ju1_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju1_2,na.rm=T), digits = 1)`) and revised ratings
+(*M* = `r round(mean(x$ju2_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju2_2,na.rm=T), digits = 1)`),
+*t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`,
+*p* `r paste(p_report(t_j3$p.value))`,
+*d* = `r round(d_j3, digits=2)`. 
+
+
+#### Distancing and Judgments Made
+
+There was no difference in initial judgement depending on distance manipulation:
+*F*(`r aov1_df[1]`,
+`r round(aov1_df[2],digits=2)`)
+= `r round(aov1_f,digits=2)`,
+*p* `r paste(p_report(aov1_p))`
+$\eta$*~p~*^2^ = `r round(eta1, digits=3)`, 
+(*M*~increased~ = `r round(mean(x$ju1_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju1_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju1_2[which(x$temp=="now")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju1_2[which(x$temp=="now")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(x$ju1_2[which(x$temp=="control")],na.rm=T), digits = 1)`,
+*SD*~control~ = `r round(sd(x$ju1_2[which(x$temp=="control")],na.rm=T), digits = 1)`).
+There was no difference in revised judgement depending on distance manipulation:
+*F*(`r aov2_df[1]`,
+`r round(aov2_df[2],digits=2)`)
+= `r round(aov2_f,digits=2)`,
+*p* `r paste(p_report(aov2_p))`,
+$\eta$*~p~*^2^ = `r round(eta2, digits=3)`, 
+(*M*~increased~ = `r round(mean(x$ju2_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju2_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju2_2[which(x$temp=="now")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju2_2[which(x$temp=="now")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(x$ju2_2[which(x$temp=="control")],na.rm=T), digits = 1)`,
+*SD*~control~ = `r round(sd(x$ju2_2[which(x$temp=="control")],na.rm=T), digits = 1)`).
+
+#### Distancing and Reason-Giving/Dumbfounding
+
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in XXXXX {apafg-tempoverall}.
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Julie and Mark"),]
+
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$temp)
+
+
+y <- table(x$temp,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$temp,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abc_graph <- function(){
+  a <- x[which(x$temp==levels(as.factor(x$temp))[1]),]
+  a$temp <- droplevels(a$temp)
+  b <- x[which(x$temp==levels(as.factor(x$temp))[2]),]
+  b$temp <- droplevels(b$temp)
+  c <- x[which(x$temp==levels(as.factor(x$temp))[3]),]
+  c$temp <- droplevels(c$temp)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$temp))
+  by <- as.data.frame(table(b$cs,b$temp))
+  cy <- as.data.frame(table(c$cs,c$temp))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","temp","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","temp","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$cs)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("cs","temp","Freq","perc")
+  
+  tot <- rbind(ay, by, cy)
+  
+  tot
+}
+
+test <- abc_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$temp=="control"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="control"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="control"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$temp=="now"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="now"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="now"),])
+)
+
+y1 <- y %>% select("cs","temp","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("temp","cs") )
+table(x$temp)
+
+rm(y)
+```
+
+```{r}
+#| label: tempplotmakeJulieandMark
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(temp
+                                             ,labels=c("Control","Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.16,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.6,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.4,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+g_temp_jandm <- g
+# load("sim_plots.RData")
+save(g_temp_jandm, file = "sim_plots.RData")
+
+
+```
+
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Julie and Mark"),]
+
+c <- chisq.test(table(x$cs,x$temp))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6])),
+                   c(ps(x[7]),ps(x[8]),ps(x[9]))
+                   ),
+  c("control","future","now")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Control","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: TempResidualsJulieandMark
+#| results: asis
+#| include: true
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on temporal distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+
+#### Psychological Distancing and Dumbfounding
+
+
+```{r}
+#| include: false
+#| echo: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Julie and Mark"),]
+
+aov1 <- aov(ju1_2~psych, data = x)
+tuk <- TukeyHSD(aov1)
+tuk_psych1 <- as.data.frame(tuk$psych)
+apa_aov1 <- papaja::apa_print(aov1)
+apa_aov1$full_result$psych
+apa_aov1$estimate$psych
+
+aov1b <- summary(aov1)
+aov1b <- as.data.frame(aov1b[[1]])
+aov1_f <- aov1b$`F value`[1]
+aov1_df <- aov1b$Df
+aov1_p <- aov1b$`Pr(>F)`[1]
+eta1 <- EtaSq(aov1)[2]
+
+
+aov2 <- aov(ju2_2~psych, data = x)
+tuk <- TukeyHSD(aov2)
+tuk_psych2 <- as.data.frame(tuk$psych)
+apa_aov2 <- papaja::apa_print(aov2)
+apa_aov2$full_result$psych
+
+aov2b <- summary(aov2)
+aov2b <- as.data.frame(aov2b[[1]])
+aov2_f <- aov2b$`F value`[1]
+aov2_df <- aov2b$Df
+aov2_p <- aov2b$`Pr(>F)`[1]
+eta2 <- EtaSq(aov2)[2]
+
+t_j1 <- t.test(x$ju1_2 ~ x$psych)
+d_j1 <- lsr::cohensD(x$ju1_2[which(x$psych=="other")], x$ju1_2[which(x$psych=="self")])
+t_paragraph(x$ju1_2, x$psych, "initial judgement")
+
+t_j2 <- t.test(x$ju2_2 ~ x$psych)
+d_j2 <- lsr::cohensD(x$ju2_2[which(x$psych=="other")], x$ju2_2[which(x$psych=="self")])
+t_paragraph(x$ju2_2, x$psych, "revised judgement")
+
+
+t_paired_paragraph(x$ju1_2,x$ju2_2, "judgment")
+t_j3 <- t.test(x$ju1_2,x$ju2_2,paired = TRUE)
+d_j3 <- lsr::cohensD(x$ju1_2,x$ju2_2, method = "paired")
+
+
+
+
+
+c <- chisq.test(table(x$cs,x$psych))
+w <- sqrt(c[]$statistic/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(4-1),sig.level = .05)
+
+
+
+```
+
+#### Overview of Judgments
+A total of
+`r sum(x$ju1_2<4,na.rm=T)` participants (`r round(((sum(x$ju1_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r sum(x$ju2_2<4,na.rm=T)` participants (`r round(((sum(x$ju2_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior as wrong at the end of the task.
+There was a significant difference between initial ratings
+(*M* = `r round(mean(x$ju1_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju1_2,na.rm=T), digits = 1)`) and revised ratings
+(*M* = `r round(mean(x$ju2_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju2_2,na.rm=T), digits = 1)`),
+*t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`,
+*p* `r paste(p_report(t_j3$p.value))`,
+*d* = `r round(d_j3, digits=2)`. 
+
+
+#### Distancing and Judgments Made
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~increased~ = `r round(mean(x$ju1_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju1_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju1_2[which(x$psych=="self")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju1_2[which(x$psych=="self")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~increased~ = `r round(mean(x$ju2_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju2_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju2_2[which(x$psych=="self")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju2_2[which(x$psych=="self")],na.rm=T), digits = 1)`).
+
+#### Distancing and Reason-Giving/Dumbfounding
+
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in XXXXX {apafg-psychoverall}.
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Julie and Mark"),]
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$psych)
+
+
+y <- table(x$psych,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$psych,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+ab_graph <- function(){
+  a <- x[which(x$psych==levels(as.factor(x$psych))[1]),]
+  a$psych <- droplevels(a$psych)
+  b <- x[which(x$psych==levels(as.factor(x$psych))[2]),]
+  b$psych <- droplevels(b$psych)
+  # c <- x[which(x$psych==levels(as.factor(x$psych))[3]),]
+  # c$psych <- droplevels(c$psych)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$psych))
+  by <- as.data.frame(table(b$cs,b$psych))
+  # cy <- as.data.frame(table(c$cs,c$psych))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","psych","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","psych","Freq","perc")
+  
+  # cperc <- cy$Freq/length(c$cs)
+  # cy <- cbind(cy,cperc)
+  # colnames(cy) <- c("cs","psych","Freq","perc")
+  
+  tot <- rbind(ay, by)
+  
+  tot
+}
+
+test <- ab_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$psych=="other"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="other"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="other"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$psych=="self"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$psych=="self"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$psych=="self"),])
+)
+
+y1 <- y %>% select("cs","psych","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("psych","cs") )
+table(x$psych)
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(psych
+                                            ,labels=c("Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+g_psych_jandm <- g
+load("sim_plots.RData")
+save(g_temp_jandm, g_psych_jandm, file = "sim_plots.RData")
+
+```
+
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Julie and Mark"),]
+
+c <- chisq.test(table(x$cs,x$psych))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6]))),
+  c("other","self")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: PsychResidualsJulieandMark
+#| results: asis
+#| include: true
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on psychological distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Julie and Mark"),]
+```
+
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+
+
+
+
+```{r}
+#| include: false
+
+multinom_PseudoR2s <- function(model0R2,model1R2) {
+  dev <- abs(model1R2$deviance)
+  nullDev <- abs(model0R2$deviance)
+  modelN <- length(model1R2$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l)
+              , mcfadden = NA
+              , cox_and_snell = as.numeric(R.cs)
+              , nagelkerke = as.numeric(R.n))
+  all
+}
+
+wald_OR <- function(term){
+  term$wald <- (term$statistic)*2
+  term$OR <- exp(term$estimate)
+  term$lower <- term$`2.5 %`
+  term$upper <- term$`97.5 %`
+  term
+}
+
+```
+
+
+```{r}
+#| include: false
+ 
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Julie and Mark"),]
+
+model0 <- nnet::multinom(cs~1,x) 
+model1 <- nnet::multinom(cs~psych+temp+psych*temp,x) 
+
+summary_model1 <- broom::tidy(model1)
+
+summary_model1$p.value
+
+chi_full <- anova(model0,model1)
+chi1 <- anova(model0,model1)[2,]
+
+chi_full$`Resid. Dev`[2]
+chi_full$`Resid. Dev`[1]
+
+chi_df <- chi1$`   Df`
+chi_p <- chi1$`Pr(Chi)`
+
+
+c <- chi1$`LR stat.`
+w <- sqrt(c/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(chi_df),sig.level = .05)
+
+
+cox <- multinom_PseudoR2s(model0,model1)
+cox
+
+c
+
+a <- exp(confint(model1))
+
+
+psych_self_dumb <- summary_model1[2,]
+psych_self_dumb <- cbind.data.frame(psych_self_dumb, as.data.frame(a[,,1])[2,])
+psych_self_dumb <- wald_OR(psych_self_dumb)
+
+temp_fututre_dumb <- summary_model1[3,]
+temp_fututre_dumb <- cbind.data.frame(temp_fututre_dumb, as.data.frame(a[,,1])[3,])
+temp_fututre_dumb <- wald_OR(temp_fututre_dumb)
+
+rbind(as.data.frame(a[,,1])
+      ,as.data.frame(a[,,2]))
+
+test <- summary_model1
+test <- cbind.data.frame(summary_model1
+                         , rbind(as.data.frame(a[,,1])
+                                 , as.data.frame(a[,,2]))
+)
+test <- wald_OR(test)
+
+
+
+ps_logit <- function(y){
+  e <- round(y, digits = 3)
+  if(as.numeric(sqrt( y*y) ) <.001) print(paste0("<", " ", ".001","**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) <.05) print(paste0(sub("^(-?)0.", "\\1.", sprintf("%.3f", e)),"*"), quote = FALSE)
+  else print(e)}
+
+
+test$ps <- sapply(test$p.value, ps_logit)
+test
+test$Response <- dplyr::recode(test$y.level,
+              "It's wrong but I cannot explain why" = "D"
+              , "There is nothing wrong" = "NW"
+              )
+
+test$term
+
+c("(Intercept)"
+  , "psychself"
+  , "tempfuture"
+  , "tempnow"
+  , "psychself:tempfuture"
+  , "psychself:tempnow"
+  , "(Intercept)"
+  , "psychself"
+  , "tempfuture"
+  , "tempnow"
+  , "psychself:tempfuture"
+  , "psychself:tempnow")
+
+c("(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now"
+  , "(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now")
+
+test$Term <- c("(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now"
+  , "(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now")
+
+test$`$b$` <- round(test$estimate,digits=2)
+test$`$S.E.$` <- round(test$std.error,digits=2)
+test$`$z$` <- round(test$statistic,digits=2)
+test$Wald <- round(test$wald,digits=2)
+test$`$p$` <- test$ps
+test$`$O.R.$` <- round(test$OR,digits=2)
+test$Lower <- round(test$lower,digits=2)
+test$Upper <- round(test$upper,digits=2)
+
+
+test1 <- test %>% select(Response,Term, `$b$`, `$S.E.$`, `$z$`, Wald, `$p$`, `$O.R.$`, Lower, Upper )
+rownames(test1) <- NULL
+test1
+```
+
+
+Overall the model significantly predicted responses to the critical slide
+$\chi$^2^(`r chi_df`,
+*N* = `r length(x$cs)`) =
+`r round(c, digits=2)`,
+*p* `r paste(p_report(chi_p))`, The observed power was
+`r round(pw$power,digits=2)`.
+ The model explained between
+`r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and
+`r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide. 
+For scenarios in the future, participants were more likely to provide reasons than to present as dumbfounded
+Wald = `r round(temp_fututre_dumb$wald,digits=2)`,
+*p* `r paste(p_report(temp_fututre_dumb$p.value))`, odds ratio = `r round(temp_fututre_dumb$OR,digits=2)`, 95% CI
+[`r round(temp_fututre_dumb$lower,digits=2)`,
+`r round(temp_fututre_dumb$upper,digits=2)`].
+
+{{< pagebreak >}}
+
+
+
+
+
+```{r}
+#| include: true
+#| results: asis
+
+papaja::apa_table(
+   test1
+   , align = c("l", "l", "c", "c", "c", "c", "c", "c", "c", "c")
+   , caption = "Predictors of each response with reason-giving as the reference response"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001; D = dumbfounded, NW = nothing-wrong"
+   , font_size = 'footnotesize'
+   , escape = FALSE
+   
+)
+
+```
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$condition6)
+
+
+x$condition <- dplyr::recode(x$condition6
+                           , "ctrl" = "1slf_ctrl"
+                           , "oth_ctrl" = "2oth_ctrl"
+                           , "slf_now" = "3slf_now"
+                           , "oth_now" = "4oth_now"
+                           , "slf_fut" = "5slf_fut"
+                           , "oth_fut" = "6oth_fut"
+)
+
+y <- table(x$condition,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$psych,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abcdef_graph <- function(){
+  a <- x[which(x$condition==levels(as.factor(x$condition))[1]),]
+  a$condition <- droplevels(a$condition)
+  b <- x[which(x$condition==levels(as.factor(x$condition))[2]),]
+  b$condition <- droplevels(b$condition)
+  c <- x[which(x$condition==levels(as.factor(x$condition))[3]),]
+  c$condition <- droplevels(c$condition)
+  d <- x[which(x$condition==levels(as.factor(x$condition))[4]),]
+  d$condition <- droplevels(d$condition)
+  e <- x[which(x$condition==levels(as.factor(x$condition))[5]),]
+  e$condition <- droplevels(e$condition)
+  f <- x[which(x$condition==levels(as.factor(x$condition))[6]),]
+  f$condition <- droplevels(f$condition)
+
+    
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$condition))
+  by <- as.data.frame(table(b$cs,b$condition))
+  cy <- as.data.frame(table(c$cs,c$condition))
+  dy <- as.data.frame(table(d$cs,d$condition))
+  ey <- as.data.frame(table(e$cs,e$condition))
+  fy <- as.data.frame(table(f$cs,f$condition))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","condition","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","condition","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$cs)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("cs","condition","Freq","perc")
+  
+  dperc <- dy$Freq/length(d$cs)
+  dy <- cbind(dy,dperc)
+  colnames(dy) <- c("cs","condition","Freq","perc")
+  
+  eperc <- ey$Freq/length(e$cs)
+  ey <- cbind(ey,eperc)
+  colnames(ey) <- c("cs","condition","Freq","perc")
+  
+  fperc <- fy$Freq/length(f$cs)
+  fy <- cbind(fy,fperc)
+  colnames(fy) <- c("cs","condition","Freq","perc")
+  
+  tot <- rbind(ay, by, cy, dy, ey, fy)
+  
+  tot
+}
+
+test <- abcdef_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+table(x$condition)
+y <- rbind(
+  se_fun(x[which(x$condition=="1slf_ctrl"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$condition=="1slf_ctrl"),])
+  ,se_fun(x[which(x$condition=="1slf_ctrl"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="1slf_ctrl"),])
+  ,se_fun(x[which(x$condition=="1slf_ctrl"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="1slf_ctrl"),])
+  ,se_fun(x[which(x$condition=="2oth_ctrl"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="2oth_ctrl"),])
+  ,se_fun(x[which(x$condition=="2oth_ctrl"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="2oth_ctrl"),])
+  ,se_fun(x[which(x$condition=="2oth_ctrl"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="2oth_ctrl"),])
+  ,se_fun(x[which(x$condition=="3slf_now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="3slf_now"),])
+  ,se_fun(x[which(x$condition=="3slf_now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="3slf_now"),])
+  ,se_fun(x[which(x$condition=="4oth_now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="4oth_now"),])
+  ,se_fun(x[which(x$condition=="4oth_now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="4oth_now"),])
+  ,se_fun(x[which(x$condition=="4oth_now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="4oth_now"),])
+  ,se_fun(x[which(x$condition=="3slf_now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="5slf_fut"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="5slf_fut"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="5slf_fut"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="6oth_fut"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="6oth_fut"),])
+  ,se_fun(x[which(x$condition=="6oth_fut"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="6oth_fut"),])
+  ,se_fun(x[which(x$condition=="6oth_fut"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="6oth_fut"),])
+)
+
+y1 <- y %>% select("cs","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","cs") )
+table(x$condition)
+
+
+as.numeric(test1$condition)
+test1$condition
+
+order(test1$condition)
+test1$condition[order(as.character(test1$condition))]
+
+test1$condition1 <- as.character(test1$condition)
+test1$condition2 <- test1$condition
+test1$condition <- as.factor(test1$condition1)                
+
+
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(condition
+                                           ,labels=c("Self-Control","Other-Control"
+                                                     , "Self-Now", "Other-Now"
+                                                     , "Self-Future", "Other-Future"
+                                                     )
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.2,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -1.5,
+            #hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times",
+            size=2.5,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  #scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition\nPsych/Temp") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+g
+
+
+g_overall_jandm <- g
+load("sim_plots.RData")
+save(g_temp_jandm, g_psych_jandm, g_overall_jandm, file = "sim_plots.RData")
+```
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Jennifer
+
+
+#### Temporal Distancing and Dumbfounding
+
+
+```{r}
+#| include: false
+#| echo: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Jennifer"),]
+
+
+aov1 <- aov(ju1_2~temp, data = x)
+tuk <- TukeyHSD(aov1)
+tuk_temp1 <- as.data.frame(tuk$temp)
+apa_aov1 <- papaja::apa_print(aov1)
+apa_aov1$full_result$temp
+apa_aov1$estimate$temp
+
+aov1b <- summary(aov1)
+aov1b <- as.data.frame(aov1b[[1]])
+aov1_f <- aov1b$`F value`[1]
+aov1_df <- aov1b$Df
+aov1_p <- aov1b$`Pr(>F)`[1]
+eta1 <- EtaSq(aov1)[2]
+
+
+aov2 <- aov(ju2_2~temp, data = x)
+tuk <- TukeyHSD(aov2)
+tuk_temp2 <- as.data.frame(tuk$temp)
+apa_aov2 <- papaja::apa_print(aov2)
+apa_aov2$full_result$temp
+
+aov2b <- summary(aov2)
+aov2b <- as.data.frame(aov2b[[1]])
+aov2_f <- aov2b$`F value`[1]
+aov2_df <- aov2b$Df
+aov2_p <- aov2b$`Pr(>F)`[1]
+eta2 <- EtaSq(aov2)[2]
+
+
+# t_j1 <- t.test(x$ju1_2 ~ x$temp)
+# d_j1 <- cohensD(x$ju1_2 ~ x$temp)
+# t_paragraph(x$ju1_2, x$temp, "initial judgement")
+# 
+# t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+# d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+# t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(x$ju1_2,x$ju2_2, "judgment")
+t_j3 <- t.test(x$ju1_2,x$ju2_2,paired = TRUE)
+d_j3 <- lsr::cohensD(x$ju1_2,x$ju2_2, method = "paired")
+
+
+
+
+
+c <- chisq.test(table(x$cs,x$temp))
+w <- sqrt(c[]$statistic/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(4-1),sig.level = .05)
+
+
+
+```
+
+#### Overview of Judgments
+A total of 
+`r sum(x$ju1_2<4,na.rm=T)` participants (`r round(((sum(x$ju1_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r sum(x$ju2_2<4,na.rm=T)` participants (`r round(((sum(x$ju2_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior as wrong at the end of the task.
+There was a significant difference between initial ratings
+(*M* = `r round(mean(x$ju1_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju1_2,na.rm=T), digits = 1)`) and revised ratings
+(*M* = `r round(mean(x$ju2_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju2_2,na.rm=T), digits = 1)`),
+*t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`,
+*p* `r paste(p_report(t_j3$p.value))`,
+*d* = `r round(d_j3, digits=2)`. 
+
+
+#### Distancing and Judgments Made
+
+There was no difference in initial judgement depending on distance manipulation:
+*F*(`r aov1_df[1]`,
+`r round(aov1_df[2],digits=2)`)
+= `r round(aov1_f,digits=2)`,
+*p* `r paste(p_report(aov1_p))`
+$\eta$*~p~*^2^ = `r round(eta1, digits=3)`, 
+(*M*~increased~ = `r round(mean(x$ju1_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju1_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju1_2[which(x$temp=="now")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju1_2[which(x$temp=="now")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(x$ju1_2[which(x$temp=="control")],na.rm=T), digits = 1)`,
+*SD*~control~ = `r round(sd(x$ju1_2[which(x$temp=="control")],na.rm=T), digits = 1)`).
+There was no difference in revised judgement depending on distance manipulation:
+*F*(`r aov2_df[1]`,
+`r round(aov2_df[2],digits=2)`)
+= `r round(aov2_f,digits=2)`,
+*p* `r paste(p_report(aov2_p))`,
+$\eta$*~p~*^2^ = `r round(eta2, digits=3)`, 
+(*M*~increased~ = `r round(mean(x$ju2_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju2_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju2_2[which(x$temp=="now")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju2_2[which(x$temp=="now")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(x$ju2_2[which(x$temp=="control")],na.rm=T), digits = 1)`,
+*SD*~control~ = `r round(sd(x$ju2_2[which(x$temp=="control")],na.rm=T), digits = 1)`).
+
+#### Distancing and Reason-Giving/Dumbfounding
+
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in XXXXX {apafg-tempoverall}.
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Jennifer"),]
+
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$temp)
+
+
+y <- table(x$temp,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$temp,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abc_graph <- function(){
+  a <- x[which(x$temp==levels(as.factor(x$temp))[1]),]
+  a$temp <- droplevels(a$temp)
+  b <- x[which(x$temp==levels(as.factor(x$temp))[2]),]
+  b$temp <- droplevels(b$temp)
+  c <- x[which(x$temp==levels(as.factor(x$temp))[3]),]
+  c$temp <- droplevels(c$temp)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$temp))
+  by <- as.data.frame(table(b$cs,b$temp))
+  cy <- as.data.frame(table(c$cs,c$temp))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","temp","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","temp","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$cs)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("cs","temp","Freq","perc")
+  
+  tot <- rbind(ay, by, cy)
+  
+  tot
+}
+
+test <- abc_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$temp=="control"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="control"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="control"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$temp=="now"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="now"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="now"),])
+)
+
+y1 <- y %>% select("cs","temp","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("temp","cs") )
+table(x$temp)
+
+rm(y)
+```
+
+```{r}
+#| label: tempplotmakeJennifer
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(temp
+                                             ,labels=c("Control","Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.16,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.6,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.4,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+g_temp_jen <- g
+load("sim_plots.RData")
+save(g_temp_jandm, g_psych_jandm, g_overall_jandm
+     , g_temp_jen, file = "sim_plots.RData")
+
+```
+
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Jennifer"),]
+
+c <- chisq.test(table(x$cs,x$temp))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6])),
+                   c(ps(x[7]),ps(x[8]),ps(x[9]))
+                   ),
+  c("control","future","now")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Control","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: TempResidualsJennifer
+#| results: asis
+#| include: true
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on temporal distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+
+#### Psychological Distancing and Dumbfounding
+
+
+```{r}
+#| include: false
+#| echo: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Jennifer"),]
+
+aov1 <- aov(ju1_2~psych, data = x)
+tuk <- TukeyHSD(aov1)
+tuk_psych1 <- as.data.frame(tuk$psych)
+apa_aov1 <- papaja::apa_print(aov1)
+apa_aov1$full_result$psych
+apa_aov1$estimate$psych
+
+aov1b <- summary(aov1)
+aov1b <- as.data.frame(aov1b[[1]])
+aov1_f <- aov1b$`F value`[1]
+aov1_df <- aov1b$Df
+aov1_p <- aov1b$`Pr(>F)`[1]
+eta1 <- EtaSq(aov1)[2]
+
+
+aov2 <- aov(ju2_2~psych, data = x)
+tuk <- TukeyHSD(aov2)
+tuk_psych2 <- as.data.frame(tuk$psych)
+apa_aov2 <- papaja::apa_print(aov2)
+apa_aov2$full_result$psych
+
+aov2b <- summary(aov2)
+aov2b <- as.data.frame(aov2b[[1]])
+aov2_f <- aov2b$`F value`[1]
+aov2_df <- aov2b$Df
+aov2_p <- aov2b$`Pr(>F)`[1]
+eta2 <- EtaSq(aov2)[2]
+
+t_j1 <- t.test(x$ju1_2 ~ x$psych)
+d_j1 <- lsr::cohensD(x$ju1_2[which(x$psych=="other")], x$ju1_2[which(x$psych=="self")])
+t_paragraph(x$ju1_2, x$psych, "initial judgement")
+
+t_j2 <- t.test(x$ju2_2 ~ x$psych)
+d_j2 <- lsr::cohensD(x$ju2_2[which(x$psych=="other")], x$ju2_2[which(x$psych=="self")])
+t_paragraph(x$ju2_2, x$psych, "revised judgement")
+
+
+t_paired_paragraph(x$ju1_2,x$ju2_2, "judgment")
+t_j3 <- t.test(x$ju1_2,x$ju2_2,paired = TRUE)
+d_j3 <- lsr::cohensD(x$ju1_2,x$ju2_2, method = "paired")
+
+
+
+
+
+c <- chisq.test(table(x$cs,x$psych))
+w <- sqrt(c[]$statistic/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(4-1),sig.level = .05)
+
+
+
+```
+
+#### Overview of Judgments
+A total of
+`r sum(x$ju1_2<4,na.rm=T)` participants (`r round(((sum(x$ju1_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r sum(x$ju2_2<4,na.rm=T)` participants (`r round(((sum(x$ju2_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior as wrong at the end of the task.
+There was a significant difference between initial ratings
+(*M* = `r round(mean(x$ju1_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju1_2,na.rm=T), digits = 1)`) and revised ratings
+(*M* = `r round(mean(x$ju2_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju2_2,na.rm=T), digits = 1)`),
+*t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`,
+*p* `r paste(p_report(t_j3$p.value))`,
+*d* = `r round(d_j3, digits=2)`. 
+
+
+#### Distancing and Judgments Made
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~increased~ = `r round(mean(x$ju1_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju1_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju1_2[which(x$psych=="self")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju1_2[which(x$psych=="self")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~increased~ = `r round(mean(x$ju2_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju2_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju2_2[which(x$psych=="self")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju2_2[which(x$psych=="self")],na.rm=T), digits = 1)`).
+
+#### Distancing and Reason-Giving/Dumbfounding
+
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in XXXXX {apafg-psychoverall}.
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Jennifer"),]
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$psych)
+
+
+y <- table(x$psych,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$psych,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+ab_graph <- function(){
+  a <- x[which(x$psych==levels(as.factor(x$psych))[1]),]
+  a$psych <- droplevels(a$psych)
+  b <- x[which(x$psych==levels(as.factor(x$psych))[2]),]
+  b$psych <- droplevels(b$psych)
+  # c <- x[which(x$psych==levels(as.factor(x$psych))[3]),]
+  # c$psych <- droplevels(c$psych)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$psych))
+  by <- as.data.frame(table(b$cs,b$psych))
+  # cy <- as.data.frame(table(c$cs,c$psych))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","psych","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","psych","Freq","perc")
+  
+  # cperc <- cy$Freq/length(c$cs)
+  # cy <- cbind(cy,cperc)
+  # colnames(cy) <- c("cs","psych","Freq","perc")
+  
+  tot <- rbind(ay, by)
+  
+  tot
+}
+
+test <- ab_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$psych=="other"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="other"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="other"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$psych=="self"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$psych=="self"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$psych=="self"),])
+)
+
+y1 <- y %>% select("cs","psych","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("psych","cs") )
+table(x$psych)
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(psych
+                                            ,labels=c("Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+g_psych_jen <- g
+load("sim_plots.RData")
+save(g_temp_jandm, g_psych_jandm, g_overall_jandm
+     , g_temp_jen, g_psych_jen
+     , file = "sim_plots.RData")
+
+```
+
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Jennifer"),]
+
+c <- chisq.test(table(x$cs,x$psych))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6]))),
+  c("other","self")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: PsychResidualsJennifer
+#| results: asis
+#| include: true
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on psychological distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Jennifer"),]
+```
+
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+
+
+
+
+```{r}
+#| include: false
+
+multinom_PseudoR2s <- function(model0R2,model1R2) {
+  dev <- abs(model1R2$deviance)
+  nullDev <- abs(model0R2$deviance)
+  modelN <- length(model1R2$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l)
+              , mcfadden = NA
+              , cox_and_snell = as.numeric(R.cs)
+              , nagelkerke = as.numeric(R.n))
+  all
+}
+
+wald_OR <- function(term){
+  term$wald <- (term$statistic)*2
+  term$OR <- exp(term$estimate)
+  term$lower <- term$`2.5 %`
+  term$upper <- term$`97.5 %`
+  term
+}
+
+```
+
+
+```{r}
+#| include: false
+ 
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Jennifer"),]
+
+model0 <- nnet::multinom(cs~1,x) 
+model1 <- nnet::multinom(cs~psych+temp+psych*temp,x) 
+
+summary_model1 <- broom::tidy(model1)
+
+summary_model1$p.value
+
+chi_full <- anova(model0,model1)
+chi1 <- anova(model0,model1)[2,]
+
+chi_full$`Resid. Dev`[2]
+chi_full$`Resid. Dev`[1]
+
+chi_df <- chi1$`   Df`
+chi_p <- chi1$`Pr(Chi)`
+
+
+c <- chi1$`LR stat.`
+w <- sqrt(c/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(chi_df),sig.level = .05)
+
+
+cox <- multinom_PseudoR2s(model0,model1)
+cox
+
+c
+
+a <- exp(confint(model1))
+
+
+psych_self_dumb <- summary_model1[2,]
+psych_self_dumb <- cbind.data.frame(psych_self_dumb, as.data.frame(a[,,1])[2,])
+psych_self_dumb <- wald_OR(psych_self_dumb)
+
+temp_fututre_dumb <- summary_model1[3,]
+temp_fututre_dumb <- cbind.data.frame(temp_fututre_dumb, as.data.frame(a[,,1])[3,])
+temp_fututre_dumb <- wald_OR(temp_fututre_dumb)
+
+rbind(as.data.frame(a[,,1])
+      ,as.data.frame(a[,,2]))
+
+test <- summary_model1
+test <- cbind.data.frame(summary_model1
+                         , rbind(as.data.frame(a[,,1])
+                                 , as.data.frame(a[,,2]))
+)
+test <- wald_OR(test)
+
+
+
+ps_logit <- function(y){
+  e <- round(y, digits = 3)
+  if(as.numeric(sqrt( y*y) ) <.001) print(paste0("<", " ", ".001","**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) <.05) print(paste0(sub("^(-?)0.", "\\1.", sprintf("%.3f", e)),"*"), quote = FALSE)
+  else print(e)}
+
+
+test$ps <- sapply(test$p.value, ps_logit)
+test
+test$Response <- dplyr::recode(test$y.level,
+              "It's wrong but I cannot explain why" = "D"
+              , "There is nothing wrong" = "NW"
+              )
+
+test$term
+
+c("(Intercept)"
+  , "psychself"
+  , "tempfuture"
+  , "tempnow"
+  , "psychself:tempfuture"
+  , "psychself:tempnow"
+  , "(Intercept)"
+  , "psychself"
+  , "tempfuture"
+  , "tempnow"
+  , "psychself:tempfuture"
+  , "psychself:tempnow")
+
+c("(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now"
+  , "(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now")
+
+test$Term <- c("(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now"
+  , "(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now")
+
+test$`$b$` <- round(test$estimate,digits=2)
+test$`$S.E.$` <- round(test$std.error,digits=2)
+test$`$z$` <- round(test$statistic,digits=2)
+test$Wald <- round(test$wald,digits=2)
+test$`$p$` <- test$ps
+test$`$O.R.$` <- round(test$OR,digits=2)
+test$Lower <- round(test$lower,digits=2)
+test$Upper <- round(test$upper,digits=2)
+
+
+test1 <- test %>% select(Response,Term, `$b$`, `$S.E.$`, `$z$`, Wald, `$p$`, `$O.R.$`, Lower, Upper )
+rownames(test1) <- NULL
+test1
+```
+
+
+Overall the model significantly predicted responses to the critical slide
+$\chi$^2^(`r chi_df`,
+*N* = `r length(x$cs)`) =
+`r round(c, digits=2)`,
+*p* `r paste(p_report(chi_p))`, The observed power was
+`r round(pw$power,digits=2)`.
+ The model explained between
+`r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and
+`r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide. 
+For scenarios in the future, participants were more likely to provide reasons than to present as dumbfounded
+Wald = `r round(temp_fututre_dumb$wald,digits=2)`,
+*p* `r paste(p_report(temp_fututre_dumb$p.value))`, odds ratio = `r round(temp_fututre_dumb$OR,digits=2)`, 95% CI
+[`r round(temp_fututre_dumb$lower,digits=2)`,
+`r round(temp_fututre_dumb$upper,digits=2)`].
+
+{{< pagebreak >}}
+
+
+
+
+
+```{r}
+#| include: true
+#| results: asis
+
+papaja::apa_table(
+   test1
+   , align = c("l", "l", "c", "c", "c", "c", "c", "c", "c", "c")
+   , caption = "Predictors of each response with reason-giving as the reference response"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001; D = dumbfounded, NW = nothing-wrong"
+   , font_size = 'footnotesize'
+   , escape = FALSE
+   
+)
+
+```
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Jennifer"),]
+
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$condition6)
+
+
+x$condition <- dplyr::recode(x$condition6
+                           , "ctrl" = "1slf_ctrl"
+                           , "oth_ctrl" = "2oth_ctrl"
+                           , "slf_now" = "3slf_now"
+                           , "oth_now" = "4oth_now"
+                           , "slf_fut" = "5slf_fut"
+                           , "oth_fut" = "6oth_fut"
+)
+
+y <- table(x$condition,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$psych,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abcdef_graph <- function(){
+  a <- x[which(x$condition==levels(as.factor(x$condition))[1]),]
+  a$condition <- droplevels(a$condition)
+  b <- x[which(x$condition==levels(as.factor(x$condition))[2]),]
+  b$condition <- droplevels(b$condition)
+  c <- x[which(x$condition==levels(as.factor(x$condition))[3]),]
+  c$condition <- droplevels(c$condition)
+  d <- x[which(x$condition==levels(as.factor(x$condition))[4]),]
+  d$condition <- droplevels(d$condition)
+  e <- x[which(x$condition==levels(as.factor(x$condition))[5]),]
+  e$condition <- droplevels(e$condition)
+  f <- x[which(x$condition==levels(as.factor(x$condition))[6]),]
+  f$condition <- droplevels(f$condition)
+
+    
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$condition))
+  by <- as.data.frame(table(b$cs,b$condition))
+  cy <- as.data.frame(table(c$cs,c$condition))
+  dy <- as.data.frame(table(d$cs,d$condition))
+  ey <- as.data.frame(table(e$cs,e$condition))
+  fy <- as.data.frame(table(f$cs,f$condition))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","condition","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","condition","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$cs)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("cs","condition","Freq","perc")
+  
+  dperc <- dy$Freq/length(d$cs)
+  dy <- cbind(dy,dperc)
+  colnames(dy) <- c("cs","condition","Freq","perc")
+  
+  eperc <- ey$Freq/length(e$cs)
+  ey <- cbind(ey,eperc)
+  colnames(ey) <- c("cs","condition","Freq","perc")
+  
+  fperc <- fy$Freq/length(f$cs)
+  fy <- cbind(fy,fperc)
+  colnames(fy) <- c("cs","condition","Freq","perc")
+  
+  tot <- rbind(ay, by, cy, dy, ey, fy)
+  
+  tot
+}
+
+test <- abcdef_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+table(x$condition)
+y <- rbind(
+  se_fun(x[which(x$condition=="1slf_ctrl"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$condition=="1slf_ctrl"),])
+  ,se_fun(x[which(x$condition=="1slf_ctrl"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="1slf_ctrl"),])
+  ,se_fun(x[which(x$condition=="1slf_ctrl"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="1slf_ctrl"),])
+  ,se_fun(x[which(x$condition=="2oth_ctrl"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="2oth_ctrl"),])
+  ,se_fun(x[which(x$condition=="2oth_ctrl"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="2oth_ctrl"),])
+  ,se_fun(x[which(x$condition=="2oth_ctrl"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="2oth_ctrl"),])
+  ,se_fun(x[which(x$condition=="3slf_now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="3slf_now"),])
+  ,se_fun(x[which(x$condition=="3slf_now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="3slf_now"),])
+  ,se_fun(x[which(x$condition=="4oth_now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="4oth_now"),])
+  ,se_fun(x[which(x$condition=="4oth_now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="4oth_now"),])
+  ,se_fun(x[which(x$condition=="4oth_now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="4oth_now"),])
+  ,se_fun(x[which(x$condition=="3slf_now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="5slf_fut"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="5slf_fut"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="5slf_fut"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="6oth_fut"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="6oth_fut"),])
+  ,se_fun(x[which(x$condition=="6oth_fut"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="6oth_fut"),])
+  ,se_fun(x[which(x$condition=="6oth_fut"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="6oth_fut"),])
+)
+
+y1 <- y %>% select("cs","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","cs") )
+table(x$condition)
+
+
+as.numeric(test1$condition)
+test1$condition
+
+order(test1$condition)
+test1$condition[order(as.character(test1$condition))]
+
+test1$condition1 <- as.character(test1$condition)
+test1$condition2 <- test1$condition
+test1$condition <- as.factor(test1$condition1)                
+
+
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(condition
+                                           ,labels=c("Self-Control","Other-Control"
+                                                     , "Self-Now", "Other-Now"
+                                                     , "Self-Future", "Other-Future"
+                                                     )
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.2,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -1.5,
+            #hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times",
+            size=2.5,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  #scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition\nPsych/Temp") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+g
+
+
+g_overall_jen <- g
+load("sim_plots.RData")
+save(g_temp_jandm, g_psych_jandm, g_overall_jandm
+     , g_temp_jen, g_psych_jen, g_overall_jen
+     , file = "sim_plots.RData")
+
+
+```
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Trolley
+
+
+#### Temporal Distancing and Dumbfounding
+
+
+```{r}
+#| include: false
+#| echo: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Trolley"),]
+
+
+aov1 <- aov(ju1_2~temp, data = x)
+tuk <- TukeyHSD(aov1)
+tuk_temp1 <- as.data.frame(tuk$temp)
+apa_aov1 <- papaja::apa_print(aov1)
+apa_aov1$full_result$temp
+apa_aov1$estimate$temp
+
+aov1b <- summary(aov1)
+aov1b <- as.data.frame(aov1b[[1]])
+aov1_f <- aov1b$`F value`[1]
+aov1_df <- aov1b$Df
+aov1_p <- aov1b$`Pr(>F)`[1]
+eta1 <- EtaSq(aov1)[2]
+
+
+aov2 <- aov(ju2_2~temp, data = x)
+tuk <- TukeyHSD(aov2)
+tuk_temp2 <- as.data.frame(tuk$temp)
+apa_aov2 <- papaja::apa_print(aov2)
+apa_aov2$full_result$temp
+
+aov2b <- summary(aov2)
+aov2b <- as.data.frame(aov2b[[1]])
+aov2_f <- aov2b$`F value`[1]
+aov2_df <- aov2b$Df
+aov2_p <- aov2b$`Pr(>F)`[1]
+eta2 <- EtaSq(aov2)[2]
+
+
+# t_j1 <- t.test(x$ju1_2 ~ x$temp)
+# d_j1 <- cohensD(x$ju1_2 ~ x$temp)
+# t_paragraph(x$ju1_2, x$temp, "initial judgement")
+# 
+# t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+# d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+# t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(x$ju1_2,x$ju2_2, "judgment")
+t_j3 <- t.test(x$ju1_2,x$ju2_2,paired = TRUE)
+d_j3 <- lsr::cohensD(x$ju1_2,x$ju2_2, method = "paired")
+
+
+
+
+
+c <- chisq.test(table(x$cs,x$temp))
+w <- sqrt(c[]$statistic/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(4-1),sig.level = .05)
+
+
+
+```
+
+#### Overview of Judgments
+A total of 
+`r sum(x$ju1_2<4,na.rm=T)` participants (`r round(((sum(x$ju1_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r sum(x$ju2_2<4,na.rm=T)` participants (`r round(((sum(x$ju2_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior as wrong at the end of the task.
+There was a significant difference between initial ratings
+(*M* = `r round(mean(x$ju1_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju1_2,na.rm=T), digits = 1)`) and revised ratings
+(*M* = `r round(mean(x$ju2_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju2_2,na.rm=T), digits = 1)`),
+*t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`,
+*p* `r paste(p_report(t_j3$p.value))`,
+*d* = `r round(d_j3, digits=2)`. 
+
+
+#### Distancing and Judgments Made
+
+There was no difference in initial judgement depending on distance manipulation:
+*F*(`r aov1_df[1]`,
+`r round(aov1_df[2],digits=2)`)
+= `r round(aov1_f,digits=2)`,
+*p* `r paste(p_report(aov1_p))`
+$\eta$*~p~*^2^ = `r round(eta1, digits=3)`, 
+(*M*~increased~ = `r round(mean(x$ju1_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju1_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju1_2[which(x$temp=="now")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju1_2[which(x$temp=="now")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(x$ju1_2[which(x$temp=="control")],na.rm=T), digits = 1)`,
+*SD*~control~ = `r round(sd(x$ju1_2[which(x$temp=="control")],na.rm=T), digits = 1)`).
+There was no difference in revised judgement depending on distance manipulation:
+*F*(`r aov2_df[1]`,
+`r round(aov2_df[2],digits=2)`)
+= `r round(aov2_f,digits=2)`,
+*p* `r paste(p_report(aov2_p))`,
+$\eta$*~p~*^2^ = `r round(eta2, digits=3)`, 
+(*M*~increased~ = `r round(mean(x$ju2_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju2_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju2_2[which(x$temp=="now")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju2_2[which(x$temp=="now")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(x$ju2_2[which(x$temp=="control")],na.rm=T), digits = 1)`,
+*SD*~control~ = `r round(sd(x$ju2_2[which(x$temp=="control")],na.rm=T), digits = 1)`).
+
+#### Distancing and Reason-Giving/Dumbfounding
+
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in XXXXX {apafg-tempoverall}.
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Trolley"),]
+
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$temp)
+
+
+y <- table(x$temp,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$temp,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abc_graph <- function(){
+  a <- x[which(x$temp==levels(as.factor(x$temp))[1]),]
+  a$temp <- droplevels(a$temp)
+  b <- x[which(x$temp==levels(as.factor(x$temp))[2]),]
+  b$temp <- droplevels(b$temp)
+  c <- x[which(x$temp==levels(as.factor(x$temp))[3]),]
+  c$temp <- droplevels(c$temp)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$temp))
+  by <- as.data.frame(table(b$cs,b$temp))
+  cy <- as.data.frame(table(c$cs,c$temp))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","temp","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","temp","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$cs)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("cs","temp","Freq","perc")
+  
+  tot <- rbind(ay, by, cy)
+  
+  tot
+}
+
+test <- abc_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$temp=="control"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="control"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="control"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$temp=="now"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="now"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="now"),])
+)
+
+y1 <- y %>% select("cs","temp","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("temp","cs") )
+table(x$temp)
+
+rm(y)
+```
+
+```{r}
+#| label: tempplotmakeTrolley
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(temp
+                                             ,labels=c("Control","Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.16,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.6,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.4,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+g_temp_try <- g
+load("sim_plots.RData")
+save(g_temp_jandm, g_psych_jandm, g_overall_jandm
+     , g_temp_jen, g_psych_jen, g_overall_jen
+     , g_temp_try
+     , file = "sim_plots.RData")
+```
+
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Trolley"),]
+
+c <- chisq.test(table(x$cs,x$temp))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6])),
+                   c(ps(x[7]),ps(x[8]),ps(x[9]))
+                   ),
+  c("control","future","now")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Control","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: TempResidualsTrolley
+#| results: asis
+#| include: true
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on temporal distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+
+#### Psychological Distancing and Dumbfounding
+
+
+```{r}
+#| include: false
+#| echo: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Trolley"),]
+
+aov1 <- aov(ju1_2~psych, data = x)
+tuk <- TukeyHSD(aov1)
+tuk_psych1 <- as.data.frame(tuk$psych)
+apa_aov1 <- papaja::apa_print(aov1)
+apa_aov1$full_result$psych
+apa_aov1$estimate$psych
+
+aov1b <- summary(aov1)
+aov1b <- as.data.frame(aov1b[[1]])
+aov1_f <- aov1b$`F value`[1]
+aov1_df <- aov1b$Df
+aov1_p <- aov1b$`Pr(>F)`[1]
+eta1 <- EtaSq(aov1)[2]
+
+
+aov2 <- aov(ju2_2~psych, data = x)
+tuk <- TukeyHSD(aov2)
+tuk_psych2 <- as.data.frame(tuk$psych)
+apa_aov2 <- papaja::apa_print(aov2)
+apa_aov2$full_result$psych
+
+aov2b <- summary(aov2)
+aov2b <- as.data.frame(aov2b[[1]])
+aov2_f <- aov2b$`F value`[1]
+aov2_df <- aov2b$Df
+aov2_p <- aov2b$`Pr(>F)`[1]
+eta2 <- EtaSq(aov2)[2]
+
+t_j1 <- t.test(x$ju1_2 ~ x$psych)
+d_j1 <- lsr::cohensD(x$ju1_2[which(x$psych=="other")], x$ju1_2[which(x$psych=="self")])
+t_paragraph(x$ju1_2, x$psych, "initial judgement")
+
+t_j2 <- t.test(x$ju2_2 ~ x$psych)
+d_j2 <- lsr::cohensD(x$ju2_2[which(x$psych=="other")], x$ju2_2[which(x$psych=="self")])
+t_paragraph(x$ju2_2, x$psych, "revised judgement")
+
+
+t_paired_paragraph(x$ju1_2,x$ju2_2, "judgment")
+t_j3 <- t.test(x$ju1_2,x$ju2_2,paired = TRUE)
+d_j3 <- lsr::cohensD(x$ju1_2,x$ju2_2, method = "paired")
+
+
+
+
+
+c <- chisq.test(table(x$cs,x$psych))
+w <- sqrt(c[]$statistic/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(4-1),sig.level = .05)
+
+
+
+```
+
+#### Overview of Judgments
+A total of
+`r sum(x$ju1_2<4,na.rm=T)` participants (`r round(((sum(x$ju1_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r sum(x$ju2_2<4,na.rm=T)` participants (`r round(((sum(x$ju2_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior as wrong at the end of the task.
+There was a significant difference between initial ratings
+(*M* = `r round(mean(x$ju1_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju1_2,na.rm=T), digits = 1)`) and revised ratings
+(*M* = `r round(mean(x$ju2_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju2_2,na.rm=T), digits = 1)`),
+*t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`,
+*p* `r paste(p_report(t_j3$p.value))`,
+*d* = `r round(d_j3, digits=2)`. 
+
+
+#### Distancing and Judgments Made
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~increased~ = `r round(mean(x$ju1_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju1_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju1_2[which(x$psych=="self")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju1_2[which(x$psych=="self")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~increased~ = `r round(mean(x$ju2_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju2_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju2_2[which(x$psych=="self")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju2_2[which(x$psych=="self")],na.rm=T), digits = 1)`).
+
+#### Distancing and Reason-Giving/Dumbfounding
+
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in XXXXX {apafg-psychoverall}.
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Trolley"),]
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$psych)
+
+
+y <- table(x$psych,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$psych,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+ab_graph <- function(){
+  a <- x[which(x$psych==levels(as.factor(x$psych))[1]),]
+  a$psych <- droplevels(a$psych)
+  b <- x[which(x$psych==levels(as.factor(x$psych))[2]),]
+  b$psych <- droplevels(b$psych)
+  # c <- x[which(x$psych==levels(as.factor(x$psych))[3]),]
+  # c$psych <- droplevels(c$psych)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$psych))
+  by <- as.data.frame(table(b$cs,b$psych))
+  # cy <- as.data.frame(table(c$cs,c$psych))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","psych","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","psych","Freq","perc")
+  
+  # cperc <- cy$Freq/length(c$cs)
+  # cy <- cbind(cy,cperc)
+  # colnames(cy) <- c("cs","psych","Freq","perc")
+  
+  tot <- rbind(ay, by)
+  
+  tot
+}
+
+test <- ab_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$psych=="other"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="other"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="other"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$psych=="self"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$psych=="self"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$psych=="self"),])
+)
+
+y1 <- y %>% select("cs","psych","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("psych","cs") )
+table(x$psych)
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(psych
+                                            ,labels=c("Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+g_psych_try <- g
+load("sim_plots.RData")
+save(g_temp_jandm, g_psych_jandm, g_overall_jandm
+     , g_temp_jen, g_psych_jen, g_overall_jen
+     , g_temp_try, g_psych_try
+     , file = "sim_plots.RData")
+
+```
+
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Jennifer"),]
+
+c <- chisq.test(table(x$cs,x$psych))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6]))),
+  c("other","self")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: PsychResidualsTrolley
+#| results: asis
+#| include: true
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on psychological distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Trolley"),]
+```
+
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+
+
+
+
+```{r}
+#| include: false
+
+multinom_PseudoR2s <- function(model0R2,model1R2) {
+  dev <- abs(model1R2$deviance)
+  nullDev <- abs(model0R2$deviance)
+  modelN <- length(model1R2$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l)
+              , mcfadden = NA
+              , cox_and_snell = as.numeric(R.cs)
+              , nagelkerke = as.numeric(R.n))
+  all
+}
+
+wald_OR <- function(term){
+  term$wald <- (term$statistic)*2
+  term$OR <- exp(term$estimate)
+  term$lower <- term$`2.5 %`
+  term$upper <- term$`97.5 %`
+  term
+}
+
+```
+
+
+```{r}
+#| include: false
+ 
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Trolley"),]
+
+model0 <- nnet::multinom(cs~1,x) 
+model1 <- nnet::multinom(cs~psych+temp+psych*temp,x) 
+
+summary_model1 <- broom::tidy(model1)
+
+summary_model1$p.value
+
+chi_full <- anova(model0,model1)
+chi1 <- anova(model0,model1)[2,]
+
+chi_full$`Resid. Dev`[2]
+chi_full$`Resid. Dev`[1]
+
+chi_df <- chi1$`   Df`
+chi_p <- chi1$`Pr(Chi)`
+
+
+c <- chi1$`LR stat.`
+w <- sqrt(c/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(chi_df),sig.level = .05)
+
+
+cox <- multinom_PseudoR2s(model0,model1)
+cox
+
+c
+
+a <- exp(confint(model1))
+
+
+psych_self_dumb <- summary_model1[2,]
+psych_self_dumb <- cbind.data.frame(psych_self_dumb, as.data.frame(a[,,1])[2,])
+psych_self_dumb <- wald_OR(psych_self_dumb)
+
+temp_fututre_dumb <- summary_model1[3,]
+temp_fututre_dumb <- cbind.data.frame(temp_fututre_dumb, as.data.frame(a[,,1])[3,])
+temp_fututre_dumb <- wald_OR(temp_fututre_dumb)
+
+rbind(as.data.frame(a[,,1])
+      ,as.data.frame(a[,,2]))
+
+test <- summary_model1
+test <- cbind.data.frame(summary_model1
+                         , rbind(as.data.frame(a[,,1])
+                                 , as.data.frame(a[,,2]))
+)
+test <- wald_OR(test)
+
+
+
+ps_logit <- function(y){
+  e <- round(y, digits = 3)
+  if(as.numeric(sqrt( y*y) ) <.001) print(paste0("<", " ", ".001","**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) <.05) print(paste0(sub("^(-?)0.", "\\1.", sprintf("%.3f", e)),"*"), quote = FALSE)
+  else print(e)}
+
+
+test$ps <- sapply(test$p.value, ps_logit)
+test
+test$Response <- dplyr::recode(test$y.level,
+              "It's wrong but I cannot explain why" = "D"
+              , "There is nothing wrong" = "NW"
+              )
+
+test$term
+
+c("(Intercept)"
+  , "psychself"
+  , "tempfuture"
+  , "tempnow"
+  , "psychself:tempfuture"
+  , "psychself:tempnow"
+  , "(Intercept)"
+  , "psychself"
+  , "tempfuture"
+  , "tempnow"
+  , "psychself:tempfuture"
+  , "psychself:tempnow")
+
+c("(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now"
+  , "(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now")
+
+test$Term <- c("(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now"
+  , "(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now")
+
+test$`$b$` <- round(test$estimate,digits=2)
+test$`$S.E.$` <- round(test$std.error,digits=2)
+test$`$z$` <- round(test$statistic,digits=2)
+test$Wald <- round(test$wald,digits=2)
+test$`$p$` <- test$ps
+test$`$O.R.$` <- round(test$OR,digits=2)
+test$Lower <- round(test$lower,digits=2)
+test$Upper <- round(test$upper,digits=2)
+
+
+test1 <- test %>% select(Response,Term, `$b$`, `$S.E.$`, `$z$`, Wald, `$p$`, `$O.R.$`, Lower, Upper )
+rownames(test1) <- NULL
+test1
+```
+
+
+Overall the model significantly predicted responses to the critical slide
+$\chi$^2^(`r chi_df`,
+*N* = `r length(x$cs)`) =
+`r round(c, digits=2)`,
+*p* `r paste(p_report(chi_p))`, The observed power was
+`r round(pw$power,digits=2)`.
+ The model explained between
+`r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and
+`r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide. 
+For scenarios in the future, participants were more likely to provide reasons than to present as dumbfounded
+Wald = `r round(temp_fututre_dumb$wald,digits=2)`,
+*p* `r paste(p_report(temp_fututre_dumb$p.value))`, odds ratio = `r round(temp_fututre_dumb$OR,digits=2)`, 95% CI
+[`r round(temp_fututre_dumb$lower,digits=2)`,
+`r round(temp_fututre_dumb$upper,digits=2)`].
+
+{{< pagebreak >}}
+
+
+
+
+
+```{r}
+#| include: true
+#| results: asis
+
+papaja::apa_table(
+   test1
+   , align = c("l", "l", "c", "c", "c", "c", "c", "c", "c", "c")
+   , caption = "Predictors of each response with reason-giving as the reference response"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001; D = dumbfounded, NW = nothing-wrong"
+   , font_size = 'footnotesize'
+   , escape = FALSE
+   
+)
+
+```
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Trolley"),]
+
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$condition6)
+
+
+x$condition <- dplyr::recode(x$condition6
+                           , "ctrl" = "1slf_ctrl"
+                           , "oth_ctrl" = "2oth_ctrl"
+                           , "slf_now" = "3slf_now"
+                           , "oth_now" = "4oth_now"
+                           , "slf_fut" = "5slf_fut"
+                           , "oth_fut" = "6oth_fut"
+)
+
+y <- table(x$condition,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$psych,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abcdef_graph <- function(){
+  a <- x[which(x$condition==levels(as.factor(x$condition))[1]),]
+  a$condition <- droplevels(a$condition)
+  b <- x[which(x$condition==levels(as.factor(x$condition))[2]),]
+  b$condition <- droplevels(b$condition)
+  c <- x[which(x$condition==levels(as.factor(x$condition))[3]),]
+  c$condition <- droplevels(c$condition)
+  d <- x[which(x$condition==levels(as.factor(x$condition))[4]),]
+  d$condition <- droplevels(d$condition)
+  e <- x[which(x$condition==levels(as.factor(x$condition))[5]),]
+  e$condition <- droplevels(e$condition)
+  f <- x[which(x$condition==levels(as.factor(x$condition))[6]),]
+  f$condition <- droplevels(f$condition)
+
+    
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$condition))
+  by <- as.data.frame(table(b$cs,b$condition))
+  cy <- as.data.frame(table(c$cs,c$condition))
+  dy <- as.data.frame(table(d$cs,d$condition))
+  ey <- as.data.frame(table(e$cs,e$condition))
+  fy <- as.data.frame(table(f$cs,f$condition))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","condition","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","condition","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$cs)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("cs","condition","Freq","perc")
+  
+  dperc <- dy$Freq/length(d$cs)
+  dy <- cbind(dy,dperc)
+  colnames(dy) <- c("cs","condition","Freq","perc")
+  
+  eperc <- ey$Freq/length(e$cs)
+  ey <- cbind(ey,eperc)
+  colnames(ey) <- c("cs","condition","Freq","perc")
+  
+  fperc <- fy$Freq/length(f$cs)
+  fy <- cbind(fy,fperc)
+  colnames(fy) <- c("cs","condition","Freq","perc")
+  
+  tot <- rbind(ay, by, cy, dy, ey, fy)
+  
+  tot
+}
+
+test <- abcdef_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+table(x$condition)
+y <- rbind(
+  se_fun(x[which(x$condition=="1slf_ctrl"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$condition=="1slf_ctrl"),])
+  ,se_fun(x[which(x$condition=="1slf_ctrl"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="1slf_ctrl"),])
+  ,se_fun(x[which(x$condition=="1slf_ctrl"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="1slf_ctrl"),])
+  ,se_fun(x[which(x$condition=="2oth_ctrl"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="2oth_ctrl"),])
+  ,se_fun(x[which(x$condition=="2oth_ctrl"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="2oth_ctrl"),])
+  ,se_fun(x[which(x$condition=="2oth_ctrl"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="2oth_ctrl"),])
+  ,se_fun(x[which(x$condition=="3slf_now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="3slf_now"),])
+  ,se_fun(x[which(x$condition=="3slf_now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="3slf_now"),])
+  ,se_fun(x[which(x$condition=="4oth_now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="4oth_now"),])
+  ,se_fun(x[which(x$condition=="4oth_now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="4oth_now"),])
+  ,se_fun(x[which(x$condition=="4oth_now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="4oth_now"),])
+  ,se_fun(x[which(x$condition=="3slf_now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="5slf_fut"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="5slf_fut"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="5slf_fut"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="6oth_fut"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="6oth_fut"),])
+  ,se_fun(x[which(x$condition=="6oth_fut"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="6oth_fut"),])
+  ,se_fun(x[which(x$condition=="6oth_fut"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="6oth_fut"),])
+)
+
+y1 <- y %>% select("cs","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","cs") )
+table(x$condition)
+
+
+as.numeric(test1$condition)
+test1$condition
+
+order(test1$condition)
+test1$condition[order(as.character(test1$condition))]
+
+test1$condition1 <- as.character(test1$condition)
+test1$condition2 <- test1$condition
+test1$condition <- as.factor(test1$condition1)                
+
+
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(condition
+                                           ,labels=c("Self-Control","Other-Control"
+                                                     , "Self-Now", "Other-Now"
+                                                     , "Self-Future", "Other-Future"
+                                                     )
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.2,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -1.5,
+            #hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times",
+            size=2.5,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  #scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition\nPsych/Temp") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+g
+
+
+g_overall_try <- g
+load("sim_plots.RData")
+save(g_temp_jandm, g_psych_jandm, g_overall_jandm
+     , g_temp_jen, g_psych_jen, g_overall_jen
+     , g_temp_try, g_psych_try, g_overall_try
+     , file = "sim_plots.RData")
+
+
+```
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Heinz
+
+
+#### Temporal Distancing and Dumbfounding
+
+
+```{r}
+#| include: false
+#| echo: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Heinz"),]
+
+
+aov1 <- aov(ju1_2~temp, data = x)
+tuk <- TukeyHSD(aov1)
+tuk_temp1 <- as.data.frame(tuk$temp)
+apa_aov1 <- papaja::apa_print(aov1)
+apa_aov1$full_result$temp
+apa_aov1$estimate$temp
+
+aov1b <- summary(aov1)
+aov1b <- as.data.frame(aov1b[[1]])
+aov1_f <- aov1b$`F value`[1]
+aov1_df <- aov1b$Df
+aov1_p <- aov1b$`Pr(>F)`[1]
+eta1 <- EtaSq(aov1)[2]
+
+
+aov2 <- aov(ju2_2~temp, data = x)
+tuk <- TukeyHSD(aov2)
+tuk_temp2 <- as.data.frame(tuk$temp)
+apa_aov2 <- papaja::apa_print(aov2)
+apa_aov2$full_result$temp
+
+aov2b <- summary(aov2)
+aov2b <- as.data.frame(aov2b[[1]])
+aov2_f <- aov2b$`F value`[1]
+aov2_df <- aov2b$Df
+aov2_p <- aov2b$`Pr(>F)`[1]
+eta2 <- EtaSq(aov2)[2]
+
+
+# t_j1 <- t.test(x$ju1_2 ~ x$temp)
+# d_j1 <- cohensD(x$ju1_2 ~ x$temp)
+# t_paragraph(x$ju1_2, x$temp, "initial judgement")
+# 
+# t_j2 <- t.test(df3$InJu2 ~ df3$condition)
+# d_j2 <- cohensD(df3$InJu2 ~ df3$condition)
+# t_paragraph(df3$InJu2, df3$condition, "revised judgement")
+
+
+t_paired_paragraph(x$ju1_2,x$ju2_2, "judgment")
+t_j3 <- t.test(x$ju1_2,x$ju2_2,paired = TRUE)
+d_j3 <- lsr::cohensD(x$ju1_2,x$ju2_2, method = "paired")
+
+
+
+
+
+c <- chisq.test(table(x$cs,x$temp))
+w <- sqrt(c[]$statistic/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(4-1),sig.level = .05)
+
+
+
+```
+
+#### Overview of Judgments
+A total of 
+`r sum(x$ju1_2<4,na.rm=T)` participants (`r round(((sum(x$ju1_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r sum(x$ju2_2<4,na.rm=T)` participants (`r round(((sum(x$ju2_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior as wrong at the end of the task.
+There was a significant difference between initial ratings
+(*M* = `r round(mean(x$ju1_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju1_2,na.rm=T), digits = 1)`) and revised ratings
+(*M* = `r round(mean(x$ju2_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju2_2,na.rm=T), digits = 1)`),
+*t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`,
+*p* `r paste(p_report(t_j3$p.value))`,
+*d* = `r round(d_j3, digits=2)`. 
+
+
+#### Distancing and Judgments Made
+
+There was no difference in initial judgement depending on distance manipulation:
+*F*(`r aov1_df[1]`,
+`r round(aov1_df[2],digits=2)`)
+= `r round(aov1_f,digits=2)`,
+*p* `r paste(p_report(aov1_p))`
+$\eta$*~p~*^2^ = `r round(eta1, digits=3)`, 
+(*M*~increased~ = `r round(mean(x$ju1_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju1_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju1_2[which(x$temp=="now")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju1_2[which(x$temp=="now")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(x$ju1_2[which(x$temp=="control")],na.rm=T), digits = 1)`,
+*SD*~control~ = `r round(sd(x$ju1_2[which(x$temp=="control")],na.rm=T), digits = 1)`).
+There was no difference in revised judgement depending on distance manipulation:
+*F*(`r aov2_df[1]`,
+`r round(aov2_df[2],digits=2)`)
+= `r round(aov2_f,digits=2)`,
+*p* `r paste(p_report(aov2_p))`,
+$\eta$*~p~*^2^ = `r round(eta2, digits=3)`, 
+(*M*~increased~ = `r round(mean(x$ju2_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju2_2[which(x$temp=="future")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju2_2[which(x$temp=="now")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju2_2[which(x$temp=="now")],na.rm=T), digits = 1)`,
+*M*~control~ = `r round(mean(x$ju2_2[which(x$temp=="control")],na.rm=T), digits = 1)`,
+*SD*~control~ = `r round(sd(x$ju2_2[which(x$temp=="control")],na.rm=T), digits = 1)`).
+
+#### Distancing and Reason-Giving/Dumbfounding
+
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in XXXXX {apafg-tempoverall}.
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Heinz"),]
+
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$temp)
+
+
+y <- table(x$temp,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$temp,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abc_graph <- function(){
+  a <- x[which(x$temp==levels(as.factor(x$temp))[1]),]
+  a$temp <- droplevels(a$temp)
+  b <- x[which(x$temp==levels(as.factor(x$temp))[2]),]
+  b$temp <- droplevels(b$temp)
+  c <- x[which(x$temp==levels(as.factor(x$temp))[3]),]
+  c$temp <- droplevels(c$temp)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$temp))
+  by <- as.data.frame(table(b$cs,b$temp))
+  cy <- as.data.frame(table(c$cs,c$temp))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","temp","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","temp","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$cs)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("cs","temp","Freq","perc")
+  
+  tot <- rbind(ay, by, cy)
+  
+  tot
+}
+
+test <- abc_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$temp=="control"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="control"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="control"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="control"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="future"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="future"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$temp=="now"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$temp=="now"),])
+  ,se_fun(x[which(x$temp=="now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$temp=="now"),])
+)
+
+y1 <- y %>% select("cs","temp","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("temp","cs") )
+table(x$temp)
+
+rm(y)
+```
+
+```{r}
+#| label: tempplotmakeHeinz
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(temp
+                                             ,labels=c("Control","Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.16,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.6,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.4,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+g_temp_hnz <- g
+load("sim_plots.RData")
+save(g_temp_jandm, g_psych_jandm, g_overall_jandm
+     , g_temp_jen, g_psych_jen, g_overall_jen
+     , g_temp_try, g_psych_try, g_overall_try
+     , g_temp_hnz
+     , file = "sim_plots.RData")
+```
+
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Trolley"),]
+
+c <- chisq.test(table(x$cs,x$temp))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6])),
+                   c(ps(x[7]),ps(x[8]),ps(x[9]))
+                   ),
+  c("control","future","now")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Control","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: TempResidualsHeinz
+#| results: asis
+#| include: true
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on temporal distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+
+#### Psychological Distancing and Dumbfounding
+
+
+```{r}
+#| include: false
+#| echo: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Heinz"),]
+
+aov1 <- aov(ju1_2~psych, data = x)
+tuk <- TukeyHSD(aov1)
+tuk_psych1 <- as.data.frame(tuk$psych)
+apa_aov1 <- papaja::apa_print(aov1)
+apa_aov1$full_result$psych
+apa_aov1$estimate$psych
+
+aov1b <- summary(aov1)
+aov1b <- as.data.frame(aov1b[[1]])
+aov1_f <- aov1b$`F value`[1]
+aov1_df <- aov1b$Df
+aov1_p <- aov1b$`Pr(>F)`[1]
+eta1 <- EtaSq(aov1)[2]
+
+
+aov2 <- aov(ju2_2~psych, data = x)
+tuk <- TukeyHSD(aov2)
+tuk_psych2 <- as.data.frame(tuk$psych)
+apa_aov2 <- papaja::apa_print(aov2)
+apa_aov2$full_result$psych
+
+aov2b <- summary(aov2)
+aov2b <- as.data.frame(aov2b[[1]])
+aov2_f <- aov2b$`F value`[1]
+aov2_df <- aov2b$Df
+aov2_p <- aov2b$`Pr(>F)`[1]
+eta2 <- EtaSq(aov2)[2]
+
+t_j1 <- t.test(x$ju1_2 ~ x$psych)
+d_j1 <- lsr::cohensD(x$ju1_2[which(x$psych=="other")], x$ju1_2[which(x$psych=="self")])
+t_paragraph(x$ju1_2, x$psych, "initial judgement")
+
+t_j2 <- t.test(x$ju2_2 ~ x$psych)
+d_j2 <- lsr::cohensD(x$ju2_2[which(x$psych=="other")], x$ju2_2[which(x$psych=="self")])
+t_paragraph(x$ju2_2, x$psych, "revised judgement")
+
+
+t_paired_paragraph(x$ju1_2,x$ju2_2, "judgment")
+t_j3 <- t.test(x$ju1_2,x$ju2_2,paired = TRUE)
+d_j3 <- lsr::cohensD(x$ju1_2,x$ju2_2, method = "paired")
+
+
+
+
+
+c <- chisq.test(table(x$cs,x$psych))
+w <- sqrt(c[]$statistic/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(4-1),sig.level = .05)
+
+
+
+```
+
+#### Overview of Judgments
+A total of
+`r sum(x$ju1_2<4,na.rm=T)` participants (`r round(((sum(x$ju1_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior of Julie and Mark as wrong initially, and `r sum(x$ju2_2<4,na.rm=T)` participants (`r round(((sum(x$ju2_2<4,na.rm=T)/length(x$cs))*100), digits=2)`%) rated the behavior as wrong at the end of the task.
+There was a significant difference between initial ratings
+(*M* = `r round(mean(x$ju1_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju1_2,na.rm=T), digits = 1)`) and revised ratings
+(*M* = `r round(mean(x$ju2_2,na.rm=T), digits = 1)`,
+*SD* = `r round(sd(x$ju2_2,na.rm=T), digits = 1)`),
+*t*(`r t_j3$parameter`) = `r round(t_j3$statistic,digits=2)`,
+*p* `r paste(p_report(t_j3$p.value))`,
+*d* = `r round(d_j3, digits=2)`. 
+
+
+#### Distancing and Judgments Made
+
+There was no difference in initial judgement depending on distance manipulation: *t*(`r round(t_j1$parameter,digits=2)`) = `r round(t_j1$statistic,digits=2)`, *p* `r paste(p_report(t_j1$p.value))`, *d* = `r round(d_j1, digits=2)`, 
+(*M*~increased~ = `r round(mean(x$ju1_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju1_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju1_2[which(x$psych=="self")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju1_2[which(x$psych=="self")],na.rm=T), digits = 1)`). There was no difference in revised judgement depending on distance manipulation: *t*(`r round(t_j2$parameter,digits=2)`) = `r round(t_j2$statistic,digits=2)`, *p* `r paste(p_report(t_j2$p.value))`, *d* = `r round(d_j2, digits=2)`, 
+(*M*~increased~ = `r round(mean(x$ju2_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*SD*~increased~ = `r round(sd(x$ju2_2[which(x$psych=="other")],na.rm=T), digits = 1)`,
+*M*~decreased~ = `r round(mean(x$ju2_2[which(x$psych=="self")],na.rm=T), digits = 1)`, 
+*SD*~decreased~ = `r round(sd(x$ju2_2[which(x$psych=="self")],na.rm=T), digits = 1)`).
+
+#### Distancing and Reason-Giving/Dumbfounding
+
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in XXXXX {apafg-psychoverall}.
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Heinz"),]
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$psych)
+
+
+y <- table(x$psych,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$psych,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+ab_graph <- function(){
+  a <- x[which(x$psych==levels(as.factor(x$psych))[1]),]
+  a$psych <- droplevels(a$psych)
+  b <- x[which(x$psych==levels(as.factor(x$psych))[2]),]
+  b$psych <- droplevels(b$psych)
+  # c <- x[which(x$psych==levels(as.factor(x$psych))[3]),]
+  # c$psych <- droplevels(c$psych)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$psych))
+  by <- as.data.frame(table(b$cs,b$psych))
+  # cy <- as.data.frame(table(c$cs,c$psych))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","psych","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","psych","Freq","perc")
+  
+  # cperc <- cy$Freq/length(c$cs)
+  # cy <- cbind(cy,cperc)
+  # colnames(cy) <- c("cs","psych","Freq","perc")
+  
+  tot <- rbind(ay, by)
+  
+  tot
+}
+
+test <- ab_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$psych=="other"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="other"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="other"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$psych=="other"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$psych=="self"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$psych=="self"),])
+  ,se_fun(x[which(x$psych=="self"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$psych=="self"),])
+)
+
+y1 <- y %>% select("cs","psych","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("psych","cs") )
+table(x$psych)
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(psych
+                                            ,labels=c("Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+
+g_psych_hnz <- g
+load("sim_plots.RData")
+save(g_temp_jandm, g_psych_jandm, g_overall_jandm
+     , g_temp_jen, g_psych_jen, g_overall_jen
+     , g_temp_try, g_psych_try, g_overall_try
+     , g_temp_hnz, g_psych_hnz
+     , file = "sim_plots.RData")
+
+```
+
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Jennifer"),]
+
+c <- chisq.test(table(x$cs,x$psych))
+rownames(rbind(round(c$observed),c$expected,c$stdres))
+
+
+
+ps <- function(y){
+  if(as.numeric(sqrt( y*y) ) >3.3) print(paste0(y,"**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) >1.96) print(paste0(y,"*"), quote = FALSE)
+  else print(y)}
+
+
+x <- c$stdres
+x <- round(x, digits = 2)
+
+lapply(x, ps)
+
+#c$stdres <- round(c$stdres,digits=3)
+#c$stdres <- ps(c$stdres)
+
+ps(x[1])
+ps(x[2])
+ps(x[3])
+
+x <- `colnames<-`(
+  cbind.data.frame(c(ps(x[1]),ps(x[2]),ps(x[3])),
+                   c(ps(x[4]),ps(x[5]),ps(x[6]))),
+  c("other","self")
+)
+
+rownames(x) <- row.names(c$observed)
+
+y <- rbind(round(c$observed), round(c$expected, digits = 2))
+
+c(c$stdres[1])
+
+
+res <- cbind(c("Observed count","","","Expected count","","","Standardised residuals","",""),
+      c("Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong",
+        "Reasons","Dumbfounded","Nothing Wrong"),
+      rbind(y,x)
+      
+      )
+
+row.names(res) <- NULL
+colnames(res) <- c(" ","  ","Increased","Decreased")
+
+x
+y
+res
+
+```
+
+```{r}
+#| label: PsychResidualsHeinz
+#| results: asis
+#| include: true
+
+papaja::apa_table(
+   res
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on psychological distancing"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   , escape = FALSE
+   
+)
+
+```
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Heinz"),]
+```
+
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+
+
+
+
+```{r}
+#| include: false
+
+multinom_PseudoR2s <- function(model0R2,model1R2) {
+  dev <- abs(model1R2$deviance)
+  nullDev <- abs(model0R2$deviance)
+  modelN <- length(model1R2$fitted.values)
+  R.l <- 1 - dev / nullDev
+  R.cs <- 1- exp ( -(nullDev - dev) / modelN)
+  R.n <- R.cs / ( 1 - ( exp (-(nullDev / modelN))))
+  
+  all <- list(hosmer_and_lemeshow = as.numeric(R.l)
+              , mcfadden = NA
+              , cox_and_snell = as.numeric(R.cs)
+              , nagelkerke = as.numeric(R.n))
+  all
+}
+
+wald_OR <- function(term){
+  term$wald <- (term$statistic)*2
+  term$OR <- exp(term$estimate)
+  term$lower <- term$`2.5 %`
+  term$upper <- term$`97.5 %`
+  term
+}
+
+```
+
+
+```{r}
+#| include: false
+ 
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Heinz"),]
+
+model0 <- nnet::multinom(cs~1,x) 
+model1 <- nnet::multinom(cs~psych+temp+psych*temp,x) 
+
+summary_model1 <- broom::tidy(model1)
+
+summary_model1$p.value
+
+chi_full <- anova(model0,model1)
+chi1 <- anova(model0,model1)[2,]
+
+chi_full$`Resid. Dev`[2]
+chi_full$`Resid. Dev`[1]
+
+chi_df <- chi1$`   Df`
+chi_p <- chi1$`Pr(Chi)`
+
+
+c <- chi1$`LR stat.`
+w <- sqrt(c/length(x$cs))
+pw <- pwr.chisq.test(w=w,N=length(x$cs),df=(chi_df),sig.level = .05)
+
+
+cox <- multinom_PseudoR2s(model0,model1)
+cox
+
+c
+
+a <- exp(confint(model1))
+
+
+psych_self_dumb <- summary_model1[2,]
+psych_self_dumb <- cbind.data.frame(psych_self_dumb, as.data.frame(a[,,1])[2,])
+psych_self_dumb <- wald_OR(psych_self_dumb)
+
+temp_fututre_dumb <- summary_model1[3,]
+temp_fututre_dumb <- cbind.data.frame(temp_fututre_dumb, as.data.frame(a[,,1])[3,])
+temp_fututre_dumb <- wald_OR(temp_fututre_dumb)
+
+rbind(as.data.frame(a[,,1])
+      ,as.data.frame(a[,,2]))
+
+test <- summary_model1
+test <- cbind.data.frame(summary_model1
+                         , rbind(as.data.frame(a[,,1])
+                                 , as.data.frame(a[,,2]))
+)
+test <- wald_OR(test)
+
+
+
+ps_logit <- function(y){
+  e <- round(y, digits = 3)
+  if(as.numeric(sqrt( y*y) ) <.001) print(paste0("<", " ", ".001","**"), quote = FALSE)
+  else if(as.numeric(sqrt( y*y) ) <.05) print(paste0(sub("^(-?)0.", "\\1.", sprintf("%.3f", e)),"*"), quote = FALSE)
+  else print(e)}
+
+
+test$ps <- sapply(test$p.value, ps_logit)
+test
+test$Response <- dplyr::recode(test$y.level,
+              "It's wrong but I cannot explain why" = "D"
+              , "There is nothing wrong" = "NW"
+              )
+
+test$term
+
+c("(Intercept)"
+  , "psychself"
+  , "tempfuture"
+  , "tempnow"
+  , "psychself:tempfuture"
+  , "psychself:tempnow"
+  , "(Intercept)"
+  , "psychself"
+  , "tempfuture"
+  , "tempnow"
+  , "psychself:tempfuture"
+  , "psychself:tempnow")
+
+c("(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now"
+  , "(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now")
+
+test$Term <- c("(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now"
+  , "(Intercept)"
+  ,"Psy-Self"
+  ,"Temp-Future"
+  ,"Temp-Now"
+  ,"Psy-Self $\\times$ Temp-Future"
+  ,"Psy-Self $\\times$ Temp-Now")
+
+test$`$b$` <- round(test$estimate,digits=2)
+test$`$S.E.$` <- round(test$std.error,digits=2)
+test$`$z$` <- round(test$statistic,digits=2)
+test$Wald <- round(test$wald,digits=2)
+test$`$p$` <- test$ps
+test$`$O.R.$` <- round(test$OR,digits=2)
+test$Lower <- round(test$lower,digits=2)
+test$Upper <- round(test$upper,digits=2)
+
+
+test1 <- test %>% select(Response,Term, `$b$`, `$S.E.$`, `$z$`, Wald, `$p$`, `$O.R.$`, Lower, Upper )
+rownames(test1) <- NULL
+test1
+```
+
+
+Overall the model significantly predicted responses to the critical slide
+$\chi$^2^(`r chi_df`,
+*N* = `r length(x$cs)`) =
+`r round(c, digits=2)`,
+*p* `r paste(p_report(chi_p))`, The observed power was
+`r round(pw$power,digits=2)`.
+ The model explained between
+`r round(cox$cox_and_snell*100, digits=2)`% (Cox and Snell R square) and
+`r round(cox$nagelkerke*100, digits=2)`% (Nadelkerke R squared) of the variance in responses to the critical slide. 
+For scenarios in the future, participants were more likely to provide reasons than to present as dumbfounded
+Wald = `r round(temp_fututre_dumb$wald,digits=2)`,
+*p* `r paste(p_report(temp_fututre_dumb$p.value))`, odds ratio = `r round(temp_fututre_dumb$OR,digits=2)`, 95% CI
+[`r round(temp_fututre_dumb$lower,digits=2)`,
+`r round(temp_fututre_dumb$upper,digits=2)`].
+
+{{< pagebreak >}}
+
+
+
+
+
+```{r}
+#| include: true
+#| results: asis
+
+papaja::apa_table(
+   test1
+   , align = c("l", "l", "c", "c", "c", "c", "c", "c", "c", "c")
+   , caption = "Predictors of each response with reason-giving as the reference response"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001; D = dumbfounded, NW = nothing-wrong"
+   , font_size = 'footnotesize'
+   , escape = FALSE
+   
+)
+
+```
+
+
+
+```{r}
+#| include: false
+
+x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Heinz"),]
+
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$condition6)
+
+
+x$condition <- dplyr::recode(x$condition6
+                           , "ctrl" = "1slf_ctrl"
+                           , "oth_ctrl" = "2oth_ctrl"
+                           , "slf_now" = "3slf_now"
+                           , "oth_now" = "4oth_now"
+                           , "slf_fut" = "5slf_fut"
+                           , "oth_fut" = "6oth_fut"
+)
+
+y <- table(x$condition,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$psych,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abcdef_graph <- function(){
+  a <- x[which(x$condition==levels(as.factor(x$condition))[1]),]
+  a$condition <- droplevels(a$condition)
+  b <- x[which(x$condition==levels(as.factor(x$condition))[2]),]
+  b$condition <- droplevels(b$condition)
+  c <- x[which(x$condition==levels(as.factor(x$condition))[3]),]
+  c$condition <- droplevels(c$condition)
+  d <- x[which(x$condition==levels(as.factor(x$condition))[4]),]
+  d$condition <- droplevels(d$condition)
+  e <- x[which(x$condition==levels(as.factor(x$condition))[5]),]
+  e$condition <- droplevels(e$condition)
+  f <- x[which(x$condition==levels(as.factor(x$condition))[6]),]
+  f$condition <- droplevels(f$condition)
+
+    
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$condition))
+  by <- as.data.frame(table(b$cs,b$condition))
+  cy <- as.data.frame(table(c$cs,c$condition))
+  dy <- as.data.frame(table(d$cs,d$condition))
+  ey <- as.data.frame(table(e$cs,e$condition))
+  fy <- as.data.frame(table(f$cs,f$condition))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","condition","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","condition","Freq","perc")
+  
+  cperc <- cy$Freq/length(c$cs)
+  cy <- cbind(cy,cperc)
+  colnames(cy) <- c("cs","condition","Freq","perc")
+  
+  dperc <- dy$Freq/length(d$cs)
+  dy <- cbind(dy,dperc)
+  colnames(dy) <- c("cs","condition","Freq","perc")
+  
+  eperc <- ey$Freq/length(e$cs)
+  ey <- cbind(ey,eperc)
+  colnames(ey) <- c("cs","condition","Freq","perc")
+  
+  fperc <- fy$Freq/length(f$cs)
+  fy <- cbind(fy,fperc)
+  colnames(fy) <- c("cs","condition","Freq","perc")
+  
+  tot <- rbind(ay, by, cy, dy, ey, fy)
+  
+  tot
+}
+
+test <- abcdef_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+table(x$condition)
+y <- rbind(
+  se_fun(x[which(x$condition=="1slf_ctrl"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$condition=="1slf_ctrl"),])
+  ,se_fun(x[which(x$condition=="1slf_ctrl"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="1slf_ctrl"),])
+  ,se_fun(x[which(x$condition=="1slf_ctrl"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="1slf_ctrl"),])
+  ,se_fun(x[which(x$condition=="2oth_ctrl"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="2oth_ctrl"),])
+  ,se_fun(x[which(x$condition=="2oth_ctrl"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="2oth_ctrl"),])
+  ,se_fun(x[which(x$condition=="2oth_ctrl"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="2oth_ctrl"),])
+  ,se_fun(x[which(x$condition=="3slf_now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="3slf_now"),])
+  ,se_fun(x[which(x$condition=="3slf_now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="3slf_now"),])
+  ,se_fun(x[which(x$condition=="4oth_now"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="4oth_now"),])
+  ,se_fun(x[which(x$condition=="4oth_now"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="4oth_now"),])
+  ,se_fun(x[which(x$condition=="4oth_now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="4oth_now"),])
+  ,se_fun(x[which(x$condition=="3slf_now"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="5slf_fut"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="5slf_fut"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="5slf_fut"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="5slf_fut"),])
+  ,se_fun(x[which(x$condition=="6oth_fut"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$condition=="6oth_fut"),])
+  ,se_fun(x[which(x$condition=="6oth_fut"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$condition=="6oth_fut"),])
+  ,se_fun(x[which(x$condition=="6oth_fut"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$condition=="6oth_fut"),])
+)
+
+y1 <- y %>% select("cs","condition","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("condition","cs") )
+table(x$condition)
+
+
+as.numeric(test1$condition)
+test1$condition
+
+order(test1$condition)
+test1$condition[order(as.character(test1$condition))]
+
+test1$condition1 <- as.character(test1$condition)
+test1$condition2 <- test1$condition
+test1$condition <- as.factor(test1$condition1)                
+
+
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(condition
+                                           ,labels=c("Self-Control","Other-Control"
+                                                     , "Self-Now", "Other-Now"
+                                                     , "Self-Future", "Other-Future"
+                                                     )
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.2,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -1.5,
+            #hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times",
+            size=2.5,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  #scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition\nPsych/Temp") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+g
+
+
+g_overall_hnz <- g
+load("sim_plots.RData")
+save(g_temp_jandm, g_psych_jandm, g_overall_jandm
+     , g_temp_jen, g_psych_jen, g_overall_jen
+     , g_temp_try, g_psych_try, g_overall_try
+     , g_temp_hnz, g_psych_hnz, g_overall_hnz
+     , file = "sim_plots.RData")
+
+
+```
+
+
+{{< pagebreak >}}
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+&nbsp;
+
+{{< pagebreak >}}
 
 
 
