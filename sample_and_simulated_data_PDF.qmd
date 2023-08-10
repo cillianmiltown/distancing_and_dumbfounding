@@ -206,7 +206,7 @@ table(x$psych,x$temp)
 
 ```
 
-
+# Analysis of Simulated Data
 
 ## Temporal Distancing and Dumbfounding
 
@@ -1583,8 +1583,6 @@ Wald = `r round(temp_fututre_dumb$wald,digits=2)`,
 `r round(temp_fututre_dumb$upper,digits=2)`].
 
 
-{{< pagebreak >}}
-
 ```{r}
 #| include: true
 #| results: asis
@@ -1603,6 +1601,14 @@ papaja::apa_table(
 
 ```
 
+
+&nbsp;
+
+{{< pagebreak >}}
+
+
+
+## Results for Each Scenario
 
 ### Julie and Mark
 
@@ -1714,7 +1720,7 @@ $\eta$*~p~*^2^ = `r round(eta2, digits=3)`,
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in XXXXX {apafg-tempoverall}.
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in {apafg-tempscenarios}.
 
 
 
@@ -1817,6 +1823,11 @@ y1 <- y1[!duplicated(y1),]
 y1
 test1 <- dplyr::left_join(test,y1, by = c("temp","cs") )
 table(x$temp)
+
+temp_jandm <- test1
+#load("sim_plot_temp_data.RData")
+save(temp_jandm
+     , file = "sim_plot_temp_data.RData")
 
 rm(y)
 ```
@@ -1985,9 +1996,6 @@ papaja::apa_table(
 
 {{< pagebreak >}}
 
-&nbsp;
-
-{{< pagebreak >}}
 
 
 
@@ -2081,7 +2089,7 @@ There was no difference in initial judgement depending on distance manipulation:
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in XXXXX {apafg-psychoverall}.
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychscenarios}.
 
 
 
@@ -2177,6 +2185,15 @@ y1 <- y1[!duplicated(y1),]
 y1
 test1 <- dplyr::left_join(test,y1, by = c("psych","cs") )
 table(x$psych)
+
+
+
+psych_jandm <- test1
+#load("sim_plot_psych_data.RData")
+save(psych_jandm
+     , file = "sim_plot_psych_data.RData")
+
+
 
 rm(y)
 ```
@@ -2353,9 +2370,6 @@ x <- x[which(x$scenario=="Julie and Mark"),]
 
 {{< pagebreak >}}
 
-&nbsp;
-
-{{< pagebreak >}}
 
 
 
@@ -2517,7 +2531,8 @@ rownames(test1) <- NULL
 test1
 ```
 
-
+### Combined Effects of both Distance Manipulations
+A multinomial logistic regression was conducted to examine the combined effects of both temporal and psychological distance on responses to the critical slide.
 Overall the model significantly predicted responses to the critical slide
 $\chi$^2^(`r chi_df`,
 *N* = `r length(x$cs)`) =
@@ -2563,6 +2578,8 @@ papaja::apa_table(
 #| include: false
 
 x <- simulated_data_scenarios
+x <- x[which(x$scenario=="Julie and Mark"),]
+
 
 x <- x[which(is.na(x$cs)==FALSE),]
 table(x$condition6)
@@ -2718,7 +2735,11 @@ test1$condition1 <- as.character(test1$condition)
 test1$condition2 <- test1$condition
 test1$condition <- as.factor(test1$condition1)                
 
-
+both_jandm <- test1
+#load("sim_plot_both_data.RData")
+save(both_jandm
+     , file = "sim_plot_both_data.RData")
+     
 
 rm(y)
 ```
@@ -2803,11 +2824,6 @@ save(g_temp_jandm, g_psych_jandm, g_overall_jandm, file = "sim_plots.RData")
 
 
 {{< pagebreak >}}
-
-&nbsp;
-
-{{< pagebreak >}}
-
 
 &nbsp;
 
@@ -2936,7 +2952,7 @@ $\eta$*~p~*^2^ = `r round(eta2, digits=3)`,
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in XXXXX {apafg-tempoverall}.
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in {apafg-tempscenarios}.
 
 
 
@@ -3040,6 +3056,11 @@ y1
 test1 <- dplyr::left_join(test,y1, by = c("temp","cs") )
 table(x$temp)
 
+
+temp_jen <- test1
+load("sim_plot_temp_data.RData")
+save(temp_jandm, temp_jen
+     , file = "sim_plot_temp_data.RData")
 rm(y)
 ```
 
@@ -3208,9 +3229,6 @@ papaja::apa_table(
 
 {{< pagebreak >}}
 
-&nbsp;
-
-{{< pagebreak >}}
 
 
 
@@ -3304,7 +3322,7 @@ There was no difference in initial judgement depending on distance manipulation:
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in XXXXX {apafg-psychoverall}.
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychscenarios}.
 
 
 
@@ -3400,6 +3418,14 @@ y1 <- y1[!duplicated(y1),]
 y1
 test1 <- dplyr::left_join(test,y1, by = c("psych","cs") )
 table(x$psych)
+
+
+
+psych_jen <- test1
+load("sim_plot_psych_data.RData")
+save(psych_jandm, psych_jen
+     , file = "sim_plot_psych_data.RData")
+
 
 rm(y)
 ```
@@ -3578,9 +3604,6 @@ x <- x[which(x$scenario=="Jennifer"),]
 
 {{< pagebreak >}}
 
-&nbsp;
-
-{{< pagebreak >}}
 
 
 
@@ -3742,7 +3765,8 @@ rownames(test1) <- NULL
 test1
 ```
 
-
+### Combined Effects of both Distance Manipulations
+A multinomial logistic regression was conducted to examine the combined effects of both temporal and psychological distance on responses to the critical slide.
 Overall the model significantly predicted responses to the critical slide
 $\chi$^2^(`r chi_df`,
 *N* = `r length(x$cs)`) =
@@ -3946,6 +3970,11 @@ test1$condition2 <- test1$condition
 test1$condition <- as.factor(test1$condition1)                
 
 
+both_jen <- test1
+load("sim_plot_both_data.RData")
+save(both_jandm, both_jen
+     , file = "sim_plot_both_data.RData")
+     
 
 rm(y)
 ```
@@ -4040,9 +4069,6 @@ save(g_temp_jandm, g_psych_jandm, g_overall_jandm
 {{< pagebreak >}}
 
 
-&nbsp;
-
-{{< pagebreak >}}
 
 
 
@@ -4169,7 +4195,7 @@ $\eta$*~p~*^2^ = `r round(eta2, digits=3)`,
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in XXXXX {apafg-tempoverall}.
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in {apafg-tempscenarios}.
 
 
 
@@ -4272,6 +4298,12 @@ y1 <- y1[!duplicated(y1),]
 y1
 test1 <- dplyr::left_join(test,y1, by = c("temp","cs") )
 table(x$temp)
+
+
+temp_trolley <- test1
+load("sim_plot_temp_data.RData")
+save(temp_jandm, temp_jen, temp_trolley
+     , file = "sim_plot_temp_data.RData")
 
 rm(y)
 ```
@@ -4441,9 +4473,6 @@ papaja::apa_table(
 
 {{< pagebreak >}}
 
-&nbsp;
-
-{{< pagebreak >}}
 
 
 
@@ -4537,7 +4566,7 @@ There was no difference in initial judgement depending on distance manipulation:
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in XXXXX {apafg-psychoverall}.
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychscenarios}.
 
 
 
@@ -4633,6 +4662,12 @@ y1 <- y1[!duplicated(y1),]
 y1
 test1 <- dplyr::left_join(test,y1, by = c("psych","cs") )
 table(x$psych)
+
+psych_trolley <- test1
+load("sim_plot_psych_data.RData")
+save(psych_jandm, psych_jen, psych_trolley
+     , file = "sim_plot_psych_data.RData")
+
 
 rm(y)
 ```
@@ -4812,9 +4847,6 @@ x <- x[which(x$scenario=="Trolley"),]
 
 {{< pagebreak >}}
 
-&nbsp;
-
-{{< pagebreak >}}
 
 
 
@@ -4976,7 +5008,8 @@ rownames(test1) <- NULL
 test1
 ```
 
-
+### Combined Effects of both Distance Manipulations
+A multinomial logistic regression was conducted to examine the combined effects of both temporal and psychological distance on responses to the critical slide.
 Overall the model significantly predicted responses to the critical slide
 $\chi$^2^(`r chi_df`,
 *N* = `r length(x$cs)`) =
@@ -5179,6 +5212,11 @@ test1$condition1 <- as.character(test1$condition)
 test1$condition2 <- test1$condition
 test1$condition <- as.factor(test1$condition1)                
 
+both_trolley <- test1
+load("sim_plot_both_data.RData")
+save(both_jandm, both_jen, both_trolley
+     , file = "sim_plot_both_data.RData")
+     
 
 
 rm(y)
@@ -5274,10 +5312,6 @@ save(g_temp_jandm, g_psych_jandm, g_overall_jandm
 
 {{< pagebreak >}}
 
-
-&nbsp;
-
-{{< pagebreak >}}
 
 
 
@@ -5402,7 +5436,7 @@ $\eta$*~p~*^2^ = `r round(eta2, digits=3)`,
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in XXXXX {apafg-tempoverall}.
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$temp=="future")`) the decreased distance group (*N* = `r sum(x$temp=="now")`), and the control group (*N* = `r sum(x$temp=="control")`) are displayed in {apafg-tempscenarios}.
 
 
 
@@ -5505,6 +5539,11 @@ y1 <- y1[!duplicated(y1),]
 y1
 test1 <- dplyr::left_join(test,y1, by = c("temp","cs") )
 table(x$temp)
+
+temp_heinz <- test1
+load("sim_plot_temp_data.RData")
+save(temp_jandm, temp_jen, temp_trolley, temp_heinz
+     , file = "sim_plot_temp_data.RData")
 
 rm(y)
 ```
@@ -5675,11 +5714,6 @@ papaja::apa_table(
 
 {{< pagebreak >}}
 
-&nbsp;
-
-{{< pagebreak >}}
-
-
 
 #### Psychological Distancing and Dumbfounding
 
@@ -5771,7 +5805,7 @@ There was no difference in initial judgement depending on distance manipulation:
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in XXXXX {apafg-psychoverall}.
+There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychscenarios}.
 
 
 
@@ -5867,6 +5901,12 @@ y1 <- y1[!duplicated(y1),]
 y1
 test1 <- dplyr::left_join(test,y1, by = c("psych","cs") )
 table(x$psych)
+
+psych_heinz <- test1
+load("sim_plot_psych_data.RData")
+save(psych_jandm, psych_jen, psych_trolley,psych_heinz
+     , file = "sim_plot_psych_data.RData")
+
 
 rm(y)
 ```
@@ -6047,11 +6087,6 @@ x <- x[which(x$scenario=="Heinz"),]
 
 {{< pagebreak >}}
 
-&nbsp;
-
-{{< pagebreak >}}
-
-
 
 
 
@@ -6211,7 +6246,8 @@ rownames(test1) <- NULL
 test1
 ```
 
-
+### Combined Effects of both Distance Manipulations
+A multinomial logistic regression was conducted to examine the combined effects of both temporal and psychological distance on responses to the critical slide.
 Overall the model significantly predicted responses to the critical slide
 $\chi$^2^(`r chi_df`,
 *N* = `r length(x$cs)`) =
@@ -6414,7 +6450,10 @@ test1$condition1 <- as.character(test1$condition)
 test1$condition2 <- test1$condition
 test1$condition <- as.factor(test1$condition1)                
 
-
+both_heinz <- test1
+load("sim_plot_both_data.RData")
+save(both_jandm, both_jen, both_trolley, both_heinz
+     , file = "sim_plot_both_data.RData")
 
 rm(y)
 ```
@@ -6504,6 +6543,355 @@ save(g_temp_jandm, g_psych_jandm, g_overall_jandm
 ```
 
 
+
+
+
+### Plots: All Scenarios
+
+
+
+```{r}
+#| include: false
+
+
+
+load("sim_plot_temp_data.RData")
+
+temp_jandm$scenario <- rep("Julie and Mark")
+temp_jen$scenario <- rep("Jennifer")
+temp_trolley$scenario <- rep("Trolley")
+temp_heinz$scenario <- rep("Heinz")
+
+
+test1 <- rbind.data.frame(temp_jandm, temp_jen, temp_trolley, temp_heinz)
+     
+```
+
+```{r}
+#| label: tempplotmakeall
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(temp
+                                             ,labels=c("Control","Increased","Decreased")
+                                             ))) +
+  facet_wrap(~scenario,scales='free')+
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.16,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.6,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.6,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        axis.line = element_line(size = .2),
+        strip.background  = element_blank(),
+        panel.grid = element_blank(),
+        plot.title=element_text(#family="Times",
+                                size=16
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=12
+                                 ),
+        legend.title=element_text(#family="Times",
+                                    size=14
+                                    ),
+        axis.text=element_text(#family="Times",
+                               colour = "black",
+                               size=10
+                               ),
+        axis.ticks.x = element_blank(),
+        axis.title=element_text(#family="Times",
+                                size=14
+                                ),
+        strip.text=element_text(#family = "Times",
+                                  size = 18
+                                  ,face='bold'
+                                  ),
+        #  strip.background = element_rect(fill = "white"),
+        legend.position="right")
+
+g
+
+
+ggsave("resources/img/temp_scenarios.png", g, width = 12, height = 9, units = "in", dpi = 300)
+
+ggsave("resources/img/temp_scenarios.jpeg", g, width = 12, height = 9, units = "in", dpi = 300)
+```
+
+
+```{r}
+#| label: apafg-tempscenarios
+#| apa-cap: Temporal distance and reason-giving for each Scenario
+#| include: true
+
+knitr::include_graphics("resources/img/temp_scenarios.png")
+```
+
+
+
+
+
+```{r}
+#| include: false
+
+
+
+load("sim_plot_psych_data.RData")
+
+psych_jandm$scenario <- rep("Julie and Mark")
+psych_jen$scenario <- rep("Jennifer")
+psych_trolley$scenario <- rep("Trolley")
+psych_heinz$scenario <- rep("Heinz")
+
+
+test1 <- rbind.data.frame(psych_jandm, psych_jen, psych_trolley,psych_heinz)
+     
+```
+
+```{r}
+#| label: psuchplotmakeall
+#| include: false
+
+
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(psych
+                                            ,labels=c("Increased","Decreased")
+                                             ))) +
+  facet_wrap(~scenario,scales='free')+
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=3,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.6,
+            #hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4.2,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        axis.line = element_line(size = .2),
+        strip.background  = element_blank(),
+        panel.grid = element_blank(),
+        plot.title=element_text(#family="Times",
+                                size=16
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=12
+                                 ),
+        legend.title=element_text(#family="Times",
+                                    size=14
+                                    ),
+        axis.text=element_text(#family="Times",
+                               colour = "black",
+                               size=10
+                               ),
+        axis.ticks.x = element_blank(),
+        axis.title=element_text(#family="Times",
+                                size=14
+                                ),
+        strip.text=element_text(#family = "Times",
+                                  size = 18
+                                  ,face='bold'
+                                  ),
+        #  strip.background = element_rect(fill = "white"),
+        legend.position="right")
+
+g
+
+
+ggsave("resources/img/psych_scenarios.png", g, width = 12, height = 9, units = "in", dpi = 300)
+
+ggsave("resources/img/psych_scenarios.jpeg", g, width = 12, height = 9, units = "in", dpi = 300)
+```
+
+
+```{r}
+#| label: apafg-psychscenarios
+#| apa-cap: Psychological distance and reason-giving for each Scenario
+#| include: true
+
+knitr::include_graphics("resources/img/psych_scenarios.jpeg")
+```
+
+
+
+
+
+
+
+```{r}
+#| include: false
+
+
+
+load("sim_plot_both_data.RData")
+
+both_jandm$scenario <- rep("Julie and Mark")
+both_jen$scenario <- rep("Jennifer")
+both_trolley$scenario <- rep("Trolley")
+both_heinz$scenario <- rep("Heinz")
+
+
+test1 <- rbind.data.frame(both_jandm, both_jen, both_trolley, both_heinz)
+     
+```
+
+
+```{r}
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(condition
+                                           ,labels=c("Self-Control","Other-Control"
+                                                     , "Self-Now", "Other-Now"
+                                                     , "Self-Future", "Other-Future"
+                                                     )
+                                             ))) +
+  facet_wrap(~scenario,scales='free')+
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.2,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.2,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -2.1,
+            #hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times",
+            size=2.5,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reason-Giving", "Dumbfounded","Nothing-Wrong")) +
+  #scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition\nPsych/Temp") +
+  #theme_apa() +
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        axis.line = element_line(size = .2),
+        strip.background  = element_blank(),
+        panel.grid = element_blank(),
+        plot.title=element_text(#family="Times",
+                                size=16
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=12
+                                 ),
+        legend.title=element_text(#family="Times",
+                                    size=14
+                                    ),
+        axis.text=element_text(#family="Times",
+                               colour = "black",
+                               size=10
+                               ),
+        axis.ticks.x = element_blank(),
+        axis.title=element_text(#family="Times",
+                                size=14
+                                ),
+        strip.text=element_text(#family = "Times",
+                                  size = 18
+                                  ,face='bold'
+                                  ),
+        #  strip.background = element_rect(fill = "white"),
+        legend.position="right")
+
+g
+
+
+ggsave("resources/img/both_scenarios.png", g, width = 12, height = 9, units = "in", dpi = 300)
+
+ggsave("resources/img/both_scenarios.jpeg", g, width = 12, height = 9, units = "in", dpi = 300)
+```
+
+
+```{r}
+#| label: apafg-bothscenarios
+#| apa-cap: Both distance manipulations and reason-giving for each Scenario
+#| include: true
+
+knitr::include_graphics("resources/img/both_scenarios.jpeg")
+```
+
+
+
+
+
 {{< pagebreak >}}
 
 &nbsp;
@@ -6518,6 +6906,9 @@ save(g_temp_jandm, g_psych_jandm, g_overall_jandm
 
 
 
+&nbsp;
+
+{{< pagebreak >}}
 
 
 
