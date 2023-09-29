@@ -24,11 +24,13 @@ contributes:
         - apafigtab.lua
         - citeprocr.lua
         - apaand.lua
+    native: default
     html:
       toc: true
+      toc-location: left
       anchor-sections: false
       fig-cap-location: top
-      toc-location: left
+      html-math-method: katex
       grid: 
         body-width: "7in"
       css: apa.css
@@ -45,7 +47,6 @@ contributes:
       hyperrefoptions: 
         - linktoc=none
       block-headings: false
-      include-in-header: header.tex
       template: template.tex
       template-partials:
         - doc-class.tex

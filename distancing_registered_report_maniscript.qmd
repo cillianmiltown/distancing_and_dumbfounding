@@ -1,0 +1,219 @@
+---
+title: "Space to Think: Testing the Effect of Distancing on Moral Dumbfounding"
+blank-lines-above-title: 2
+shorttitle: "Space to Think"
+author:
+    # Roles are optional
+    # Conceptualization, Data curation, Formal Analysis, Funding acquisition, Investigation, 
+    # Methodology, Project administration, Resources, Software, Supervision, Validation, 
+    # Visualization, Writing – original draft, Writing – review & editing
+    #   - Conceptualization
+    #   - Writing - original draft
+    #   - Project administration
+    #   - Formal Analysis
+  - name: Cillian McHugh
+    corresponding: true
+    #orcid: 0000-0002-9701-3232
+    email: cillian.mchugh@ul.ie
+    #url: https://example.org/
+    # Select from the CRediT: Contributor Roles Taxonomy https://credit.niso.org/
+    # role:
+    affiliations:
+      - id: id1
+        name: University of Limerick
+        department: Department of Psychology
+        #address: 1234 Capital St.
+        city: Limerick
+        region: Ireland
+        postal-code: V94 T9PX
+  - name: Marek McGann
+    #orcid: 0000-0002-2452-6053
+    # role:
+    affiliations: 
+      - id: id2
+        name: Mary Immaculate College
+        department: Department of Psychology
+        address: South Circular Road
+        city: Limerick
+        region: Ireland
+  - name: Eric R. Igou
+    #orcid: 0000-0001-7744-9648
+    # role:
+    affiliations:
+      - ref: id1
+      # - name: Carina's Primary Affiliation
+      # - name: Carina's Secondary Affiliation
+  - name: Elaine L. Kinsella
+    #orcid: 0000-0003-4835-8581
+    # role:
+    affiliations:
+      - ref: id1 #~
+        # city: Buffalo
+        # region: NY
+author-note:
+  blank-lines-above-author-note: 0
+  status-changes: 
+    # Example: [Author name] is now at [affiliation].
+    # affiliation-change: Ana Fulana is now at X University.
+    # Example: [Author name] is deceased.
+    # deceased: Carina Mengana is deceased.
+    # Disclosures condensed to one paragraph, but you can start a field with two line breaks to break them up: \n\nNew Paragraph
+  disclosures: 
+    # Example. Because the authors are equal contributors, order of authorship was determined by a fair coin toss.
+    # Example: "All procedures performed in studies involving human participants"
+    study-registration: All procedures performed in studies involving human participants were approved by the Institutional Research Ethics Committee and conducted in accordance with the Code of Professional Ethics of the Psychological Society of Ireland and with the 1964 Helsinki declaration and its later amendments or comparable ethical standards. Informed consent was obtained from all individual participants included in the study. The authors declare that there are no potential conflicts of interest with respect to the research, authorship, and/or publication of this article.
+    data-sharing: null
+    # Example: This article is based on data published in Pulaski (2017).
+    # Example: This article is based on the dissertation completed by Graham (2018).    
+    related-report: ~ # This article is based on data published in Pulaski (2017). 
+    # Example: Sally Jones earns royalties from the sale of Test X.
+    conflict-of-interest: null
+    # Example: This study was supported by Grant A123 from the National Science Foundation.
+    financial-support: null
+    # Example: The authors are grateful for the technical assistance of Dr. X during the initial design and setup of our lab equipment.
+    gratitude: null
+    authorship-agreements: null
+abstract: "Moral dumbfounding occurs when people maintain a moral judgment in the absence of supporting reasons. Drawing on dual-process approaches to moral judgment, one possible explanation for moral dumbfounding proposes that it occurs as a result of a conflict between intuitive and deliberative processes. Consistent with this explanation, previous research has shown that under manipulations designed to lead to more intuitive thinking rather than deliberative thinking (such as increased cognitive load), people are less likely to provide reasons for their judgments, and more likely to provide dumbfounded responses in a moral dumbfounding task. Building on this work the present research examines if dumbfounded responding can be reduced through experimental manipulations designed to facilitate deliberative thinking (over intuitive thinking). Drawing on construal-level theory, and the finding that distancing facilitates deliberative thinking, we predict that including a distancing manipulation in a moral dumbfounding task will increase reason-giving, and reduce dumbfounded responding. We propose a pre-registered study to test this prediction."
+keywords: [moral dumbfounding, distancing, construal-level theory, dual-processes, reasons, intuitions]
+bibliography: "resources/bib/My Library.bib"
+format:
+  # apaquarto-docx: default
+  # apaquarto-html: default
+  apaquarto-pdf:
+    # can be jou (journal), man (manuscript), stu (student), or doc (document)
+    # for now, tables and figures do not render properly in jou mode. 
+    # can be 10pt, 11pt, or 12pt
+    # Integrate tables and figures in text
+    # a4 paper if true, letter size if false
+    # suppresses loading of the lmodern font package
+    # Suppresses loading of the fontenc package
+    # Suppress the title above the introduction
+    # In jou mode, use times or pslatex instead of txfonts
+    # In jou mode, use Computer Modern font instead of times
+    # In jou mode, cancels automatic stretching of tables to column width 
+    # Uses Helvetica font in stu and man mode
+    # In man and stu mode, neutralizes the \helvetica command.
+    # In man and stu mode, uses typewriter font
+    # Puts draft watermark on first page
+    # Puts draft watermakr on all pages
+    # Masks references that are marked as the author's own
+    documentmode: man
+    fontsize: 12pt
+    floatsintext: true
+    a4paper: true
+    nolmodern: false
+    nofontenc: false
+    donotrepeattitle: false
+    notxfonts: false
+    notimes: false
+    notab: false
+    helv: false
+    nosf: false
+    tt: false
+    draftfirst: false
+    draftall: false
+    mask: false
+    journal: null
+    volume: null
+    course: null
+    professor: null
+    duedate: null
+editor_options: 
+  chunk_output_type: console
+---
+
+{{< include _extensions/wjschne/apaquarto/_apa_title.qmd >}}
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(conflicted)
+library(tidyverse)
+library(flextable)
+library(ftExtra)
+library(officer)
+library(knitr)
+conflicts_prefer(dplyr::filter, .quiet = TRUE)
+conflicts_prefer(flextable::separate_header, .quiet = TRUE)
+#devtools::install_github("crsh/citr")
+library(citr)
+#install.packages("sjstats")
+library(plyr)
+library(foreign)
+library(car)
+#devtools::install_github("cillianmiltown/R_desnum")
+library(desnum)
+library(ggplot2)
+library(extrafont)
+#install.packages("devtools")
+#devtools::install_github("crsh/papaja")
+#library(papaja)
+#library("dplyr")
+library("afex")
+library("tibble")
+library(scales)
+#install.packages("fftw3")
+# install.packages("qqconf")
+# install.packages("BiocManager")
+# BiocManager::install("multtest")
+# install.packages("multtest")
+# install.packages("mutoss")
+# install.packages("metap")
+library(metap)
+library(pwr)
+library(lsr)
+#install.packages("sjstats")
+library(sjstats)
+library(DescTools)
+#inatall.packages("ggstatsplot")
+#library(ggstatsplot)
+library(VGAM)
+library(nnet)
+library(mlogit)
+library(reshape2)
+library(ggpubr)
+library(gridExtra)
+library(grid)
+
+#tinytex:: install_tinytex()
+
+```
+
+
+
+Think about any politically charged, contentious issue in your country or region and consider how this issue might be discussed in the media. In particular, imagine a TV or radio debate between advocates on either side of the issue. In such a debate, it is plausible that the speakers might defend their positions with statements related to the morality of the issue. Proponents may argue for something "because it is the right thing to do" while opponents may reject something "because it is just plain wrong". These claims regarding morality (or immorality) are often presented as self-evident [@skitka_psychology_2010], without providing justification or reasons for the position, and it is not always apparent if the speakers would be able to provide a justification if they were pressed. Indeed, there is good reason to expect that in at least some cases, the speakers would fail to provide reasons in support of their moral position, and present as morally dumbfounded [e.g., @haidt_moral_2000; @mchugh_searching_2017a; @mchugh_just_2023; see also @macnab_msps_2016; @sim_msps_2016]. 
+
+Moral dumbfounding occurs when people maintain a moral judgment even though they cannot provide a reason in support of this judgment [@haidt_moral_2000; @mchugh_searching_2017a]. While perhaps not as prevalent as initially thought [see @royzman_curious_2015; @mchugh_reasons_2020], there is a growing body of evidence demonstrating that it is a robust phenomenon [with rates of dumbfounded responding ranging from 9% to 36% depending on, the scenario and the population, see @mchugh_just_2023]. Previous research has demonstrated that under cognitive load, dumbfounded responding can increase [@mchugh_cognitive_2023], providing support for a dual-process explanation of moral dumbfounding. Here we extend this finding and attempt to develop an experimental manipulation that can reduce dumbfounded responding. In line with a dual-process approach, and drawing on construal-level theory [@liberman_effect_2002; @forster_temporal_2004] we aim to test whether distancing manipulations designed to facilitate abstract/analytical thinking can increase reason-giving and reduce moral dumbfounding.
+
+# A Dual-Process Perspective on Moral Dumbfounding
+
+@mchugh_cognitive_2023 draw on dual-process theories of reasoning and moral judgment [e.g., @bago_intuitive_2019; @cushman_action_2013; @greene_secret_2008], to explain moral dumbfounding as occurring as a result of a conflict in dual-processes [e.g., @bonner_conflict_2010]. Conflicts in dual-processes occur when a habitual/intuitive response is different from a response that results from deliberation [e.g., base-rate neglect @bonner_conflict_2010; @deneys_conflict_2008]. @mchugh_cognitive_2023 map the responses in the dumbfounding paradigm according to the relative amount of deliberation involved (see Figure 1). According to this view reason-giving involves the most deliberation, while dumbfounding involves the least (with nothing-wrong somewhere in between).
+
+```{r}
+#| label: apafg-summaryfigure
+#| apa-cap: Hypothesized level of deliberation for each response type in the dumbfounding paradigm
+#| include: true
+#| apa-note: Reproduced from McHugh et al., (2023)
+#| out-width: 50%
+knitr::include_graphics("resources/img/responses_figure4.jpg")
+```
+
+A key prediction of this approach is that in situations where deliberation is inhibited rates of reason-giving should be reduced, and rates of of dumbfounding (or nothing-wrong) should be increased. @mchugh_cognitive_2023 tested this prediction and demonstrated that a cognitive load manipulation (requiring participants to attend to a secondary task while responding to the moral dumbfounding protocol) led to reduced rates of reason-giving and higher rates of dumbfounding.
+
+
+# Method
+
+# Results
+
+{r child="sample_and_simulated_data_PDF.qmd"}
+
+&nbsp;
+
+
+\pagebreak
+
+&nbsp;
+
+
+\pagebreak

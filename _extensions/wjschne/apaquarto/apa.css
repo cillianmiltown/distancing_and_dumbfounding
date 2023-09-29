@@ -27,7 +27,11 @@ h4 + p, h5 + p {
 }
 
 
-
+.Compact {
+  line-height: 1em;
+  text-indent: 0pt;
+  margin: 0pt;
+}
 
 
 .FigureTitle p {text-indent: 0pt}
@@ -51,3 +55,6 @@ blockquote, .blockquote {border: none; margin: 0pt 2em; padding: 0pt}
 div.hanging-indent {margin-left: 0.5in; text-indent: -0.5in}
 
 div.hanging-indent div.csl-entry {margin-left: 0em; text-indent: -0.5in;}
+
+.katex {font-size: 1em;}
+.katex-display {font-size: 1.1em;}
