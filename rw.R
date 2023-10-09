@@ -450,4 +450,30 @@ psych_coeffs$`z value`
 
 
 
+# 
+# # 
+# 
+# 
+# 
+# presented a dual-process explanation of moral dumbfounding. According to this view, moral dumbfounding occurs as a result of a conflict in dual processes
+# 
+# In-line with a dual-process explanation of moral dumbfounding, previous research has 
+# 
+# The aim of the current research is to test 
+# 
+# Below we present eight pilot studies to test the hypothesized relationship between distancing and dumbfounded responding. 
+# Recent work [@mchugh_cognitive_2023] has proposed a conflict in dual-processes [e.g., @bonner_conflict_2010] explanation of 
+# moral dumbfounding. According to this view, dumbfounding occurs when a habitual response (moral judgment) is in conflict with 
+# a deliberative response (providing reasons). This explanation is consistent with dual-process approaches to moral judgment
+# [e.g., @bago_intuitive_2019; @cushman_action_2013; @greene_secret_2008], as well as with a unimodel [@kruglanski_intuitive_2011] 
+# and categorization [@mchugh_moral_2022-1] approaches.
+# 
+# A key prediction of this explanation is that rates of reason-giving should be influenced by experimental manipulations that
+# impact intuitive vs deliberative thinking. Previous work has demonstrated that inhibiting deliberative thinking through a 
+# cognitive load manipulation can reduce reason-giving, leading to higher rates of dumbfounding [@mchugh_cognitive_2023]. 
+# A corollary of this finding is that reason-giving should be increased under manipulations that encourage deliberative thinking.
+# Drawing on construal-level theory [@liberman_effect_2002; @forster_temporal_2004], we predict that increased distance will 
+# facilitate the identification of reasons, leading to lower levels of dumbfounded responding.
+
+
 

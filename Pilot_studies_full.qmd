@@ -201,9 +201,9 @@ small <- pwr.chisq.test(w=.07,df=(3-1),sig.level = .05, power=.8)
 
 ## The Current Pilot Studies
 
-We tested the feasibility of different manipulations of both temporal distance and psychological distance. A-priori power analysis indicated that in order to detect a large effect size (*V* = .35) with 80% power, a sample of *N* = `r round(large$N)` participants is required, in order to detect a medium effect size (*V* = .21) with 80% power a sample of *N* = `r round(med$N)` participants is required, and in order to detect, a small effect size (*V* = . 07) with 80% power a sample of *N* = `r round(small$N)` is required. The pilot studies below are sufficiently powered to detect large effects only. Based on previous research investigating influences on moral dumbfounding we anticipate a small to medium effect size [e.g., @mchugh_cognitive_2023, report *V* = 0.12]. Despite being under-powered, these studies are descriptively informative, and provide a preliminary estimate of the direction of any possible effect that would be expected from a higher powered study.
+We tested the feasibility of different manipulations of both temporal distance and social distance. A-priori power analysis indicated that in order to detect a large effect size (*V* = .35) with 80% power, a sample of *N* = `r round(large$N)` participants is required, in order to detect a medium effect size (*V* = .21) with 80% power a sample of *N* = `r round(med$N)` participants is required, and in order to detect, a small effect size (*V* = . 07) with 80% power a sample of *N* = `r round(small$N)` is required. The pilot studies below are sufficiently powered to detect large effects only. Based on previous research investigating influences on moral dumbfounding we anticipate a small to medium effect size [e.g., @mchugh_cognitive_2023, report *V* = 0.12]. Despite being under-powered, these studies are descriptively informative, and provide a preliminary estimate of the direction of any possible effect that would be expected from a higher powered study.
 
-Pilot Studies 1 and 2 employ a manipulation of psychological distance compared against a control condition (no manipulation). Pilot Studies 3, 4, 6, and 7 employ a temporal distance manipulation, comparing increased temporal distance against decreased temporal distance. For consistency across conditions, and in order to enhance the plausibility of the materials, participants in these studies were encouraged to think about the scenarios from the perspective of a third person (thus these studies additionally included a psychological distance manipulation, however this was kept constant across conditions in these studies). Pilot Studies 5 and 8 were also employed a temporal distance manipulation, and participants were encouraged to think about the scenarios from a first person perspective. Pilot Studies 1-5, and 8 used the *Julie and Mark* scenario while Pilot Studies 6 and 7 used the *Jennifer* scenario. Pilot Studies 1, 2, 3, 4, 5, 7, and 8, recorded dumbfounded responding using the 'critical slide' [@mchugh_searching_2017; @mchugh_cognitive_2023], while Pilot Study 6 trialed a more continuous measure of dumbfounded responding. The designs and results of Pilot Studies 1-8 are summarized in {apafg-summaryfigure}.
+Pilot Studies 1 and 2 employ a manipulation of social distance compared against a control condition (no manipulation). Pilot Studies 3, 4, 6, and 7 employ a temporal distance manipulation, comparing increased temporal distance against decreased temporal distance. For consistency across conditions, and in order to enhance the plausibility of the materials, participants in these studies were encouraged to think about the scenarios from the perspective of a third person (thus these studies additionally included a social distance manipulation, however this was kept constant across conditions in these studies). Pilot Studies 5 and 8 were also employed a temporal distance manipulation, and participants were encouraged to think about the scenarios from a first person perspective. Pilot Studies 1-5, and 8 used the *Julie and Mark* scenario while Pilot Studies 6 and 7 used the *Jennifer* scenario. Pilot Studies 1, 2, 3, 4, 5, 7, and 8, recorded dumbfounded responding using the 'critical slide' [@mchugh_searching_2017; @mchugh_cognitive_2023], while Pilot Study 6 trialed a more continuous measure of dumbfounded responding. The designs and results of Pilot Studies 1-8 are summarized in {apafg-summaryfigure}.
 
 ```{r}
 #| label: apafg-summaryfigure
@@ -216,9 +216,9 @@ knitr::include_graphics("resources/img/summary_figure.png")
 {{< pagebreak >}}
 
 
-# Pilot Study 1 - Psychological Distance, "Julie and Mark" (First Person)
+# Pilot Study 1 - Social Distance, "Julie and Mark" (First Person)
 
-The aim of Pilot Study 1 was to investigate if a psychological distance manipulation influenced participants' ability to justify their moral judgment. We also measured social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972] as a potential correlate/moderator variable.
+The aim of Pilot Study 1 was to investigate if a social distance manipulation influenced participants' ability to justify their moral judgment. We also measured social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972] as a potential correlate/moderator variable.
 
 ```{r}
 #| include: false
@@ -267,7 +267,7 @@ variable.names(df3)
 
 ### Pilot Study 1: Participants and Design
 
-Pilot Study 1 was a between-subjects design. The dependent variable was rates of providing reasons/dumbfounding (measured using the critical slide with 3 response options: 1: reason-giving; 2: nothing-wrong; 3: dumbfounding - an admission of not having reasons). The independent variable was psychological distancing with two levels: present and absent.
+Pilot Study 1 was a between-subjects design. The dependent variable was rates of providing reasons/dumbfounding (measured using the critical slide with 3 response options: 1: reason-giving; 2: nothing-wrong; 3: dumbfounding - an admission of not having reasons). The independent variable was social distancing with two levels: present and absent.
 
 To manipulate distancing participants were told that a philosophy student (Anne) had been asked to consider the moral scenario, and participants were asked to consider the reasons they might use to justify Anne's judgement. Social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972] was included as an additional potential predictor variable.
 
@@ -773,9 +773,9 @@ ls()
 
 {{< pagebreak >}}
 
-# Pilot Study 2 - Psychological Distance, "Julie and Mark" (First Person vs Third Person)
+# Pilot Study 2 - Social Distance, "Julie and Mark" (First Person vs Third Person)
 
-As with Pilot Study 1, the aim of Pilot Study 2 was to investigate if a psychological distance manipulation influenced participants' ability to justify their moral judgment. There were two changes from Pilot Study 1. First, we modified our distancing manipulation to include an explicit instruction to think about the scenario from the perspective of a third party. In addition to recording social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972], Pilot Study 2 additionally included need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] and the short form of the cognitive reflection test [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016] as potential correlate/moderator variables.
+As with Pilot Study 1, the aim of Pilot Study 2 was to investigate if a social distance manipulation influenced participants' ability to justify their moral judgment. There were two changes from Pilot Study 1. First, we modified our distancing manipulation to include an explicit instruction to think about the scenario from the perspective of a third party. In addition to recording social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972], Pilot Study 2 additionally included need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] and the short form of the cognitive reflection test [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016] as potential correlate/moderator variables.
 
 ```{r}
 #| include: false
@@ -827,7 +827,7 @@ df3$crt
 
 ### Pilot Study 2: Participants and Design
 
-Pilot Study 2 was a between-subjects design. The dependent variable was rates of providing reasons/dumbfounding - measured using the critical slide (with the same 3 response options: 1: reason-giving; 2: nothing-wrong; 3: dumbfounding - an admission of not having reasons). The independent variable was psychological distancing with two levels: present and absent. The distancing manipulation was similar to Pilot Study 1 (the *Anne* vignette) with the inclusion of an explicit instruction to consider the scenario from Anne's perspective. Social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972], need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] cognitive reflection [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016] were recorded as potential correlate/moderator variables.
+Pilot Study 2 was a between-subjects design. The dependent variable was rates of providing reasons/dumbfounding - measured using the critical slide (with the same 3 response options: 1: reason-giving; 2: nothing-wrong; 3: dumbfounding - an admission of not having reasons). The independent variable was social distancing with two levels: present and absent. The distancing manipulation was similar to Pilot Study 1 (the *Anne* vignette) with the inclusion of an explicit instruction to consider the scenario from Anne's perspective. Social desirability [@crowne_new_1960; @ballard_short_1992; @strahan_short_1972], need for closure [@kruglanski_need_2013; @kruglanski_psychology_2013; @kruglanski_motivated_1996] cognitive reflection [@toplak_cognitive_2011; @frederick_cognitive_2005; @thomson_investigating_2016] were recorded as potential correlate/moderator variables.
 
 A total sample of `r length(dftot$InCS)` participants (`r sum(dftot$gender=="Female")` female, `r sum(dftot$gender=="Male")` male; *M*~age~ = `r round(mean(dftot$age),digits=1)`, min = `r min(dftot$age)`, max = `r max(dftot$age)`, *SD* = `r round(sd(dftot$age),digits=1)`) took part. The measure of need for closure includes a "lie score", whereby if participants score above a threshold on a combination of specific items they are deemed to be lying (example lie score items include claiming to never have been late for an appointment, or never having met someone the didn't like). Following the removal of participants who scored above the lie score threshold, we were left with a sample of `r length(df3$InCS)` participants (`r sum(df3$gender=="Female")` female, `r sum(df3$gender=="Male")` male; *M*~age~ = `r round(mean(df3$age),digits=1)`, min = `r min(df3$age)`, max = `r max(df3$age)`, *SD* = `r round(sd(df3$age),digits=1)`) who were eligible for analysis. Participants were recruited through MTurk in the same way as in Pilot Study 1 (same payment amount, same country selection).
 
@@ -1420,7 +1420,7 @@ A multinomial logistic regression was conducted to test if the individual differ
 
 # Pilot Study 3 - Temporal Distance, "Julie and Mark" (Third Person)
 
-For both Pilot Studies 1 and 2 there was no significant association between response to the critical slide and the psychological distance manipulation. Pilot Study 3 was designed to test an alternative distance manipulation, temporal distance. The aim of Pilot Study 3 was to investigate if manipulating temporal distance influenced participants' ability to justify their moral judgment.
+For both Pilot Studies 1 and 2 there was no significant association between response to the critical slide and the social distance manipulation. Pilot Study 3 was designed to test an alternative distance manipulation, temporal distance. The aim of Pilot Study 3 was to investigate if manipulating temporal distance influenced participants' ability to justify their moral judgment.
 
 ```{r}
 #| include: false
@@ -3173,7 +3173,7 @@ A multinomial logistic regression was conducted to test if the individual differ
 
 # Pilot Study 5 - Temporal Distance, "Julie and Mark" (First Person)
 
-For Pilot Studies 3 and 4, we manipulated temporal distance however participants were asked to think about the scenario from the perspective of a third person. This third person perspective means that increased psychological distance may have impacted the results. Pilot Study 5 was intended to test the influence of temporal distance on participants' ability to justify their judgments when thinking about them in the first person.
+For Pilot Studies 3 and 4, we manipulated temporal distance however participants were asked to think about the scenario from the perspective of a third person. This third person perspective means that increased social distance may have impacted the results. Pilot Study 5 was intended to test the influence of temporal distance on participants' ability to justify their judgments when thinking about them in the first person.
 
 ```{r}
 #| include: false
@@ -6941,7 +6941,7 @@ df_aov(aov1)
 
 ### Combined Increased Distance vs Reduced Distance (no exclusions)
 
-Our first analysis did not distinguish between temporal and psychological distance. We created a new variable with three levels, increased distance, decreased distance, and control. A chi-squared test for association revealed a significant a significant association between experimental condition and response to the critical slide:
+Our first analysis did not distinguish between temporal and social distance. We created a new variable with three levels, increased distance, decreased distance, and control. A chi-squared test for association revealed a significant a significant association between experimental condition and response to the critical slide:
 $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w, digits=2)`, the observed power was `r round(pw$power, digits=2)`
 The responses to the critical slide for the control group (*N* = `r sum(df3$condition=="control")`), the increased distance group (*N* = `r sum(df3$condition=="long")`) and the decreased distance group (*N* = `r sum(df3$condition=="short")`) are displayed in {apafg-totdch5allafig2criticalcondition}. The observed counts, expected counts and standardized residuals are displayed in Table 3. 
 
@@ -7313,7 +7313,7 @@ pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
 
 {{< pagebreak >}}
 
-### Different types of manipulations (Temporal / Psychological)
+### Different types of manipulations (Temporal / Social)
 
 
 Overall, there was no significant association between experimental condition and response to the critical slide:
@@ -7460,7 +7460,7 @@ g <- ggplot(test2, aes(x=InCS, y=perc, fill=factor(condition
   ylab("Percentage of participants selecting each response")+
   scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
   #scale_fill_grey(start = .5, end = .8) +
-  labs(fill="Temporal /\n Psychological") +
+  labs(fill="Temporal /\n Social") +
   
   #theme_apa() +
   theme_bw() +
@@ -7565,7 +7565,7 @@ df_aov(aov1)
 
 ### Combined Increased Distance vs Reduced Distance (with exclusions)
 
-Our first analysis did not distinguish between temporal and psychological distance. We created a new variable with three levels, increased distance, decreased distance, and control. A chi-squared test for association revealed a significant a significant association between experimental condition and response to the critical slide:
+Our first analysis did not distinguish between temporal and social distance. We created a new variable with three levels, increased distance, decreased distance, and control. A chi-squared test for association revealed a significant a significant association between experimental condition and response to the critical slide:
 $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w, digits=2)`, the observed power was `r round(pw$power, digits=2)`
 The responses to the critical slide for the control group (*N* = `r sum(df3$condition=="control")`), the increased distance group (*N* = `r sum(df3$condition=="long")`) and the decreased distance group (*N* = `r sum(df3$condition=="short")`) are displayed in {apafg-totdch5allafig2criticalconditionExcl}. The observed counts, expected counts and standardized residuals are displayed in Table 5. 
 
@@ -7833,7 +7833,7 @@ pw <- pwr.chisq.test(w=w,N=length(df3$InCS),df=(3-1),sig.level = .05)
 
 {{< pagebreak >}}
 
-### Different types of manipulations: Temporal / Psychological (with exclusions)
+### Different types of manipulations: Temporal / Social (with exclusions)
 
 
 Overall, there was no significant association between experimental condition and response to the critical slide:
@@ -8079,7 +8079,7 @@ g <- ggplot(test2, aes(x=InCS, y=perc, fill=factor(condition
   ylab("Percentage of participants selecting each response")+
   scale_x_discrete(labels=c("Nothing Wrong", "Dumbfounded","Reasons")) +
   #scale_fill_grey(start = .5, end = .8) +
-  labs(fill="Temporal /\n Psychological") +
+  labs(fill="Temporal /\n Social") +
   
   #theme_apa() +
   theme_bw() +

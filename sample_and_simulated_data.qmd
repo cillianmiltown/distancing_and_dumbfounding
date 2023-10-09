@@ -55,7 +55,7 @@ N <- 4800
 session_seed <- 4
 save(N,file = "N.RData")
 
-source("simulate_data.R")
+#source("simulate_data.R")
 
 x <- simulated_data_scenarios
 

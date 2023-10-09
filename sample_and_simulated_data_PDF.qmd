@@ -590,7 +590,7 @@ papaja::apa_table(
 
 
 
-## Psychological Distancing and Dumbfounding
+## Social Distancing and Dumbfounding
 
 
 ```{r}
@@ -850,7 +850,7 @@ g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(psych
 #| label: apafg-psychoverall
 #| include: true
 #| fig-height: 5
-#| apa-cap: "Simulated Data: Responses to critical slide depending on psychological distance for the increased psychological distance group (future, N = 2,400), and for the decreased psychological distance group (today, N = 2,400), (error bars represent standard error of the proportion)"
+#| apa-cap: "Simulated Data: Responses to critical slide depending on social distance for the increased social distance group (future, N = 2,400), and for the decreased social distance group (today, N = 2,400), (error bars represent standard error of the proportion)"
 
 suppressWarnings(print(g))
 
@@ -924,7 +924,7 @@ res
 papaja::apa_table(
    res
    , align = c("l", "l", "c", "c", "c")
-   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on psychological distancing"
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on social distancing"
    #, added_stub_head = "Response to critical slide"
    #, col_spanners = makespanners()
    , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
@@ -1077,50 +1077,50 @@ c("(Intercept)"
   , "psychself:tempnow")
 
 c("(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now"
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now"
   , "(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now")
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now")
 
 c("(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
   ,"Scenario-Jennifer"
   ,"Scenario-Julie and Mark"
   ,"Scenario-Trolley"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now"
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now"
   ,"(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
   ,"Scenario-Jennifer"
   ,"Scenario-Julie and Mark"
   ,"Scenario-Trolley"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now")
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now")
 
 
 test$Term <- c("(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now"
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now"
   , "(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now")
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now")
 
 test$`$b$` <- round(test$estimate,digits=2)
 test$`$S.E.$` <- round(test$std.error,digits=2)
@@ -1513,43 +1513,43 @@ test$Response <- dplyr::recode(test$y.level,
 test$term
 
 c("(Intercept)"
-,"Psy-Self"
+,"Soc-Self"
 ,"Temp-Future"
 ,"Temp-Now"
 ,"Scenario-Jennifer"
 ,"Scenario-Julie and Mark"
 ,"Scenario-Trolley"
-,"Psy-Self&times;Temp-Future"
-,"Psy-Self&times;Temp-Now"
+,"Soc-Self&times;Temp-Future"
+,"Soc-Self&times;Temp-Now"
 ,"(Intercept)"
-,"Psy-Self"
+,"Soc-Self"
 ,"Temp-Future"
 ,"Temp-Now"
 ,"Scenario-Jennifer"
 ,"Scenario-Julie and Mark"
 ,"Scenario-Trolley"
-,"Psy-Self&times;Temp-Future"
-,"Psy-Self&times;Temp-Now")
+,"Soc-Self&times;Temp-Future"
+,"Soc-Self&times;Temp-Now")
 
 
 test$Term <- c("(Intercept)"
-               ,"Psy-Self"
+               ,"Soc-Self"
                ,"Temp-Future"
                ,"Temp-Now"
                ,"Scenario-Jennifer"
                ,"Scenario-Julie and Mark"
                ,"Scenario-Trolley"
-               ,"Psy-Self $\\times$ Temp-Future"
-               ,"Psy-Self $\\times$ Temp-Now"
+               ,"Soc-Self $\\times$ Temp-Future"
+               ,"Soc-Self $\\times$ Temp-Now"
                ,"(Intercept)"
-               ,"Psy-Self"
+               ,"Soc-Self"
                ,"Temp-Future"
                ,"Temp-Now"
                ,"Scenario-Jennifer"
                ,"Scenario-Julie and Mark"
                ,"Scenario-Trolley"
-               ,"Psy-Self $\\times$ Temp-Future"
-               ,"Psy-Self $\\times$ Temp-Now")
+               ,"Soc-Self $\\times$ Temp-Future"
+               ,"Soc-Self $\\times$ Temp-Now")
 
 test$`$b$` <- round(test$estimate,digits=2)
 test$`$S.E.$` <- round(test$std.error,digits=2)
@@ -1999,7 +1999,7 @@ papaja::apa_table(
 
 
 
-#### Psychological Distancing and Dumbfounding
+#### Social Distancing and Dumbfounding
 
 
 ```{r}
@@ -2343,7 +2343,7 @@ res
 papaja::apa_table(
    res
    , align = c("l", "l", "c", "c", "c")
-   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on psychological distancing"
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on social distancing"
    #, added_stub_head = "Response to critical slide"
    #, col_spanners = makespanners()
    , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
@@ -2491,30 +2491,30 @@ c("(Intercept)"
   , "psychself:tempnow")
 
 c("(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now"
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now"
   , "(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now")
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now")
 
 test$Term <- c("(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now"
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now"
   , "(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now")
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now")
 
 test$`$b$` <- round(test$estimate,digits=2)
 test$`$S.E.$` <- round(test$std.error,digits=2)
@@ -2532,7 +2532,7 @@ test1
 ```
 
 ### Combined Effects of both Distance Manipulations
-A multinomial logistic regression was conducted to examine the combined effects of both temporal and psychological distance on responses to the critical slide.
+A multinomial logistic regression was conducted to examine the combined effects of both temporal and social distance on responses to the critical slide.
 Overall the model significantly predicted responses to the critical slide
 $\chi$^2^(`r chi_df`,
 *N* = `r length(x$cs)`) =
@@ -3232,7 +3232,7 @@ papaja::apa_table(
 
 
 
-#### Psychological Distancing and Dumbfounding
+#### Social Distancing and Dumbfounding
 
 
 ```{r}
@@ -3577,7 +3577,7 @@ res
 papaja::apa_table(
    res
    , align = c("l", "l", "c", "c", "c")
-   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on psychological distancing"
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on social distancing"
    #, added_stub_head = "Response to critical slide"
    #, col_spanners = makespanners()
    , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
@@ -3725,30 +3725,30 @@ c("(Intercept)"
   , "psychself:tempnow")
 
 c("(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now"
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now"
   , "(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now")
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now")
 
 test$Term <- c("(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now"
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now"
   , "(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now")
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now")
 
 test$`$b$` <- round(test$estimate,digits=2)
 test$`$S.E.$` <- round(test$std.error,digits=2)
@@ -3766,7 +3766,7 @@ test1
 ```
 
 ### Combined Effects of both Distance Manipulations
-A multinomial logistic regression was conducted to examine the combined effects of both temporal and psychological distance on responses to the critical slide.
+A multinomial logistic regression was conducted to examine the combined effects of both temporal and social distance on responses to the critical slide.
 Overall the model significantly predicted responses to the critical slide
 $\chi$^2^(`r chi_df`,
 *N* = `r length(x$cs)`) =
@@ -4476,7 +4476,7 @@ papaja::apa_table(
 
 
 
-#### Psychological Distancing and Dumbfounding
+#### Social Distancing and Dumbfounding
 
 
 ```{r}
@@ -4820,7 +4820,7 @@ res
 papaja::apa_table(
    res
    , align = c("l", "l", "c", "c", "c")
-   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on psychological distancing"
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on social distancing"
    #, added_stub_head = "Response to critical slide"
    #, col_spanners = makespanners()
    , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
@@ -4968,30 +4968,30 @@ c("(Intercept)"
   , "psychself:tempnow")
 
 c("(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now"
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now"
   , "(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now")
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now")
 
 test$Term <- c("(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now"
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now"
   , "(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now")
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now")
 
 test$`$b$` <- round(test$estimate,digits=2)
 test$`$S.E.$` <- round(test$std.error,digits=2)
@@ -5009,7 +5009,7 @@ test1
 ```
 
 ### Combined Effects of both Distance Manipulations
-A multinomial logistic regression was conducted to examine the combined effects of both temporal and psychological distance on responses to the critical slide.
+A multinomial logistic regression was conducted to examine the combined effects of both temporal and social distance on responses to the critical slide.
 Overall the model significantly predicted responses to the critical slide
 $\chi$^2^(`r chi_df`,
 *N* = `r length(x$cs)`) =
@@ -5715,7 +5715,7 @@ papaja::apa_table(
 {{< pagebreak >}}
 
 
-#### Psychological Distancing and Dumbfounding
+#### Social Distancing and Dumbfounding
 
 
 ```{r}
@@ -6060,7 +6060,7 @@ res
 papaja::apa_table(
    res
    , align = c("l", "l", "c", "c", "c")
-   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on psychological distancing"
+   , caption = "Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on social distancing"
    #, added_stub_head = "Response to critical slide"
    #, col_spanners = makespanners()
    , note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
@@ -6206,30 +6206,30 @@ c("(Intercept)"
   , "psychself:tempnow")
 
 c("(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now"
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now"
   , "(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now")
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now")
 
 test$Term <- c("(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now"
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now"
   , "(Intercept)"
-  ,"Psy-Self"
+  ,"Soc-Self"
   ,"Temp-Future"
   ,"Temp-Now"
-  ,"Psy-Self $\\times$ Temp-Future"
-  ,"Psy-Self $\\times$ Temp-Now")
+  ,"Soc-Self $\\times$ Temp-Future"
+  ,"Soc-Self $\\times$ Temp-Now")
 
 test$`$b$` <- round(test$estimate,digits=2)
 test$`$S.E.$` <- round(test$std.error,digits=2)
@@ -6247,7 +6247,7 @@ test1
 ```
 
 ### Combined Effects of both Distance Manipulations
-A multinomial logistic regression was conducted to examine the combined effects of both temporal and psychological distance on responses to the critical slide.
+A multinomial logistic regression was conducted to examine the combined effects of both temporal and social distance on responses to the critical slide.
 Overall the model significantly predicted responses to the critical slide
 $\chi$^2^(`r chi_df`,
 *N* = `r length(x$cs)`) =
@@ -6766,7 +6766,7 @@ ggsave("resources/img/psych_scenarios.jpeg", g, width = 12, height = 9, units = 
 
 ```{r}
 #| label: apafg-psychscenarios
-#| apa-cap: Psychological distance and reason-giving for each Scenario
+#| apa-cap: Social distance and reason-giving for each Scenario
 #| include: true
 
 knitr::include_graphics("resources/img/psych_scenarios.jpeg")

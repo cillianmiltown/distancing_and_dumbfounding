@@ -41,14 +41,14 @@ x <- data.frame(
   mutate(
     # create a "condition5" variable (controls merged)
     condition5 = condition6
-      # dplyr::recode(condition6
-      #               , "ctrl_psych" = "ctrl"
-      #               , "ctrl_temp" = "ctrl"
-      #               , "oth_fut" = "oth_fut"
-      #               , "oth_now" = "oth_now"
-      #               , "slf_fut" = "slf_fut"
-      #               , "slf_now" = "slf_now"
-      # )
+    # dplyr::recode(condition6
+    #               , "ctrl_psych" = "ctrl"
+    #               , "ctrl_temp" = "ctrl"
+    #               , "oth_fut" = "oth_fut"
+    #               , "oth_now" = "oth_now"
+    #               , "slf_fut" = "slf_fut"
+    #               , "slf_now" = "slf_now"
+    # )
     # create a "psych" variable (psychological distance)
     , psych = 
       dplyr::recode(condition6
@@ -104,7 +104,7 @@ y$cs       <- sample(levels(empty_df$cs),(length(y$ResponseId)),rep = T, prob=c(
 y$ju2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=3.0, sd=1.8)
 y$cf2_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=5.7, sd=1.4)
 oth_ctrl <- y
-  
+
 y <- oth_fut
 y$scenario <- sample(levels(empty_df$scenario),(length(y$ResponseId)),rep = T, prob=c(0.25, 0.25, 0.25, 0.25))
 y$ju1_2    <- rtruncnorm(n=(length(y$ResponseId)), a=1, b=7, mean=2.9, sd=1.7)
@@ -612,6 +612,5 @@ simulated_data <- simulated_data_scenarios
 
 
 rm("conditions", "control", "df", "dumb", "empty_df", "Heinz", "J_and_M",
-"Jennifer", "make_factors", "N", "nothing", "oth_ctrl", "oth_fut", "oth_now",
-"reasons", "sample_data", "slf_fut", "slf_now", "Trolley", "x", "y")
-
+   "Jennifer", "make_factors", "N", "nothing", "oth_ctrl", "oth_fut", "oth_now",
+   "reasons", "sample_data", "slf_fut", "slf_now", "Trolley", "x", "y")

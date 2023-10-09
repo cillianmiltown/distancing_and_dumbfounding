@@ -2036,7 +2036,7 @@ Jennifer's actions did not harm anyone, or negatively affect anyone. <br>How can
 1 = *There is nothing wrong*; 7 = *It is definitely wrong*<br><br>
 
 Please indicate how well you can justify your response above<br>
-1 = *I can provide a valid reason*; 7 = *I can't think of a reason*
+1 = *I can't think of a reason*; 7 = *I can provide a valid reason*
 
 
 ## Study 6: Results
