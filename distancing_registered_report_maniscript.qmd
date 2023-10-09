@@ -197,10 +197,12 @@ Previous research has demonstrated that under cognitive load, dumbfounded respon
 
 ```{r}
 #| label: apafg-summaryfigure
-#| apa-cap: Hypothesized level of deliberation for each response type in the dumbfounding paradigm
 #| include: true
+#| apa-cap: Hypothesized level of deliberation for each response type in the dumbfounding paradigm
 #| apa-note: Reproduced from McHugh et al., (2023)
 #| out-width: 50%
+
+
 knitr::include_graphics("resources/img/responses_figure4.jpg")
 ```
 
@@ -217,9 +219,12 @@ According to construal level theory, greater psychological distance is associate
 # The Current Research
 The current research tests the prediction that manipulations designed to increase psychological distance will facilitate reason-giving in a moral dumbfounding task. We will test two different manipulations across two domains of psychological distance, social distance and temporal distance. We predict that under increased psychological distance (social distance or psychological distance), rates of reason-giving will be higher than in a control group or under reduced psychological distance.
 
+
 # Method
 
 ```{r}
+#| include: false
+
 # 
 # v <- function(){w1/sqrt(df)}
 # 
@@ -253,35 +258,45 @@ pwr::pwr.chisq.test(w=medium,df=(df),sig.level = .05, power=.8)
 pwr::pwr.chisq.test(w=large,df=(df),sig.level = .05, power=.8)
 
 
-pwr::pwr.chisq.test(df=(chi_df),N=4800,sig.level = .05, power=.9)$w*(sqrt(df))
+pwr::pwr.chisq.test(df=(df),N=4800,sig.level = .05, power=.9)$w*(sqrt(df))
 
 df <- 2
 small <- .1/sqrt(df)
 medium <- .3/sqrt(df)
 large <- .5/sqrt(df)
-analysis1 <- c(pwr::pwr.chisq.test(w=small,df=(df),sig.level = .05, power=.9)$N
-               ,pwr::pwr.chisq.test(w=medium,df=(df),sig.level = .05, power=.9)$N
-               ,pwr::pwr.chisq.test(w=large,df=(df),sig.level = .05, power=.9)$N)
+analysis1 <- c(round(pwr::pwr.chisq.test(w=small,df=(df),sig.level = .05, power=.9)$N)
+               , small
+               ,round(pwr::pwr.chisq.test(w=medium,df=(df),sig.level = .05, power=.9)$N)
+               , medium
+               ,round(pwr::pwr.chisq.test(w=large,df=(df),sig.level = .05, power=.9)$N)
+               , large)
 df <- 4
 small <- .1/sqrt(df)
 medium <- .3/sqrt(df)
 large <- .5/sqrt(df)
-analysis2 <- c(pwr::pwr.chisq.test(w=small,df=(df),sig.level = .05, power=.9)$N
-               ,pwr::pwr.chisq.test(w=medium,df=(df),sig.level = .05, power=.9)$N
-               ,pwr::pwr.chisq.test(w=large,df=(df),sig.level = .05, power=.9)$N)
+analysis2 <- c(round(pwr::pwr.chisq.test(w=small,df=(df),sig.level = .05, power=.9)$N)
+               , small
+               ,round(pwr::pwr.chisq.test(w=medium,df=(df),sig.level = .05, power=.9)$N)
+               , medium
+               ,round(pwr::pwr.chisq.test(w=large,df=(df),sig.level = .05, power=.9)$N)
+               , large)
 df <- 10
 small <- .1/sqrt(df)
 medium <- .3/sqrt(df)
 large <- .5/sqrt(df)
-analysis3 <- c(pwr::pwr.chisq.test(w=small,df=(df),sig.level = .05, power=.9)$N
-               ,pwr::pwr.chisq.test(w=medium,df=(df),sig.level = .05, power=.9)$N
-               ,pwr::pwr.chisq.test(w=large,df=(df),sig.level = .05, power=.9)$N)
+analysis3 <- c(round(pwr::pwr.chisq.test(w=small,df=(df),sig.level = .05, power=.9)$N)
+               , small
+               ,round(pwr::pwr.chisq.test(w=medium,df=(df),sig.level = .05, power=.9)$N)
+               , medium
+               ,round(pwr::pwr.chisq.test(w=large,df=(df),sig.level = .05, power=.9)$N)
+               , large)
 
 power_table <- 
   `rownames<-`(
-    `colnames<-`(rbind(analysis1,analysis2,analysis3), c("Small","Medium","Large")),
+    `colnames<-`(rbind(analysis1,analysis2,analysis3),
+                 c("Small","V","Medium","V","Large","V")),
     c("Analysis 1", "Analysis 2", "Analysis 3"))
-
+power_table
 ```
 
 A series of power analyses were conducted to determine the optimum sample size for this study based on three key hypotheses testing analyses. Our design will investigate the influence of Social Distance (2 levels: analysis 1), Temporal Distance (3 levels, analysis 2), and the combined influence of both Social and Temporal Distance (analysis 3) on rates of reason-giving.
@@ -302,12 +317,78 @@ papaja::apa_table(
    #, added_stub_head = "Response to critical slide"
    #, col_spanners = makespanners()
    #, note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
-   , escape = TRUE
+   #, escape = TRUE
    
 )
 
 ```
 
+
+```{r}
+#| include: false
+
+N1 <- 4800
+df <- 2
+analysis1a <- pwr::pwr.chisq.test(N = N1,df=(df),sig.level = .05, power=.9)$w
+N1 <- 4800
+df <- 4
+analysis2a <- pwr::pwr.chisq.test(N = N1,df=(df),sig.level = .05, power=.9)$w
+N1 <- 4800
+df <- 10
+analysis3a <- pwr::pwr.chisq.test(N = N1,df=(df),sig.level = .05, power=.9)$w
+
+
+N1 <- 1200
+df <- 2
+analysis1b <- pwr::pwr.chisq.test(N = N1,df=(df),sig.level = .05, power=.9)$w
+N1 <- 1200
+df <- 4
+analysis2b <- pwr::pwr.chisq.test(N = N1,df=(df),sig.level = .05, power=.9)$w
+N1 <- 1200
+df <- 10
+analysis3b <- pwr::pwr.chisq.test(N = N1,df=(df),sig.level = .05, power=.9)$w
+
+overall <- c(analysis1a, analysis2a, analysis3a)
+scenarios <- c(analysis1b, analysis2b, analysis3b)
+
+effect_table <- `rownames<-`(
+  `colnames<-`(
+    cbind.data.frame(
+      rep(4800,3)
+      ,overall
+      ,rep(1200,3)
+      ,scenarios)
+    , c("Overall N", "Overall V", "Scenario N", "Scenario V")
+  ),c("Analysis 1", "Analysis 2", "Analysis 3")
+)
+
+```
+
+
+```{r}
+#| include: true
+
+#| results: asis
+#| include: true
+
+papaja::apa_table(
+   effect_table
+   , align = c("l", "l", "c", "c", "c")
+   , caption = "Minimum detectable effect size for each analysis based on proposed sample size, for overall analysis, and for scenario level analysis"
+   #, added_stub_head = "Response to critical slide"
+   #, col_spanners = makespanners()
+   #, note = "* = sig. at \\emph{p} < .05; ** = sig. at \\emph{p} < .001"
+   #, escape = TRUE
+   
+)
+
+```
+
+\pagebreak
+
+&nbsp;
+
+\pagebreak
 
 # Results
 
