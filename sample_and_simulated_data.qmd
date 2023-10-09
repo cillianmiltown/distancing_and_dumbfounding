@@ -55,7 +55,7 @@ N <- 4800
 session_seed <- 4
 save(N,file = "N.RData")
 
-#source("simulate_data.R")
+source("simulate_data.R")
 
 x <- simulated_data_scenarios
 
@@ -64,11 +64,25 @@ x <- simulated_data_scenarios
 ```{r}
 
 table(x$condition6)
-table(x$psych,x$temp)
 
 ```
 
 # Analysis of Simulated Data
+
+The following is a sample analysis using a simulated data set. This simulated data set contains *N* = `r length(x$cs)` participants. This sample size was chosen in order for at least 400 participants at each level of the temporal distance IV when analysing the scenarios separately (i.e., aiming for *n* = 1200 per scenario). This sample size will also allow for the detection of a medium effect in the combined analysis on the entire sample.
+
+
+```{r}
+#| include: true
+
+
+table(x$psych,x$temp)
+
+```
+
+
+
+
 
 ## Temporal Distancing and Dumbfounding
 
