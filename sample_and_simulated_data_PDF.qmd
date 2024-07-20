@@ -189,7 +189,7 @@ rm(list = setdiff(
 
 
 ```{r}
-N <- 4800
+N <- 2400
 session_seed <- 4
 save(N,file = "N.RData")
 
@@ -210,7 +210,7 @@ table(x$condition6)
 
 
 
-The following is a sample analysis using a simulated data set. This simulated data set contains *N* = `r length(x$cs)` participants. This sample size was chosen in order for at least 400 participants at each level of the temporal distance IV when analysing the scenarios separately (i.e., aiming for *n* = 1200 per scenario). This sample size will also allow for the detection of a medium effect in the combined analysis on the entire sample.
+The following is a sample analysis using a simulated data set. This simulated data set contains *N* = `r length(x$cs)` participants. This sample size was chosen in order for at least 200 participants at each level of the temporal distance IV when analysing the scenarios separately (i.e., aiming for *n* = 600 per scenario). This sample size will also allow for the detection of a medium effect in the combined analysis on the entire sample.
 
 ```{r}
 #| include: true
@@ -692,7 +692,7 @@ There was no difference in initial judgement depending on distance manipulation:
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychoverall}.
+There was a significant association between social distancing and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychoverall}.
 
 
 
@@ -2102,7 +2102,7 @@ There was no difference in initial judgement depending on distance manipulation:
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychscenarios}.
+There was a significant association between social distancing and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychscenarios}.
 
 
 
@@ -3335,7 +3335,7 @@ There was no difference in initial judgement depending on distance manipulation:
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychscenarios}.
+There was a significant association between social distancing and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychscenarios}.
 
 
 
@@ -4579,7 +4579,7 @@ There was no difference in initial judgement depending on distance manipulation:
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychscenarios}.
+There was a significant association between social distancing and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychscenarios}.
 
 
 
@@ -5818,7 +5818,7 @@ There was no difference in initial judgement depending on distance manipulation:
 
 #### Distancing and Reason-Giving/Dumbfounding
 
-There was a significant association between temporal distance condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychscenarios}.
+There was a significant association between social distancing and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(x$cs)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the increased distance group (*N* = `r sum(x$psych=="other")`) and the decreased distance group (*N* = `r sum(x$psych=="self")`) are displayed in {apafg-psychscenarios}.
 
 
 

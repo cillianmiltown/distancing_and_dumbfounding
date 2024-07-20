@@ -176,7 +176,11 @@ library(ggpubr)
 library(gridExtra)
 library(grid)
 
-#tinytex:: install_tinytex()
+options(tinytex.install_packages = FALSE)
+
+# tinytex::uninstall_tinytex()
+# 
+# tinytex::install_tinytex()
 
 ```
 
@@ -684,7 +688,7 @@ There was no difference in initial judgement depending on distance manipulation:
 
 ### Distancing and Reason-Giving/Dumbfounding
 
-There was no significant association between experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="1manip")`) and the control group (*N* = `r sum(df3$condition=="2control")`) are displayed in {apafg-dch5S1fig2criticalcondition}.
+There was no significant association between the experimental condition and response to the critical slide, $\chi$^2^(`r c$parameter`, *N* = `r length(df3$InJu1)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))`, *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. The responses to the critical slide for the experimental group (*N* = `r sum(df3$condition=="1manip")`) and the control group (*N* = `r sum(df3$condition=="2control")`) are displayed in {apafg-dch5S1fig2criticalcondition}.
 
 
 

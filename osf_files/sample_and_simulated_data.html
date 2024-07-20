@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Cillian McHugh">
+<meta name="dcterms.date" content="2024-05-10">
+<meta name="keywords" content="moral dumbfounding, dual-processes, reasons, intuitions">
+
+<title>Sample and Simulated Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="sample_and_simulated_data_files/libs/clipboard/clipboard.min.js"></script>
+<script src="sample_and_simulated_data_files/libs/quarto-html/quarto.js"></script>
+<script src="sample_and_simulated_data_files/libs/quarto-html/popper.min.js"></script>
+<script src="sample_and_simulated_data_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="sample_and_simulated_data_files/libs/quarto-html/anchor.min.js"></script>
+<link href="sample_and_simulated_data_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="sample_and_simulated_data_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="sample_and_simulated_data_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="sample_and_simulated_data_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="sample_and_simulated_data_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#analysis-of-simulated-data" id="toc-analysis-of-simulated-data" class="nav-link active" data-scroll-target="#analysis-of-simulated-data">Analysis of Simulated Data</a>
+  <ul>
+  <li><a href="#temporal-distancing-and-dumbfounding" id="toc-temporal-distancing-and-dumbfounding" class="nav-link" data-scroll-target="#temporal-distancing-and-dumbfounding">Temporal Distancing and Dumbfounding</a>
+  <ul class="collapse">
+  <li><a href="#overview-of-judgments" id="toc-overview-of-judgments" class="nav-link" data-scroll-target="#overview-of-judgments">Overview of Judgments</a></li>
+  <li><a href="#distancing-and-judgments-made" id="toc-distancing-and-judgments-made" class="nav-link" data-scroll-target="#distancing-and-judgments-made">Distancing and Judgments Made</a></li>
+  <li><a href="#distancing-and-reason-givingdumbfounding" id="toc-distancing-and-reason-givingdumbfounding" class="nav-link" data-scroll-target="#distancing-and-reason-givingdumbfounding">Distancing and Reason-Giving/Dumbfounding</a></li>
+  </ul></li>
+  <li><a href="#psychological-distancing-and-dumbfounding" id="toc-psychological-distancing-and-dumbfounding" class="nav-link" data-scroll-target="#psychological-distancing-and-dumbfounding">Psychological Distancing and Dumbfounding</a>
+  <ul class="collapse">
+  <li><a href="#overview-of-judgments-1" id="toc-overview-of-judgments-1" class="nav-link" data-scroll-target="#overview-of-judgments-1">Overview of Judgments</a></li>
+  <li><a href="#distancing-and-judgments-made-1" id="toc-distancing-and-judgments-made-1" class="nav-link" data-scroll-target="#distancing-and-judgments-made-1">Distancing and Judgments Made</a></li>
+  <li><a href="#distancing-and-reason-givingdumbfounding-1" id="toc-distancing-and-reason-givingdumbfounding-1" class="nav-link" data-scroll-target="#distancing-and-reason-givingdumbfounding-1">Distancing and Reason-Giving/Dumbfounding</a></li>
+  </ul></li>
+  <li><a href="#distancing-and-dumbfounding" id="toc-distancing-and-dumbfounding" class="nav-link" data-scroll-target="#distancing-and-dumbfounding">Distancing and Dumbfounding</a></li>
+  <li><a href="#wheres-the-table" id="toc-wheres-the-table" class="nav-link" data-scroll-target="#wheres-the-table">where’s the table</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Sample and Simulated Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Cillian McHugh </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 10, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>moral dumbfounding, dual-processes, reasons, intuitions</p>
+  </div>
+</div>
+
+</header>
+
+
+<section id="analysis-of-simulated-data" class="level1">
+<h1>Analysis of Simulated Data</h1>
+<p>The following is a sample analysis using a simulated data set. This simulated data set contains <em>N</em> = 2400 participants. This sample size was chosen in order for at least 200 participants at each level of the temporal distance IV when analysing the scenarios separately (i.e., aiming for <em>n</em> = 600 per scenario). This sample size will also allow for the detection of a medium effect in the combined analysis on the entire sample.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>       
+        control future now
+  other     400    400 400
+  self      400    400 400</code></pre>
+</div>
+</div>
+<section id="temporal-distancing-and-dumbfounding" class="level2">
+<h2 class="anchored" data-anchor-id="temporal-distancing-and-dumbfounding">Temporal Distancing and Dumbfounding</h2>
+<div class="cell" data-apa-cap="Simulated Dat: Responses to critical slide depending on temporal distance for the increased temporal distance group (future, N = 1,600), for the decreased temporal distance group (today, N = 1,600), and for the control group (N = 1,600) (error bars represent standard error of the proportion)">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="sample_and_simulated_data_files/figure-html/apafg-tempoverall-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="overview-of-judgments" class="level4">
+<h4 class="anchored" data-anchor-id="overview-of-judgments">Overview of Judgments</h4>
+<p>One thousand Seven hundred seventeen participants (71.54%) rated the behavior of Julie and Mark as wrong initially, and one thousand five hundred Ninety five participants (66.46%) rated the behavior as wrong at the end of the task. There was a significant difference between initial ratings (<em>M</em> = 3.2, <em>SD</em> = 1.3) and revised ratings (<em>M</em> = 3.4, <em>SD</em> = 1.4), <em>t</em>(2399) = -4.21, <em>p</em> &lt; .001, <em>d</em> = 0.09.</p>
+</section>
+<section id="distancing-and-judgments-made" class="level4">
+<h4 class="anchored" data-anchor-id="distancing-and-judgments-made">Distancing and Judgments Made</h4>
+<p>There was no difference in initial judgement depending on distance manipulation: <em>F</em>(2, 2397) = 0.12, <em>p</em> = .884 <span class="math inline">\(\eta\)</span><em><sub>p</sub></em><sup>2</sup> = 0, (<em>M</em><sub>increased</sub> = 3.2, <em>SD</em><sub>increased</sub> = 1.3, <em>M</em><sub>decreased</sub> = 3.3, <em>SD</em><sub>decreased</sub> = 1.3, <em>M</em><sub>control</sub> = 3.2, <em>SD</em><sub>control</sub> = 1.4). There was no difference in revised judgement depending on distance manipulation: <em>F</em>(2, 2397) = 1.52, <em>p</em> = .219, <span class="math inline">\(\eta\)</span><em><sub>p</sub></em><sup>2</sup> = 0.001, (<em>M</em><sub>increased</sub> = 3.4, <em>SD</em><sub>increased</sub> = 1.3, <em>M</em><sub>decreased</sub> = 3.4, <em>SD</em><sub>decreased</sub> = 1.4, <em>M</em><sub>control</sub> = 3.5, <em>SD</em><sub>control</sub> = 1.4).</p>
+</section>
+<section id="distancing-and-reason-givingdumbfounding" class="level4">
+<h4 class="anchored" data-anchor-id="distancing-and-reason-givingdumbfounding">Distancing and Reason-Giving/Dumbfounding</h4>
+<p>There was a significant association between temporal distance condition and response to the critical slide, <span class="math inline">\(\chi\)</span><sup>2</sup>(4, <em>N</em> = 2400) = 43.86, <em>p</em> &lt; .001, <em>V</em> = 0.14, the observed power was 1. The responses to the critical slide for the increased distance group (<em>N</em> = 800) the decreased distance group (<em>N</em> = 800), and the control group (<em>N</em> = 800) are displayed in {apafg-tempoverall}.</p>
+<table class="table">
+<caption>(#tab:TempResiduals) Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on temporal distancing</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th></th>
+<th style="text-align: center;">Control</th>
+<th style="text-align: center;">Increased</th>
+<th style="text-align: center;">Decreased</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Observed count</td>
+<td>Reasons</td>
+<td style="text-align: center;">562</td>
+<td style="text-align: center;">557</td>
+<td style="text-align: center;">518</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Dumbfounded</td>
+<td style="text-align: center;">116</td>
+<td style="text-align: center;">58</td>
+<td style="text-align: center;">79</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Nothing Wrong</td>
+<td style="text-align: center;">122</td>
+<td style="text-align: center;">185</td>
+<td style="text-align: center;">203</td>
+</tr>
+<tr class="even">
+<td>Expected count</td>
+<td>Reasons</td>
+<td style="text-align: center;">545.67</td>
+<td style="text-align: center;">545.67</td>
+<td style="text-align: center;">545.67</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Dumbfounded</td>
+<td style="text-align: center;">84.33</td>
+<td style="text-align: center;">84.33</td>
+<td style="text-align: center;">84.33</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Nothing Wrong</td>
+<td style="text-align: center;">170</td>
+<td style="text-align: center;">170</td>
+<td style="text-align: center;">170</td>
+</tr>
+<tr class="odd">
+<td>Standardised residuals</td>
+<td>Reasons</td>
+<td style="text-align: center;">1.52</td>
+<td style="text-align: center;">1.05</td>
+<td style="text-align: center;">-2.57*</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Dumbfounded</td>
+<td style="text-align: center;">4.47**</td>
+<td style="text-align: center;">-3.71**</td>
+<td style="text-align: center;">-0.75</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Nothing Wrong</td>
+<td style="text-align: center;">-5.08**</td>
+<td style="text-align: center;">1.59</td>
+<td style="text-align: center;">3.49**</td>
+</tr>
+</tbody>
+</table>
+<div data-custom-style="table-note">
+<p><em>Note.</em> * = sig. at &lt; .05; ** = sig. at &lt; .001</p>
+</div>
+<p>&nbsp;</p>
+</section>
+</section>
+<section id="psychological-distancing-and-dumbfounding" class="level2">
+<h2 class="anchored" data-anchor-id="psychological-distancing-and-dumbfounding">Psychological Distancing and Dumbfounding</h2>
+<div class="cell" data-apa-cap="Simulated Dat: Responses to critical slide depending on psychological distance for the increased psychological distance group (future, N = 2,400), and for the decreased psychological distance group (today, N = 2,400), (error bars represent standard error of the proportion)">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="sample_and_simulated_data_files/figure-html/apafg-psychoverall-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="overview-of-judgments-1" class="level4">
+<h4 class="anchored" data-anchor-id="overview-of-judgments-1">Overview of Judgments</h4>
+<p>One thousand Seven hundred seventeen participants (71.54%) rated the behavior of Julie and Mark as wrong initially, and one thousand five hundred Ninety five participants (66.46%) rated the behavior as wrong at the end of the task. There was a significant difference between initial ratings (<em>M</em> = 3.2, <em>SD</em> = 1.3) and revised ratings (<em>M</em> = 3.4, <em>SD</em> = 1.4), <em>t</em>(2399) = -4.21, <em>p</em> &lt; .001, <em>d</em> = 0.09.</p>
+</section>
+<section id="distancing-and-judgments-made-1" class="level4">
+<h4 class="anchored" data-anchor-id="distancing-and-judgments-made-1">Distancing and Judgments Made</h4>
+<p>There was no difference in initial judgement depending on distance manipulation: <em>t</em>(2396.22) = 0.25, <em>p</em> = .799, <em>d</em> = 0.01, (<em>M</em><sub>increased</sub> = 3.2, <em>SD</em><sub>increased</sub> = 1.3, <em>M</em><sub>decreased</sub> = 3.2, <em>SD</em><sub>decreased</sub> = 1.3). There was no difference in revised judgement depending on distance manipulation: <em>t</em>(2397.99) = 0.39, <em>p</em> = .697, <em>d</em> = 0.02, (<em>M</em><sub>increased</sub> = 3.4, <em>SD</em><sub>increased</sub> = 1.4, <em>M</em><sub>decreased</sub> = 3.4, <em>SD</em><sub>decreased</sub> = 1.4).</p>
+</section>
+<section id="distancing-and-reason-givingdumbfounding-1" class="level4">
+<h4 class="anchored" data-anchor-id="distancing-and-reason-givingdumbfounding-1">Distancing and Reason-Giving/Dumbfounding</h4>
+<p>There was a significant association between temporal distance condition and response to the critical slide, <span class="math inline">\(\chi\)</span><sup>2</sup>(2, <em>N</em> = 2400) = 4.301, <em>p</em> = .116, <em>V</em> = 0.04, the observed power was 0.38. The responses to the critical slide for the increased distance group (<em>N</em> = 1200) and the decreased distance group (<em>N</em> = 1200) are displayed in {apafg-psychoverall}.</p>
+<table class="table">
+<caption>(#tab:PsychResiduals) Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on psychological distancing</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th></th>
+<th style="text-align: center;">Increased</th>
+<th style="text-align: center;">Decreased</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Observed count</td>
+<td>Reasons</td>
+<td style="text-align: center;">828</td>
+<td style="text-align: center;">809</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Dumbfounded</td>
+<td style="text-align: center;">111</td>
+<td style="text-align: center;">142</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Nothing Wrong</td>
+<td style="text-align: center;">261</td>
+<td style="text-align: center;">249</td>
+</tr>
+<tr class="even">
+<td>Expected count</td>
+<td>Reasons</td>
+<td style="text-align: center;">818.5</td>
+<td style="text-align: center;">818.5</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Dumbfounded</td>
+<td style="text-align: center;">126.5</td>
+<td style="text-align: center;">126.5</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Nothing Wrong</td>
+<td style="text-align: center;">255</td>
+<td style="text-align: center;">255</td>
+</tr>
+<tr class="odd">
+<td>Standardised residuals</td>
+<td>Reasons</td>
+<td style="text-align: center;">0.83</td>
+<td style="text-align: center;">-0.83</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Dumbfounded</td>
+<td style="text-align: center;">-2.06*</td>
+<td style="text-align: center;">2.06*</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Nothing Wrong</td>
+<td style="text-align: center;">0.6</td>
+<td style="text-align: center;">-0.6</td>
+</tr>
+</tbody>
+</table>
+<div data-custom-style="table-note">
+<p><em>Note.</em> * = sig. at &lt; .05; ** = sig. at &lt; .001</p>
+</div>
+<p>&nbsp;</p>
+</section>
+</section>
+<section id="distancing-and-dumbfounding" class="level2">
+<h2 class="anchored" data-anchor-id="distancing-and-dumbfounding">Distancing and Dumbfounding</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>(#tab:unnamed-chunk-20) Observed counts, expected counts, and standardised residuals for each response to the critical slide depending on temporal distancing</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Response</th>
+<th style="text-align: left;">Term</th>
+<th style="text-align: center;">Estimate</th>
+<th style="text-align: center;">S.E.</th>
+<th style="text-align: center;">z</th>
+<th style="text-align: left;">Wald</th>
+<th style="text-align: left;">p</th>
+<th style="text-align: center;">O.R</th>
+<th style="text-align: center;">Lower</th>
+<th style="text-align: center;">Upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Dumbfounded</td>
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: center;">-1.63</td>
+<td style="text-align: center;">0.19</td>
+<td style="text-align: center;">-8.63</td>
+<td style="text-align: left;">-17.26</td>
+<td style="text-align: left;">&lt; .001**</td>
+<td style="text-align: center;">0.19</td>
+<td style="text-align: center;">0.13</td>
+<td style="text-align: center;">0.28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dumbfounded</td>
+<td style="text-align: left;">Psy-Self</td>
+<td style="text-align: center;">0.09</td>
+<td style="text-align: center;">0.20</td>
+<td style="text-align: center;">0.44</td>
+<td style="text-align: left;">0.89</td>
+<td style="text-align: left;">0.657</td>
+<td style="text-align: center;">1.10</td>
+<td style="text-align: center;">0.73</td>
+<td style="text-align: center;">1.64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dumbfounded</td>
+<td style="text-align: left;">Temp-Future</td>
+<td style="text-align: center;">-1.07</td>
+<td style="text-align: center;">0.27</td>
+<td style="text-align: center;">-3.90</td>
+<td style="text-align: left;">-7.81</td>
+<td style="text-align: left;">&lt; .001**</td>
+<td style="text-align: center;">0.34</td>
+<td style="text-align: center;">0.20</td>
+<td style="text-align: center;">0.59</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dumbfounded</td>
+<td style="text-align: left;">Temp-Now</td>
+<td style="text-align: center;">-0.35</td>
+<td style="text-align: center;">0.23</td>
+<td style="text-align: center;">-1.52</td>
+<td style="text-align: left;">-3.04</td>
+<td style="text-align: left;">0.129</td>
+<td style="text-align: center;">0.70</td>
+<td style="text-align: center;">0.45</td>
+<td style="text-align: center;">1.11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dumbfounded</td>
+<td style="text-align: left;">Scenario-Jennifer</td>
+<td style="text-align: center;">-0.18</td>
+<td style="text-align: center;">0.20</td>
+<td style="text-align: center;">-0.91</td>
+<td style="text-align: left;">-1.83</td>
+<td style="text-align: left;">0.361</td>
+<td style="text-align: center;">0.84</td>
+<td style="text-align: center;">0.57</td>
+<td style="text-align: center;">1.23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dumbfounded</td>
+<td style="text-align: left;">Scenario-Julie and Mark</td>
+<td style="text-align: center;">0.31</td>
+<td style="text-align: center;">0.18</td>
+<td style="text-align: center;">1.72</td>
+<td style="text-align: left;">3.44</td>
+<td style="text-align: left;">0.085</td>
+<td style="text-align: center;">1.37</td>
+<td style="text-align: center;">0.96</td>
+<td style="text-align: center;">1.96</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dumbfounded</td>
+<td style="text-align: left;">Scenario-Trolley</td>
+<td style="text-align: center;">-0.12</td>
+<td style="text-align: center;">0.20</td>
+<td style="text-align: center;">-0.59</td>
+<td style="text-align: left;">-1.18</td>
+<td style="text-align: left;">0.556</td>
+<td style="text-align: center;">0.89</td>
+<td style="text-align: center;">0.60</td>
+<td style="text-align: center;">1.32</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dumbfounded</td>
+<td style="text-align: left;">Psy-Self$times$Temp-Future</td>
+<td style="text-align: center;">0.62</td>
+<td style="text-align: center;">0.35</td>
+<td style="text-align: center;">1.75</td>
+<td style="text-align: left;">3.51</td>
+<td style="text-align: left;">0.079</td>
+<td style="text-align: center;">1.86</td>
+<td style="text-align: center;">0.93</td>
+<td style="text-align: center;">3.73</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dumbfounded</td>
+<td style="text-align: left;">Psy-Self&amp;times;Temp-Now</td>
+<td style="text-align: center;">0.09</td>
+<td style="text-align: center;">0.32</td>
+<td style="text-align: center;">0.28</td>
+<td style="text-align: left;">0.56</td>
+<td style="text-align: left;">0.778</td>
+<td style="text-align: center;">1.09</td>
+<td style="text-align: center;">0.59</td>
+<td style="text-align: center;">2.04</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nothing-Wrong</td>
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: center;">-1.52</td>
+<td style="text-align: center;">0.17</td>
+<td style="text-align: center;">-9.14</td>
+<td style="text-align: left;">-18.28</td>
+<td style="text-align: left;">&lt; .001**</td>
+<td style="text-align: center;">0.22</td>
+<td style="text-align: center;">0.16</td>
+<td style="text-align: center;">0.30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nothing-Wrong</td>
+<td style="text-align: left;">Psy-Self</td>
+<td style="text-align: center;">-0.11</td>
+<td style="text-align: center;">0.20</td>
+<td style="text-align: center;">-0.54</td>
+<td style="text-align: left;">-1.09</td>
+<td style="text-align: left;">0.586</td>
+<td style="text-align: center;">0.90</td>
+<td style="text-align: center;">0.61</td>
+<td style="text-align: center;">1.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nothing-Wrong</td>
+<td style="text-align: left;">Temp-Future</td>
+<td style="text-align: center;">0.29</td>
+<td style="text-align: center;">0.18</td>
+<td style="text-align: center;">1.59</td>
+<td style="text-align: left;">3.18</td>
+<td style="text-align: left;">0.111</td>
+<td style="text-align: center;">1.34</td>
+<td style="text-align: center;">0.93</td>
+<td style="text-align: center;">1.92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nothing-Wrong</td>
+<td style="text-align: left;">Temp-Now</td>
+<td style="text-align: center;">0.60</td>
+<td style="text-align: center;">0.18</td>
+<td style="text-align: center;">3.30</td>
+<td style="text-align: left;">6.61</td>
+<td style="text-align: left;">&lt; .001**</td>
+<td style="text-align: center;">1.81</td>
+<td style="text-align: center;">1.27</td>
+<td style="text-align: center;">2.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nothing-Wrong</td>
+<td style="text-align: left;">Scenario-Jennifer</td>
+<td style="text-align: center;">-0.13</td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: center;">-0.91</td>
+<td style="text-align: left;">-1.81</td>
+<td style="text-align: left;">0.364</td>
+<td style="text-align: center;">0.87</td>
+<td style="text-align: center;">0.66</td>
+<td style="text-align: center;">1.17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nothing-Wrong</td>
+<td style="text-align: left;">Scenario-Julie and Mark</td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: center;">0.14</td>
+<td style="text-align: center;">1.03</td>
+<td style="text-align: left;">2.07</td>
+<td style="text-align: left;">0.302</td>
+<td style="text-align: center;">1.16</td>
+<td style="text-align: center;">0.88</td>
+<td style="text-align: center;">1.54</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nothing-Wrong</td>
+<td style="text-align: left;">Scenario-Trolley</td>
+<td style="text-align: center;">0.18</td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: center;">1.20</td>
+<td style="text-align: left;">2.41</td>
+<td style="text-align: left;">0.229</td>
+<td style="text-align: center;">1.19</td>
+<td style="text-align: center;">0.90</td>
+<td style="text-align: center;">1.59</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nothing-Wrong</td>
+<td style="text-align: left;">Psy-Self&amp;times;Temp-Future</td>
+<td style="text-align: center;">0.24</td>
+<td style="text-align: center;">0.26</td>
+<td style="text-align: center;">0.92</td>
+<td style="text-align: left;">1.83</td>
+<td style="text-align: left;">0.359</td>
+<td style="text-align: center;">1.27</td>
+<td style="text-align: center;">0.76</td>
+<td style="text-align: center;">2.13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nothing-Wrong</td>
+<td style="text-align: left;">Psy-Self&amp;times;Temp-Now</td>
+<td style="text-align: center;">-0.02</td>
+<td style="text-align: center;">0.26</td>
+<td style="text-align: center;">-0.07</td>
+<td style="text-align: left;">-0.14</td>
+<td style="text-align: left;">0.945</td>
+<td style="text-align: center;">0.98</td>
+<td style="text-align: center;">0.59</td>
+<td style="text-align: center;">1.64</td>
+</tr>
+</tbody>
+</table>
+<div data-custom-style="table-note">
+<p><em>Note.</em> * = sig. at emph{p} &lt; .05; ** = sig. at emph{p} &lt; .001</p>
+</div>
+<p>&nbsp;</p>
+</div>
+</div>
+</section>
+<section id="wheres-the-table" class="level2">
+<h2 class="anchored" data-anchor-id="wheres-the-table">where’s the table</h2>
+<p>Overall the model significantly predicted responses to the critical slide <span class="math inline">\(\chi\)</span><sup>2</sup>(16, <em>N</em> = 2400) = 66.79, <em>p</em> &lt; .001, The observed power was 1. The model explained between 0.92% (Cox and Snell R square) and 2.18% (Nadelkerke R squared) of the variance in responses to the critical slide. For scenarios in the future, participants were more likely to provide reasons than to present as dumbfounded Wald = -7.81, <em>p</em> &lt; .001, odds ratio = 0.34, 95% CI [0.2, 0.59].</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

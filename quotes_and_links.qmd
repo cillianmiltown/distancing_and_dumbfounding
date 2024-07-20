@@ -1,0 +1,79 @@
+---
+title: "Quotes and Links"
+author: "Cillian"
+format: html
+editor: visual
+---
+
+## Quotes & Links
+
+
+### Dáil 1978 
+
+> I appeal to the Minister to put this Bill on the shelves of his Department and to leave it to become surrounded by cobwebs because there are many vitally important economic and national problems to be dealt with. Artificial contraception is morally wrong. Have we lost our minds?
+
+https://www.oireachtas.ie/en/debates/debate/dail/1979-06-12/25/?highlight%5B0%5D=morally&highlight%5B1%5D=wrong
+
+### US Congress
+
+> Schools across this country have been caught trying to convince vulnerable teenagers that their bodies are wrong, filling their heads with lies and convincing them to see their parents as enemies. This line of thinking is morally wrong.
+
+https://www.congress.gov/congressional-record/volume-169/issue-44/house-section/article/H1198-3?q=%7B%22search%22%3A%22morally+wrong%22%7D&s=1&r=3
+
+### UK House of Parliment 12 July 2021
+
+> However, the real menace is what the Bill will achieve if the Conservative party is able to get it on to the statute book. It will enshrine legal protections for harmful and divisive speech. The kind of speech that we would not tolerate in this House would be protected in universities across the country. The Bill creates a new legal framework that allows for those responsible for such harmful speech to take legal action against universities, eating into the resources that ought to be educating our young people and supporting our world-class research programmes. The Bill is unnecessary and it is poorly drafted, but above all, it is deeply wrong and those of us on the Labour Benches will not support it. I commend our reasoned amendment to the House.
+
+https://hansard.parliament.uk/Commons/2021-07-12/debates/3E5A48AD-72E6-420A-910A-9F1863983743/HigherEducation(FreedomOfSpeech)Bill?highlight=morally%20wrong#contribution-AB562EBE-9C46-43F7-A9E1-0AAAA7AA48AF
+
+Kate Green 
+
+
+# Old Introduction
+
+
+
+Think about any politically charged, contentious issue in your country or region and consider how this issue might be discussed in the media. In particular, imagine a TV or radio debate between advocates on either side of the issue. In such a debate, it is plausible that the speakers might defend their positions with statements related to the morality of the issue. Proponents may argue for something "because it is the right thing to do" while opponents may reject something "because it is just plain wrong". These claims regarding morality (or immorality) are often presented as self-evident [@skitka_psychology_2010], without providing justification or reasons for the position, and it is not always apparent if the speakers would be able to provide a justification if they were pressed. Indeed, there is good reason to expect that in at least some cases, the speakers would fail to provide reasons in support of their moral position, and present as morally dumbfounded [e.g., @haidt_moral_2000; @mchugh_searching_2017a; @mchugh_just_2023; see also @macnab_msps_2016; @sim_msps_2016]. 
+
+Moral dumbfounding occurs when people maintain a moral judgment even though they cannot provide a reason in support of this judgment [@haidt_moral_2000; @mchugh_searching_2017a]. While perhaps not as prevalent as initially thought [e.g., @royzman_curious_2015; see also @mchugh_reasons_2020], there is a growing body of evidence demonstrating that it is a robust phenomenon [with rates of dumbfounded responding ranging from 9% to 36% depending on the scenario and the population, see @mchugh_just_2023].
+
+Previous research has demonstrated that under cognitive load, dumbfounded responding can increase [@mchugh_cognitive_2023], providing support for a dual-process explanation of moral dumbfounding. Here we extend this finding and attempt to develop an experimental manipulation that can reduce dumbfounded responding. In line with a dual-process approach, and drawing on construal-level theory [@liberman_effect_2002; @forster_temporal_2004] we aim to test whether distancing manipulations designed to facilitate abstract/analytical thinking can increase reason-giving and reduce moral dumbfounding.
+
+# Moral Dumbfounding as a Conflict in Dual-Processes
+
+@mchugh_cognitive_2023 present a dual-process explanation of moral dumbfounding. Specifically, they draw on dual-process theories of reasoning and moral judgment [e.g., @bago_intuitive_2019; @cushman_action_2013; @greene_secret_2008], to explain moral dumbfounding as occurring as a result of a conflict in dual-processes [e.g., @bonner_conflict_2010]. Conflicts in dual-processes occur when a habitual/intuitive response is different from a response that results from deliberation [e.g., base-rate neglect @bonner_conflict_2010; @deneys_conflict_2008]. For example in classic base-rate neglect studies, participants are provided with a base rate (e.g., a sample contains descriptions of 995 women and 5 men). Participants are then provided with a description apparently taken at random from the sample and asked to estimate the probability that the person described is male. In cases where the description appears to resemble a stereotypical man, the intuitive response (judgement based on the description) is in conflict with the deliberative response [accounting for the base rates, see @deneys_conflict_2014].
+
+
+```{r}
+#| label: apafg-summaryfigure
+#| include: true
+#| apa-cap: Hypothesized level of deliberation for each response type in the dumbfounding paradigm
+#| apa-note: Reproduced from McHugh, McGann, et al., (2023)
+#| out-width: 50%
+
+
+knitr::include_graphics("resources/img/responses_figure4.jpg")
+```
+
+Understanding dumbfounding as a conflict in dual-processes requires the responses in the dumbfounding paradigm to be mapped according their relative amount of deliberation. @mchugh_cognitive_2023 propose this mapping for each of the three responses, reason-giving, nothing-wrong, and dumbfounding. They propose that providing a reason for a moral judgment (reason-giving) involves the most deliberation, providing a dumbfounded response (dumbfounding) involves the least amount of deliberation, and selecting "There is nothing wrong" (nothing-wrong) involves less deliberation than reason-giving, but more deliberation than dumbfounding (see {apafg-summaryfigure}). This mapping allows for testable predictions regarding the influence of specific experimental manipulations on the rates of these different responses in the dumbfounding paradigm.
+
+One such prediction is that in situations where deliberation is inhibited, rates of reason-giving should be reduced and rates of of dumbfounding (or nothing-wrong) should be higher. @mchugh_cognitive_2023 tested this prediction and demonstrated that a cognitive load manipulation (requiring participants to attend to a secondary task while responding to the moral dumbfounding protocol) led to reduced rates of reason-giving and higher rates of dumbfounding [@mchugh_cognitive_2023].
+
+Another prediction of this approach is that under conditions where deliberative responding is more likely, rates of reason-giving should increase and rates of dumbfounding (or nothing-wrong) should decrease. We draw on research on construal level theory and psychological distance [e.g., @trope_construallevel_2010], and predict that under conditions of increased psychological distance, rates of reason-giving should be higher.
+
+Psychological distance is linked with construal level theory such that increased psychological distance is assiciated with higher level construals [@trope_construallevel_2010]. Psychological distance is the degree to which something is removed from direct experience. There are four dimensions of psychological distance [@trope_construallevel_2010]: temporal distance (thinking about past/future events), spatial distance (thinking about spatially remote locations), social distance (perspective taking), and hypotheticality (thinking about hypothetical situations).
+
+According to construal level theory, greater psychological distance is associated with higher level construals, while decreased psychological distance is associated with lower level construals. Construal level is related to abstraction, whereby higher levels of construal are associated with more abstract thinking [@bar-anan_association_2006]. Importantly for the current research, level of abstraction can be linked with the higher or lower levels of deliberation [@evans_dualprocess_2013]. Specifically, more abstract thinking is typically associated with more analytical or deliberative thinking, while less abstraction (more concrete thinking) is associated with less deliberative (more intuitive) thinking [@evans_dualprocess_2013]. We propose that manipulations that increase psychological distance and promote higher level construals, will yield more analytical/deliberative thinking, and will facilitate reason-giving in a moral dumbfounding task.
+
+# The Current Research
+The current research tests the prediction that manipulations designed to increase psychological distance will facilitate reason-giving in a moral dumbfounding task. We will test two different manipulations across two domains of psychological distance, social distance and temporal distance. We predict that under increased psychological distance (social distance or temporal distance), rates of reason-giving will be higher than in a control group or under reduced psychological distance.
+
+
+
+----
+
+# Notes
+
+
+
+@mchugh_cognitive_2023 hypothesised that providing reasons for a moral judgment involves more deliberation relative to providing a dumbfounded (more habitual/intuitive) response. In support of this hypothesis, @mchugh_cognitive_2023 demonstrated that under conditions where deliberation is inhibited (a secondary task/cognitive load manipulation) reason-giving was reduced, and rates of dumbfounding increased.

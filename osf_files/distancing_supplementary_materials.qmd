@@ -1,0 +1,375 @@
+---
+title: "Space to Think: Supplementary Materials"
+blank-lines-above-title: 2
+shorttitle: "Space to Think"
+author:
+    # Roles are optional
+    # Conceptualization, Data curation, Formal Analysis, Funding acquisition, Investigation, 
+    # Methodology, Project administration, Resources, Software, Supervision, Validation, 
+    # Visualization, Writing – original draft, Writing – review & editing
+    #   - Conceptualization
+    #   - Writing - original draft
+    #   - Project administration
+    #   - Formal Analysis
+  - name: Blinded
+    corresponding: true
+    #orcid: 0000-0002-9701-3232
+    email: blinded@blinded.com
+    #url: https://example.org/
+    # Select from the CRediT: Contributor Roles Taxonomy https://credit.niso.org/
+    # role:
+    affiliations:
+      - id: id1
+        name: Blinded
+        department: Blinded
+        #address: 1234 Capital St.
+        city: Blinded
+        region: Blinded
+        postal-code: Blinded
+author-note:
+  blank-lines-above-author-note: 0
+  status-changes: 
+    # Example: [Author name] is now at [affiliation].
+    # affiliation-change: Ana Fulana is now at X University.
+    # Example: [Author name] is deceased.
+    # deceased: Carina Mengana is deceased.
+    # Disclosures condensed to one paragraph, but you can start a field with two line breaks to break them up: \n\nNew Paragraph
+  disclosures: 
+    # Example. Because the authors are equal contributors, order of authorship was determined by a fair coin toss.
+    # Example: "All procedures performed in studies involving human participants"
+    study-registration: All procedures performed in studies involving human participants were approved by the Institutional Research Ethics Committee and conducted in accordance with the Code of Professional Ethics of the Psychological Society of Ireland and with the 1964 Helsinki declaration and its later amendments or comparable ethical standards. Informed consent was obtained from all individual participants included in the study. The authors declare that there are no potential conflicts of interest with respect to the research, authorship, and/or publication of this article.
+    data-sharing: null
+    # Example: This article is based on data published in Pulaski (2017).
+    # Example: This article is based on the dissertation completed by Graham (2018).    
+    related-report: ~ # This article is based on data published in Pulaski (2017). 
+    # Example: Sally Jones earns royalties from the sale of Test X.
+    conflict-of-interest: null
+    # Example: This study was supported by Grant A123 from the National Science Foundation.
+    financial-support: null
+    # Example: The authors are grateful for the technical assistance of Dr. X during the initial design and setup of our lab equipment.
+    gratitude: null
+    authorship-agreements: null
+abstract: "Supplementary Materials"
+keywords: [moral dumbfounding, distancing, construal-level theory, dual-processes, reasons, intuitions]
+bibliography: "resources/bib/My Library.bib"
+format:
+  # apaquarto-docx: default
+  # apaquarto-html: default
+  apaquarto-pdf:
+    # can be jou (journal), man (manuscript), stu (student), or doc (document)
+    # for now, tables and figures do not render properly in jou mode. 
+    # can be 10pt, 11pt, or 12pt
+    # Integrate tables and figures in text
+    # a4 paper if true, letter size if false
+    # suppresses loading of the lmodern font package
+    # Suppresses loading of the fontenc package
+    # Suppress the title above the introduction
+    # In jou mode, use times or pslatex instead of txfonts
+    # In jou mode, use Computer Modern font instead of times
+    # In jou mode, cancels automatic stretching of tables to column width 
+    # Uses Helvetica font in stu and man mode
+    # In man and stu mode, neutralizes the \helvetica command.
+    # In man and stu mode, uses typewriter font
+    # Puts draft watermark on first page
+    # Puts draft watermakr on all pages
+    # Masks references that are marked as the author's own
+    documentmode: man
+    fontsize: 12pt
+    floatsintext: true
+    a4paper: true
+    nolmodern: false
+    nofontenc: false
+    donotrepeattitle: false
+    notxfonts: false
+    notimes: false
+    notab: false
+    helv: false
+    nosf: false
+    tt: false
+    draftfirst: false
+    draftall: false
+    mask: false
+    journal: null
+    volume: null
+    course: null
+    professor: null
+    duedate: null
+editor_options: 
+  chunk_output_type: console
+---
+
+{{< include _extensions/wjschne/apaquarto/_apa_title.qmd >}}
+
+\raggedbottom
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(conflicted)
+library(tidyverse)
+library(flextable)
+library(ftExtra)
+library(officer)
+library(knitr)
+conflicts_prefer(dplyr::filter, .quiet = TRUE)
+conflicts_prefer(flextable::separate_header, .quiet = TRUE)
+#devtools::install_github("crsh/citr")
+library(citr)
+#install.packages("sjstats")
+library(plyr)
+library(foreign)
+library(car)
+#devtools::install_github("cillianmiltown/R_desnum")
+library(desnum)
+library(ggplot2)
+library(extrafont)
+#install.packages("devtools")
+#devtools::install_github("crsh/papaja")
+#library(papaja)
+#library("dplyr")
+library("afex")
+library("tibble")
+library(scales)
+#install.packages("fftw3")
+# install.packages("qqconf")
+# install.packages("BiocManager")
+# BiocManager::install("multtest")
+# install.packages("multtest")
+# install.packages("mutoss")
+# install.packages("metap")
+library(metap)
+library(pwr)
+library(lsr)
+#install.packages("sjstats")
+library(sjstats)
+library(DescTools)
+#inatall.packages("ggstatsplot")
+#library(ggstatsplot)
+library(VGAM)
+library(nnet)
+library(mlogit)
+library(reshape2)
+library(ggpubr)
+library(gridExtra)
+library(grid)
+
+#tinytex:: install_tinytex()
+
+```
+
+# Scenarios
+
+## Heinz
+In Europe, a woman was near death from a very bad disease, a special kind of cancer. There was one drug that the doctors thought might save her. It was a form of radium for which a druggist was charging ten times what the drug cost him to make. The sick woman's husband, Heinz, went to everyone he knew to borrow the money, but he could only get together about half of what it cost. He told the druggist that his wife was dying, and asked him to sell it cheaper or let him pay later. But the druggist said, "No, I discovered the drug and I'm going to make money from it." So, Heinz got desperate and broke into the man's store to steal the drug for his wife. The druggist had Heinz arrested and charged.
+
+## Trolley
+A Trolley is hurtling down a track towards five people. It will kill them all on impact. Paul is on a bridge under which it will pass. He can stop it by putting something very heavy in front of it. As it happens, there is a very fat man next to him – Paul's only way to stop the trolley is to push him over the bridge and onto the track, killing him to save five. Paul decides to push the man.
+
+## Jennifer
+Jennifer works in a medical school pathology lab as a research assistant. The lab prepares human cadavers that are used to teach medical students about anatomy. The cadavers come from people who had donated their body for the general use of the researchers in the lab. The bodies are normally cremated, however, severed cuts may be disposed of at the discretion of lab researchers, One night Jennifer is leaving the lab when she sees a body that is going to be discarded the next day. Jennifer was a vegetarian, for moral reasons. She thought it was wrong to kill animals for food. But then, when she saw a body about to be cremated, she thought it was irrational to waste perfectly edible meat. So she cut off a piece of flesh, and took it home and cooked it. The person had died recently of a heart attack, and she cooked the meat thoroughly, so there was no risk of disease
+
+## Julie and Mark
+Julie and Mark, who are brother and sister, are travelling together in France. They are both on summer vacation from college. One night they are staying alone in a cabin near the beach. They decide that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark uses a condom too, just to be safe. They both enjoy it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other.
+
+# Counter Arguments
+
+## Heinz/Druggist
+
+>Do you agree that the druggist has to make a living?
+
+>And do you accept that Heinz broke into the druggist's store?
+
+>And do you accept that he stole from him?
+
+## Trolley
+
+>Do you accept that five people would have died if Paul didn't push the man?
+
+>And this man is the only way available to stop the trolley? (Paul does not weigh enough)
+
+>Do you agree that in stopping the trolley Paul saved the lives of five people?
+
+## Jennifer
+
+>The body had been donated for research, it was to be discarded the next day. You must agree then that it had obviously fulfilled its purpose?
+
+>Do you accept that the body was already dead?
+
+>And do you accept that there was no risk of disease?
+
+## Julie and Mark
+
+>Do you not agree that any concerns regarding reproductive complications are eased by their using of two forms of contraception?
+
+>And do you accept that they are both consenting adults, and that they both consented and enjoyed it?
+
+>And do you concede that nobody else was affected by their actions?
+
+# Critical Slide
+
+
+## Heinz/Druggist
+
+The druggist was only protecting his livelihood.
+
+
+How can that be wrong?
+
+## Jennifer
+
+Jennifer's actions did not harm anyone, or negatively affect anyone.
+
+
+How can there be anything wrong with what she did?
+
+## Julie and Mark
+
+Julie and Mark's actions did not harm anyone, or negatively affect anyone.
+
+
+How can there be anything wrong with what they did
+
+## Trolley
+
+Paul's actions saved the lives of five people!
+
+
+How can saving lives be wrong?
+
+
+## Response options (randomised order)
+
+There is nothing wrong.
+
+It's wrong but I can't think of a reason.
+
+It's wrong and I can provide a valid reason.
+
+
+# Concluding Questionnaire
+
+
+How sure were you about your judgement?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely sure
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+How much did you change your mind?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+How confused were you?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely confused
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+How irritated were you?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely irritated
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+How much was your judgement based on reason?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+How much was your judgement based on “gut” feeling?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely
+
+# Instructions/Distancing Manipulations
+
+## Social: Control / Temporal: Control
+
+> The next page contains a description of a scenario followed by a series of questions relating to this scenario. 
+
+
+
+## Social: Control / Temporal: Reduced
+
+> Imagine **you** are taking a course on ethics.
+
+> The next page contains a description of a scenario followed by a series of questions relating to this scenario.
+
+> Imagine that, you have been asked to study this scenario for your ethics course. 
+
+> For your assignment you must identify if the behaviour described is right or wrong, and provide reasons for your judgement.
+
+> Imagine you must complete and submit this assignment within **2-3 hours**.
+
+
+
+## Social: Control / Temporal: Increased
+
+> Imagine **you** are taking a course on ethics.
+
+> The next page contains a description of a scenario followed by a series of questions relating to this scenario.
+
+> Imagine that, you have been asked to study this scenario for your ethics course. 
+
+> For your assignment you must identify if the behaviour described is right or wrong, and provide reasons for your judgement.
+
+> Imagine you must complete and submit this assignment within **5 weeks**.
+
+
+
+## Social: Increased / Temporal: Control
+
+> Alex is a student who is currently taking an ethics course.
+
+> The next page contains a description of a scenario followed by a series of questions relating to this scenario.
+
+> Alex has been asked to study this scenario for their ethics course. For the assignment, Alex must identify if the behaviour described is right or wrong, and provide reasons for this judgement.
+
+> When reading this scenario and responding to the questions **try to think about the scenario from Alex’s perspective rather than your own.** 
+
+
+
+## Social: Increased / Temporal: Reduced
+
+> Alex is a student who is currently taking an ethics course.
+
+> The next page contains a description of a scenario followed by a series of questions relating to this scenario.
+
+> Alex has been asked to study this scenario for their ethics course. For the assignment, Alex must identify if the behaviour described is right or wrong, and provide reasons for this judgement.
+
+> Alex must complete and submit this assignment within **the next 2-3 hours**.
+
+> When reading this scenario and responding to the questions **try to think about the scenario from Alex’s perspective rather than your own.** 
+
+
+
+
+## Social: Increased / Temporal: Increased
+
+> Alex is a student who is currently taking an ethics course.
+
+> The next page contains a description of a scenario followed by a series of questions relating to this scenario.
+
+> Alex has been asked to study this scenario for their ethics course. For the assignment, Alex must identify if the behaviour described is right or wrong, and provide reasons for this judgement.
+
+> Alex must complete and submit this assignment within **the next 5 weeks**.
+
+> When reading this scenario and responding to the questions **try to think about the scenario from Alex’s perspective rather than your own.** 
+
+
+
