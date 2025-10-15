@@ -1,0 +1,6332 @@
+---
+title: "Simulated Data Sample Analyses (Study 1)"
+author: "Cillian McHugh"
+date: "12 October, 2025"
+keywords          : "moral dumbfounding, dual-processes, reasons, intuitions"
+bibliography: "resources/bib/My Library.bib"
+figsintext        : yes
+figurelist        : yes
+tablelist         : yes
+footnotelist      : no
+lineno            : yes
+class             : "man"
+format:
+  html:
+    toc: true
+    toc-depth: 4
+    toc-location: left
+    code-fold: true
+    source: true
+knitr:
+  opts_chunk: 
+    R.options:
+      width: 400    
+editor_options: 
+  chunk_output_type: console
+---
+
+::: {.cell}
+<style type="text/css">
+.hscroll {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+</style>
+:::
+
+
+
+
+
+
+
+
+
+
+
+# Analysis of Simulated Data
+
+The following is a sample analysis using a simulated data set. This simulated data set contains *N* = 685 participants. 
+
+
+
+
+::: {.cell .panel-sidebar}
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+control distant    near 
+    229     228     228 
+```
+
+
+:::
+:::
+
+
+
+
+
+### Manipulation Check
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+model1 <- lmerTest::lmer(manipulation_check ~
+                  temp*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(temp = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+emmeans::emmeans(model1, list(pairwise ~ temp), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ scenario), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ temp*scenario), adjust = "tukey")
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+Type III Analysis of Variance Table with Satterthwaite's method
+               Sum Sq Mean Sq NumDF DenDF F value Pr(>F)
+temp           8.3081  4.1540     2  2728  2.1721 0.1141
+scenario       1.9309  0.6436     3  2728  0.3365 0.7989
+temp:scenario 18.8880  3.1480     6  2728  1.6460 0.1304
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: manipulation_check ~ temp * scenario + (1 | ResponseId)
+   Data: x
+
+REML criterion at convergence: 9592.9
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.21215 -0.76431 -0.02838  0.75439  2.28985 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ ResponseId (Intercept) 0.000    0.000   
+ Residual               1.912    1.383   
+Number of obs: 2740, groups:  ResponseId, 685
+
+Fixed effects:
+                  Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)      3.918e+00  2.642e-02  2.728e+03 148.314   <2e-16 ***
+temp1            3.760e-02  3.734e-02  2.728e+03   1.007   0.3139    
+temp2            4.029e-02  3.738e-02  2.728e+03   1.078   0.2812    
+scenario1       -1.171e-02  4.576e-02  2.728e+03  -0.256   0.7980    
+scenario2        4.422e-02  4.576e-02  2.728e+03   0.966   0.3340    
+scenario3       -6.299e-03  4.576e-02  2.728e+03  -0.138   0.8905    
+temp1:scenario1 -1.386e-01  6.467e-02  2.728e+03  -2.143   0.0322 *  
+temp2:scenario1  1.208e-01  6.474e-02  2.728e+03   1.866   0.0621 .  
+temp1:scenario2  1.959e-02  6.467e-02  2.728e+03   0.303   0.7620    
+temp2:scenario2 -1.206e-02  6.474e-02  2.728e+03  -0.186   0.8522    
+temp1:scenario3  1.203e-01  6.467e-02  2.728e+03   1.861   0.0629 .  
+temp2:scenario3 -1.620e-01  6.474e-02  2.728e+03  -2.502   0.0124 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) temp1  temp2  scenr1 scenr2 scenr3 tmp1:1 tmp2:1 tmp1:2 tmp2:2 tmp1:3
+temp1       -0.002                                                                      
+temp2        0.001 -0.499                                                               
+scenario1    0.000  0.000  0.000                                                        
+scenario2    0.000  0.000  0.000 -0.333                                                 
+scenario3    0.000  0.000  0.000 -0.333 -0.333                                          
+temp1:scnr1  0.000  0.000  0.000 -0.002  0.001  0.001                                   
+temp2:scnr1  0.000  0.000  0.000  0.001  0.000  0.000 -0.499                            
+temp1:scnr2  0.000  0.000  0.000  0.001 -0.002  0.001 -0.333  0.166                     
+temp2:scnr2  0.000  0.000  0.000  0.000  0.001  0.000  0.166 -0.333 -0.499              
+temp1:scnr3  0.000  0.000  0.000  0.001  0.001 -0.002 -0.333  0.166 -0.333  0.166       
+temp2:scnr3  0.000  0.000  0.000  0.000  0.000  0.001  0.166 -0.333  0.166 -0.333 -0.499
+optimizer (nloptwrap) convergence code: 0 (OK)
+boundary (singular) fit: see help('isSingular')
+
+$`emmeans of temp`
+ temp    emmean     SE  df lower.CL upper.CL
+ control   3.96 0.0457 682     3.87     4.05
+ distant   3.96 0.0458 682     3.87     4.05
+ near      3.84 0.0458 682     3.75     3.93
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp`
+ 1                 estimate     SE  df t.ratio p.value
+ control - distant -0.00268 0.0647 682  -0.041  0.9991
+ control - near     0.11549 0.0647 682   1.785  0.1753
+ distant - near     0.11817 0.0648 682   1.825  0.1623
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+$`emmeans of scenario`
+ scenario       emmean     SE   df lower.CL upper.CL
+ Heinz            3.91 0.0528 2728     3.80     4.01
+ Jennifer         3.96 0.0528 2728     3.86     4.07
+ Julie and Mark   3.91 0.0528 2728     3.81     4.02
+ Trolley          3.89 0.0528 2728     3.79     4.00
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of scenario`
+ 1                         estimate     SE   df t.ratio p.value
+ Heinz - Jennifer          -0.05593 0.0747 2046  -0.749  0.8773
+ Heinz - Julie and Mark    -0.00541 0.0747 2046  -0.072  0.9999
+ Heinz - Trolley            0.01449 0.0747 2046   0.194  0.9974
+ Jennifer - Julie and Mark  0.05052 0.0747 2046   0.676  0.9062
+ Jennifer - Trolley         0.07042 0.0747 2046   0.942  0.7819
+ Julie and Mark - Trolley   0.01991 0.0747 2046   0.266  0.9934
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+$`emmeans of temp, scenario`
+ temp    scenario       emmean     SE   df lower.CL upper.CL
+ control Heinz            3.81 0.0914 2728     3.63     3.98
+ distant Heinz            4.07 0.0916 2728     3.89     4.25
+ near    Heinz            3.85 0.0916 2728     3.67     4.03
+ control Jennifer         4.02 0.0914 2728     3.84     4.20
+ distant Jennifer         3.99 0.0916 2728     3.81     4.17
+ near    Jennifer         3.88 0.0916 2728     3.70     4.06
+ control Julie and Mark   4.07 0.0914 2728     3.89     4.25
+ distant Julie and Mark   3.79 0.0916 2728     3.61     3.97
+ near    Julie and Mark   3.88 0.0916 2728     3.70     4.06
+ control Trolley          3.93 0.0914 2728     3.75     4.11
+ distant Trolley          3.99 0.0916 2728     3.81     4.17
+ near    Trolley          3.76 0.0916 2728     3.58     3.94
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp, scenario`
+ 1                                               estimate    SE   df t.ratio p.value
+ control Heinz - distant Heinz                   -0.26209 0.129 2728  -2.026  0.6758
+ control Heinz - near Heinz                      -0.04083 0.129 2728  -0.316  1.0000
+ control Heinz - control Jennifer                -0.21410 0.129 2046  -1.657  0.8874
+ control Heinz - distant Jennifer                -0.18513 0.129 2728  -1.431  0.9575
+ control Heinz - near Jennifer                   -0.07149 0.129 2728  -0.553  1.0000
+ control Heinz - control Julie and Mark          -0.26433 0.129 2046  -2.045  0.6620
+ control Heinz - distant Julie and Mark           0.01533 0.129 2728   0.118  1.0000
+ control Heinz - near Julie and Mark             -0.07016 0.129 2728  -0.542  1.0000
+ control Heinz - control Trolley                 -0.12273 0.129 2046  -0.950  0.9986
+ control Heinz - distant Trolley                 -0.18000 0.129 2728  -1.391  0.9654
+ control Heinz - near Trolley                     0.04329 0.129 2728   0.335  1.0000
+ distant Heinz - near Heinz                       0.22125 0.130 2728   1.708  0.8648
+ distant Heinz - control Jennifer                 0.04799 0.129 2728   0.371  1.0000
+ distant Heinz - distant Jennifer                 0.07696 0.130 2046   0.594  1.0000
+ distant Heinz - near Jennifer                    0.19059 0.130 2728   1.472  0.9482
+ distant Heinz - control Julie and Mark          -0.00225 0.129 2728  -0.017  1.0000
+ distant Heinz - distant Julie and Mark           0.27741 0.130 2046   2.142  0.5925
+ distant Heinz - near Julie and Mark              0.19193 0.130 2728   1.482  0.9457
+ distant Heinz - control Trolley                  0.13935 0.129 2728   1.077  0.9956
+ distant Heinz - distant Trolley                  0.08208 0.130 2046   0.634  1.0000
+ distant Heinz - near Trolley                     0.30537 0.130 2728   2.358  0.4356
+ near Heinz - control Jennifer                   -0.17326 0.129 2728  -1.339  0.9740
+ near Heinz - distant Jennifer                   -0.14430 0.130 2728  -1.114  0.9941
+ near Heinz - near Jennifer                      -0.03066 0.130 2046  -0.237  1.0000
+ near Heinz - control Julie and Mark             -0.22350 0.129 2728  -1.727  0.8557
+ near Heinz - distant Julie and Mark              0.05616 0.130 2728   0.434  1.0000
+ near Heinz - near Julie and Mark                -0.02932 0.130 2046  -0.226  1.0000
+ near Heinz - control Trolley                    -0.08190 0.129 2728  -0.633  1.0000
+ near Heinz - distant Trolley                    -0.13917 0.130 2728  -1.074  0.9957
+ near Heinz - near Trolley                        0.08412 0.130 2046   0.649  1.0000
+ control Jennifer - distant Jennifer              0.02897 0.129 2728   0.224  1.0000
+ control Jennifer - near Jennifer                 0.14261 0.129 2728   1.102  0.9946
+ control Jennifer - control Julie and Mark       -0.05024 0.129 2046  -0.389  1.0000
+ control Jennifer - distant Julie and Mark        0.22942 0.129 2728   1.773  0.8326
+ control Jennifer - near Julie and Mark           0.14394 0.129 2728   1.113  0.9942
+ control Jennifer - control Trolley               0.09137 0.129 2046   0.707  0.9999
+ control Jennifer - distant Trolley               0.03409 0.129 2728   0.264  1.0000
+ control Jennifer - near Trolley                  0.25738 0.129 2728   1.989  0.7009
+ distant Jennifer - near Jennifer                 0.11364 0.130 2728   0.877  0.9993
+ distant Jennifer - control Julie and Mark       -0.07920 0.129 2728  -0.612  1.0000
+ distant Jennifer - distant Julie and Mark        0.20046 0.130 2046   1.548  0.9270
+ distant Jennifer - near Julie and Mark           0.11497 0.130 2728   0.888  0.9992
+ distant Jennifer - control Trolley               0.06240 0.129 2728   0.482  1.0000
+ distant Jennifer - distant Trolley               0.00513 0.130 2046   0.040  1.0000
+ distant Jennifer - near Trolley                  0.22842 0.130 2728   1.764  0.8377
+ near Jennifer - control Julie and Mark          -0.19284 0.129 2728  -1.490  0.9434
+ near Jennifer - distant Julie and Mark           0.08682 0.130 2728   0.670  1.0000
+ near Jennifer - near Julie and Mark              0.00133 0.130 2046   0.010  1.0000
+ near Jennifer - control Trolley                 -0.05124 0.129 2728  -0.396  1.0000
+ near Jennifer - distant Trolley                 -0.10851 0.130 2728  -0.838  0.9996
+ near Jennifer - near Trolley                     0.11478 0.130 2046   0.886  0.9992
+ control Julie and Mark - distant Julie and Mark  0.27966 0.129 2728   2.162  0.5780
+ control Julie and Mark - near Julie and Mark     0.19418 0.129 2728   1.501  0.9407
+ control Julie and Mark - control Trolley         0.14160 0.129 2046   1.096  0.9949
+ control Julie and Mark - distant Trolley         0.08433 0.129 2728   0.652  1.0000
+ control Julie and Mark - near Trolley            0.30762 0.129 2728   2.378  0.4217
+ distant Julie and Mark - near Julie and Mark    -0.08548 0.130 2728  -0.660  1.0000
+ distant Julie and Mark - control Trolley        -0.13806 0.129 2728  -1.067  0.9959
+ distant Julie and Mark - distant Trolley        -0.19533 0.130 2046  -1.508  0.9386
+ distant Julie and Mark - near Trolley            0.02796 0.130 2728   0.216  1.0000
+ near Julie and Mark - control Trolley           -0.05257 0.129 2728  -0.406  1.0000
+ near Julie and Mark - distant Trolley           -0.10985 0.130 2728  -0.848  0.9995
+ near Julie and Mark - near Trolley               0.11344 0.130 2046   0.876  0.9993
+ control Trolley - distant Trolley               -0.05727 0.129 2728  -0.443  1.0000
+ control Trolley - near Trolley                   0.16602 0.129 2728   1.283  0.9813
+ distant Trolley - near Trolley                   0.22329 0.130 2728   1.724  0.8574
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 12 estimates 
+```
+
+
+:::
+:::
+
+
+
+
+
+
+# Temporal Distancing and Dumbfounding
+
+
+
+
+
+
+
+
+::: {.cell apa-cap='Simulated Data: Responses to critical slide depending on temporal distance for the increased temporal distance group (n = 912), for the decreased temporal distance group (n = 912), and for the control group (n = 916) (error bars represent standard error of the proportion)'}
+::: {.cell-output-display}
+![](Study1_simulated_analyses_files/figure-html/apafg-tempoverall-1.png){width=672}
+:::
+:::
+
+
+
+
+
+
+## Scenario-by-scenario Chi-Squared Tests
+
+First we will conduct a series of chi-squared tests to test for an association between temporal distance and dumbfounded responding for each scenario individually. For each DV there is an overall chi-squared test followed by the expected counts, the observed counts, and the standardized residuals.
+
+### Julie and Mark
+
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+x <- df
+x <- x[which(x$scenario=="Julie and Mark"),]
+```
+:::
+
+
+
+#### Critical Slide Only
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+table(x$cs,x$condition)
+
+c <- chisq.test(table(x$cs,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason     149     195  138
+  It's wrong but I cannot explain why              42      27   39
+  There is nothing wrong                           38       6   51
+
+	Pearson's Chi-squared test
+
+data:  table(x$cs, x$condition)
+X-squared = 48.81, df = 4, p-value = 6.396e-10
+
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason 161.13577 160.43212 160.43212
+  It's wrong but I cannot explain why          36.10511  35.94745  35.94745
+  There is nothing wrong                       31.75912  31.62044  31.62044
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason     149     195  138
+  It's wrong but I cannot explain why              42      27   39
+  There is nothing wrong                           38       6   51
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason -2.152442  6.137784 -3.982989
+  It's wrong but I cannot explain why          1.310122 -1.990717  0.679163
+  There is nothing wrong                       1.462492 -6.010479  4.546388
+```
+
+
+:::
+:::
+
+
+
+#### Including Coded Responses 
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+table(x$cs_with_coded1,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded1,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason      83     120   86
+  It's wrong but I cannot explain why             108     102   91
+  There is nothing wrong                           38       6   51
+
+	Pearson's Chi-squared test
+
+data:  table(x$cs_with_coded1, x$condition)
+X-squared = 44.169, df = 4, p-value = 5.918e-09
+
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason  96.61460  96.19270  96.19270
+  It's wrong but I cannot explain why         100.62628 100.18686 100.18686
+  There is nothing wrong                       31.75912  31.62044  31.62044
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason      83     120   86
+  It's wrong but I cannot explain why             108     102   91
+  There is nothing wrong                           38       6   51
+                                             
+                                                 control    distant       near
+  It's wrong and I can provide a valid reason -2.2327702  3.9086245 -1.6734128
+  It's wrong but I cannot explain why          1.2032992  0.2962051 -1.5008201
+  There is nothing wrong                       1.4624918 -6.0104789  4.5463879
+```
+
+
+:::
+:::
+
+
+
+#### Exploratory: Different Kinds of Dumbfounding
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+table(x$cs_with_coded2,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded2,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason      83     120   86
+  It's wrong but I cannot explain why              42      27   39
+  no reason after coding                           66      75   52
+  There is nothing wrong                           38       6   51
+
+	Pearson's Chi-squared test
+
+data:  table(x$cs_with_coded2, x$condition)
+X-squared = 50.37, df = 6, p-value = 3.962e-09
+
+                                             
+                                               control  distant     near
+  It's wrong and I can provide a valid reason 96.61460 96.19270 96.19270
+  It's wrong but I cannot explain why         36.10511 35.94745 35.94745
+  no reason after coding                      64.52117 64.23942 64.23942
+  There is nothing wrong                      31.75912 31.62044 31.62044
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason      83     120   86
+  It's wrong but I cannot explain why              42      27   39
+  no reason after coding                           66      75   52
+  There is nothing wrong                           38       6   51
+                                             
+                                                 control    distant       near
+  It's wrong and I can provide a valid reason -2.2327702  3.9086245 -1.6734128
+  It's wrong but I cannot explain why          1.3101217 -1.9907173  0.6791630
+  no reason after coding                       0.2662523  1.9394785 -2.2060219
+  There is nothing wrong                       1.4624918 -6.0104789  4.5463879
+```
+
+
+:::
+:::
+
+
+
+
+
+
+#### Plot
+
+
+
+
+
+
+
+
+::: {.cell apa-cap='Simulated Data: Responses to critical slide depending on temporal distance for the increased temporal distance group (n = 228), for the decreased temporal distance group (n = 228), and for the control group (n = 229) (error bars represent standard error of the proportion)'}
+::: {.cell-output-display}
+![](Study1_simulated_analyses_files/figure-html/apafg-tempjulieandmark-1.png){width=672}
+:::
+:::
+
+
+
+
+
+
+
+
+
+### Jennifer
+
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+x <- df
+x <- x[which(x$scenario=="Jennifer"),]
+```
+:::
+
+
+
+#### Critical Slide Only
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+table(x$cs,x$condition)
+
+c <- chisq.test(table(x$cs,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason     168     209  167
+  It's wrong but I cannot explain why              37      11   35
+  There is nothing wrong                           24       8   26
+
+	Pearson's Chi-squared test
+
+data:  table(x$cs, x$condition)
+X-squared = 31.556, df = 4, p-value = 2.357e-06
+
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason 181.86277 181.06861 181.06861
+  It's wrong but I cannot explain why          27.74745  27.62628  27.62628
+  There is nothing wrong                       19.38978  19.30511  19.30511
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason     168     209  167
+  It's wrong but I cannot explain why              37      11   35
+  There is nothing wrong                           24       8   26
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason -2.777006  5.601364 -2.821322
+  It's wrong but I cannot explain why          2.296466 -4.131122  1.832145
+  There is nothing wrong                       1.341249 -3.292588  1.949872
+```
+
+
+:::
+:::
+
+
+
+#### Including Coded Responses 
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+table(x$cs_with_coded1,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded1,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason     102     138   97
+  It's wrong but I cannot explain why             103      82  105
+  There is nothing wrong                           24       8   26
+
+	Pearson's Chi-squared test
+
+data:  table(x$cs_with_coded1, x$condition)
+X-squared = 22.354, df = 4, p-value = 0.0001704
+
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason 112.66131 112.16934 112.16934
+  It's wrong but I cannot explain why          96.94891  96.52555  96.52555
+  There is nothing wrong                       19.38978  19.30511  19.30511
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason     102     138   97
+  It's wrong but I cannot explain why             103      82  105
+  There is nothing wrong                           24       8   26
+                                             
+                                                 control    distant       near
+  It's wrong and I can provide a valid reason -1.7271969  4.1892976 -2.4602120
+  It's wrong but I cannot explain why          0.9919096 -2.3836654  1.3906711
+  There is nothing wrong                       1.3412492 -3.2925876  1.9498717
+```
+
+
+:::
+:::
+
+
+
+#### Exploratory: Different Kinds of Dumbfounding
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+table(x$cs_with_coded2,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded2,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason     102     138   97
+  It's wrong but I cannot explain why              37      11   35
+  no reason after coding                           66      71   70
+  There is nothing wrong                           24       8   26
+
+	Pearson's Chi-squared test
+
+data:  table(x$cs_with_coded2, x$condition)
+X-squared = 34.336, df = 6, p-value = 5.793e-06
+
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason 112.66131 112.16934 112.16934
+  It's wrong but I cannot explain why          27.74745  27.62628  27.62628
+  no reason after coding                       69.20146  68.89927  68.89927
+  There is nothing wrong                       19.38978  19.30511  19.30511
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason     102     138   97
+  It's wrong but I cannot explain why              37      11   35
+  no reason after coding                           66      71   70
+  There is nothing wrong                           24       8   26
+                                             
+                                                 control    distant       near
+  It's wrong and I can provide a valid reason -1.7271969  4.1892976 -2.4602120
+  It's wrong but I cannot explain why          2.2964662 -4.1311224  1.8321450
+  no reason after coding                      -0.5646569  0.3709210  0.1943533
+  There is nothing wrong                       1.3412492 -3.2925876  1.9498717
+```
+
+
+:::
+:::
+
+
+
+
+
+
+#### Plot
+
+
+
+
+
+
+
+
+::: {.cell apa-cap='Simulated Data: Responses to critical slide depending on temporal distance for the increased temporal distance group (n = 228), for the decreased temporal distance group (n = 228), and for the control group (n = 229) (error bars represent standard error of the proportion)'}
+::: {.cell-output-display}
+![](Study1_simulated_analyses_files/figure-html/apafg-tempjennifer-1.png){width=672}
+:::
+:::
+
+
+
+
+
+
+
+
+
+
+### Trolley
+
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+x <- df
+x <- x[which(x$scenario=="Trolley"),]
+```
+:::
+
+
+
+#### Critical Slide Only
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+table(x$cs,x$condition)
+
+c <- chisq.test(table(x$cs,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason     161     223  146
+  It's wrong but I cannot explain why              20       2   31
+  There is nothing wrong                           48       3   51
+
+	Pearson's Chi-squared test
+
+data:  table(x$cs, x$condition)
+X-squared = 85.747, df = 4, p-value < 2.2e-16
+
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason 177.18248 176.40876 176.40876
+  It's wrong but I cannot explain why          17.71825  17.64088  17.64088
+  There is nothing wrong                       34.09927  33.95036  33.95036
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason     161     223  146
+  It's wrong but I cannot explain why              20       2   31
+  There is nothing wrong                           48       3   51
+                                             
+                                                 control    distant       near
+  It's wrong and I can provide a valid reason -3.1323987  9.0284007 -5.8925768
+  It's wrong but I cannot explain why          0.6916838 -4.7465158  4.0540756
+  There is nothing wrong                       3.1625612 -7.0492310  3.8832116
+```
+
+
+:::
+:::
+
+
+
+#### Including Coded Responses 
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+table(x$cs_with_coded1,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded1,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason      93     139   89
+  It's wrong but I cannot explain why              88      86   88
+  There is nothing wrong                           48       3   51
+
+	Pearson's Chi-squared test
+
+data:  table(x$cs_with_coded1, x$condition)
+X-squared = 57.037, df = 4, p-value = 1.215e-11
+
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason 107.31241 106.84380 106.84380
+  It's wrong but I cannot explain why          87.58832  87.20584  87.20584
+  There is nothing wrong                       34.09927  33.95036  33.95036
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason      93     139   89
+  It's wrong but I cannot explain why              88      86   88
+  There is nothing wrong                           48       3   51
+                                             
+                                                  control     distant        near
+  It's wrong and I can provide a valid reason -2.32297865  5.22482689 -2.89930808
+  It's wrong but I cannot explain why          0.06860779 -0.20117730  0.13249449
+  There is nothing wrong                       3.16256119 -7.04923104  3.88321161
+```
+
+
+:::
+:::
+
+
+
+#### Exploratory: Different Kinds of Dumbfounding
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+table(x$cs_with_coded2,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded2,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason      93     139   89
+  It's wrong but I cannot explain why              20       2   31
+  no reason after coding                           68      84   57
+  There is nothing wrong                           48       3   51
+
+	Pearson's Chi-squared test
+
+data:  table(x$cs_with_coded2, x$condition)
+X-squared = 86.604, df = 6, p-value < 2.2e-16
+
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason 107.31241 106.84380 106.84380
+  It's wrong but I cannot explain why          17.71825  17.64088  17.64088
+  no reason after coding                       69.87007  69.56496  69.56496
+  There is nothing wrong                       34.09927  33.95036  33.95036
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason      93     139   89
+  It's wrong but I cannot explain why              20       2   31
+  no reason after coding                           68      84   57
+  There is nothing wrong                           48       3   51
+                                             
+                                                 control    distant       near
+  It's wrong and I can provide a valid reason -2.3229786  5.2248269 -2.8993081
+  It's wrong but I cannot explain why          0.6916838 -4.7465158  4.0540756
+  no reason after coding                      -0.3289407  2.5418598 -2.2125594
+  There is nothing wrong                       3.1625612 -7.0492310  3.8832116
+```
+
+
+:::
+:::
+
+
+
+
+
+
+#### Plot
+
+
+
+
+
+
+
+
+::: {.cell apa-cap='Simulated Data: Responses to critical slide depending on temporal distance for the increased temporal distance group (n = 228), for the decreased temporal distance group (n = 228), and for the control group (n = 229) (error bars represent standard error of the proportion)'}
+::: {.cell-output-display}
+![](Study1_simulated_analyses_files/figure-html/apafg-temptrolley-1.png){width=672}
+:::
+:::
+
+
+
+
+### Heinz
+
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+x <- df
+x <- x[which(x$scenario=="Heinz"),]
+```
+:::
+
+
+
+#### Critical Slide Only
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+table(x$cs,x$condition)
+
+c <- chisq.test(table(x$cs,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason     149     212  145
+  It's wrong but I cannot explain why              38      10   48
+  There is nothing wrong                           42       6   35
+
+	Pearson's Chi-squared test
+
+data:  table(x$cs, x$condition)
+X-squared = 67.382, df = 4, p-value = 8.097e-14
+
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason 169.15912 168.42044 168.42044
+  It's wrong but I cannot explain why          32.09343  31.95328  31.95328
+  There is nothing wrong                       27.74745  27.62628  27.62628
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason     149     212  145
+  It's wrong but I cannot explain why              38      10   48
+  There is nothing wrong                           42       6   35
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason -3.716256  8.042507 -4.322187
+  It's wrong but I cannot explain why          1.378090 -5.127629  3.748031
+  There is nothing wrong                       3.537457 -5.373470  1.832145
+```
+
+
+:::
+:::
+
+
+
+#### Including Coded Responses 
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+table(x$cs_with_coded1,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded1,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason      85     129   75
+  It's wrong but I cannot explain why             102      93  118
+  There is nothing wrong                           42       6   35
+
+	Pearson's Chi-squared test
+
+data:  table(x$cs_with_coded1, x$condition)
+X-squared = 46.572, df = 4, p-value = 1.872e-09
+
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason  96.61460  96.19270  96.19270
+  It's wrong but I cannot explain why         104.63796 104.18102 104.18102
+  There is nothing wrong                       27.74745  27.62628  27.62628
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason      85     129   75
+  It's wrong but I cannot explain why             102      93  118
+  There is nothing wrong                           42       6   35
+                                             
+                                                 control    distant       near
+  It's wrong and I can provide a valid reason -1.9047737  5.3862226 -3.4793661
+  It's wrong but I cannot explain why         -0.4289035 -1.8199028  2.2492753
+  There is nothing wrong                       3.5374566 -5.3734698  1.8321450
+```
+
+
+:::
+:::
+
+
+
+#### Exploratory: Different Kinds of Dumbfounding
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+table(x$cs_with_coded2,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded2,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason      85     129   75
+  It's wrong but I cannot explain why              38      10   48
+  no reason after coding                           64      83   70
+  There is nothing wrong                           42       6   35
+
+	Pearson's Chi-squared test
+
+data:  table(x$cs_with_coded2, x$condition)
+X-squared = 70.383, df = 6, p-value = 3.412e-13
+
+                                             
+                                               control  distant     near
+  It's wrong and I can provide a valid reason 96.61460 96.19270 96.19270
+  It's wrong but I cannot explain why         32.09343 31.95328 31.95328
+  no reason after coding                      72.54453 72.22774 72.22774
+  There is nothing wrong                      27.74745 27.62628 27.62628
+                                             
+                                              control distant near
+  It's wrong and I can provide a valid reason      85     129   75
+  It's wrong but I cannot explain why              38      10   48
+  no reason after coding                           64      83   70
+  There is nothing wrong                           42       6   35
+                                             
+                                                control   distant      near
+  It's wrong and I can provide a valid reason -1.904774  5.386223 -3.479366
+  It's wrong but I cannot explain why          1.378090 -5.127629  3.748031
+  no reason after coding                      -1.487548  1.877433 -0.388259
+  There is nothing wrong                       3.537457 -5.373470  1.832145
+```
+
+
+:::
+:::
+
+
+
+
+
+#### Plot
+
+
+
+
+
+
+
+
+::: {.cell apa-cap='Simulated Data: Responses to critical slide depending on temporal distance for the increased temporal distance group (n = 228), for the decreased temporal distance group (n = 228), and for the control group (n = 229) (error bars represent standard error of the proportion)'}
+::: {.cell-output-display}
+![](Study1_simulated_analyses_files/figure-html/apafg-tempheinz-1.png){width=672}
+:::
+:::
+
+
+
+
+
+
+
+
+
+
+## Overall Effect of Temporal Distance
+
+### Just Critical Slide
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+x <- df
+table(x$temp,x$scenario)
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+
+
+m1a <- mblogit(formula=cs~temp#*scenario
+, random = list(~1|ResponseId)
+# , contrasts = list(scenario = contr.sum)
+, data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs~temp*scenario
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_heinz_base <- mblogit(formula=cs~temp*(JulieandMark+Jennifer+Trolley)
+                          , random = list(~1|ResponseId)
+                          # , contrasts = list(scenario = contr.sum)
+                          , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_trolley_base <- mblogit(formula=cs~temp*(JulieandMark+Jennifer+Heinz)
+                            , random = list(~1|ResponseId)
+                            # , contrasts = list(scenario = contr.sum)
+                            , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_jennifer_base <- mblogit(formula=cs~temp*(JulieandMark+Trolley+Heinz)
+                             , random = list(~1|ResponseId)
+                             # , contrasts = list(scenario = contr.sum)
+                             , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_JulieMark_base <- mblogit(formula=cs~temp*(Jennifer+Trolley+Heinz)
+                              , random = list(~1|ResponseId)
+                              # , contrasts = list(scenario = contr.sum)
+                              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+
+m1d <- mblogit(formula=cs~temp*scenario
+               + ju1_2 + ju2_2 + cf1_2 + cf2_2
+               + confused + irritated + reason + gut
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+stats::BIC(m1c_heinz_base)
+stats::BIC(m1c_trolley_base)
+stats::BIC(m1c_jennifer_base)
+stats::BIC(m1c_JulieMark_base)
+
+stats::BIC(m1d)
+
+
+stats::AIC(m1c_heinz_base)
+stats::AIC(m1c_trolley_base)
+stats::AIC(m1c_jennifer_base)
+stats::AIC(m1c_JulieMark_base)
+
+stats::AIC(m1d)
+
+# lower AIC is better
+# lower BIC is better
+summary(m1a)
+summary(m1b)
+summary(m1c_heinz_base)
+summary(m1c_trolley_base)
+summary(m1c_jennifer_base)
+summary(m1c_JulieMark_base)
+summary(m1d)
+
+
+
+summary(m1d)
+
+m1_results <- function(x){
+  m1 <- x
+  coefs <- summary(m1)$coefficients
+  LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+  ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+  OR <- exp(coefs[,1])
+  ORLL <- exp(LLs)
+  ORUL <- exp(ULs)
+  HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+  
+  round(cbind(coefs, LLs, ULs), 4)
+  round(cbind(OR, ORLL, ORUL, HHES), 4)
+  
+  
+  round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+}
+```
+:::
+
+
+
+#### Most Basic Model (not including Scenario)
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs ~ temp
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 3806.311 - criterion = 0.8599527
+Iteration 2 - deviance = 3759.102 - criterion = 0.0271456
+Iteration 3 - deviance = 3756.362 - criterion = 0.002927721
+Iteration 4 - deviance = 3756.315 - criterion = 6.846041e-05
+Iteration 5 - deviance = 3756.315 - criterion = 3.192186e-08
+Iteration 6 - deviance = 3756.315 - criterion = 6.614605e-15
+converged
+
+Call:
+mblogit(formula = cs ~ temp, data = x, random = list(~1 | ResponseId), 
+    method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -1.52097    0.09431 -16.127  < 2e-16 ***
+tempdistant -1.29922    0.17345  -7.490 6.87e-14 ***
+tempnear     0.16116    0.13080   1.232    0.218    
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -1.41707    0.09041 -15.674   <2e-16 ***
+tempdistant -2.17965    0.22988  -9.482   <2e-16 ***
+tempnear     0.12058    0.12644   0.954     0.34    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate                Std.Err.           
+It's wrong but I cannot explain why~1  6.314e-08              9.617e-24          
+There is nothing wrong~1              -1.227e-11  6.315e-08   6.801e-24 9.621e-24
+
+Approximate residual deviance: 3756 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                Estimate Std. Error  z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)  -1.5210     0.0943 -16.1275   0.0000 -1.7058 -1.3361 0.2185 0.1816 0.2629 -0.8403
+There is nothing wrong~(Intercept)               -1.4171     0.0904 -15.6739   0.0000 -1.5943 -1.2399 0.2424 0.2031 0.2894 -0.7829
+It's wrong but I cannot explain why~tempdistant  -1.2992     0.1735  -7.4903   0.0000 -1.6392 -0.9593 0.2727 0.1941 0.3832 -0.7178
+There is nothing wrong~tempdistant               -2.1797     0.2299  -9.4818   0.0000 -2.6302 -1.7291 0.1131 0.0721 0.1774 -1.2042
+It's wrong but I cannot explain why~tempnear      0.1612     0.1308   1.2322   0.2179 -0.0952  0.4175 1.1749 0.9092 1.5182  0.0890
+There is nothing wrong~tempnear                   0.1206     0.1264   0.9536   0.3403 -0.1272  0.3684 1.1281 0.8805 1.4454  0.0666
+```
+
+
+:::
+:::
+
+
+
+#### Scenario included
+
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs ~ temp
+  * scenario
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 3753.825 - criterion = 0.8573953
+Iteration 2 - deviance = 3693.186 - criterion = 0.03341878
+Iteration 3 - deviance = 3686.881 - criterion = 0.007305946
+Iteration 4 - deviance = 3686.428 - criterion = 0.001037462
+Iteration 5 - deviance = 3686.42 - criterion = 2.863668e-05
+Iteration 6 - deviance = 3686.42 - criterion = 2.377348e-08
+Iteration 7 - deviance = 3686.42 - criterion = 1.780519e-14
+converged
+
+Call:
+mblogit(formula = cs ~ temp * scenario, data = x, random = list(~1 | 
+    ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                         -1.3664     0.1817  -7.518 5.54e-14 ***
+tempdistant                         -1.6876     0.3711  -4.547 5.44e-06 ***
+tempnear                             0.2608     0.2465   1.058   0.2900    
+scenarioJennifer                    -0.1467     0.2569  -0.571   0.5680    
+scenarioJulie and Mark               0.1001     0.2521   0.397   0.6914    
+scenarioTrolley                     -0.7193     0.2987  -2.408   0.0160 *  
+tempdistant:scenarioJennifer         0.2562     0.5162   0.496   0.6196    
+tempnear:scenarioJennifer           -0.3104     0.3582  -0.867   0.3861    
+tempdistant:scenarioJulie and Mark   0.9768     0.4587   2.129   0.0332 *  
+tempnear:scenarioJulie and Mark     -0.2582     0.3524  -0.733   0.4636    
+tempdistant:scenarioTrolley         -0.9407     0.8357  -1.126   0.2603    
+tempnear:scenarioTrolley             0.2752     0.3951   0.697   0.4860    
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -1.26628    0.17470  -7.248 4.22e-13 ***
+tempdistant                        -2.29855    0.44934  -5.115 3.13e-07 ***
+tempnear                           -0.15511    0.25688  -0.604    0.546    
+scenarioJennifer                   -0.67963    0.27954  -2.431    0.015 *  
+scenarioJulie and Mark             -0.10008    0.25209  -0.397    0.691    
+scenarioTrolley                     0.05607    0.23993   0.234    0.815    
+tempdistant:scenarioJennifer        0.98157    0.61588   1.594    0.111    
+tempnear:scenarioJennifer           0.24112    0.39756   0.606    0.544    
+tempdistant:scenarioJulie and Mark  0.18367    0.63775   0.288    0.773    
+tempnear:scenarioJulie and Mark     0.52604    0.35478   1.483    0.138    
+tempdistant:scenarioTrolley        -0.79981    0.75284  -1.062    0.288    
+tempnear:scenarioTrolley            0.31353    0.34567   0.907    0.364    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate              Std.Err.           
+It's wrong but I cannot explain why~1 4.524e-06             3.539e-18          
+There is nothing wrong~1              6.277e-09 4.529e-06   2.506e-18 3.551e-18
+
+Approximate residual deviance: 3686 
+Number of Fisher scoring iterations:  7
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                       Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                         -1.3664     0.1817 -7.5185   0.0000 -1.7226 -1.0102 0.2550 0.1786 0.3642 -0.7549
+There is nothing wrong~(Intercept)                                      -1.2663     0.1747 -7.2482   0.0000 -1.6087 -0.9239 0.2819 0.2002 0.3970 -0.6996
+It's wrong but I cannot explain why~tempdistant                         -1.6876     0.3711 -4.5472   0.0000 -2.4151 -0.9602 0.1850 0.0894 0.3828 -0.9324
+There is nothing wrong~tempdistant                                      -2.2986     0.4493 -5.1154   0.0000 -3.1792 -1.4179 0.1004 0.0416 0.2422 -1.2699
+It's wrong but I cannot explain why~tempnear                             0.2608     0.2465  1.0582   0.2900 -0.2223  0.7439 1.2980 0.8007 2.1042  0.1441
+There is nothing wrong~tempnear                                         -0.1551     0.2569 -0.6038   0.5460 -0.6586  0.3484 0.8563 0.5176 1.4168 -0.0857
+It's wrong but I cannot explain why~scenarioJennifer                    -0.1467     0.2569 -0.5709   0.5680 -0.6502  0.3569 0.8636 0.5219 1.4288 -0.0810
+There is nothing wrong~scenarioJennifer                                 -0.6796     0.2795 -2.4313   0.0150 -1.2275 -0.1318 0.5068 0.2930 0.8766 -0.3755
+It's wrong but I cannot explain why~scenarioJulie and Mark               0.1001     0.2521  0.3970   0.6914 -0.3940  0.5942 1.1053 0.6744 1.8115  0.0553
+There is nothing wrong~scenarioJulie and Mark                           -0.1001     0.2521 -0.3970   0.6914 -0.5942  0.3940 0.9048 0.5520 1.4829 -0.0553
+It's wrong but I cannot explain why~scenarioTrolley                     -0.7193     0.2987 -2.4079   0.0160 -1.3048 -0.1338 0.4871 0.2712 0.8748 -0.3974
+There is nothing wrong~scenarioTrolley                                   0.0561     0.2399  0.2337   0.8152 -0.4142  0.5263 1.0577 0.6609 1.6927  0.0310
+It's wrong but I cannot explain why~tempdistant:scenarioJennifer         0.2562     0.5162  0.4965   0.6196 -0.7554  1.2679 1.2921 0.4698 3.5534  0.1416
+There is nothing wrong~tempdistant:scenarioJennifer                      0.9816     0.6159  1.5938   0.1110 -0.2255  2.1887 2.6686 0.7981 8.9233  0.5423
+It's wrong but I cannot explain why~tempnear:scenarioJennifer           -0.3104     0.3582 -0.8667   0.3861 -1.0125  0.3916 0.7331 0.3633 1.4793 -0.1715
+There is nothing wrong~tempnear:scenarioJennifer                         0.2411     0.3976  0.6065   0.5442 -0.5381  1.0203 1.2727 0.5839 2.7741  0.1332
+It's wrong but I cannot explain why~tempdistant:scenarioJulie and Mark   0.9768     0.4587  2.1293   0.0332  0.0777  1.8758 2.6558 1.0808 6.5263  0.5396
+There is nothing wrong~tempdistant:scenarioJulie and Mark                0.1837     0.6378  0.2880   0.7733 -1.0663  1.4336 1.2016 0.3443 4.1939  0.1015
+It's wrong but I cannot explain why~tempnear:scenarioJulie and Mark     -0.2582     0.3524 -0.7329   0.4636 -0.9489  0.4324 0.7724 0.3872 1.5409 -0.1427
+There is nothing wrong~tempnear:scenarioJulie and Mark                   0.5260     0.3548  1.4827   0.1381 -0.1693  1.2214 1.6922 0.8442 3.3919  0.2906
+It's wrong but I cannot explain why~tempdistant:scenarioTrolley         -0.9407     0.8357 -1.1256   0.2603 -2.5787  0.6973 0.3904 0.0759 2.0083 -0.5197
+There is nothing wrong~tempdistant:scenarioTrolley                      -0.7998     0.7528 -1.0624   0.2881 -2.2753  0.6757 0.4494 0.1028 1.9655 -0.4419
+It's wrong but I cannot explain why~tempnear:scenarioTrolley             0.2752     0.3951  0.6967   0.4860 -0.4991  1.0495 1.3168 0.6071 2.8563  0.1521
+There is nothing wrong~tempnear:scenarioTrolley                          0.3135     0.3457  0.9070   0.3644 -0.3640  0.9910 1.3682 0.6949 2.6940  0.1732
+```
+
+
+:::
+:::
+
+
+
+
+#### Covariates added
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula =
+    cs ~ temp
+  * scenario
+  + ju1_2 + ju2_2 + cf1_2 + cf2_2
+  + confused + irritated + reason + gut
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 3741.951 - criterion = 0.856836
+Iteration 2 - deviance = 3679.367 - criterion = 0.03392934
+Iteration 3 - deviance = 3672.971 - criterion = 0.007298916
+Iteration 4 - deviance = 3672.509 - criterion = 0.001042789
+Iteration 5 - deviance = 3672.5 - criterion = 2.947111e-05
+Iteration 6 - deviance = 3672.5 - criterion = 2.560421e-08
+Iteration 7 - deviance = 3672.5 - criterion = 2.088831e-14
+converged
+
+Call:
+mblogit(formula = cs ~ temp * scenario + ju1_2 + ju2_2 + cf1_2 + 
+    cf2_2 + confused + irritated + reason + gut, data = x, random = list(~1 | 
+    ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -1.723262   0.589726  -2.922  0.00348 ** 
+tempdistant                        -1.756139   0.372405  -4.716 2.41e-06 ***
+tempnear                            0.250845   0.247541   1.013  0.31090    
+scenarioJennifer                   -0.173776   0.258228  -0.673  0.50097    
+scenarioJulie and Mark              0.096492   0.253194   0.381  0.70313    
+scenarioTrolley                    -0.757638   0.300111  -2.525  0.01159 *  
+ju1_2                              -0.065660   0.046339  -1.417  0.15650    
+ju2_2                               0.005771   0.043222   0.134  0.89378    
+cf1_2                              -0.019872   0.055973  -0.355  0.72256    
+cf2_2                               0.088699   0.056479   1.570  0.11630    
+confused                           -0.044365   0.045859  -0.967  0.33333    
+irritated                           0.102279   0.045725   2.237  0.02530 *  
+reason                              0.013658   0.045134   0.303  0.76219    
+gut                                -0.010246   0.045802  -0.224  0.82299    
+tempdistant:scenarioJennifer        0.332131   0.517705   0.642  0.52117    
+tempnear:scenarioJennifer          -0.306573   0.359820  -0.852  0.39420    
+tempdistant:scenarioJulie and Mark  1.028277   0.460345   2.234  0.02550 *  
+tempnear:scenarioJulie and Mark    -0.250496   0.353654  -0.708  0.47875    
+tempdistant:scenarioTrolley        -0.864654   0.836880  -1.033  0.30152    
+tempnear:scenarioTrolley            0.287553   0.396650   0.725  0.46848    
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -1.684568   0.591571  -2.848   0.0044 ** 
+tempdistant                        -2.306210   0.450188  -5.123 3.01e-07 ***
+tempnear                           -0.139289   0.257469  -0.541   0.5885    
+scenarioJennifer                   -0.675078   0.280063  -2.410   0.0159 *  
+scenarioJulie and Mark             -0.101830   0.252592  -0.403   0.6868    
+scenarioTrolley                     0.050050   0.241115   0.208   0.8356    
+ju1_2                               0.043142   0.045908   0.940   0.3473    
+ju2_2                               0.021055   0.043820   0.481   0.6309    
+cf1_2                               0.017471   0.057116   0.306   0.7597    
+cf2_2                              -0.016958   0.055686  -0.305   0.7607    
+confused                           -0.018150   0.045604  -0.398   0.6906    
+irritated                           0.031316   0.046672   0.671   0.5022    
+reason                              0.008897   0.045929   0.194   0.8464    
+gut                                 0.038129   0.045594   0.836   0.4030    
+tempdistant:scenarioJennifer        0.983198   0.616711   1.594   0.1109    
+tempnear:scenarioJennifer           0.213981   0.398364   0.537   0.5912    
+tempdistant:scenarioJulie and Mark  0.202959   0.638553   0.318   0.7506    
+tempnear:scenarioJulie and Mark     0.527304   0.355277   1.484   0.1378    
+tempdistant:scenarioTrolley        -0.776493   0.753818  -1.030   0.3030    
+tempnear:scenarioTrolley            0.316540   0.346717   0.913   0.3613    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate              Std.Err.           
+It's wrong but I cannot explain why~1 4.964e-06             4.672e-18          
+There is nothing wrong~1              6.684e-09 4.971e-06   3.311e-18 4.693e-18
+
+Approximate residual deviance: 3673 
+Number of Fisher scoring iterations:  7
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                       Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                         -1.7233     0.5897 -2.9221   0.0035 -2.8791 -0.5674 0.1785 0.0562 0.5670 -0.9521
+There is nothing wrong~(Intercept)                                      -1.6846     0.5916 -2.8476   0.0044 -2.8440 -0.5251 0.1855 0.0582 0.5915 -0.9307
+It's wrong but I cannot explain why~tempdistant                         -1.7561     0.3724 -4.7157   0.0000 -2.4860 -1.0262 0.1727 0.0832 0.3584 -0.9702
+There is nothing wrong~tempdistant                                      -2.3062     0.4502 -5.1228   0.0000 -3.1886 -1.4239 0.0996 0.0412 0.2408 -1.2741
+It's wrong but I cannot explain why~tempnear                             0.2508     0.2475  1.0133   0.3109 -0.2343  0.7360 1.2851 0.7911 2.0876  0.1386
+There is nothing wrong~tempnear                                         -0.1393     0.2575 -0.5410   0.5885 -0.6439  0.3653 0.8700 0.5252 1.4410 -0.0770
+It's wrong but I cannot explain why~scenarioJennifer                    -0.1738     0.2582 -0.6730   0.5010 -0.6799  0.3323 0.8405 0.5067 1.3942 -0.0960
+There is nothing wrong~scenarioJennifer                                 -0.6751     0.2801 -2.4105   0.0159 -1.2240 -0.1262 0.5091 0.2941 0.8815 -0.3730
+It's wrong but I cannot explain why~scenarioJulie and Mark               0.0965     0.2532  0.3811   0.7031 -0.3998  0.5927 1.1013 0.6705 1.8089  0.0533
+There is nothing wrong~scenarioJulie and Mark                           -0.1018     0.2526 -0.4031   0.6868 -0.5969  0.3932 0.9032 0.5505 1.4818 -0.0563
+It's wrong but I cannot explain why~scenarioTrolley                     -0.7576     0.3001 -2.5245   0.0116 -1.3458 -0.1694 0.4688 0.2603 0.8441 -0.4186
+There is nothing wrong~scenarioTrolley                                   0.0501     0.2411  0.2076   0.8356 -0.4225  0.5226 1.0513 0.6554 1.6865  0.0277
+It's wrong but I cannot explain why~ju1_2                               -0.0657     0.0463 -1.4169   0.1565 -0.1565  0.0252 0.9364 0.8551 1.0255 -0.0363
+There is nothing wrong~ju1_2                                             0.0431     0.0459  0.9398   0.3473 -0.0468  0.1331 1.0441 0.9542 1.1424  0.0238
+It's wrong but I cannot explain why~ju2_2                                0.0058     0.0432  0.1335   0.8938 -0.0789  0.0905 1.0058 0.9241 1.0947  0.0032
+There is nothing wrong~ju2_2                                             0.0211     0.0438  0.4805   0.6309 -0.0648  0.1069 1.0213 0.9372 1.1129  0.0116
+It's wrong but I cannot explain why~cf1_2                               -0.0199     0.0560 -0.3550   0.7226 -0.1296  0.0898 0.9803 0.8785 1.0940 -0.0110
+There is nothing wrong~cf1_2                                             0.0175     0.0571  0.3059   0.7597 -0.0945  0.1294 1.0176 0.9099 1.1382  0.0097
+It's wrong but I cannot explain why~cf2_2                                0.0887     0.0565  1.5705   0.1163 -0.0220  0.1994 1.0928 0.9782 1.2207  0.0490
+There is nothing wrong~cf2_2                                            -0.0170     0.0557 -0.3045   0.7607 -0.1261  0.0922 0.9832 0.8815 1.0966 -0.0094
+It's wrong but I cannot explain why~confused                            -0.0444     0.0459 -0.9674   0.3333 -0.1342  0.0455 0.9566 0.8744 1.0466 -0.0245
+There is nothing wrong~confused                                         -0.0182     0.0456 -0.3980   0.6906 -0.1075  0.0712 0.9820 0.8980 1.0738 -0.0100
+It's wrong but I cannot explain why~irritated                            0.1023     0.0457  2.2368   0.0253  0.0127  0.1919 1.1077 1.0127 1.2115  0.0565
+There is nothing wrong~irritated                                         0.0313     0.0467  0.6710   0.5022 -0.0602  0.1228 1.0318 0.9416 1.1306  0.0173
+It's wrong but I cannot explain why~reason                               0.0137     0.0451  0.3026   0.7622 -0.0748  0.1021 1.0138 0.9279 1.1075  0.0075
+There is nothing wrong~reason                                            0.0089     0.0459  0.1937   0.8464 -0.0811  0.0989 1.0089 0.9221 1.1040  0.0049
+It's wrong but I cannot explain why~gut                                 -0.0102     0.0458 -0.2237   0.8230 -0.1000  0.0795 0.9898 0.9048 1.0828 -0.0057
+There is nothing wrong~gut                                               0.0381     0.0456  0.8363   0.4030 -0.0512  0.1275 1.0389 0.9501 1.1360  0.0211
+It's wrong but I cannot explain why~tempdistant:scenarioJennifer         0.3321     0.5177  0.6415   0.5212 -0.6826  1.3468 1.3939 0.5053 3.8452  0.1835
+There is nothing wrong~tempdistant:scenarioJennifer                      0.9832     0.6167  1.5943   0.1109 -0.2255  2.1919 2.6730 0.7981 8.9525  0.5432
+It's wrong but I cannot explain why~tempnear:scenarioJennifer           -0.3066     0.3598 -0.8520   0.3942 -1.0118  0.3987 0.7360 0.3636 1.4898 -0.1694
+There is nothing wrong~tempnear:scenarioJennifer                         0.2140     0.3984  0.5371   0.5912 -0.5668  0.9948 1.2386 0.5673 2.7041  0.1182
+It's wrong but I cannot explain why~tempdistant:scenarioJulie and Mark   1.0283     0.4603  2.2337   0.0255  0.1260  1.9305 2.7962 1.1343 6.8932  0.5681
+There is nothing wrong~tempdistant:scenarioJulie and Mark                0.2030     0.6386  0.3178   0.7506 -1.0486  1.4545 1.2250 0.3504 4.2823  0.1121
+It's wrong but I cannot explain why~tempnear:scenarioJulie and Mark     -0.2505     0.3537 -0.7083   0.4788 -0.9436  0.4427 0.7784 0.3892 1.5568 -0.1384
+There is nothing wrong~tempnear:scenarioJulie and Mark                   0.5273     0.3553  1.4842   0.1378 -0.1690  1.2236 1.6944 0.8445 3.3995  0.2913
+It's wrong but I cannot explain why~tempdistant:scenarioTrolley         -0.8647     0.8369 -1.0332   0.3015 -2.5049  0.7756 0.4212 0.0817 2.1719 -0.4777
+There is nothing wrong~tempdistant:scenarioTrolley                      -0.7765     0.7538 -1.0301   0.3030 -2.2539  0.7010 0.4600 0.1050 2.0157 -0.4290
+It's wrong but I cannot explain why~tempnear:scenarioTrolley             0.2876     0.3967  0.7250   0.4685 -0.4899  1.0650 1.3332 0.6127 2.9008  0.1589
+There is nothing wrong~tempnear:scenarioTrolley                          0.3165     0.3467  0.9130   0.3613 -0.3630  0.9961 1.3724 0.6956 2.7077  0.1749
+```
+
+
+:::
+:::
+
+
+
+
+#### Ambiguity
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs ~ temp
+  * ambiguity
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 3789.439 - criterion = 0.8591293
+Iteration 2 - deviance = 3734.569 - criterion = 0.03123853
+Iteration 3 - deviance = 3730.469 - criterion = 0.004396086
+Iteration 4 - deviance = 3730.38 - criterion = 0.0001422853
+Iteration 5 - deviance = 3730.38 - criterion = 1.88629e-07
+Iteration 6 - deviance = 3730.38 - criterion = 4.588476e-13
+converged
+
+Call:
+mblogit(formula = cs ~ temp * ambiguity, data = x, random = list(~1 | 
+    ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                       -1.6761     0.1431 -11.716  < 2e-16 ***
+tempdistant                       -1.9143     0.3257  -5.877 4.18e-09 ***
+tempnear                           0.3723     0.1912   1.947   0.0516 .  
+ambiguityunambiguous               0.2867     0.1905   1.505   0.1323    
+tempdistant:ambiguityunambiguous   0.9399     0.3882   2.421   0.0155 *  
+tempnear:ambiguityunambiguous     -0.3990     0.2630  -1.517   0.1292    
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                      -1.23676    0.11974 -10.329  < 2e-16 ***
+tempdistant                      -2.64136    0.35742  -7.390 1.47e-13 ***
+tempnear                          0.01779    0.17147   0.104   0.9174    
+ambiguityunambiguous             -0.39500    0.18336  -2.154   0.0312 *  
+tempdistant:ambiguityunambiguous  0.91077    0.47004   1.938   0.0527 .  
+tempnear:ambiguityunambiguous     0.23747    0.25485   0.932   0.3514    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate              Std.Err.           
+It's wrong but I cannot explain why~1 2.436e-06             5.523e-19          
+There is nothing wrong~1              2.529e-09 2.438e-06   3.909e-19 5.534e-19
+
+Approximate residual deviance: 3730 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                     Estimate Std. Error  z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                       -1.6761     0.1431 -11.7160   0.0000 -1.9565 -1.3957 0.1871 0.1413 0.2477 -0.9260
+There is nothing wrong~(Intercept)                                    -1.2368     0.1197 -10.3290   0.0000 -1.4714 -1.0021 0.2903 0.2296 0.3671 -0.6833
+It's wrong but I cannot explain why~tempdistant                       -1.9143     0.3257  -5.8770   0.0000 -2.5527 -1.2759 0.1474 0.0779 0.2792 -1.0576
+There is nothing wrong~tempdistant                                    -2.6414     0.3574  -7.3901   0.0000 -3.3419 -1.9408 0.0713 0.0354 0.1436 -1.4593
+It's wrong but I cannot explain why~tempnear                           0.3723     0.1912   1.9468   0.0516 -0.0025  0.7470 1.4510 0.9975 2.1107  0.2057
+There is nothing wrong~tempnear                                        0.0178     0.1715   0.1037   0.9174 -0.3183  0.3539 1.0179 0.7274 1.4246  0.0098
+It's wrong but I cannot explain why~ambiguityunambiguous               0.2867     0.1905   1.5051   0.1323 -0.0866  0.6600 1.3320 0.9170 1.9348  0.1584
+There is nothing wrong~ambiguityunambiguous                           -0.3950     0.1834  -2.1543   0.0312 -0.7544 -0.0356 0.6737 0.4703 0.9650 -0.2182
+It's wrong but I cannot explain why~tempdistant:ambiguityunambiguous   0.9399     0.3882   2.4212   0.0155  0.1791  1.7008 2.5598 1.1961 5.4783  0.5193
+There is nothing wrong~tempdistant:ambiguityunambiguous                0.9108     0.4700   1.9377   0.0527 -0.0105  1.8320 2.4862 0.9896 6.2465  0.5032
+It's wrong but I cannot explain why~tempnear:ambiguityunambiguous     -0.3990     0.2630  -1.5173   0.1292 -0.9145  0.1164 0.6710 0.4007 1.1235 -0.2205
+There is nothing wrong~tempnear:ambiguityunambiguous                   0.2375     0.2549   0.9318   0.3514 -0.2620  0.7370 1.2680 0.7695 2.0896  0.1312
+```
+
+
+:::
+:::
+
+
+
+
+### Including Coded Responses
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+x <- df
+table(x$temp,x$scenario)
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+x$cs_with_coded1 <- as.factor(x$cs_with_coded1)
+x$cs_with_coded2 <- as.factor(x$cs_with_coded2)
+
+m1a <- mblogit(formula=cs_with_coded1~temp#*scenario
+, random = list(~1|ResponseId)
+# , contrasts = list(scenario = contr.sum)
+, data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs_with_coded1~temp*scenario
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_heinz_base <- mblogit(formula=cs_with_coded1~temp*(JulieandMark+Jennifer+Trolley)
+                          , random = list(~1|ResponseId)
+                          # , contrasts = list(scenario = contr.sum)
+                          , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_trolley_base <- mblogit(formula=cs_with_coded1~temp*(JulieandMark+Jennifer+Heinz)
+                            , random = list(~1|ResponseId)
+                            # , contrasts = list(scenario = contr.sum)
+                            , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_jennifer_base <- mblogit(formula=cs_with_coded1~temp*(JulieandMark+Trolley+Heinz)
+                             , random = list(~1|ResponseId)
+                             # , contrasts = list(scenario = contr.sum)
+                             , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_JulieMark_base <- mblogit(formula=cs_with_coded1~temp*(Jennifer+Trolley+Heinz)
+                              , random = list(~1|ResponseId)
+                              # , contrasts = list(scenario = contr.sum)
+                              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+
+m1d <- mblogit(formula=cs_with_coded1~temp*scenario
+               + ju1_2 + ju2_2 + cf1_2 + cf2_2
+               + confused + irritated + reason + gut
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+stats::BIC(m1c_heinz_base)
+stats::BIC(m1c_trolley_base)
+stats::BIC(m1c_jennifer_base)
+stats::BIC(m1c_JulieMark_base)
+
+stats::BIC(m1d)
+
+
+stats::AIC(m1c_heinz_base)
+stats::AIC(m1c_trolley_base)
+stats::AIC(m1c_jennifer_base)
+stats::AIC(m1c_JulieMark_base)
+
+stats::AIC(m1d)
+
+# lower AIC is better
+# lower BIC is better
+summary(m1a)
+summary(m1b)
+summary(m1c_heinz_base)
+summary(m1c_trolley_base)
+summary(m1c_jennifer_base)
+summary(m1c_JulieMark_base)
+summary(m1d)
+
+
+
+summary(m1d)
+
+m1_results <- function(x){
+  m1 <- x
+  coefs <- summary(m1)$coefficients
+  LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+  ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+  OR <- exp(coefs[,1])
+  ORLL <- exp(LLs)
+  ORUL <- exp(ULs)
+  HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+  
+  round(cbind(coefs, LLs, ULs), 4)
+  round(cbind(OR, ORLL, ORUL, HHES), 4)
+  
+  
+  round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+}
+```
+:::
+
+
+
+#### Most Basic Model (not including Scenario)
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs_with_coded1 ~ temp
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 5231.218 - criterion = 1.03232
+Iteration 2 - deviance = 5195.923 - criterion = 0.04758181
+Iteration 3 - deviance = 5191.478 - criterion = 0.009484006
+Iteration 4 - deviance = 5190.814 - criterion = 0.0003008175
+Iteration 5 - deviance = 5190.729 - criterion = 2.479012e-07
+Iteration 6 - deviance = 5190.727 - criterion = 1.572827e-13
+converged
+
+Call:
+mblogit(formula = cs_with_coded1 ~ temp, data = x, random = list(~1 | 
+    ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  0.09906    0.07560   1.310    0.190    
+tempdistant -0.47091    0.10412  -4.523  6.1e-06 ***
+tempnear     0.04760    0.10748   0.443    0.658    
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -0.87166    0.09864  -8.837   <2e-16 ***
+tempdistant -2.25809    0.23559  -9.585   <2e-16 ***
+tempnear     0.11503    0.13836   0.831    0.406    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate          Std.Err.           
+It's wrong but I cannot explain why~1 0.10473           4.812e-05          
+There is nothing wrong~1              0.01793 0.08940   3.077e-05 3.109e-05
+
+Approximate residual deviance: 5191 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)   0.0991     0.0756  1.3104   0.1901 -0.0491  0.2472 1.1041 0.9521 1.2805  0.0547
+There is nothing wrong~(Intercept)               -0.8717     0.0986 -8.8371   0.0000 -1.0650 -0.6783 0.4183 0.3447 0.5075 -0.4816
+It's wrong but I cannot explain why~tempdistant  -0.4709     0.1041 -4.5228   0.0000 -0.6750 -0.2668 0.6244 0.5092 0.7658 -0.2602
+There is nothing wrong~tempdistant               -2.2581     0.2356 -9.5848   0.0000 -2.7198 -1.7963 0.1046 0.0659 0.1659 -1.2476
+It's wrong but I cannot explain why~tempnear      0.0476     0.1075  0.4429   0.6579 -0.1631  0.2583 1.0488 0.8495 1.2947  0.0263
+There is nothing wrong~tempnear                   0.1150     0.1384  0.8314   0.4057 -0.1561  0.3862 1.1219 0.8554 1.4714  0.0636
+```
+
+
+:::
+:::
+
+
+
+#### Scenario included
+
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs_with_coded1 ~ temp
+  * scenario
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 5193.723 - criterion = 1.016677
+Iteration 2 - deviance = 5155.716 - criterion = 0.04860678
+Iteration 3 - deviance = 5150.443 - criterion = 0.01170915
+Iteration 4 - deviance = 5149.639 - criterion = 0.001032474
+Iteration 5 - deviance = 5149.541 - criterion = 1.245885e-05
+Iteration 6 - deviance = 5149.535 - criterion = 1.831392e-09
+converged
+
+Call:
+mblogit(formula = cs_with_coded1 ~ temp * scenario, data = x, 
+    random = list(~1 | ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)  
+(Intercept)                         0.18188    0.14853   1.225   0.2207  
+tempdistant                        -0.50995    0.20265  -2.516   0.0119 *
+tempnear                            0.27147    0.21063   1.289   0.1974  
+scenarioJennifer                   -0.17253    0.20285  -0.851   0.3950  
+scenarioJulie and Mark              0.08118    0.20723   0.392   0.6953  
+scenarioTrolley                    -0.23807    0.20917  -1.138   0.2551  
+tempdistant:scenarioJennifer       -0.02125    0.28139  -0.076   0.9398  
+tempnear:scenarioJennifer          -0.20189    0.28786  -0.701   0.4831  
+tempdistant:scenarioJulie and Mark  0.08390    0.28226   0.297   0.7663  
+tempnear:scenarioJulie and Mark    -0.47883    0.29571  -1.619   0.1054  
+tempdistant:scenarioTrolley         0.08484    0.28490   0.298   0.7659  
+tempnear:scenarioTrolley           -0.22750    0.29704  -0.766   0.4437  
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -0.70606    0.18969  -3.722 0.000197 ***
+tempdistant                        -2.36192    0.45913  -5.144 2.68e-07 ***
+tempnear                           -0.05722    0.27982  -0.204 0.837978    
+scenarioJennifer                   -0.74222    0.29509  -2.515 0.011895 *  
+scenarioJulie and Mark             -0.07634    0.27197  -0.281 0.778962    
+scenarioTrolley                     0.04368    0.25921   0.168 0.866194    
+tempdistant:scenarioJennifer        0.96240    0.62750   1.534 0.125098    
+tempnear:scenarioJennifer           0.18760    0.42164   0.445 0.656378    
+tempdistant:scenarioJulie and Mark  0.14871    0.65069   0.229 0.819226    
+tempnear:scenarioJulie and Mark     0.31619    0.38359   0.824 0.409774    
+tempdistant:scenarioTrolley        -0.81154    0.76292  -1.064 0.287452    
+tempnear:scenarioTrolley            0.16189    0.37413   0.433 0.665227    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate          Std.Err.           
+It's wrong but I cannot explain why~1 0.10485           4.832e-05          
+There is nothing wrong~1              0.01801 0.08953   3.093e-05 3.125e-05
+
+Approximate residual deviance: 5150 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                       Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                          0.1819     0.1485  1.2245   0.2207 -0.1092  0.4730 1.1995 0.8965 1.6048  0.1005
+There is nothing wrong~(Intercept)                                      -0.7061     0.1897 -3.7222   0.0002 -1.0778 -0.3343 0.4936 0.3403 0.7159 -0.3901
+It's wrong but I cannot explain why~tempdistant                         -0.5099     0.2027 -2.5164   0.0119 -0.9071 -0.1128 0.6005 0.4037 0.8934 -0.2817
+There is nothing wrong~tempdistant                                      -2.3619     0.4591 -5.1444   0.0000 -3.2618 -1.4620 0.0942 0.0383 0.2318 -1.3049
+It's wrong but I cannot explain why~tempnear                             0.2715     0.2106  1.2889   0.1974 -0.1414  0.6843 1.3119 0.8682 1.9824  0.1500
+There is nothing wrong~tempnear                                         -0.0572     0.2798 -0.2045   0.8380 -0.6056  0.4912 0.9444 0.5457 1.6343 -0.0316
+It's wrong but I cannot explain why~scenarioJennifer                    -0.1725     0.2029 -0.8505   0.3950 -0.5701  0.2251 0.8415 0.5655 1.2524 -0.0953
+There is nothing wrong~scenarioJennifer                                 -0.7422     0.2951 -2.5153   0.0119 -1.3206 -0.1639 0.4761 0.2670 0.8489 -0.4101
+It's wrong but I cannot explain why~scenarioJulie and Mark               0.0812     0.2072  0.3917   0.6953 -0.3250  0.4873 1.0846 0.7225 1.6280  0.0448
+There is nothing wrong~scenarioJulie and Mark                           -0.0763     0.2720 -0.2807   0.7790 -0.6094  0.4567 0.9265 0.5437 1.5789 -0.0422
+It's wrong but I cannot explain why~scenarioTrolley                     -0.2381     0.2092 -1.1381   0.2551 -0.6480  0.1719 0.7882 0.5231 1.1876 -0.1315
+There is nothing wrong~scenarioTrolley                                   0.0437     0.2592  0.1685   0.8662 -0.4644  0.5517 1.0446 0.6285 1.7362  0.0241
+It's wrong but I cannot explain why~tempdistant:scenarioJennifer        -0.0212     0.2814 -0.0755   0.9398 -0.5728  0.5303 0.9790 0.5640 1.6994 -0.0117
+There is nothing wrong~tempdistant:scenarioJennifer                      0.9624     0.6275  1.5337   0.1251 -0.2675  2.1923 2.6180 0.7653 8.9555  0.5317
+It's wrong but I cannot explain why~tempnear:scenarioJennifer           -0.2019     0.2879 -0.7013   0.4831 -0.7661  0.3623 0.8172 0.4648 1.4366 -0.1115
+There is nothing wrong~tempnear:scenarioJennifer                         0.1876     0.4216  0.4449   0.6564 -0.6388  1.0140 1.2063 0.5279 2.7566  0.1036
+It's wrong but I cannot explain why~tempdistant:scenarioJulie and Mark   0.0839     0.2823  0.2972   0.7663 -0.4693  0.6371 1.0875 0.6254 1.8910  0.0464
+There is nothing wrong~tempdistant:scenarioJulie and Mark                0.1487     0.6507  0.2285   0.8192 -1.1266  1.4240 1.1603 0.3241 4.1539  0.0822
+It's wrong but I cannot explain why~tempnear:scenarioJulie and Mark     -0.4788     0.2957 -1.6193   0.1054 -1.0584  0.1007 0.6195 0.3470 1.1060 -0.2645
+There is nothing wrong~tempnear:scenarioJulie and Mark                   0.3162     0.3836  0.8243   0.4098 -0.4356  1.0680 1.3719 0.6469 2.9096  0.1747
+It's wrong but I cannot explain why~tempdistant:scenarioTrolley          0.0848     0.2849  0.2978   0.7659 -0.4736  0.6432 1.0885 0.6228 1.9026  0.0469
+There is nothing wrong~tempdistant:scenarioTrolley                      -0.8115     0.7629 -1.0637   0.2875 -2.3068  0.6838 0.4442 0.0996 1.9813 -0.4484
+It's wrong but I cannot explain why~tempnear:scenarioTrolley            -0.2275     0.2970 -0.7659   0.4437 -0.8097  0.3547 0.7965 0.4450 1.4257 -0.1257
+There is nothing wrong~tempnear:scenarioTrolley                          0.1619     0.3741  0.4327   0.6652 -0.5714  0.8952 1.1757 0.5647 2.4477  0.0894
+```
+
+
+:::
+:::
+
+
+
+
+#### Covariates added
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula =
+    cs_with_coded1 ~ temp
+  * scenario
+  + ju1_2 + ju2_2 + cf1_2 + cf2_2
+  + confused + irritated + reason + gut
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 5186.591 - criterion = 1.013482
+Iteration 2 - deviance = 5147.643 - criterion = 0.04934979
+Iteration 3 - deviance = 5142.371 - criterion = 0.01169384
+Iteration 4 - deviance = 5141.555 - criterion = 0.001034489
+Iteration 5 - deviance = 5141.457 - criterion = 1.262822e-05
+Iteration 6 - deviance = 5141.451 - criterion = 1.89587e-09
+converged
+
+Call:
+mblogit(formula = cs_with_coded1 ~ temp * scenario + ju1_2 + 
+    ju2_2 + cf1_2 + cf2_2 + confused + irritated + reason + gut, 
+    data = x, random = list(~1 | ResponseId), method = c("PQL"), 
+    estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                     Estimate Std. Error z value Pr(>|z|)   
+(Intercept)                         0.0035425  0.4129849   0.009   0.9932   
+tempdistant                        -0.5256432  0.2035260  -2.583   0.0098 **
+tempnear                            0.2671038  0.2110504   1.266   0.2057   
+scenarioJennifer                   -0.1745960  0.2033375  -0.859   0.3905   
+scenarioJulie and Mark              0.0816672  0.2076192   0.393   0.6941   
+scenarioTrolley                    -0.2472011  0.2098817  -1.178   0.2389   
+ju1_2                              -0.0430026  0.0318327  -1.351   0.1767   
+ju2_2                               0.0002293  0.0302937   0.008   0.9940   
+cf1_2                               0.0377897  0.0388935   0.972   0.3312   
+cf2_2                               0.0376356  0.0390687   0.963   0.3354   
+confused                           -0.0254044  0.0316765  -0.802   0.4226   
+irritated                           0.0146667  0.0320941   0.457   0.6477   
+reason                             -0.0060293  0.0315170  -0.191   0.8483   
+gut                                -0.0043699  0.0317246  -0.138   0.8904   
+tempdistant:scenarioJennifer       -0.0068617  0.2823967  -0.024   0.9806   
+tempnear:scenarioJennifer          -0.2046120  0.2885137  -0.709   0.4782   
+tempdistant:scenarioJulie and Mark  0.0885251  0.2831703   0.313   0.7546   
+tempnear:scenarioJulie and Mark    -0.4787179  0.2961142  -1.617   0.1060   
+tempdistant:scenarioTrolley         0.1028711  0.2861970   0.359   0.7193   
+tempnear:scenarioTrolley           -0.2297694  0.2977432  -0.772   0.4403   
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -1.112419   0.622250  -1.788   0.0738 .  
+tempdistant                        -2.365151   0.459964  -5.142 2.72e-07 ***
+tempnear                           -0.041103   0.280396  -0.147   0.8835    
+scenarioJennifer                   -0.734352   0.295655  -2.484   0.0130 *  
+scenarioJulie and Mark             -0.077300   0.272496  -0.284   0.7767    
+scenarioTrolley                     0.040549   0.260376   0.156   0.8762    
+ju1_2                               0.032482   0.048251   0.673   0.5008    
+ju2_2                               0.020179   0.046098   0.438   0.6616    
+cf1_2                               0.038972   0.059865   0.651   0.5151    
+cf2_2                              -0.018012   0.058631  -0.307   0.7587    
+confused                           -0.025011   0.047993  -0.521   0.6023    
+irritated                           0.020595   0.049005   0.420   0.6743    
+reason                              0.002646   0.048306   0.055   0.9563    
+gut                                 0.037252   0.048005   0.776   0.4378    
+tempdistant:scenarioJennifer        0.957934   0.628395   1.524   0.1274    
+tempnear:scenarioJennifer           0.158818   0.422429   0.376   0.7069    
+tempdistant:scenarioJulie and Mark  0.161013   0.651562   0.247   0.8048    
+tempnear:scenarioJulie and Mark     0.315575   0.384096   0.822   0.4113    
+tempdistant:scenarioTrolley        -0.793975   0.763967  -1.039   0.2987    
+tempnear:scenarioTrolley            0.159810   0.375125   0.426   0.6701    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate          Std.Err.           
+It's wrong but I cannot explain why~1 0.10518           4.896e-05          
+There is nothing wrong~1              0.01846 0.09000   3.157e-05 3.190e-05
+
+Approximate residual deviance: 5141 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                       Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                          0.0035     0.4130  0.0086   0.9932 -0.8059  0.8130 1.0035 0.4467 2.2546  0.0020
+There is nothing wrong~(Intercept)                                      -1.1124     0.6223 -1.7877   0.0738 -2.3320  0.1072 0.3288 0.0971 1.1131 -0.6146
+It's wrong but I cannot explain why~tempdistant                         -0.5256     0.2035 -2.5827   0.0098 -0.9245 -0.1267 0.5912 0.3967 0.8810 -0.2904
+There is nothing wrong~tempdistant                                      -2.3652     0.4600 -5.1420   0.0000 -3.2667 -1.4636 0.0939 0.0381 0.2314 -1.3067
+It's wrong but I cannot explain why~tempnear                             0.2671     0.2111  1.2656   0.2057 -0.1465  0.6808 1.3062 0.8637 1.9754  0.1476
+There is nothing wrong~tempnear                                         -0.0411     0.2804 -0.1466   0.8835 -0.5907  0.5085 0.9597 0.5540 1.6627 -0.0227
+It's wrong but I cannot explain why~scenarioJennifer                    -0.1746     0.2033 -0.8587   0.3905 -0.5731  0.2239 0.8398 0.5638 1.2510 -0.0965
+There is nothing wrong~scenarioJennifer                                 -0.7344     0.2957 -2.4838   0.0130 -1.3138 -0.1549 0.4798 0.2688 0.8565 -0.4057
+It's wrong but I cannot explain why~scenarioJulie and Mark               0.0817     0.2076  0.3934   0.6941 -0.3253  0.4886 1.0851 0.7223 1.6300  0.0451
+There is nothing wrong~scenarioJulie and Mark                           -0.0773     0.2725 -0.2837   0.7767 -0.6114  0.4568 0.9256 0.5426 1.5790 -0.0427
+It's wrong but I cannot explain why~scenarioTrolley                     -0.2472     0.2099 -1.1778   0.2389 -0.6586  0.1642 0.7810 0.5176 1.1784 -0.1366
+There is nothing wrong~scenarioTrolley                                   0.0405     0.2604  0.1557   0.8762 -0.4698  0.5509 1.0414 0.6251 1.7348  0.0224
+It's wrong but I cannot explain why~ju1_2                               -0.0430     0.0318 -1.3509   0.1767 -0.1054  0.0194 0.9579 0.9000 1.0196 -0.0238
+There is nothing wrong~ju1_2                                             0.0325     0.0483  0.6732   0.5008 -0.0621  0.1271 1.0330 0.9398 1.1355  0.0179
+It's wrong but I cannot explain why~ju2_2                                0.0002     0.0303  0.0076   0.9940 -0.0591  0.0596 1.0002 0.9426 1.0614  0.0001
+There is nothing wrong~ju2_2                                             0.0202     0.0461  0.4377   0.6616 -0.0702  0.1105 1.0204 0.9322 1.1169  0.0111
+It's wrong but I cannot explain why~cf1_2                                0.0378     0.0389  0.9716   0.3312 -0.0384  0.1140 1.0385 0.9623 1.1208  0.0209
+There is nothing wrong~cf1_2                                             0.0390     0.0599  0.6510   0.5151 -0.0784  0.1563 1.0397 0.9246 1.1692  0.0215
+It's wrong but I cannot explain why~cf2_2                                0.0376     0.0391  0.9633   0.3354 -0.0389  0.1142 1.0384 0.9618 1.1210  0.0208
+There is nothing wrong~cf2_2                                            -0.0180     0.0586 -0.3072   0.7587 -0.1329  0.0969 0.9821 0.8755 1.1018 -0.0100
+It's wrong but I cannot explain why~confused                            -0.0254     0.0317 -0.8020   0.4226 -0.0875  0.0367 0.9749 0.9162 1.0374 -0.0140
+There is nothing wrong~confused                                         -0.0250     0.0480 -0.5211   0.6023 -0.1191  0.0691 0.9753 0.8877 1.0715 -0.0138
+It's wrong but I cannot explain why~irritated                            0.0147     0.0321  0.4570   0.6477 -0.0482  0.0776 1.0148 0.9529 1.0807  0.0081
+There is nothing wrong~irritated                                         0.0206     0.0490  0.4203   0.6743 -0.0755  0.1166 1.0208 0.9273 1.1237  0.0114
+It's wrong but I cannot explain why~reason                              -0.0060     0.0315 -0.1913   0.8483 -0.0678  0.0557 0.9940 0.9344 1.0573 -0.0033
+There is nothing wrong~reason                                            0.0026     0.0483  0.0548   0.9563 -0.0920  0.0973 1.0026 0.9121 1.1022  0.0015
+It's wrong but I cannot explain why~gut                                 -0.0044     0.0317 -0.1377   0.8904 -0.0665  0.0578 0.9956 0.9356 1.0595 -0.0024
+There is nothing wrong~gut                                               0.0373     0.0480  0.7760   0.4378 -0.0568  0.1313 1.0380 0.9447 1.1404  0.0206
+It's wrong but I cannot explain why~tempdistant:scenarioJennifer        -0.0069     0.2824 -0.0243   0.9806 -0.5603  0.5466 0.9932 0.5710 1.7274 -0.0038
+There is nothing wrong~tempdistant:scenarioJennifer                      0.9579     0.6284  1.5244   0.1274 -0.2737  2.1896 2.6063 0.7606 8.9313  0.5292
+It's wrong but I cannot explain why~tempnear:scenarioJennifer           -0.2046     0.2885 -0.7092   0.4782 -0.7701  0.3609 0.8150 0.4630 1.4346 -0.1130
+There is nothing wrong~tempnear:scenarioJennifer                         0.1588     0.4224  0.3760   0.7069 -0.6691  0.9868 1.1721 0.5122 2.6825  0.0877
+It's wrong but I cannot explain why~tempdistant:scenarioJulie and Mark   0.0885     0.2832  0.3126   0.7546 -0.4665  0.6435 1.0926 0.6272 1.9032  0.0489
+There is nothing wrong~tempdistant:scenarioJulie and Mark                0.1610     0.6516  0.2471   0.8048 -1.1160  1.4381 1.1747 0.3276 4.2125  0.0890
+It's wrong but I cannot explain why~tempnear:scenarioJulie and Mark     -0.4787     0.2961 -1.6167   0.1060 -1.0591  0.1017 0.6196 0.3468 1.1070 -0.2645
+There is nothing wrong~tempnear:scenarioJulie and Mark                   0.3156     0.3841  0.8216   0.4113 -0.4372  1.0684 1.3710 0.6458 2.9107  0.1744
+It's wrong but I cannot explain why~tempdistant:scenarioTrolley          0.1029     0.2862  0.3594   0.7193 -0.4581  0.6638 1.1083 0.6325 1.9422  0.0568
+There is nothing wrong~tempdistant:scenarioTrolley                      -0.7940     0.7640 -1.0393   0.2987 -2.2913  0.7034 0.4520 0.1011 2.0206 -0.4387
+It's wrong but I cannot explain why~tempnear:scenarioTrolley            -0.2298     0.2977 -0.7717   0.4403 -0.8133  0.3538 0.7947 0.4434 1.4245 -0.1269
+There is nothing wrong~tempnear:scenarioTrolley                          0.1598     0.3751  0.4260   0.6701 -0.5754  0.8950 1.1733 0.5625 2.4474  0.0883
+```
+
+
+:::
+:::
+
+
+
+
+#### Ambiguity
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs_with_coded1 ~ temp
+  * ambiguity
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 5222.641 - criterion = 1.028794
+Iteration 2 - deviance = 5186.643 - criterion = 0.0479762
+Iteration 3 - deviance = 5181.827 - criterion = 0.01048871
+Iteration 4 - deviance = 5181.122 - criterion = 0.0005080963
+Iteration 5 - deviance = 5181.031 - criterion = 1.299196e-06
+Iteration 6 - deviance = 5181.028 - criterion = 8.949059e-12
+converged
+
+Call:
+mblogit(formula = cs_with_coded1 ~ temp * ambiguity, data = x, 
+    random = list(~1 | ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)   
+(Intercept)                       0.0645605  0.1065622   0.606  0.54462   
+tempdistant                      -0.4691688  0.1454435  -3.226  0.00126 **
+tempnear                          0.1630717  0.1509455   1.080  0.27999   
+ambiguityunambiguous              0.0666226  0.1451213   0.459  0.64618   
+tempdistant:ambiguityunambiguous -0.0009247  0.1993271  -0.005  0.99630   
+tempnear:ambiguityunambiguous    -0.2261851  0.2064328  -1.096  0.27322   
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                      -0.68301    0.13087  -5.219 1.80e-07 ***
+tempdistant                      -2.71071    0.36382  -7.451 9.28e-14 ***
+tempnear                          0.03647    0.18776   0.194   0.8460    
+ambiguityunambiguous             -0.41147    0.19565  -2.103   0.0355 *  
+tempdistant:ambiguityunambiguous  0.89135    0.47794   1.865   0.0622 .  
+tempnear:ambiguityunambiguous     0.19123    0.27289   0.701   0.4835    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate          Std.Err.           
+It's wrong but I cannot explain why~1 0.10465           4.800e-05          
+There is nothing wrong~1              0.01788 0.08935   3.069e-05 3.103e-05
+
+Approximate residual deviance: 5181 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                     Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                        0.0646     0.1066  0.6058   0.5446 -0.1443  0.2734 1.0667 0.8656 1.3145  0.0357
+There is nothing wrong~(Intercept)                                    -0.6830     0.1309 -5.2188   0.0000 -0.9395 -0.4265 0.5051 0.3908 0.6528 -0.3774
+It's wrong but I cannot explain why~tempdistant                       -0.4692     0.1454 -3.2258   0.0013 -0.7542 -0.1841 0.6255 0.4704 0.8318 -0.2592
+There is nothing wrong~tempdistant                                    -2.7107     0.3638 -7.4507   0.0000 -3.4238 -1.9976 0.0665 0.0326 0.1357 -1.4976
+It's wrong but I cannot explain why~tempnear                           0.1631     0.1509  1.0803   0.2800 -0.1328  0.4589 1.1771 0.8757 1.5824  0.0901
+There is nothing wrong~tempnear                                        0.0365     0.1878  0.1942   0.8460 -0.3315  0.4045 1.0371 0.7178 1.4985  0.0201
+It's wrong but I cannot explain why~ambiguityunambiguous               0.0666     0.1451  0.4591   0.6462 -0.2178  0.3511 1.0689 0.8043 1.4206  0.0368
+There is nothing wrong~ambiguityunambiguous                           -0.4115     0.1957 -2.1031   0.0355 -0.7949 -0.0280 0.6627 0.4516 0.9724 -0.2273
+It's wrong but I cannot explain why~tempdistant:ambiguityunambiguous  -0.0009     0.1993 -0.0046   0.9963 -0.3916  0.3897 0.9991 0.6760 1.4766 -0.0005
+There is nothing wrong~tempdistant:ambiguityunambiguous                0.8914     0.4779  1.8650   0.0622 -0.0454  1.8281 2.4384 0.9556 6.2221  0.4925
+It's wrong but I cannot explain why~tempnear:ambiguityunambiguous     -0.2262     0.2064 -1.0957   0.2732 -0.6308  0.1784 0.7976 0.5322 1.1953 -0.1250
+There is nothing wrong~tempnear:ambiguityunambiguous                   0.1912     0.2729  0.7008   0.4835 -0.3436  0.7261 1.2107 0.7092 2.0670  0.1057
+```
+
+
+:::
+:::
+
+
+
+
+
+### Exploratory: Different Kinds of Dumbfounding
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+x <- df
+table(x$temp,x$scenario)
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+x$cs_with_coded1 <- as.factor(x$cs_with_coded1)
+x$cs_with_coded2 <- as.factor(x$cs_with_coded2)
+
+
+m1a <- mblogit(formula=cs_with_coded2~temp#*scenario
+, random = list(~1|ResponseId)
+# , contrasts = list(scenario = contr.sum)
+, data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs_with_coded2~temp*scenario
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_heinz_base <- mblogit(formula=cs_with_coded2~temp*(JulieandMark+Jennifer+Trolley)
+                          , random = list(~1|ResponseId)
+                          # , contrasts = list(scenario = contr.sum)
+                          , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_trolley_base <- mblogit(formula=cs_with_coded2~temp*(JulieandMark+Jennifer+Heinz)
+                            , random = list(~1|ResponseId)
+                            # , contrasts = list(scenario = contr.sum)
+                            , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_jennifer_base <- mblogit(formula=cs_with_coded2~temp*(JulieandMark+Trolley+Heinz)
+                             , random = list(~1|ResponseId)
+                             # , contrasts = list(scenario = contr.sum)
+                             , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_JulieMark_base <- mblogit(formula=cs_with_coded2~temp*(Jennifer+Trolley+Heinz)
+                              , random = list(~1|ResponseId)
+                              # , contrasts = list(scenario = contr.sum)
+                              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+
+m1d <- mblogit(formula=cs_with_coded2~temp*scenario
+               + ju1_2 + ju2_2 + cf1_2 + cf2_2
+               + confused + irritated + reason + gut
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+stats::BIC(m1c_heinz_base)
+stats::BIC(m1c_trolley_base)
+stats::BIC(m1c_jennifer_base)
+stats::BIC(m1c_JulieMark_base)
+
+stats::BIC(m1d)
+
+
+stats::AIC(m1c_heinz_base)
+stats::AIC(m1c_trolley_base)
+stats::AIC(m1c_jennifer_base)
+stats::AIC(m1c_JulieMark_base)
+
+stats::AIC(m1d)
+
+# lower AIC is better
+# lower BIC is better
+summary(m1a)
+summary(m1b)
+summary(m1c_heinz_base)
+summary(m1c_trolley_base)
+summary(m1c_jennifer_base)
+summary(m1c_JulieMark_base)
+summary(m1d)
+
+
+
+summary(m1d)
+
+m1_results <- function(x){
+  m1 <- x
+  coefs <- summary(m1)$coefficients
+  LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+  ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+  OR <- exp(coefs[,1])
+  ORLL <- exp(LLs)
+  ORUL <- exp(ULs)
+  HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+  
+  round(cbind(coefs, LLs, ULs), 4)
+  round(cbind(OR, ORLL, ORUL, HHES), 4)
+  
+  
+  round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+}
+```
+:::
+
+
+
+#### Most Basic Model (not including Scenario)
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs_with_coded2 ~ temp
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 6638.517 - criterion = 0.9539353
+Iteration 2 - deviance = 6529.631 - criterion = 0.05368549
+Iteration 3 - deviance = 6528.479 - criterion = 0.00301938
+Iteration 4 - deviance = 6528.28 - criterion = 3.193897e-05
+Iteration 5 - deviance = 6528.273 - criterion = 4.484384e-09
+converged
+
+Call:
+mblogit(formula = cs_with_coded2 ~ temp, data = x, random = list(~1 | 
+    ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  -0.9745     0.1006  -9.682  < 2e-16 ***
+tempdistant  -1.3788     0.1792  -7.695 1.42e-14 ***
+tempnear      0.1555     0.1401   1.110    0.267    
+
+Equation for no reason after coding vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -0.31853    0.08137  -3.914 9.06e-05 ***
+tempdistant -0.20062    0.10862  -1.847   0.0647 .  
+tempnear    -0.01341    0.11662  -0.115   0.9084    
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -0.87060    0.09701  -8.975   <2e-16 ***
+tempdistant -2.25923    0.23421  -9.646   <2e-16 ***
+tempnear     0.11495    0.13603   0.845    0.398    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate                           Std.Err.                     
+It's wrong but I cannot explain why~1  1.743e-02                         2.025e-07                    
+no reason after coding~1               2.401e-05  1.805e-02              1.509e-07 2.248e-07          
+There is nothing wrong~1               5.090e-05 -2.173e-05  1.744e-02   1.433e-07 1.510e-07 2.029e-07
+
+Approximate residual deviance: 6528 
+Number of Fisher scoring iterations:  5
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)  -0.9745     0.1006 -9.6819   0.0000 -1.1718 -0.7772 0.3774 0.3098 0.4597 -0.5384
+no reason after coding~(Intercept)               -0.3185     0.0814 -3.9144   0.0001 -0.4780 -0.1590 0.7272 0.6200 0.8530 -0.1760
+There is nothing wrong~(Intercept)               -0.8706     0.0970 -8.9747   0.0000 -1.0607 -0.6805 0.4187 0.3462 0.5064 -0.4810
+It's wrong but I cannot explain why~tempdistant  -1.3788     0.1792 -7.6949   0.0000 -1.7300 -1.0276 0.2519 0.1773 0.3579 -0.7618
+no reason after coding~tempdistant               -0.2006     0.1086 -1.8470   0.0647 -0.4135  0.0123 0.8182 0.6613 1.0123 -0.1108
+There is nothing wrong~tempdistant               -2.2592     0.2342 -9.6462   0.0000 -2.7183 -1.8002 0.1044 0.0660 0.1653 -1.2482
+It's wrong but I cannot explain why~tempnear      0.1555     0.1401  1.1101   0.2669 -0.1191  0.4301 1.1683 0.8878 1.5374  0.0859
+no reason after coding~tempnear                  -0.0134     0.1166 -0.1150   0.9084 -0.2420  0.2151 0.9867 0.7851 1.2400 -0.0074
+There is nothing wrong~tempnear                   0.1150     0.1360  0.8451   0.3981 -0.1517  0.3816 1.1218 0.8593 1.4646  0.0635
+```
+
+
+:::
+:::
+
+
+
+#### Scenario included
+
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs_with_coded2 ~ temp
+  * scenario
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 6576.764 - criterion = 0.9474568
+Iteration 2 - deviance = 6457.792 - criterion = 0.04635633
+Iteration 3 - deviance = 6456.294 - criterion = 0.008271082
+Iteration 4 - deviance = 6454.986 - criterion = 0.0008784186
+Iteration 5 - deviance = 6454.868 - criterion = 1.465437e-05
+Iteration 6 - deviance = 6454.859 - criterion = 4.427128e-09
+converged
+
+Call:
+mblogit(formula = cs_with_coded2 ~ temp * scenario, data = x, 
+    random = list(~1 | ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                         -0.8070     0.1964  -4.108 3.99e-05 ***
+tempdistant                         -1.7515     0.3832  -4.571 4.86e-06 ***
+tempnear                             0.3584     0.2707   1.324   0.1855    
+scenarioJennifer                    -0.2090     0.2738  -0.764   0.4451    
+scenarioJulie and Mark               0.1240     0.2720   0.456   0.6486    
+scenarioTrolley                     -0.7322     0.3144  -2.329   0.0199 *  
+tempdistant:scenarioJennifer         0.2369     0.5300   0.447   0.6548    
+tempnear:scenarioJennifer           -0.3644     0.3848  -0.947   0.3437    
+tempdistant:scenarioJulie and Mark   0.9418     0.4766   1.976   0.0481 *  
+tempnear:scenarioJulie and Mark     -0.4686     0.3814  -1.229   0.2192    
+tempdistant:scenarioTrolley         -0.9520     0.8447  -1.127   0.2597    
+tempnear:scenarioTrolley             0.1234     0.4202   0.294   0.7690    
+
+Equation for no reason after coding vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)  
+(Intercept)                        -0.28650    0.16714  -1.714   0.0865 .
+tempdistant                        -0.15598    0.21975  -0.710   0.4778  
+tempnear                            0.21531    0.23686   0.909   0.3633  
+scenarioJennifer                   -0.15126    0.22897  -0.661   0.5089  
+scenarioJulie and Mark              0.05468    0.23382   0.234   0.8151  
+scenarioTrolley                    -0.02911    0.23007  -0.127   0.8993  
+tempdistant:scenarioJennifer       -0.07293    0.30603  -0.238   0.8116  
+tempnear:scenarioJennifer          -0.10582    0.32360  -0.327   0.7437  
+tempdistant:scenarioJulie and Mark -0.08413    0.31022  -0.271   0.7862  
+tempnear:scenarioJulie and Mark    -0.48953    0.33649  -1.455   0.1457  
+tempdistant:scenarioTrolley        -0.03351    0.30320  -0.111   0.9120  
+tempnear:scenarioTrolley           -0.34797    0.33077  -1.052   0.2928  
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -0.70742    0.18995  -3.724 0.000196 ***
+tempdistant                        -2.36141    0.45933  -5.141 2.73e-07 ***
+tempnear                           -0.05723    0.28017  -0.204 0.838129    
+scenarioJennifer                   -0.74243    0.29512  -2.516 0.011881 *  
+scenarioJulie and Mark             -0.07639    0.27201  -0.281 0.778825    
+scenarioTrolley                     0.04368    0.25925   0.168 0.866209    
+tempdistant:scenarioJennifer        0.96270    0.62751   1.534 0.124992    
+tempnear:scenarioJennifer           0.18777    0.42169   0.445 0.656121    
+tempdistant:scenarioJulie and Mark  0.14873    0.65071   0.229 0.819203    
+tempnear:scenarioJulie and Mark     0.31656    0.38364   0.825 0.409289    
+tempdistant:scenarioTrolley        -0.81151    0.76300  -1.064 0.287518    
+tempnear:scenarioTrolley            0.16219    0.37418   0.433 0.664679    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate                     Std.Err.                     
+It's wrong but I cannot explain why~1 0.110648                     5.316e-05                    
+no reason after coding~1              0.003607 0.115327            3.996e-05 5.952e-05          
+There is nothing wrong~1              0.006781 0.001029 0.109685   3.767e-05 3.922e-05 5.163e-05
+
+Approximate residual deviance: 6455 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                       Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                         -0.8070     0.1964 -4.1081   0.0000 -1.1920 -0.4220 0.4462 0.3036 0.6558 -0.4458
+no reason after coding~(Intercept)                                      -0.2865     0.1671 -1.7141   0.0865 -0.6141  0.0411 0.7509 0.5411 1.0419 -0.1583
+There is nothing wrong~(Intercept)                                      -0.7074     0.1899 -3.7242   0.0002 -1.0797 -0.3351 0.4929 0.3397 0.7152 -0.3908
+It's wrong but I cannot explain why~tempdistant                         -1.7515     0.3832 -4.5707   0.0000 -2.5025 -1.0004 0.1735 0.0819 0.3677 -0.9677
+no reason after coding~tempdistant                                      -0.1560     0.2198 -0.7098   0.4778 -0.5867  0.2747 0.8556 0.5562 1.3162 -0.0862
+There is nothing wrong~tempdistant                                      -2.3614     0.4593 -5.1409   0.0000 -3.2617 -1.4611 0.0943 0.0383 0.2320 -1.3046
+It's wrong but I cannot explain why~tempnear                             0.3584     0.2707  1.3241   0.1855 -0.1721  0.8889 1.4310 0.8419 2.4325  0.1980
+no reason after coding~tempnear                                          0.2153     0.2369  0.9090   0.3633 -0.2489  0.6795 1.2403 0.7796 1.9730  0.1190
+There is nothing wrong~tempnear                                         -0.0572     0.2802 -0.2043   0.8381 -0.6064  0.4919 0.9444 0.5453 1.6354 -0.0316
+It's wrong but I cannot explain why~scenarioJennifer                    -0.2090     0.2738 -0.7635   0.4451 -0.7456  0.3276 0.8114 0.4744 1.3876 -0.1155
+no reason after coding~scenarioJennifer                                 -0.1513     0.2290 -0.6606   0.5089 -0.6000  0.2975 0.8596 0.5488 1.3465 -0.0836
+There is nothing wrong~scenarioJennifer                                 -0.7424     0.2951 -2.5157   0.0119 -1.3209 -0.1640 0.4760 0.2669 0.8487 -0.4102
+It's wrong but I cannot explain why~scenarioJulie and Mark               0.1240     0.2720  0.4558   0.6486 -0.4091  0.6571 1.1320 0.6642 1.9291  0.0685
+no reason after coding~scenarioJulie and Mark                            0.0547     0.2338  0.2339   0.8151 -0.4036  0.5130 1.0562 0.6679 1.6702  0.0302
+There is nothing wrong~scenarioJulie and Mark                           -0.0764     0.2720 -0.2809   0.7788 -0.6095  0.4567 0.9265 0.5436 1.5789 -0.0422
+It's wrong but I cannot explain why~scenarioTrolley                     -0.7322     0.3144 -2.3285   0.0199 -1.3485 -0.1159 0.4809 0.2596 0.8906 -0.4045
+no reason after coding~scenarioTrolley                                  -0.0291     0.2301 -0.1265   0.8993 -0.4800  0.4218 0.9713 0.6188 1.5247 -0.0161
+There is nothing wrong~scenarioTrolley                                   0.0437     0.2593  0.1685   0.8662 -0.4644  0.5518 1.0446 0.6285 1.7364  0.0241
+It's wrong but I cannot explain why~tempdistant:scenarioJennifer         0.2369     0.5300  0.4471   0.6548 -0.8018  1.2757 1.2674 0.4485 3.5812  0.1309
+no reason after coding~tempdistant:scenarioJennifer                     -0.0729     0.3060 -0.2383   0.8116 -0.6727  0.5269 0.9297 0.5103 1.6937 -0.0403
+There is nothing wrong~tempdistant:scenarioJennifer                      0.9627     0.6275  1.5342   0.1250 -0.2672  2.1926 2.6188 0.7655 8.9586  0.5319
+It's wrong but I cannot explain why~tempnear:scenarioJennifer           -0.3644     0.3848 -0.9469   0.3437 -1.1185  0.3898 0.6946 0.3268 1.4767 -0.2013
+no reason after coding~tempnear:scenarioJennifer                        -0.1058     0.3236 -0.3270   0.7437 -0.7401  0.5284 0.8996 0.4771 1.6963 -0.0585
+There is nothing wrong~tempnear:scenarioJennifer                         0.1878     0.4217  0.4453   0.6561 -0.6387  1.0143 1.2066 0.5280 2.7573  0.1037
+It's wrong but I cannot explain why~tempdistant:scenarioJulie and Mark   0.9418     0.4766  1.9762   0.0481  0.0077  1.8759 2.5646 1.0078 6.5266  0.5203
+no reason after coding~tempdistant:scenarioJulie and Mark               -0.0841     0.3102 -0.2712   0.7862 -0.6921  0.5239 0.9193 0.5005 1.6886 -0.0465
+There is nothing wrong~tempdistant:scenarioJulie and Mark                0.1487     0.6507  0.2286   0.8192 -1.1266  1.4241 1.1604 0.3241 4.1541  0.0822
+It's wrong but I cannot explain why~tempnear:scenarioJulie and Mark     -0.4686     0.3814 -1.2287   0.2192 -1.2162  0.2789 0.6259 0.2964 1.3217 -0.2589
+no reason after coding~tempnear:scenarioJulie and Mark                  -0.4895     0.3365 -1.4548   0.1457 -1.1490  0.1700 0.6129 0.3169 1.1853 -0.2705
+There is nothing wrong~tempnear:scenarioJulie and Mark                   0.3166     0.3836  0.8251   0.4093 -0.4354  1.0685 1.3724 0.6470 2.9110  0.1749
+It's wrong but I cannot explain why~tempdistant:scenarioTrolley         -0.9520     0.8447 -1.1270   0.2597 -2.6076  0.7036 0.3860 0.0737 2.0210 -0.5260
+no reason after coding~tempdistant:scenarioTrolley                      -0.0335     0.3032 -0.1105   0.9120 -0.6278  0.5607 0.9670 0.5338 1.7520 -0.0185
+There is nothing wrong~tempdistant:scenarioTrolley                      -0.8115     0.7630 -1.0636   0.2875 -2.3070  0.6839 0.4442 0.0996 1.9817 -0.4483
+It's wrong but I cannot explain why~tempnear:scenarioTrolley             0.1234     0.4202  0.2937   0.7690 -0.7002  0.9470 1.1313 0.4965 2.5781  0.0682
+no reason after coding~tempnear:scenarioTrolley                         -0.3480     0.3308 -1.0520   0.2928 -0.9963  0.3003 0.7061 0.3693 1.3503 -0.1922
+There is nothing wrong~tempnear:scenarioTrolley                          0.1622     0.3742  0.4335   0.6647 -0.5712  0.8956 1.1761 0.5649 2.4487  0.0896
+```
+
+
+:::
+:::
+
+
+
+
+#### Covariates added
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula =
+    cs_with_coded2 ~ temp
+  * scenario
+  + ju1_2 + ju2_2 + cf1_2 + cf2_2
+  + confused + irritated + reason + gut
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 6561.756 - criterion = 0.945858
+Iteration 2 - deviance = 6439.597 - criterion = 0.0576159
+Iteration 3 - deviance = 6435.845 - criterion = 0.008459808
+Iteration 4 - deviance = 6435.324 - criterion = 0.0008916683
+Iteration 5 - deviance = 6435.297 - criterion = 1.54945e-05
+Iteration 6 - deviance = 6435.296 - criterion = 5.037101e-09
+converged
+
+Call:
+mblogit(formula = cs_with_coded2 ~ temp * scenario + ju1_2 + 
+    ju2_2 + cf1_2 + cf2_2 + confused + irritated + reason + gut, 
+    data = x, random = list(~1 | ResponseId), method = c("PQL"), 
+    estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                     Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -1.1889115  0.6187391  -1.922   0.0547 .  
+tempdistant                        -1.8189368  0.3834807  -4.743  2.1e-06 ***
+tempnear                            0.3486111  0.2701788   1.290   0.1969    
+scenarioJennifer                   -0.2338933  0.2750367  -0.850   0.3951    
+scenarioJulie and Mark              0.1210668  0.2730225   0.443   0.6575    
+scenarioTrolley                    -0.7697878  0.3158285  -2.437   0.0148 *  
+ju1_2                              -0.0774015  0.0484944  -1.596   0.1105    
+ju2_2                               0.0047427  0.0453585   0.105   0.9167    
+cf1_2                               0.0005452  0.0586348   0.009   0.9926    
+cf2_2                               0.0936924  0.0591858   1.583   0.1134    
+confused                           -0.0509155  0.0480235  -1.060   0.2890    
+irritated                           0.0962120  0.0479756   2.005   0.0449 *  
+reason                              0.0088529  0.0473315   0.187   0.8516    
+gut                                -0.0121299  0.0480146  -0.253   0.8006    
+tempdistant:scenarioJennifer        0.3093956  0.5315728   0.582   0.5605    
+tempnear:scenarioJennifer          -0.3613023  0.3863078  -0.935   0.3496    
+tempdistant:scenarioJulie and Mark  0.9885821  0.4782298   2.067   0.0387 *  
+tempnear:scenarioJulie and Mark    -0.4617717  0.3825506  -1.207   0.2274    
+tempdistant:scenarioTrolley        -0.8775977  0.8459093  -1.037   0.2995    
+tempnear:scenarioTrolley            0.1328725  0.4217351   0.315   0.7527    
+
+Equation for no reason after coding vs It's wrong and I can provide a valid reason:
+                                    Estimate Std. Error z value Pr(>|z|)
+(Intercept)                        -0.344397   0.448063  -0.769    0.442
+tempdistant                        -0.153017   0.218629  -0.700    0.484
+tempnear                            0.213484   0.235356   0.907    0.364
+scenarioJennifer                   -0.145882   0.229191  -0.637    0.524
+scenarioJulie and Mark              0.056606   0.233962   0.242    0.809
+scenarioTrolley                    -0.027269   0.230583  -0.118    0.906
+ju1_2                              -0.029115   0.034437  -0.845    0.398
+ju2_2                              -0.002266   0.032862  -0.069    0.945
+cf1_2                               0.048575   0.042205   1.151    0.250
+cf2_2                               0.013225   0.042239   0.313    0.754
+confused                           -0.016162   0.034286  -0.471    0.637
+irritated                          -0.015802   0.034899  -0.453    0.651
+reason                             -0.011963   0.034154  -0.350    0.726
+gut                                -0.004600   0.034297  -0.134    0.893
+tempdistant:scenarioJennifer       -0.080228   0.306716  -0.262    0.794
+tempnear:scenarioJennifer          -0.108760   0.323944  -0.336    0.737
+tempdistant:scenarioJulie and Mark -0.095770   0.310788  -0.308    0.758
+tempnear:scenarioJulie and Mark    -0.491532   0.336586  -1.460    0.144
+tempdistant:scenarioTrolley        -0.038436   0.304252  -0.126    0.899
+tempnear:scenarioTrolley           -0.354998   0.331192  -1.072    0.284
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -1.137304   0.620312  -1.833   0.0667 .  
+tempdistant                        -2.368835   0.459347  -5.157 2.51e-07 ***
+tempnear                           -0.041882   0.279258  -0.150   0.8808    
+scenarioJennifer                   -0.735071   0.295568  -2.487   0.0129 *  
+scenarioJulie and Mark             -0.077215   0.272412  -0.283   0.7768    
+scenarioTrolley                     0.038669   0.260338   0.149   0.8819    
+ju1_2                               0.031180   0.048083   0.648   0.5167    
+ju2_2                               0.020087   0.045935   0.437   0.6619    
+cf1_2                               0.037053   0.059700   0.621   0.5348    
+cf2_2                              -0.012945   0.058408  -0.222   0.8246    
+confused                           -0.025135   0.047789  -0.526   0.5989    
+irritated                           0.024960   0.048877   0.511   0.6096    
+reason                              0.003937   0.048101   0.082   0.9348    
+gut                                 0.036239   0.047809   0.758   0.4485    
+tempdistant:scenarioJennifer        0.960634   0.628339   1.529   0.1263    
+tempnear:scenarioJennifer           0.159221   0.422358   0.377   0.7062    
+tempdistant:scenarioJulie and Mark  0.162974   0.651509   0.250   0.8025    
+tempnear:scenarioJulie and Mark     0.316121   0.383978   0.823   0.4103    
+tempdistant:scenarioTrolley        -0.790341   0.763997  -1.034   0.3009    
+tempnear:scenarioTrolley            0.161485   0.375056   0.431   0.6668    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate                           Std.Err.                     
+It's wrong but I cannot explain why~1  2.168e-02                         3.899e-07                    
+no reason after coding~1              -9.244e-06  2.272e-02              2.957e-07 4.484e-07          
+There is nothing wrong~1              -2.513e-04 -4.557e-05  2.173e-02   2.768e-07 2.967e-07 3.926e-07
+
+Approximate residual deviance: 6435 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                       Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                         -1.1889     0.6187 -1.9215   0.0547 -2.4016  0.0238 0.3046 0.0906 1.0241 -0.6569
+no reason after coding~(Intercept)                                      -0.3444     0.4481 -0.7686   0.4421 -1.2226  0.5338 0.7086 0.2945 1.7054 -0.1903
+There is nothing wrong~(Intercept)                                      -1.1373     0.6203 -1.8334   0.0667 -2.3531  0.0785 0.3207 0.0951 1.0816 -0.6283
+It's wrong but I cannot explain why~tempdistant                         -1.8189     0.3835 -4.7432   0.0000 -2.5705 -1.0673 0.1622 0.0765 0.3439 -1.0049
+no reason after coding~tempdistant                                      -0.1530     0.2186 -0.6999   0.4840 -0.5815  0.2755 0.8581 0.5590 1.3172 -0.0845
+There is nothing wrong~tempdistant                                      -2.3688     0.4593 -5.1570   0.0000 -3.2691 -1.4685 0.0936 0.0380 0.2303 -1.3087
+It's wrong but I cannot explain why~tempnear                             0.3486     0.2702  1.2903   0.1969 -0.1809  0.8782 1.4171 0.8345 2.4064  0.1926
+no reason after coding~tempnear                                          0.2135     0.2354  0.9071   0.3644 -0.2478  0.6748 1.2380 0.7805 1.9636  0.1179
+There is nothing wrong~tempnear                                         -0.0419     0.2793 -0.1500   0.8808 -0.5892  0.5055 0.9590 0.5548 1.6577 -0.0231
+It's wrong but I cannot explain why~scenarioJennifer                    -0.2339     0.2750 -0.8504   0.3951 -0.7730  0.3052 0.7914 0.4616 1.3569 -0.1292
+no reason after coding~scenarioJennifer                                 -0.1459     0.2292 -0.6365   0.5244 -0.5951  0.3033 0.8643 0.5515 1.3544 -0.0806
+There is nothing wrong~scenarioJennifer                                 -0.7351     0.2956 -2.4870   0.0129 -1.3144 -0.1558 0.4795 0.2686 0.8558 -0.4061
+It's wrong but I cannot explain why~scenarioJulie and Mark               0.1211     0.2730  0.4434   0.6575 -0.4140  0.6562 1.1287 0.6610 1.9274  0.0669
+no reason after coding~scenarioJulie and Mark                            0.0566     0.2340  0.2419   0.8088 -0.4020  0.5152 1.0582 0.6690 1.6739  0.0313
+There is nothing wrong~scenarioJulie and Mark                           -0.0772     0.2724 -0.2834   0.7768 -0.6111  0.4567 0.9257 0.5427 1.5789 -0.0427
+It's wrong but I cannot explain why~scenarioTrolley                     -0.7698     0.3158 -2.4374   0.0148 -1.3888 -0.1508 0.4631 0.2494 0.8600 -0.4253
+no reason after coding~scenarioTrolley                                  -0.0273     0.2306 -0.1183   0.9059 -0.4792  0.4247 0.9731 0.6193 1.5291 -0.0151
+There is nothing wrong~scenarioTrolley                                   0.0387     0.2603  0.1485   0.8819 -0.4716  0.5489 1.0394 0.6240 1.7314  0.0214
+It's wrong but I cannot explain why~ju1_2                               -0.0774     0.0485 -1.5961   0.1105 -0.1724  0.0176 0.9255 0.8416 1.0178 -0.0428
+no reason after coding~ju1_2                                            -0.0291     0.0344 -0.8455   0.3979 -0.0966  0.0384 0.9713 0.9079 1.0391 -0.0161
+There is nothing wrong~ju1_2                                             0.0312     0.0481  0.6485   0.5167 -0.0631  0.1254 1.0317 0.9389 1.1336  0.0172
+It's wrong but I cannot explain why~ju2_2                                0.0047     0.0454  0.1046   0.9167 -0.0842  0.0936 1.0048 0.9193 1.0982  0.0026
+no reason after coding~ju2_2                                            -0.0023     0.0329 -0.0689   0.9450 -0.0667  0.0621 0.9977 0.9355 1.0641 -0.0013
+There is nothing wrong~ju2_2                                             0.0201     0.0459  0.4373   0.6619 -0.0699  0.1101 1.0203 0.9324 1.1164  0.0111
+It's wrong but I cannot explain why~cf1_2                                0.0005     0.0586  0.0093   0.9926 -0.1144  0.1155 1.0005 0.8919 1.1224  0.0003
+no reason after coding~cf1_2                                             0.0486     0.0422  1.1509   0.2498 -0.0341  0.1313 1.0498 0.9664 1.1403  0.0268
+There is nothing wrong~cf1_2                                             0.0371     0.0597  0.6207   0.5348 -0.0800  0.1541 1.0377 0.9232 1.1666  0.0205
+It's wrong but I cannot explain why~cf2_2                                0.0937     0.0592  1.5830   0.1134 -0.0223  0.2097 1.0982 0.9779 1.2333  0.0518
+no reason after coding~cf2_2                                             0.0132     0.0422  0.3131   0.7542 -0.0696  0.0960 1.0133 0.9328 1.1008  0.0073
+There is nothing wrong~cf2_2                                            -0.0129     0.0584 -0.2216   0.8246 -0.1274  0.1015 0.9871 0.8804 1.1069 -0.0072
+It's wrong but I cannot explain why~confused                            -0.0509     0.0480 -1.0602   0.2890 -0.1450  0.0432 0.9504 0.8650 1.0442 -0.0281
+no reason after coding~confused                                         -0.0162     0.0343 -0.4714   0.6374 -0.0834  0.0510 0.9840 0.9200 1.0524 -0.0089
+There is nothing wrong~confused                                         -0.0251     0.0478 -0.5260   0.5989 -0.1188  0.0685 0.9752 0.8880 1.0709 -0.0139
+It's wrong but I cannot explain why~irritated                            0.0962     0.0480  2.0054   0.0449  0.0022  0.1902 1.1010 1.0022 1.2095  0.0532
+no reason after coding~irritated                                        -0.0158     0.0349 -0.4528   0.6507 -0.0842  0.0526 0.9843 0.9192 1.0540 -0.0087
+There is nothing wrong~irritated                                         0.0250     0.0489  0.5107   0.6096 -0.0708  0.1208 1.0253 0.9316 1.1284  0.0138
+It's wrong but I cannot explain why~reason                               0.0089     0.0473  0.1870   0.8516 -0.0839  0.1016 1.0089 0.9195 1.1070  0.0049
+no reason after coding~reason                                           -0.0120     0.0342 -0.3503   0.7261 -0.0789  0.0550 0.9881 0.9241 1.0565 -0.0066
+There is nothing wrong~reason                                            0.0039     0.0481  0.0818   0.9348 -0.0903  0.0982 1.0039 0.9136 1.1032  0.0022
+It's wrong but I cannot explain why~gut                                 -0.0121     0.0480 -0.2526   0.8006 -0.1062  0.0820 0.9879 0.8992 1.0854 -0.0067
+no reason after coding~gut                                              -0.0046     0.0343 -0.1341   0.8933 -0.0718  0.0626 0.9954 0.9307 1.0646 -0.0025
+There is nothing wrong~gut                                               0.0362     0.0478  0.7580   0.4485 -0.0575  0.1299 1.0369 0.9442 1.1388  0.0200
+It's wrong but I cannot explain why~tempdistant:scenarioJennifer         0.3094     0.5316  0.5820   0.5605 -0.7325  1.3513 1.3626 0.4807 3.8623  0.1709
+no reason after coding~tempdistant:scenarioJennifer                     -0.0802     0.3067 -0.2616   0.7937 -0.6814  0.5209 0.9229 0.5059 1.6836 -0.0443
+There is nothing wrong~tempdistant:scenarioJennifer                      0.9606     0.6283  1.5288   0.1263 -0.2709  2.1922 2.6134 0.7627 8.9545  0.5307
+It's wrong but I cannot explain why~tempnear:scenarioJennifer           -0.3613     0.3863 -0.9353   0.3496 -1.1185  0.3958 0.6968 0.3268 1.4856 -0.1996
+no reason after coding~tempnear:scenarioJennifer                        -0.1088     0.3239 -0.3357   0.7371 -0.7437  0.5262 0.8969 0.4754 1.6924 -0.0601
+There is nothing wrong~tempnear:scenarioJennifer                         0.1592     0.4224  0.3770   0.7062 -0.6686  0.9870 1.1726 0.5124 2.6832  0.0880
+It's wrong but I cannot explain why~tempdistant:scenarioJulie and Mark   0.9886     0.4782  2.0672   0.0387  0.0513  1.9259 2.6874 1.0526 6.8613  0.5462
+no reason after coding~tempdistant:scenarioJulie and Mark               -0.0958     0.3108 -0.3082   0.7580 -0.7049  0.5134 0.9087 0.4942 1.6709 -0.0529
+There is nothing wrong~tempdistant:scenarioJulie and Mark                0.1630     0.6515  0.2501   0.8025 -1.1140  1.4399 1.1770 0.3283 4.2203  0.0900
+It's wrong but I cannot explain why~tempnear:scenarioJulie and Mark     -0.4618     0.3826 -1.2071   0.2274 -1.2116  0.2880 0.6302 0.2977 1.3338 -0.2551
+no reason after coding~tempnear:scenarioJulie and Mark                  -0.4915     0.3366 -1.4603   0.1442 -1.1512  0.1682 0.6117 0.3162 1.1831 -0.2716
+There is nothing wrong~tempnear:scenarioJulie and Mark                   0.3161     0.3840  0.8233   0.4103 -0.4365  1.0687 1.3718 0.6463 2.9116  0.1747
+It's wrong but I cannot explain why~tempdistant:scenarioTrolley         -0.8776     0.8459 -1.0375   0.2995 -2.5355  0.7804 0.4158 0.0792 2.1822 -0.4849
+no reason after coding~tempdistant:scenarioTrolley                      -0.0384     0.3043 -0.1263   0.8995 -0.6348  0.5579 0.9623 0.5301 1.7470 -0.0212
+There is nothing wrong~tempdistant:scenarioTrolley                      -0.7903     0.7640 -1.0345   0.3009 -2.2877  0.7071 0.4537 0.1015 2.0280 -0.4367
+It's wrong but I cannot explain why~tempnear:scenarioTrolley             0.1329     0.4217  0.3151   0.7527 -0.6937  0.9595 1.1421 0.4997 2.6103  0.0734
+no reason after coding~tempnear:scenarioTrolley                         -0.3550     0.3312 -1.0719   0.2838 -1.0041  0.2941 0.7012 0.3664 1.3420 -0.1961
+There is nothing wrong~tempnear:scenarioTrolley                          0.1615     0.3751  0.4306   0.6668 -0.5736  0.8966 1.1753 0.5635 2.4512  0.0892
+```
+
+
+:::
+:::
+
+
+
+
+
+#### Ambiguity
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs_with_coded2 ~ temp
+  * ambiguity
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 6618.849 - criterion = 0.9520442
+Iteration 2 - deviance = 6504.704 - criterion = 0.04473515
+Iteration 3 - deviance = 6505.252 - criterion = 0.004297296
+Iteration 4 - deviance = 6504.247 - criterion = 7.406322e-05
+Iteration 5 - deviance = 6504.176 - criterion = 3.708969e-08
+Iteration 6 - deviance = 6504.175 - criterion = 1.223574e-14
+converged
+
+Call:
+mblogit(formula = cs_with_coded2 ~ temp * ambiguity, data = x, 
+    random = list(~1 | ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                       -1.1233     0.1528  -7.352 1.95e-13 ***
+tempdistant                       -1.9839     0.3330  -5.958 2.56e-09 ***
+tempnear                           0.3905     0.2064   1.892   0.0584 .  
+ambiguityunambiguous               0.2706     0.2023   1.337   0.1811    
+tempdistant:ambiguityunambiguous   0.9202     0.3978   2.314   0.0207 *  
+tempnear:ambiguityunambiguous     -0.4457     0.2805  -1.589   0.1121    
+
+Equation for no reason after coding vs It's wrong and I can provide a valid reason:
+                                 Estimate Std. Error z value Pr(>|z|)  
+(Intercept)                      -0.30149    0.11708  -2.575    0.010 *
+tempdistant                      -0.17292    0.15475  -1.117    0.264  
+tempnear                          0.04349    0.16791   0.259    0.796  
+ambiguityunambiguous             -0.03849    0.16191  -0.238    0.812  
+tempdistant:ambiguityunambiguous -0.05838    0.21612  -0.270    0.787  
+tempnear:ambiguityunambiguous    -0.11135    0.23213  -0.480    0.631  
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                      -0.68425    0.13119  -5.216 1.83e-07 ***
+tempdistant                      -2.71025    0.36404  -7.445 9.71e-14 ***
+tempnear                          0.03661    0.18820   0.195   0.8458    
+ambiguityunambiguous             -0.41158    0.19567  -2.103   0.0354 *  
+tempdistant:ambiguityunambiguous  0.89148    0.47796   1.865   0.0622 .  
+tempnear:ambiguityunambiguous     0.19134    0.27293   0.701   0.4833    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate                     Std.Err.                     
+It's wrong but I cannot explain why~1 0.108741                     5.063e-05                    
+no reason after coding~1              0.004369 0.113012            3.795e-05 5.608e-05          
+There is nothing wrong~1              0.007260 0.001253 0.107143   3.564e-05 3.680e-05 4.822e-05
+
+Approximate residual deviance: 6504 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                     Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                       -1.1233     0.1528 -7.3519   0.0000 -1.4228 -0.8239 0.3252 0.2410 0.4387 -0.6206
+no reason after coding~(Intercept)                                    -0.3015     0.1171 -2.5750   0.0100 -0.5310 -0.0720 0.7397 0.5880 0.9305 -0.1666
+There is nothing wrong~(Intercept)                                    -0.6843     0.1312 -5.2157   0.0000 -0.9414 -0.4271 0.5045 0.3901 0.6524 -0.3780
+It's wrong but I cannot explain why~tempdistant                       -1.9839     0.3330 -5.9576   0.0000 -2.6366 -1.3312 0.1375 0.0716 0.2641 -1.0961
+no reason after coding~tempdistant                                    -0.1729     0.1547 -1.1174   0.2638 -0.4762  0.1304 0.8412 0.6211 1.1393 -0.0955
+There is nothing wrong~tempdistant                                    -2.7102     0.3640 -7.4448   0.0000 -3.4238 -1.9967 0.0665 0.0326 0.1358 -1.4974
+It's wrong but I cannot explain why~tempnear                           0.3905     0.2064  1.8923   0.0584 -0.0140  0.7950 1.4778 0.9861 2.2145  0.2158
+no reason after coding~tempnear                                        0.0435     0.1679  0.2590   0.7956 -0.2856  0.3726 1.0444 0.7515 1.4515  0.0240
+There is nothing wrong~tempnear                                        0.0366     0.1882  0.1945   0.8458 -0.3323  0.4055 1.0373 0.7173 1.5000  0.0202
+It's wrong but I cannot explain why~ambiguityunambiguous               0.2706     0.2023  1.3375   0.1811 -0.1260  0.6672 1.3108 0.8817 1.9488  0.1495
+no reason after coding~ambiguityunambiguous                           -0.0385     0.1619 -0.2377   0.8121 -0.3558  0.2789 0.9622 0.7006 1.3216 -0.0213
+There is nothing wrong~ambiguityunambiguous                           -0.4116     0.1957 -2.1034   0.0354 -0.7951 -0.0281 0.6626 0.4515 0.9723 -0.2274
+It's wrong but I cannot explain why~tempdistant:ambiguityunambiguous   0.9202     0.3978  2.3135   0.0207  0.1406  1.6998 2.5099 1.1510 5.4730  0.5084
+no reason after coding~tempdistant:ambiguityunambiguous               -0.0584     0.2161 -0.2701   0.7871 -0.4820  0.3652 0.9433 0.6176 1.4408 -0.0323
+There is nothing wrong~tempdistant:ambiguityunambiguous                0.8915     0.4780  1.8652   0.0622 -0.0453  1.8283 2.4387 0.9557 6.2230  0.4925
+It's wrong but I cannot explain why~tempnear:ambiguityunambiguous     -0.4457     0.2805 -1.5886   0.1121 -0.9955  0.1042 0.6404 0.3695 1.1098 -0.2462
+no reason after coding~tempnear:ambiguityunambiguous                  -0.1114     0.2321 -0.4797   0.6314 -0.5663  0.3436 0.8946 0.5676 1.4100 -0.0615
+There is nothing wrong~tempnear:ambiguityunambiguous                   0.1913     0.2729  0.7011   0.4833 -0.3436  0.7263 1.2109 0.7092 2.0673  0.1057
+```
+
+
+:::
+:::
+
+
+
+
+## Re-run with "nothing-wrong" excluded
+
+### Just Critical Slide
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+x <- df
+
+x <- x[which(x$cs!= "There is nothing wrong"),]
+x$cs <- droplevels(x$cs)
+
+
+table(x$temp,x$scenario)
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+
+
+m1a <- mblogit(formula=cs~temp#*scenario
+, random = list(~1|ResponseId)
+# , contrasts = list(scenario = contr.sum)
+, data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs~temp*scenario
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_heinz_base <- mblogit(formula=cs~temp*(JulieandMark+Jennifer+Trolley)
+                          , random = list(~1|ResponseId)
+                          # , contrasts = list(scenario = contr.sum)
+                          , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_trolley_base <- mblogit(formula=cs~temp*(JulieandMark+Jennifer+Heinz)
+                            , random = list(~1|ResponseId)
+                            # , contrasts = list(scenario = contr.sum)
+                            , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_jennifer_base <- mblogit(formula=cs~temp*(JulieandMark+Trolley+Heinz)
+                             , random = list(~1|ResponseId)
+                             # , contrasts = list(scenario = contr.sum)
+                             , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_JulieMark_base <- mblogit(formula=cs~temp*(Jennifer+Trolley+Heinz)
+                              , random = list(~1|ResponseId)
+                              # , contrasts = list(scenario = contr.sum)
+                              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+
+m1d <- mblogit(formula=cs~temp*scenario
+               + ju1_2 + ju2_2 + cf1_2 + cf2_2
+               + confused + irritated + reason + gut
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+stats::BIC(m1c_heinz_base)
+stats::BIC(m1c_trolley_base)
+stats::BIC(m1c_jennifer_base)
+stats::BIC(m1c_JulieMark_base)
+
+stats::BIC(m1d)
+
+
+stats::AIC(m1c_heinz_base)
+stats::AIC(m1c_trolley_base)
+stats::AIC(m1c_jennifer_base)
+stats::AIC(m1c_JulieMark_base)
+
+stats::AIC(m1d)
+
+# lower AIC is better
+# lower BIC is better
+summary(m1a)
+summary(m1b)
+summary(m1c_heinz_base)
+summary(m1c_trolley_base)
+summary(m1c_jennifer_base)
+summary(m1c_JulieMark_base)
+summary(m1d)
+
+
+
+summary(m1d)
+
+m1_results <- function(x){
+  m1 <- x
+  coefs <- summary(m1)$coefficients
+  LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+  ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+  OR <- exp(coefs[,1])
+  ORLL <- exp(LLs)
+  ORUL <- exp(ULs)
+  HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+  
+  round(cbind(coefs, LLs, ULs), 4)
+  round(cbind(OR, ORLL, ORUL, HHES), 4)
+  
+  
+  round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+}
+```
+:::
+
+
+
+#### Most Basic Model (not including Scenario)
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs ~ temp
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 1888.205 - criterion = 0.7402542
+Iteration 2 - deviance = 1863.185 - criterion = 0.02500358
+Iteration 3 - deviance = 1862.045 - criterion = 0.001773796
+Iteration 4 - deviance = 1862.041 - criterion = 8.126085e-06
+Iteration 5 - deviance = 1862.041 - criterion = 1.510084e-10
+converged
+
+Call:
+mblogit(formula = cs ~ temp, data = x, random = list(~1 | ResponseId), 
+    method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -1.52097    0.09431 -16.127  < 2e-16 ***
+tempdistant -1.29922    0.17345  -7.490 6.87e-14 ***
+tempnear     0.16116    0.13080   1.232    0.218    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate    Std.Err. 
+It's wrong but I cannot explain why~1 2.067e-07   3.374e-22
+
+Approximate residual deviance: 1862 
+Number of Fisher scoring iterations:  5
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2402
+                                                Estimate Std. Error  z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)  -1.5210     0.0943 -16.1275   0.0000 -1.7058 -1.3361 0.2185 0.1816 0.2629 -0.8403
+It's wrong but I cannot explain why~tempdistant  -1.2992     0.1735  -7.4904   0.0000 -1.6392 -0.9593 0.2727 0.1941 0.3832 -0.7178
+It's wrong but I cannot explain why~tempnear      0.1612     0.1308   1.2322   0.2179 -0.0952  0.4175 1.1749 0.9092 1.5182  0.0890
+```
+
+
+:::
+:::
+
+
+
+#### Scenario included
+
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs ~ temp
+  * scenario
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 1864.204 - criterion = 0.738148
+Iteration 2 - deviance = 1826.098 - criterion = 0.03756481
+Iteration 3 - deviance = 1820.06 - criterion = 0.01228966
+Iteration 4 - deviance = 1819.249 - criterion = 0.003525798
+Iteration 5 - deviance = 1819.208 - criterion = 0.0002962892
+Iteration 6 - deviance = 1819.208 - criterion = 1.466638e-06
+Iteration 7 - deviance = 1819.208 - criterion = 3.07887e-11
+converged
+
+Call:
+mblogit(formula = cs ~ temp * scenario, data = x, random = list(~1 | 
+    ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                         -1.3664     0.1817  -7.518 5.54e-14 ***
+tempdistant                         -1.6876     0.3711  -4.547 5.44e-06 ***
+tempnear                             0.2608     0.2465   1.058   0.2900    
+scenarioJennifer                    -0.1467     0.2569  -0.571   0.5680    
+scenarioJulie and Mark               0.1001     0.2521   0.397   0.6914    
+scenarioTrolley                     -0.7193     0.2987  -2.408   0.0160 *  
+tempdistant:scenarioJennifer         0.2562     0.5162   0.496   0.6196    
+tempnear:scenarioJennifer           -0.3104     0.3582  -0.867   0.3861    
+tempdistant:scenarioJulie and Mark   0.9768     0.4587   2.129   0.0332 *  
+tempnear:scenarioJulie and Mark     -0.2582     0.3524  -0.733   0.4636    
+tempdistant:scenarioTrolley         -0.9407     0.8357  -1.126   0.2603    
+tempnear:scenarioTrolley             0.2752     0.3951   0.697   0.4860    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate    Std.Err. 
+It's wrong but I cannot explain why~1 2.059e-07   3.336e-22
+
+Approximate residual deviance: 1819 
+Number of Fisher scoring iterations:  7
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2402
+                                                                       Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                         -1.3664     0.1817 -7.5185   0.0000 -1.7226 -1.0102 0.2550 0.1786 0.3642 -0.7549
+It's wrong but I cannot explain why~tempdistant                         -1.6876     0.3711 -4.5472   0.0000 -2.4151 -0.9602 0.1850 0.0894 0.3828 -0.9324
+It's wrong but I cannot explain why~tempnear                             0.2608     0.2465  1.0582   0.2900 -0.2223  0.7439 1.2980 0.8007 2.1042  0.1441
+It's wrong but I cannot explain why~scenarioJennifer                    -0.1467     0.2569 -0.5709   0.5680 -0.6502  0.3569 0.8636 0.5219 1.4288 -0.0810
+It's wrong but I cannot explain why~scenarioJulie and Mark               0.1001     0.2521  0.3970   0.6914 -0.3940  0.5942 1.1053 0.6744 1.8115  0.0553
+It's wrong but I cannot explain why~scenarioTrolley                     -0.7193     0.2987 -2.4079   0.0160 -1.3048 -0.1338 0.4871 0.2712 0.8748 -0.3974
+It's wrong but I cannot explain why~tempdistant:scenarioJennifer         0.2562     0.5162  0.4965   0.6196 -0.7554  1.2679 1.2921 0.4698 3.5534  0.1416
+It's wrong but I cannot explain why~tempnear:scenarioJennifer           -0.3104     0.3582 -0.8667   0.3861 -1.0125  0.3916 0.7331 0.3633 1.4793 -0.1715
+It's wrong but I cannot explain why~tempdistant:scenarioJulie and Mark   0.9768     0.4587  2.1293   0.0332  0.0777  1.8758 2.6558 1.0808 6.5263  0.5396
+It's wrong but I cannot explain why~tempnear:scenarioJulie and Mark     -0.2582     0.3524 -0.7329   0.4636 -0.9489  0.4324 0.7724 0.3872 1.5409 -0.1427
+It's wrong but I cannot explain why~tempdistant:scenarioTrolley         -0.9407     0.8357 -1.1256   0.2603 -2.5787  0.6973 0.3904 0.0759 2.0082 -0.5197
+It's wrong but I cannot explain why~tempnear:scenarioTrolley             0.2752     0.3951  0.6967   0.4860 -0.4991  1.0495 1.3168 0.6071 2.8563  0.1521
+```
+
+
+:::
+:::
+
+
+
+
+#### Covariates added
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula =
+    cs ~ temp
+  * scenario
+  + ju1_2 + ju2_2 + cf1_2 + cf2_2
+  + confused + irritated + reason + gut
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 1855.818 - criterion = 0.7374083
+Iteration 2 - deviance = 1815.569 - criterion = 0.03899306
+Iteration 3 - deviance = 1809.395 - criterion = 0.01228206
+Iteration 4 - deviance = 1808.571 - criterion = 0.003509179
+Iteration 5 - deviance = 1808.528 - criterion = 0.0002986952
+Iteration 6 - deviance = 1808.528 - criterion = 1.518134e-06
+Iteration 7 - deviance = 1808.528 - criterion = 3.354578e-11
+converged
+
+Call:
+mblogit(formula = cs ~ temp * scenario + ju1_2 + ju2_2 + cf1_2 + 
+    cf2_2 + confused + irritated + reason + gut, data = x, random = list(~1 | 
+    ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -1.753732   0.591463  -2.965  0.00303 ** 
+tempdistant                        -1.757759   0.372402  -4.720 2.36e-06 ***
+tempnear                            0.252362   0.247661   1.019  0.30821    
+scenarioJennifer                   -0.170462   0.258333  -0.660  0.50935    
+scenarioJulie and Mark              0.091847   0.253200   0.363  0.71680    
+scenarioTrolley                    -0.760849   0.300208  -2.534  0.01126 *  
+ju1_2                              -0.062888   0.046538  -1.351  0.17659    
+ju2_2                               0.003929   0.042954   0.091  0.92712    
+cf1_2                              -0.015208   0.056565  -0.269  0.78804    
+cf2_2                               0.094404   0.056884   1.660  0.09699 .  
+confused                           -0.043165   0.046139  -0.936  0.34950    
+irritated                           0.099696   0.045409   2.196  0.02813 *  
+reason                              0.009971   0.044764   0.223  0.82373    
+gut                                -0.012101   0.045994  -0.263  0.79248    
+tempdistant:scenarioJennifer        0.326500   0.517705   0.631  0.52826    
+tempnear:scenarioJennifer          -0.317187   0.360170  -0.881  0.37850    
+tempdistant:scenarioJulie and Mark  1.025985   0.460276   2.229  0.02581 *  
+tempnear:scenarioJulie and Mark    -0.259289   0.353686  -0.733  0.46349    
+tempdistant:scenarioTrolley        -0.863538   0.836813  -1.032  0.30210    
+tempnear:scenarioTrolley            0.278787   0.396923   0.702  0.48245    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate    Std.Err. 
+It's wrong but I cannot explain why~1 2.052e-07   3.303e-22
+
+Approximate residual deviance: 1809 
+Number of Fisher scoring iterations:  7
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2402
+                                                                       Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                         -1.7537     0.5915 -2.9651   0.0030 -2.9130 -0.5945 0.1731 0.0543 0.5518 -0.9689
+It's wrong but I cannot explain why~tempdistant                         -1.7578     0.3724 -4.7201   0.0000 -2.4877 -1.0279 0.1724 0.0831 0.3578 -0.9711
+It's wrong but I cannot explain why~tempnear                             0.2524     0.2477  1.0190   0.3082 -0.2330  0.7378 1.2871 0.7921 2.0913  0.1394
+It's wrong but I cannot explain why~scenarioJennifer                    -0.1705     0.2583 -0.6599   0.5093 -0.6768  0.3359 0.8433 0.5082 1.3991 -0.0942
+It's wrong but I cannot explain why~scenarioJulie and Mark               0.0918     0.2532  0.3627   0.7168 -0.4044  0.5881 1.0962 0.6674 1.8006  0.0507
+It's wrong but I cannot explain why~scenarioTrolley                     -0.7608     0.3002 -2.5344   0.0113 -1.3492 -0.1725 0.4673 0.2594 0.8416 -0.4204
+It's wrong but I cannot explain why~ju1_2                               -0.0629     0.0465 -1.3513   0.1766 -0.1541  0.0283 0.9390 0.8572 1.0287 -0.0347
+It's wrong but I cannot explain why~ju2_2                                0.0039     0.0430  0.0915   0.9271 -0.0803  0.0881 1.0039 0.9229 1.0921  0.0022
+It's wrong but I cannot explain why~cf1_2                               -0.0152     0.0566 -0.2689   0.7880 -0.1261  0.0957 0.9849 0.8816 1.1004 -0.0084
+It's wrong but I cannot explain why~cf2_2                                0.0944     0.0569  1.6596   0.0970 -0.0171  0.2059 1.0990 0.9831 1.2286  0.0522
+It's wrong but I cannot explain why~confused                            -0.0432     0.0461 -0.9356   0.3495 -0.1336  0.0473 0.9578 0.8749 1.0484 -0.0238
+It's wrong but I cannot explain why~irritated                            0.0997     0.0454  2.1955   0.0281  0.0107  0.1887 1.1048 1.0108 1.2077  0.0551
+It's wrong but I cannot explain why~reason                               0.0100     0.0448  0.2227   0.8237 -0.0778  0.0977 1.0100 0.9252 1.1026  0.0055
+It's wrong but I cannot explain why~gut                                 -0.0121     0.0460 -0.2631   0.7925 -0.1022  0.0780 0.9880 0.9028 1.0812 -0.0067
+It's wrong but I cannot explain why~tempdistant:scenarioJennifer         0.3265     0.5177  0.6307   0.5283 -0.6882  1.3412 1.3861 0.5025 3.8236  0.1804
+It's wrong but I cannot explain why~tempnear:scenarioJennifer           -0.3172     0.3602 -0.8807   0.3785 -1.0231  0.3887 0.7282 0.3595 1.4751 -0.1752
+It's wrong but I cannot explain why~tempdistant:scenarioJulie and Mark   1.0260     0.4603  2.2291   0.0258  0.1239  1.9281 2.7898 1.1319 6.8765  0.5668
+It's wrong but I cannot explain why~tempnear:scenarioJulie and Mark     -0.2593     0.3537 -0.7331   0.4635 -0.9525  0.4339 0.7716 0.3858 1.5433 -0.1433
+It's wrong but I cannot explain why~tempdistant:scenarioTrolley         -0.8635     0.8368 -1.0319   0.3021 -2.5037  0.7766 0.4217 0.0818 2.1740 -0.4771
+It's wrong but I cannot explain why~tempnear:scenarioTrolley             0.2788     0.3969  0.7024   0.4824 -0.4992  1.0567 1.3215 0.6070 2.8770  0.1540
+```
+
+
+:::
+:::
+
+
+
+
+#### Ambiguity
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs ~ temp
+  * ambiguity
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 1879.856 - criterion = 0.7395505
+Iteration 2 - deviance = 1847.757 - criterion = 0.03240588
+Iteration 3 - deviance = 1844.181 - criterion = 0.006813056
+Iteration 4 - deviance = 1844.049 - criterion = 0.0003892675
+Iteration 5 - deviance = 1844.049 - criterion = 9.720174e-07
+Iteration 6 - deviance = 1844.049 - criterion = 5.435883e-12
+converged
+
+Call:
+mblogit(formula = cs ~ temp * ambiguity, data = x, random = list(~1 | 
+    ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                       -1.6761     0.1431 -11.716  < 2e-16 ***
+tempdistant                       -1.9143     0.3257  -5.877 4.18e-09 ***
+tempnear                           0.3723     0.1912   1.947   0.0516 .  
+ambiguityunambiguous               0.2867     0.1905   1.505   0.1323    
+tempdistant:ambiguityunambiguous   0.9399     0.3882   2.421   0.0155 *  
+tempnear:ambiguityunambiguous     -0.3990     0.2630  -1.517   0.1292    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate    Std.Err. 
+It's wrong but I cannot explain why~1 2.061e-07   3.346e-22
+
+Approximate residual deviance: 1844 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2402
+                                                                     Estimate Std. Error  z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                       -1.6761     0.1431 -11.7160   0.0000 -1.9565 -1.3957 0.1871 0.1413 0.2477 -0.9260
+It's wrong but I cannot explain why~tempdistant                       -1.9143     0.3257  -5.8770   0.0000 -2.5527 -1.2759 0.1474 0.0779 0.2792 -1.0576
+It's wrong but I cannot explain why~tempnear                           0.3723     0.1912   1.9468   0.0516 -0.0025  0.7470 1.4510 0.9975 2.1107  0.2057
+It's wrong but I cannot explain why~ambiguityunambiguous               0.2867     0.1905   1.5051   0.1323 -0.0866  0.6600 1.3320 0.9170 1.9348  0.1584
+It's wrong but I cannot explain why~tempdistant:ambiguityunambiguous   0.9399     0.3882   2.4212   0.0155  0.1791  1.7008 2.5598 1.1961 5.4783  0.5193
+It's wrong but I cannot explain why~tempnear:ambiguityunambiguous     -0.3990     0.2630  -1.5173   0.1292 -0.9145  0.1164 0.6710 0.4007 1.1235 -0.2205
+```
+
+
+:::
+:::
+
+
+
+
+### Including Coded Responses
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+x <- df
+table(x$temp,x$scenario)
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+x$cs_with_coded1 <- as.factor(x$cs_with_coded1)
+x$cs_with_coded2 <- as.factor(x$cs_with_coded2)
+
+m1a <- mblogit(formula=cs_with_coded1~temp#*scenario
+, random = list(~1|ResponseId)
+# , contrasts = list(scenario = contr.sum)
+, data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs_with_coded1~temp*scenario
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_heinz_base <- mblogit(formula=cs_with_coded1~temp*(JulieandMark+Jennifer+Trolley)
+                          , random = list(~1|ResponseId)
+                          # , contrasts = list(scenario = contr.sum)
+                          , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_trolley_base <- mblogit(formula=cs_with_coded1~temp*(JulieandMark+Jennifer+Heinz)
+                            , random = list(~1|ResponseId)
+                            # , contrasts = list(scenario = contr.sum)
+                            , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_jennifer_base <- mblogit(formula=cs_with_coded1~temp*(JulieandMark+Trolley+Heinz)
+                             , random = list(~1|ResponseId)
+                             # , contrasts = list(scenario = contr.sum)
+                             , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_JulieMark_base <- mblogit(formula=cs_with_coded1~temp*(Jennifer+Trolley+Heinz)
+                              , random = list(~1|ResponseId)
+                              # , contrasts = list(scenario = contr.sum)
+                              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+
+m1d <- mblogit(formula=cs_with_coded1~temp*scenario
+               + ju1_2 + ju2_2 + cf1_2 + cf2_2
+               + confused + irritated + reason + gut
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+stats::BIC(m1c_heinz_base)
+stats::BIC(m1c_trolley_base)
+stats::BIC(m1c_jennifer_base)
+stats::BIC(m1c_JulieMark_base)
+
+stats::BIC(m1d)
+
+
+stats::AIC(m1c_heinz_base)
+stats::AIC(m1c_trolley_base)
+stats::AIC(m1c_jennifer_base)
+stats::AIC(m1c_JulieMark_base)
+
+stats::AIC(m1d)
+
+# lower AIC is better
+# lower BIC is better
+summary(m1a)
+summary(m1b)
+summary(m1c_heinz_base)
+summary(m1c_trolley_base)
+summary(m1c_jennifer_base)
+summary(m1c_JulieMark_base)
+summary(m1d)
+
+
+
+summary(m1d)
+
+m1_results <- function(x){
+  m1 <- x
+  coefs <- summary(m1)$coefficients
+  LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+  ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+  OR <- exp(coefs[,1])
+  ORLL <- exp(LLs)
+  ORUL <- exp(ULs)
+  HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+  
+  round(cbind(coefs, LLs, ULs), 4)
+  round(cbind(OR, ORLL, ORUL, HHES), 4)
+  
+  
+  round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+}
+```
+:::
+
+
+
+#### Most Basic Model (not including Scenario)
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs_with_coded1 ~ temp
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 5231.218 - criterion = 1.03232
+Iteration 2 - deviance = 5195.923 - criterion = 0.04758181
+Iteration 3 - deviance = 5191.478 - criterion = 0.009484006
+Iteration 4 - deviance = 5190.814 - criterion = 0.0003008175
+Iteration 5 - deviance = 5190.729 - criterion = 2.479012e-07
+Iteration 6 - deviance = 5190.727 - criterion = 1.572827e-13
+converged
+
+Call:
+mblogit(formula = cs_with_coded1 ~ temp, data = x, random = list(~1 | 
+    ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  0.09906    0.07560   1.310    0.190    
+tempdistant -0.47091    0.10412  -4.523  6.1e-06 ***
+tempnear     0.04760    0.10748   0.443    0.658    
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -0.87166    0.09864  -8.837   <2e-16 ***
+tempdistant -2.25809    0.23559  -9.585   <2e-16 ***
+tempnear     0.11503    0.13836   0.831    0.406    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate          Std.Err.           
+It's wrong but I cannot explain why~1 0.10473           4.812e-05          
+There is nothing wrong~1              0.01793 0.08940   3.077e-05 3.109e-05
+
+Approximate residual deviance: 5191 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)   0.0991     0.0756  1.3104   0.1901 -0.0491  0.2472 1.1041 0.9521 1.2805  0.0547
+There is nothing wrong~(Intercept)               -0.8717     0.0986 -8.8371   0.0000 -1.0650 -0.6783 0.4183 0.3447 0.5075 -0.4816
+It's wrong but I cannot explain why~tempdistant  -0.4709     0.1041 -4.5228   0.0000 -0.6750 -0.2668 0.6244 0.5092 0.7658 -0.2602
+There is nothing wrong~tempdistant               -2.2581     0.2356 -9.5848   0.0000 -2.7198 -1.7963 0.1046 0.0659 0.1659 -1.2476
+It's wrong but I cannot explain why~tempnear      0.0476     0.1075  0.4429   0.6579 -0.1631  0.2583 1.0488 0.8495 1.2947  0.0263
+There is nothing wrong~tempnear                   0.1150     0.1384  0.8314   0.4057 -0.1561  0.3862 1.1219 0.8554 1.4714  0.0636
+```
+
+
+:::
+:::
+
+
+
+#### Scenario included
+
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs_with_coded1 ~ temp
+  * scenario
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 5193.723 - criterion = 1.016677
+Iteration 2 - deviance = 5155.716 - criterion = 0.04860678
+Iteration 3 - deviance = 5150.443 - criterion = 0.01170915
+Iteration 4 - deviance = 5149.639 - criterion = 0.001032474
+Iteration 5 - deviance = 5149.541 - criterion = 1.245885e-05
+Iteration 6 - deviance = 5149.535 - criterion = 1.831392e-09
+converged
+
+Call:
+mblogit(formula = cs_with_coded1 ~ temp * scenario, data = x, 
+    random = list(~1 | ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)  
+(Intercept)                         0.18188    0.14853   1.225   0.2207  
+tempdistant                        -0.50995    0.20265  -2.516   0.0119 *
+tempnear                            0.27147    0.21063   1.289   0.1974  
+scenarioJennifer                   -0.17253    0.20285  -0.851   0.3950  
+scenarioJulie and Mark              0.08118    0.20723   0.392   0.6953  
+scenarioTrolley                    -0.23807    0.20917  -1.138   0.2551  
+tempdistant:scenarioJennifer       -0.02125    0.28139  -0.076   0.9398  
+tempnear:scenarioJennifer          -0.20189    0.28786  -0.701   0.4831  
+tempdistant:scenarioJulie and Mark  0.08390    0.28226   0.297   0.7663  
+tempnear:scenarioJulie and Mark    -0.47883    0.29571  -1.619   0.1054  
+tempdistant:scenarioTrolley         0.08484    0.28490   0.298   0.7659  
+tempnear:scenarioTrolley           -0.22750    0.29704  -0.766   0.4437  
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -0.70606    0.18969  -3.722 0.000197 ***
+tempdistant                        -2.36192    0.45913  -5.144 2.68e-07 ***
+tempnear                           -0.05722    0.27982  -0.204 0.837978    
+scenarioJennifer                   -0.74222    0.29509  -2.515 0.011895 *  
+scenarioJulie and Mark             -0.07634    0.27197  -0.281 0.778962    
+scenarioTrolley                     0.04368    0.25921   0.168 0.866194    
+tempdistant:scenarioJennifer        0.96240    0.62750   1.534 0.125098    
+tempnear:scenarioJennifer           0.18760    0.42164   0.445 0.656378    
+tempdistant:scenarioJulie and Mark  0.14871    0.65069   0.229 0.819226    
+tempnear:scenarioJulie and Mark     0.31619    0.38359   0.824 0.409774    
+tempdistant:scenarioTrolley        -0.81154    0.76292  -1.064 0.287452    
+tempnear:scenarioTrolley            0.16189    0.37413   0.433 0.665227    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate          Std.Err.           
+It's wrong but I cannot explain why~1 0.10485           4.832e-05          
+There is nothing wrong~1              0.01801 0.08953   3.093e-05 3.125e-05
+
+Approximate residual deviance: 5150 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                       Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                          0.1819     0.1485  1.2245   0.2207 -0.1092  0.4730 1.1995 0.8965 1.6048  0.1005
+There is nothing wrong~(Intercept)                                      -0.7061     0.1897 -3.7222   0.0002 -1.0778 -0.3343 0.4936 0.3403 0.7159 -0.3901
+It's wrong but I cannot explain why~tempdistant                         -0.5099     0.2027 -2.5164   0.0119 -0.9071 -0.1128 0.6005 0.4037 0.8934 -0.2817
+There is nothing wrong~tempdistant                                      -2.3619     0.4591 -5.1444   0.0000 -3.2618 -1.4620 0.0942 0.0383 0.2318 -1.3049
+It's wrong but I cannot explain why~tempnear                             0.2715     0.2106  1.2889   0.1974 -0.1414  0.6843 1.3119 0.8682 1.9824  0.1500
+There is nothing wrong~tempnear                                         -0.0572     0.2798 -0.2045   0.8380 -0.6056  0.4912 0.9444 0.5457 1.6343 -0.0316
+It's wrong but I cannot explain why~scenarioJennifer                    -0.1725     0.2029 -0.8505   0.3950 -0.5701  0.2251 0.8415 0.5655 1.2524 -0.0953
+There is nothing wrong~scenarioJennifer                                 -0.7422     0.2951 -2.5153   0.0119 -1.3206 -0.1639 0.4761 0.2670 0.8489 -0.4101
+It's wrong but I cannot explain why~scenarioJulie and Mark               0.0812     0.2072  0.3917   0.6953 -0.3250  0.4873 1.0846 0.7225 1.6280  0.0448
+There is nothing wrong~scenarioJulie and Mark                           -0.0763     0.2720 -0.2807   0.7790 -0.6094  0.4567 0.9265 0.5437 1.5789 -0.0422
+It's wrong but I cannot explain why~scenarioTrolley                     -0.2381     0.2092 -1.1381   0.2551 -0.6480  0.1719 0.7882 0.5231 1.1876 -0.1315
+There is nothing wrong~scenarioTrolley                                   0.0437     0.2592  0.1685   0.8662 -0.4644  0.5517 1.0446 0.6285 1.7362  0.0241
+It's wrong but I cannot explain why~tempdistant:scenarioJennifer        -0.0212     0.2814 -0.0755   0.9398 -0.5728  0.5303 0.9790 0.5640 1.6994 -0.0117
+There is nothing wrong~tempdistant:scenarioJennifer                      0.9624     0.6275  1.5337   0.1251 -0.2675  2.1923 2.6180 0.7653 8.9555  0.5317
+It's wrong but I cannot explain why~tempnear:scenarioJennifer           -0.2019     0.2879 -0.7013   0.4831 -0.7661  0.3623 0.8172 0.4648 1.4366 -0.1115
+There is nothing wrong~tempnear:scenarioJennifer                         0.1876     0.4216  0.4449   0.6564 -0.6388  1.0140 1.2063 0.5279 2.7566  0.1036
+It's wrong but I cannot explain why~tempdistant:scenarioJulie and Mark   0.0839     0.2823  0.2972   0.7663 -0.4693  0.6371 1.0875 0.6254 1.8910  0.0464
+There is nothing wrong~tempdistant:scenarioJulie and Mark                0.1487     0.6507  0.2285   0.8192 -1.1266  1.4240 1.1603 0.3241 4.1539  0.0822
+It's wrong but I cannot explain why~tempnear:scenarioJulie and Mark     -0.4788     0.2957 -1.6193   0.1054 -1.0584  0.1007 0.6195 0.3470 1.1060 -0.2645
+There is nothing wrong~tempnear:scenarioJulie and Mark                   0.3162     0.3836  0.8243   0.4098 -0.4356  1.0680 1.3719 0.6469 2.9096  0.1747
+It's wrong but I cannot explain why~tempdistant:scenarioTrolley          0.0848     0.2849  0.2978   0.7659 -0.4736  0.6432 1.0885 0.6228 1.9026  0.0469
+There is nothing wrong~tempdistant:scenarioTrolley                      -0.8115     0.7629 -1.0637   0.2875 -2.3068  0.6838 0.4442 0.0996 1.9813 -0.4484
+It's wrong but I cannot explain why~tempnear:scenarioTrolley            -0.2275     0.2970 -0.7659   0.4437 -0.8097  0.3547 0.7965 0.4450 1.4257 -0.1257
+There is nothing wrong~tempnear:scenarioTrolley                          0.1619     0.3741  0.4327   0.6652 -0.5714  0.8952 1.1757 0.5647 2.4477  0.0894
+```
+
+
+:::
+:::
+
+
+
+
+#### Covariates added
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula =
+    cs_with_coded1 ~ temp
+  * scenario
+  + ju1_2 + ju2_2 + cf1_2 + cf2_2
+  + confused + irritated + reason + gut
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 5186.591 - criterion = 1.013482
+Iteration 2 - deviance = 5147.643 - criterion = 0.04934979
+Iteration 3 - deviance = 5142.371 - criterion = 0.01169384
+Iteration 4 - deviance = 5141.555 - criterion = 0.001034489
+Iteration 5 - deviance = 5141.457 - criterion = 1.262822e-05
+Iteration 6 - deviance = 5141.451 - criterion = 1.89587e-09
+converged
+
+Call:
+mblogit(formula = cs_with_coded1 ~ temp * scenario + ju1_2 + 
+    ju2_2 + cf1_2 + cf2_2 + confused + irritated + reason + gut, 
+    data = x, random = list(~1 | ResponseId), method = c("PQL"), 
+    estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                     Estimate Std. Error z value Pr(>|z|)   
+(Intercept)                         0.0035425  0.4129849   0.009   0.9932   
+tempdistant                        -0.5256432  0.2035260  -2.583   0.0098 **
+tempnear                            0.2671038  0.2110504   1.266   0.2057   
+scenarioJennifer                   -0.1745960  0.2033375  -0.859   0.3905   
+scenarioJulie and Mark              0.0816672  0.2076192   0.393   0.6941   
+scenarioTrolley                    -0.2472011  0.2098817  -1.178   0.2389   
+ju1_2                              -0.0430026  0.0318327  -1.351   0.1767   
+ju2_2                               0.0002293  0.0302937   0.008   0.9940   
+cf1_2                               0.0377897  0.0388935   0.972   0.3312   
+cf2_2                               0.0376356  0.0390687   0.963   0.3354   
+confused                           -0.0254044  0.0316765  -0.802   0.4226   
+irritated                           0.0146667  0.0320941   0.457   0.6477   
+reason                             -0.0060293  0.0315170  -0.191   0.8483   
+gut                                -0.0043699  0.0317246  -0.138   0.8904   
+tempdistant:scenarioJennifer       -0.0068617  0.2823967  -0.024   0.9806   
+tempnear:scenarioJennifer          -0.2046120  0.2885137  -0.709   0.4782   
+tempdistant:scenarioJulie and Mark  0.0885251  0.2831703   0.313   0.7546   
+tempnear:scenarioJulie and Mark    -0.4787179  0.2961142  -1.617   0.1060   
+tempdistant:scenarioTrolley         0.1028711  0.2861970   0.359   0.7193   
+tempnear:scenarioTrolley           -0.2297694  0.2977432  -0.772   0.4403   
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -1.112419   0.622250  -1.788   0.0738 .  
+tempdistant                        -2.365151   0.459964  -5.142 2.72e-07 ***
+tempnear                           -0.041103   0.280396  -0.147   0.8835    
+scenarioJennifer                   -0.734352   0.295655  -2.484   0.0130 *  
+scenarioJulie and Mark             -0.077300   0.272496  -0.284   0.7767    
+scenarioTrolley                     0.040549   0.260376   0.156   0.8762    
+ju1_2                               0.032482   0.048251   0.673   0.5008    
+ju2_2                               0.020179   0.046098   0.438   0.6616    
+cf1_2                               0.038972   0.059865   0.651   0.5151    
+cf2_2                              -0.018012   0.058631  -0.307   0.7587    
+confused                           -0.025011   0.047993  -0.521   0.6023    
+irritated                           0.020595   0.049005   0.420   0.6743    
+reason                              0.002646   0.048306   0.055   0.9563    
+gut                                 0.037252   0.048005   0.776   0.4378    
+tempdistant:scenarioJennifer        0.957934   0.628395   1.524   0.1274    
+tempnear:scenarioJennifer           0.158818   0.422429   0.376   0.7069    
+tempdistant:scenarioJulie and Mark  0.161013   0.651562   0.247   0.8048    
+tempnear:scenarioJulie and Mark     0.315575   0.384096   0.822   0.4113    
+tempdistant:scenarioTrolley        -0.793975   0.763967  -1.039   0.2987    
+tempnear:scenarioTrolley            0.159810   0.375125   0.426   0.6701    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate          Std.Err.           
+It's wrong but I cannot explain why~1 0.10518           4.896e-05          
+There is nothing wrong~1              0.01846 0.09000   3.157e-05 3.190e-05
+
+Approximate residual deviance: 5141 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                       Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                          0.0035     0.4130  0.0086   0.9932 -0.8059  0.8130 1.0035 0.4467 2.2546  0.0020
+There is nothing wrong~(Intercept)                                      -1.1124     0.6223 -1.7877   0.0738 -2.3320  0.1072 0.3288 0.0971 1.1131 -0.6146
+It's wrong but I cannot explain why~tempdistant                         -0.5256     0.2035 -2.5827   0.0098 -0.9245 -0.1267 0.5912 0.3967 0.8810 -0.2904
+There is nothing wrong~tempdistant                                      -2.3652     0.4600 -5.1420   0.0000 -3.2667 -1.4636 0.0939 0.0381 0.2314 -1.3067
+It's wrong but I cannot explain why~tempnear                             0.2671     0.2111  1.2656   0.2057 -0.1465  0.6808 1.3062 0.8637 1.9754  0.1476
+There is nothing wrong~tempnear                                         -0.0411     0.2804 -0.1466   0.8835 -0.5907  0.5085 0.9597 0.5540 1.6627 -0.0227
+It's wrong but I cannot explain why~scenarioJennifer                    -0.1746     0.2033 -0.8587   0.3905 -0.5731  0.2239 0.8398 0.5638 1.2510 -0.0965
+There is nothing wrong~scenarioJennifer                                 -0.7344     0.2957 -2.4838   0.0130 -1.3138 -0.1549 0.4798 0.2688 0.8565 -0.4057
+It's wrong but I cannot explain why~scenarioJulie and Mark               0.0817     0.2076  0.3934   0.6941 -0.3253  0.4886 1.0851 0.7223 1.6300  0.0451
+There is nothing wrong~scenarioJulie and Mark                           -0.0773     0.2725 -0.2837   0.7767 -0.6114  0.4568 0.9256 0.5426 1.5790 -0.0427
+It's wrong but I cannot explain why~scenarioTrolley                     -0.2472     0.2099 -1.1778   0.2389 -0.6586  0.1642 0.7810 0.5176 1.1784 -0.1366
+There is nothing wrong~scenarioTrolley                                   0.0405     0.2604  0.1557   0.8762 -0.4698  0.5509 1.0414 0.6251 1.7348  0.0224
+It's wrong but I cannot explain why~ju1_2                               -0.0430     0.0318 -1.3509   0.1767 -0.1054  0.0194 0.9579 0.9000 1.0196 -0.0238
+There is nothing wrong~ju1_2                                             0.0325     0.0483  0.6732   0.5008 -0.0621  0.1271 1.0330 0.9398 1.1355  0.0179
+It's wrong but I cannot explain why~ju2_2                                0.0002     0.0303  0.0076   0.9940 -0.0591  0.0596 1.0002 0.9426 1.0614  0.0001
+There is nothing wrong~ju2_2                                             0.0202     0.0461  0.4377   0.6616 -0.0702  0.1105 1.0204 0.9322 1.1169  0.0111
+It's wrong but I cannot explain why~cf1_2                                0.0378     0.0389  0.9716   0.3312 -0.0384  0.1140 1.0385 0.9623 1.1208  0.0209
+There is nothing wrong~cf1_2                                             0.0390     0.0599  0.6510   0.5151 -0.0784  0.1563 1.0397 0.9246 1.1692  0.0215
+It's wrong but I cannot explain why~cf2_2                                0.0376     0.0391  0.9633   0.3354 -0.0389  0.1142 1.0384 0.9618 1.1210  0.0208
+There is nothing wrong~cf2_2                                            -0.0180     0.0586 -0.3072   0.7587 -0.1329  0.0969 0.9821 0.8755 1.1018 -0.0100
+It's wrong but I cannot explain why~confused                            -0.0254     0.0317 -0.8020   0.4226 -0.0875  0.0367 0.9749 0.9162 1.0374 -0.0140
+There is nothing wrong~confused                                         -0.0250     0.0480 -0.5211   0.6023 -0.1191  0.0691 0.9753 0.8877 1.0715 -0.0138
+It's wrong but I cannot explain why~irritated                            0.0147     0.0321  0.4570   0.6477 -0.0482  0.0776 1.0148 0.9529 1.0807  0.0081
+There is nothing wrong~irritated                                         0.0206     0.0490  0.4203   0.6743 -0.0755  0.1166 1.0208 0.9273 1.1237  0.0114
+It's wrong but I cannot explain why~reason                              -0.0060     0.0315 -0.1913   0.8483 -0.0678  0.0557 0.9940 0.9344 1.0573 -0.0033
+There is nothing wrong~reason                                            0.0026     0.0483  0.0548   0.9563 -0.0920  0.0973 1.0026 0.9121 1.1022  0.0015
+It's wrong but I cannot explain why~gut                                 -0.0044     0.0317 -0.1377   0.8904 -0.0665  0.0578 0.9956 0.9356 1.0595 -0.0024
+There is nothing wrong~gut                                               0.0373     0.0480  0.7760   0.4378 -0.0568  0.1313 1.0380 0.9447 1.1404  0.0206
+It's wrong but I cannot explain why~tempdistant:scenarioJennifer        -0.0069     0.2824 -0.0243   0.9806 -0.5603  0.5466 0.9932 0.5710 1.7274 -0.0038
+There is nothing wrong~tempdistant:scenarioJennifer                      0.9579     0.6284  1.5244   0.1274 -0.2737  2.1896 2.6063 0.7606 8.9313  0.5292
+It's wrong but I cannot explain why~tempnear:scenarioJennifer           -0.2046     0.2885 -0.7092   0.4782 -0.7701  0.3609 0.8150 0.4630 1.4346 -0.1130
+There is nothing wrong~tempnear:scenarioJennifer                         0.1588     0.4224  0.3760   0.7069 -0.6691  0.9868 1.1721 0.5122 2.6825  0.0877
+It's wrong but I cannot explain why~tempdistant:scenarioJulie and Mark   0.0885     0.2832  0.3126   0.7546 -0.4665  0.6435 1.0926 0.6272 1.9032  0.0489
+There is nothing wrong~tempdistant:scenarioJulie and Mark                0.1610     0.6516  0.2471   0.8048 -1.1160  1.4381 1.1747 0.3276 4.2125  0.0890
+It's wrong but I cannot explain why~tempnear:scenarioJulie and Mark     -0.4787     0.2961 -1.6167   0.1060 -1.0591  0.1017 0.6196 0.3468 1.1070 -0.2645
+There is nothing wrong~tempnear:scenarioJulie and Mark                   0.3156     0.3841  0.8216   0.4113 -0.4372  1.0684 1.3710 0.6458 2.9107  0.1744
+It's wrong but I cannot explain why~tempdistant:scenarioTrolley          0.1029     0.2862  0.3594   0.7193 -0.4581  0.6638 1.1083 0.6325 1.9422  0.0568
+There is nothing wrong~tempdistant:scenarioTrolley                      -0.7940     0.7640 -1.0393   0.2987 -2.2913  0.7034 0.4520 0.1011 2.0206 -0.4387
+It's wrong but I cannot explain why~tempnear:scenarioTrolley            -0.2298     0.2977 -0.7717   0.4403 -0.8133  0.3538 0.7947 0.4434 1.4245 -0.1269
+There is nothing wrong~tempnear:scenarioTrolley                          0.1598     0.3751  0.4260   0.6701 -0.5754  0.8950 1.1733 0.5625 2.4474  0.0883
+```
+
+
+:::
+:::
+
+
+
+
+#### Ambiguity
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs_with_coded1 ~ temp
+  * ambiguity
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 5222.641 - criterion = 1.028794
+Iteration 2 - deviance = 5186.643 - criterion = 0.0479762
+Iteration 3 - deviance = 5181.827 - criterion = 0.01048871
+Iteration 4 - deviance = 5181.122 - criterion = 0.0005080963
+Iteration 5 - deviance = 5181.031 - criterion = 1.299196e-06
+Iteration 6 - deviance = 5181.028 - criterion = 8.949059e-12
+converged
+
+Call:
+mblogit(formula = cs_with_coded1 ~ temp * ambiguity, data = x, 
+    random = list(~1 | ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)   
+(Intercept)                       0.0645605  0.1065622   0.606  0.54462   
+tempdistant                      -0.4691688  0.1454435  -3.226  0.00126 **
+tempnear                          0.1630717  0.1509455   1.080  0.27999   
+ambiguityunambiguous              0.0666226  0.1451213   0.459  0.64618   
+tempdistant:ambiguityunambiguous -0.0009247  0.1993271  -0.005  0.99630   
+tempnear:ambiguityunambiguous    -0.2261851  0.2064328  -1.096  0.27322   
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                      -0.68301    0.13087  -5.219 1.80e-07 ***
+tempdistant                      -2.71071    0.36382  -7.451 9.28e-14 ***
+tempnear                          0.03647    0.18776   0.194   0.8460    
+ambiguityunambiguous             -0.41147    0.19565  -2.103   0.0355 *  
+tempdistant:ambiguityunambiguous  0.89135    0.47794   1.865   0.0622 .  
+tempnear:ambiguityunambiguous     0.19123    0.27289   0.701   0.4835    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate          Std.Err.           
+It's wrong but I cannot explain why~1 0.10465           4.800e-05          
+There is nothing wrong~1              0.01788 0.08935   3.069e-05 3.103e-05
+
+Approximate residual deviance: 5181 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                     Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                        0.0646     0.1066  0.6058   0.5446 -0.1443  0.2734 1.0667 0.8656 1.3145  0.0357
+There is nothing wrong~(Intercept)                                    -0.6830     0.1309 -5.2188   0.0000 -0.9395 -0.4265 0.5051 0.3908 0.6528 -0.3774
+It's wrong but I cannot explain why~tempdistant                       -0.4692     0.1454 -3.2258   0.0013 -0.7542 -0.1841 0.6255 0.4704 0.8318 -0.2592
+There is nothing wrong~tempdistant                                    -2.7107     0.3638 -7.4507   0.0000 -3.4238 -1.9976 0.0665 0.0326 0.1357 -1.4976
+It's wrong but I cannot explain why~tempnear                           0.1631     0.1509  1.0803   0.2800 -0.1328  0.4589 1.1771 0.8757 1.5824  0.0901
+There is nothing wrong~tempnear                                        0.0365     0.1878  0.1942   0.8460 -0.3315  0.4045 1.0371 0.7178 1.4985  0.0201
+It's wrong but I cannot explain why~ambiguityunambiguous               0.0666     0.1451  0.4591   0.6462 -0.2178  0.3511 1.0689 0.8043 1.4206  0.0368
+There is nothing wrong~ambiguityunambiguous                           -0.4115     0.1957 -2.1031   0.0355 -0.7949 -0.0280 0.6627 0.4516 0.9724 -0.2273
+It's wrong but I cannot explain why~tempdistant:ambiguityunambiguous  -0.0009     0.1993 -0.0046   0.9963 -0.3916  0.3897 0.9991 0.6760 1.4766 -0.0005
+There is nothing wrong~tempdistant:ambiguityunambiguous                0.8914     0.4779  1.8650   0.0622 -0.0454  1.8281 2.4384 0.9556 6.2221  0.4925
+It's wrong but I cannot explain why~tempnear:ambiguityunambiguous     -0.2262     0.2064 -1.0957   0.2732 -0.6308  0.1784 0.7976 0.5322 1.1953 -0.1250
+There is nothing wrong~tempnear:ambiguityunambiguous                   0.1912     0.2729  0.7008   0.4835 -0.3436  0.7261 1.2107 0.7092 2.0670  0.1057
+```
+
+
+:::
+:::
+
+
+
+
+### Exploratory: Different Kinds of Dumbfounding
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+x <- df
+table(x$temp,x$scenario)
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+x$cs_with_coded1 <- as.factor(x$cs_with_coded1)
+x$cs_with_coded2 <- as.factor(x$cs_with_coded2)
+
+
+m1a <- mblogit(formula=cs_with_coded2~temp#*scenario
+, random = list(~1|ResponseId)
+# , contrasts = list(scenario = contr.sum)
+, data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs_with_coded2~temp*scenario
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_heinz_base <- mblogit(formula=cs_with_coded2~temp*(JulieandMark+Jennifer+Trolley)
+                          , random = list(~1|ResponseId)
+                          # , contrasts = list(scenario = contr.sum)
+                          , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_trolley_base <- mblogit(formula=cs_with_coded2~temp*(JulieandMark+Jennifer+Heinz)
+                            , random = list(~1|ResponseId)
+                            # , contrasts = list(scenario = contr.sum)
+                            , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_jennifer_base <- mblogit(formula=cs_with_coded2~temp*(JulieandMark+Trolley+Heinz)
+                             , random = list(~1|ResponseId)
+                             # , contrasts = list(scenario = contr.sum)
+                             , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_JulieMark_base <- mblogit(formula=cs_with_coded2~temp*(Jennifer+Trolley+Heinz)
+                              , random = list(~1|ResponseId)
+                              # , contrasts = list(scenario = contr.sum)
+                              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+
+m1d <- mblogit(formula=cs_with_coded2~temp*scenario
+               + ju1_2 + ju2_2 + cf1_2 + cf2_2
+               + confused + irritated + reason + gut
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+stats::BIC(m1c_heinz_base)
+stats::BIC(m1c_trolley_base)
+stats::BIC(m1c_jennifer_base)
+stats::BIC(m1c_JulieMark_base)
+
+stats::BIC(m1d)
+
+
+stats::AIC(m1c_heinz_base)
+stats::AIC(m1c_trolley_base)
+stats::AIC(m1c_jennifer_base)
+stats::AIC(m1c_JulieMark_base)
+
+stats::AIC(m1d)
+
+# lower AIC is better
+# lower BIC is better
+summary(m1a)
+summary(m1b)
+summary(m1c_heinz_base)
+summary(m1c_trolley_base)
+summary(m1c_jennifer_base)
+summary(m1c_JulieMark_base)
+summary(m1d)
+
+
+
+summary(m1d)
+
+m1_results <- function(x){
+  m1 <- x
+  coefs <- summary(m1)$coefficients
+  LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+  ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+  OR <- exp(coefs[,1])
+  ORLL <- exp(LLs)
+  ORUL <- exp(ULs)
+  HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+  
+  round(cbind(coefs, LLs, ULs), 4)
+  round(cbind(OR, ORLL, ORUL, HHES), 4)
+  
+  
+  round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+}
+```
+:::
+
+
+
+#### Most Basic Model (not including Scenario)
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs_with_coded2 ~ temp
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 6638.517 - criterion = 0.9539353
+Iteration 2 - deviance = 6529.631 - criterion = 0.05368549
+Iteration 3 - deviance = 6528.479 - criterion = 0.00301938
+Iteration 4 - deviance = 6528.28 - criterion = 3.193897e-05
+Iteration 5 - deviance = 6528.273 - criterion = 4.484384e-09
+converged
+
+Call:
+mblogit(formula = cs_with_coded2 ~ temp, data = x, random = list(~1 | 
+    ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  -0.9745     0.1006  -9.682  < 2e-16 ***
+tempdistant  -1.3788     0.1792  -7.695 1.42e-14 ***
+tempnear      0.1555     0.1401   1.110    0.267    
+
+Equation for no reason after coding vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -0.31853    0.08137  -3.914 9.06e-05 ***
+tempdistant -0.20062    0.10862  -1.847   0.0647 .  
+tempnear    -0.01341    0.11662  -0.115   0.9084    
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -0.87060    0.09701  -8.975   <2e-16 ***
+tempdistant -2.25923    0.23421  -9.646   <2e-16 ***
+tempnear     0.11495    0.13603   0.845    0.398    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate                           Std.Err.                     
+It's wrong but I cannot explain why~1  1.743e-02                         2.025e-07                    
+no reason after coding~1               2.401e-05  1.805e-02              1.509e-07 2.248e-07          
+There is nothing wrong~1               5.090e-05 -2.173e-05  1.744e-02   1.433e-07 1.510e-07 2.029e-07
+
+Approximate residual deviance: 6528 
+Number of Fisher scoring iterations:  5
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)  -0.9745     0.1006 -9.6819   0.0000 -1.1718 -0.7772 0.3774 0.3098 0.4597 -0.5384
+no reason after coding~(Intercept)               -0.3185     0.0814 -3.9144   0.0001 -0.4780 -0.1590 0.7272 0.6200 0.8530 -0.1760
+There is nothing wrong~(Intercept)               -0.8706     0.0970 -8.9747   0.0000 -1.0607 -0.6805 0.4187 0.3462 0.5064 -0.4810
+It's wrong but I cannot explain why~tempdistant  -1.3788     0.1792 -7.6949   0.0000 -1.7300 -1.0276 0.2519 0.1773 0.3579 -0.7618
+no reason after coding~tempdistant               -0.2006     0.1086 -1.8470   0.0647 -0.4135  0.0123 0.8182 0.6613 1.0123 -0.1108
+There is nothing wrong~tempdistant               -2.2592     0.2342 -9.6462   0.0000 -2.7183 -1.8002 0.1044 0.0660 0.1653 -1.2482
+It's wrong but I cannot explain why~tempnear      0.1555     0.1401  1.1101   0.2669 -0.1191  0.4301 1.1683 0.8878 1.5374  0.0859
+no reason after coding~tempnear                  -0.0134     0.1166 -0.1150   0.9084 -0.2420  0.2151 0.9867 0.7851 1.2400 -0.0074
+There is nothing wrong~tempnear                   0.1150     0.1360  0.8451   0.3981 -0.1517  0.3816 1.1218 0.8593 1.4646  0.0635
+```
+
+
+:::
+:::
+
+
+
+#### Scenario included
+
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs_with_coded2 ~ temp
+  * scenario
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 6576.764 - criterion = 0.9474568
+Iteration 2 - deviance = 6457.792 - criterion = 0.04635633
+Iteration 3 - deviance = 6456.294 - criterion = 0.008271082
+Iteration 4 - deviance = 6454.986 - criterion = 0.0008784186
+Iteration 5 - deviance = 6454.868 - criterion = 1.465437e-05
+Iteration 6 - deviance = 6454.859 - criterion = 4.427128e-09
+converged
+
+Call:
+mblogit(formula = cs_with_coded2 ~ temp * scenario, data = x, 
+    random = list(~1 | ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                         -0.8070     0.1964  -4.108 3.99e-05 ***
+tempdistant                         -1.7515     0.3832  -4.571 4.86e-06 ***
+tempnear                             0.3584     0.2707   1.324   0.1855    
+scenarioJennifer                    -0.2090     0.2738  -0.764   0.4451    
+scenarioJulie and Mark               0.1240     0.2720   0.456   0.6486    
+scenarioTrolley                     -0.7322     0.3144  -2.329   0.0199 *  
+tempdistant:scenarioJennifer         0.2369     0.5300   0.447   0.6548    
+tempnear:scenarioJennifer           -0.3644     0.3848  -0.947   0.3437    
+tempdistant:scenarioJulie and Mark   0.9418     0.4766   1.976   0.0481 *  
+tempnear:scenarioJulie and Mark     -0.4686     0.3814  -1.229   0.2192    
+tempdistant:scenarioTrolley         -0.9520     0.8447  -1.127   0.2597    
+tempnear:scenarioTrolley             0.1234     0.4202   0.294   0.7690    
+
+Equation for no reason after coding vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)  
+(Intercept)                        -0.28650    0.16714  -1.714   0.0865 .
+tempdistant                        -0.15598    0.21975  -0.710   0.4778  
+tempnear                            0.21531    0.23686   0.909   0.3633  
+scenarioJennifer                   -0.15126    0.22897  -0.661   0.5089  
+scenarioJulie and Mark              0.05468    0.23382   0.234   0.8151  
+scenarioTrolley                    -0.02911    0.23007  -0.127   0.8993  
+tempdistant:scenarioJennifer       -0.07293    0.30603  -0.238   0.8116  
+tempnear:scenarioJennifer          -0.10582    0.32360  -0.327   0.7437  
+tempdistant:scenarioJulie and Mark -0.08413    0.31022  -0.271   0.7862  
+tempnear:scenarioJulie and Mark    -0.48953    0.33649  -1.455   0.1457  
+tempdistant:scenarioTrolley        -0.03351    0.30320  -0.111   0.9120  
+tempnear:scenarioTrolley           -0.34797    0.33077  -1.052   0.2928  
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                   Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -0.70742    0.18995  -3.724 0.000196 ***
+tempdistant                        -2.36141    0.45933  -5.141 2.73e-07 ***
+tempnear                           -0.05723    0.28017  -0.204 0.838129    
+scenarioJennifer                   -0.74243    0.29512  -2.516 0.011881 *  
+scenarioJulie and Mark             -0.07639    0.27201  -0.281 0.778825    
+scenarioTrolley                     0.04368    0.25925   0.168 0.866209    
+tempdistant:scenarioJennifer        0.96270    0.62751   1.534 0.124992    
+tempnear:scenarioJennifer           0.18777    0.42169   0.445 0.656121    
+tempdistant:scenarioJulie and Mark  0.14873    0.65071   0.229 0.819203    
+tempnear:scenarioJulie and Mark     0.31656    0.38364   0.825 0.409289    
+tempdistant:scenarioTrolley        -0.81151    0.76300  -1.064 0.287518    
+tempnear:scenarioTrolley            0.16219    0.37418   0.433 0.664679    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate                     Std.Err.                     
+It's wrong but I cannot explain why~1 0.110648                     5.316e-05                    
+no reason after coding~1              0.003607 0.115327            3.996e-05 5.952e-05          
+There is nothing wrong~1              0.006781 0.001029 0.109685   3.767e-05 3.922e-05 5.163e-05
+
+Approximate residual deviance: 6455 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                       Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                         -0.8070     0.1964 -4.1081   0.0000 -1.1920 -0.4220 0.4462 0.3036 0.6558 -0.4458
+no reason after coding~(Intercept)                                      -0.2865     0.1671 -1.7141   0.0865 -0.6141  0.0411 0.7509 0.5411 1.0419 -0.1583
+There is nothing wrong~(Intercept)                                      -0.7074     0.1899 -3.7242   0.0002 -1.0797 -0.3351 0.4929 0.3397 0.7152 -0.3908
+It's wrong but I cannot explain why~tempdistant                         -1.7515     0.3832 -4.5707   0.0000 -2.5025 -1.0004 0.1735 0.0819 0.3677 -0.9677
+no reason after coding~tempdistant                                      -0.1560     0.2198 -0.7098   0.4778 -0.5867  0.2747 0.8556 0.5562 1.3162 -0.0862
+There is nothing wrong~tempdistant                                      -2.3614     0.4593 -5.1409   0.0000 -3.2617 -1.4611 0.0943 0.0383 0.2320 -1.3046
+It's wrong but I cannot explain why~tempnear                             0.3584     0.2707  1.3241   0.1855 -0.1721  0.8889 1.4310 0.8419 2.4325  0.1980
+no reason after coding~tempnear                                          0.2153     0.2369  0.9090   0.3633 -0.2489  0.6795 1.2403 0.7796 1.9730  0.1190
+There is nothing wrong~tempnear                                         -0.0572     0.2802 -0.2043   0.8381 -0.6064  0.4919 0.9444 0.5453 1.6354 -0.0316
+It's wrong but I cannot explain why~scenarioJennifer                    -0.2090     0.2738 -0.7635   0.4451 -0.7456  0.3276 0.8114 0.4744 1.3876 -0.1155
+no reason after coding~scenarioJennifer                                 -0.1513     0.2290 -0.6606   0.5089 -0.6000  0.2975 0.8596 0.5488 1.3465 -0.0836
+There is nothing wrong~scenarioJennifer                                 -0.7424     0.2951 -2.5157   0.0119 -1.3209 -0.1640 0.4760 0.2669 0.8487 -0.4102
+It's wrong but I cannot explain why~scenarioJulie and Mark               0.1240     0.2720  0.4558   0.6486 -0.4091  0.6571 1.1320 0.6642 1.9291  0.0685
+no reason after coding~scenarioJulie and Mark                            0.0547     0.2338  0.2339   0.8151 -0.4036  0.5130 1.0562 0.6679 1.6702  0.0302
+There is nothing wrong~scenarioJulie and Mark                           -0.0764     0.2720 -0.2809   0.7788 -0.6095  0.4567 0.9265 0.5436 1.5789 -0.0422
+It's wrong but I cannot explain why~scenarioTrolley                     -0.7322     0.3144 -2.3285   0.0199 -1.3485 -0.1159 0.4809 0.2596 0.8906 -0.4045
+no reason after coding~scenarioTrolley                                  -0.0291     0.2301 -0.1265   0.8993 -0.4800  0.4218 0.9713 0.6188 1.5247 -0.0161
+There is nothing wrong~scenarioTrolley                                   0.0437     0.2593  0.1685   0.8662 -0.4644  0.5518 1.0446 0.6285 1.7364  0.0241
+It's wrong but I cannot explain why~tempdistant:scenarioJennifer         0.2369     0.5300  0.4471   0.6548 -0.8018  1.2757 1.2674 0.4485 3.5812  0.1309
+no reason after coding~tempdistant:scenarioJennifer                     -0.0729     0.3060 -0.2383   0.8116 -0.6727  0.5269 0.9297 0.5103 1.6937 -0.0403
+There is nothing wrong~tempdistant:scenarioJennifer                      0.9627     0.6275  1.5342   0.1250 -0.2672  2.1926 2.6188 0.7655 8.9586  0.5319
+It's wrong but I cannot explain why~tempnear:scenarioJennifer           -0.3644     0.3848 -0.9469   0.3437 -1.1185  0.3898 0.6946 0.3268 1.4767 -0.2013
+no reason after coding~tempnear:scenarioJennifer                        -0.1058     0.3236 -0.3270   0.7437 -0.7401  0.5284 0.8996 0.4771 1.6963 -0.0585
+There is nothing wrong~tempnear:scenarioJennifer                         0.1878     0.4217  0.4453   0.6561 -0.6387  1.0143 1.2066 0.5280 2.7573  0.1037
+It's wrong but I cannot explain why~tempdistant:scenarioJulie and Mark   0.9418     0.4766  1.9762   0.0481  0.0077  1.8759 2.5646 1.0078 6.5266  0.5203
+no reason after coding~tempdistant:scenarioJulie and Mark               -0.0841     0.3102 -0.2712   0.7862 -0.6921  0.5239 0.9193 0.5005 1.6886 -0.0465
+There is nothing wrong~tempdistant:scenarioJulie and Mark                0.1487     0.6507  0.2286   0.8192 -1.1266  1.4241 1.1604 0.3241 4.1541  0.0822
+It's wrong but I cannot explain why~tempnear:scenarioJulie and Mark     -0.4686     0.3814 -1.2287   0.2192 -1.2162  0.2789 0.6259 0.2964 1.3217 -0.2589
+no reason after coding~tempnear:scenarioJulie and Mark                  -0.4895     0.3365 -1.4548   0.1457 -1.1490  0.1700 0.6129 0.3169 1.1853 -0.2705
+There is nothing wrong~tempnear:scenarioJulie and Mark                   0.3166     0.3836  0.8251   0.4093 -0.4354  1.0685 1.3724 0.6470 2.9110  0.1749
+It's wrong but I cannot explain why~tempdistant:scenarioTrolley         -0.9520     0.8447 -1.1270   0.2597 -2.6076  0.7036 0.3860 0.0737 2.0210 -0.5260
+no reason after coding~tempdistant:scenarioTrolley                      -0.0335     0.3032 -0.1105   0.9120 -0.6278  0.5607 0.9670 0.5338 1.7520 -0.0185
+There is nothing wrong~tempdistant:scenarioTrolley                      -0.8115     0.7630 -1.0636   0.2875 -2.3070  0.6839 0.4442 0.0996 1.9817 -0.4483
+It's wrong but I cannot explain why~tempnear:scenarioTrolley             0.1234     0.4202  0.2937   0.7690 -0.7002  0.9470 1.1313 0.4965 2.5781  0.0682
+no reason after coding~tempnear:scenarioTrolley                         -0.3480     0.3308 -1.0520   0.2928 -0.9963  0.3003 0.7061 0.3693 1.3503 -0.1922
+There is nothing wrong~tempnear:scenarioTrolley                          0.1622     0.3742  0.4335   0.6647 -0.5712  0.8956 1.1761 0.5649 2.4487  0.0896
+```
+
+
+:::
+:::
+
+
+
+
+#### Covariates added
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula =
+    cs_with_coded2 ~ temp
+  * scenario
+  + ju1_2 + ju2_2 + cf1_2 + cf2_2
+  + confused + irritated + reason + gut
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 6561.756 - criterion = 0.945858
+Iteration 2 - deviance = 6439.597 - criterion = 0.0576159
+Iteration 3 - deviance = 6435.845 - criterion = 0.008459808
+Iteration 4 - deviance = 6435.324 - criterion = 0.0008916683
+Iteration 5 - deviance = 6435.297 - criterion = 1.54945e-05
+Iteration 6 - deviance = 6435.296 - criterion = 5.037101e-09
+converged
+
+Call:
+mblogit(formula = cs_with_coded2 ~ temp * scenario + ju1_2 + 
+    ju2_2 + cf1_2 + cf2_2 + confused + irritated + reason + gut, 
+    data = x, random = list(~1 | ResponseId), method = c("PQL"), 
+    estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                     Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -1.1889115  0.6187391  -1.922   0.0547 .  
+tempdistant                        -1.8189368  0.3834807  -4.743  2.1e-06 ***
+tempnear                            0.3486111  0.2701788   1.290   0.1969    
+scenarioJennifer                   -0.2338933  0.2750367  -0.850   0.3951    
+scenarioJulie and Mark              0.1210668  0.2730225   0.443   0.6575    
+scenarioTrolley                    -0.7697878  0.3158285  -2.437   0.0148 *  
+ju1_2                              -0.0774015  0.0484944  -1.596   0.1105    
+ju2_2                               0.0047427  0.0453585   0.105   0.9167    
+cf1_2                               0.0005452  0.0586348   0.009   0.9926    
+cf2_2                               0.0936924  0.0591858   1.583   0.1134    
+confused                           -0.0509155  0.0480235  -1.060   0.2890    
+irritated                           0.0962120  0.0479756   2.005   0.0449 *  
+reason                              0.0088529  0.0473315   0.187   0.8516    
+gut                                -0.0121299  0.0480146  -0.253   0.8006    
+tempdistant:scenarioJennifer        0.3093956  0.5315728   0.582   0.5605    
+tempnear:scenarioJennifer          -0.3613023  0.3863078  -0.935   0.3496    
+tempdistant:scenarioJulie and Mark  0.9885821  0.4782298   2.067   0.0387 *  
+tempnear:scenarioJulie and Mark    -0.4617717  0.3825506  -1.207   0.2274    
+tempdistant:scenarioTrolley        -0.8775977  0.8459093  -1.037   0.2995    
+tempnear:scenarioTrolley            0.1328725  0.4217351   0.315   0.7527    
+
+Equation for no reason after coding vs It's wrong and I can provide a valid reason:
+                                    Estimate Std. Error z value Pr(>|z|)
+(Intercept)                        -0.344397   0.448063  -0.769    0.442
+tempdistant                        -0.153017   0.218629  -0.700    0.484
+tempnear                            0.213484   0.235356   0.907    0.364
+scenarioJennifer                   -0.145882   0.229191  -0.637    0.524
+scenarioJulie and Mark              0.056606   0.233962   0.242    0.809
+scenarioTrolley                    -0.027269   0.230583  -0.118    0.906
+ju1_2                              -0.029115   0.034437  -0.845    0.398
+ju2_2                              -0.002266   0.032862  -0.069    0.945
+cf1_2                               0.048575   0.042205   1.151    0.250
+cf2_2                               0.013225   0.042239   0.313    0.754
+confused                           -0.016162   0.034286  -0.471    0.637
+irritated                          -0.015802   0.034899  -0.453    0.651
+reason                             -0.011963   0.034154  -0.350    0.726
+gut                                -0.004600   0.034297  -0.134    0.893
+tempdistant:scenarioJennifer       -0.080228   0.306716  -0.262    0.794
+tempnear:scenarioJennifer          -0.108760   0.323944  -0.336    0.737
+tempdistant:scenarioJulie and Mark -0.095770   0.310788  -0.308    0.758
+tempnear:scenarioJulie and Mark    -0.491532   0.336586  -1.460    0.144
+tempdistant:scenarioTrolley        -0.038436   0.304252  -0.126    0.899
+tempnear:scenarioTrolley           -0.354998   0.331192  -1.072    0.284
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        -1.137304   0.620312  -1.833   0.0667 .  
+tempdistant                        -2.368835   0.459347  -5.157 2.51e-07 ***
+tempnear                           -0.041882   0.279258  -0.150   0.8808    
+scenarioJennifer                   -0.735071   0.295568  -2.487   0.0129 *  
+scenarioJulie and Mark             -0.077215   0.272412  -0.283   0.7768    
+scenarioTrolley                     0.038669   0.260338   0.149   0.8819    
+ju1_2                               0.031180   0.048083   0.648   0.5167    
+ju2_2                               0.020087   0.045935   0.437   0.6619    
+cf1_2                               0.037053   0.059700   0.621   0.5348    
+cf2_2                              -0.012945   0.058408  -0.222   0.8246    
+confused                           -0.025135   0.047789  -0.526   0.5989    
+irritated                           0.024960   0.048877   0.511   0.6096    
+reason                              0.003937   0.048101   0.082   0.9348    
+gut                                 0.036239   0.047809   0.758   0.4485    
+tempdistant:scenarioJennifer        0.960634   0.628339   1.529   0.1263    
+tempnear:scenarioJennifer           0.159221   0.422358   0.377   0.7062    
+tempdistant:scenarioJulie and Mark  0.162974   0.651509   0.250   0.8025    
+tempnear:scenarioJulie and Mark     0.316121   0.383978   0.823   0.4103    
+tempdistant:scenarioTrolley        -0.790341   0.763997  -1.034   0.3009    
+tempnear:scenarioTrolley            0.161485   0.375056   0.431   0.6668    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate                           Std.Err.                     
+It's wrong but I cannot explain why~1  2.168e-02                         3.899e-07                    
+no reason after coding~1              -9.244e-06  2.272e-02              2.957e-07 4.484e-07          
+There is nothing wrong~1              -2.513e-04 -4.557e-05  2.173e-02   2.768e-07 2.967e-07 3.926e-07
+
+Approximate residual deviance: 6435 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                       Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                         -1.1889     0.6187 -1.9215   0.0547 -2.4016  0.0238 0.3046 0.0906 1.0241 -0.6569
+no reason after coding~(Intercept)                                      -0.3444     0.4481 -0.7686   0.4421 -1.2226  0.5338 0.7086 0.2945 1.7054 -0.1903
+There is nothing wrong~(Intercept)                                      -1.1373     0.6203 -1.8334   0.0667 -2.3531  0.0785 0.3207 0.0951 1.0816 -0.6283
+It's wrong but I cannot explain why~tempdistant                         -1.8189     0.3835 -4.7432   0.0000 -2.5705 -1.0673 0.1622 0.0765 0.3439 -1.0049
+no reason after coding~tempdistant                                      -0.1530     0.2186 -0.6999   0.4840 -0.5815  0.2755 0.8581 0.5590 1.3172 -0.0845
+There is nothing wrong~tempdistant                                      -2.3688     0.4593 -5.1570   0.0000 -3.2691 -1.4685 0.0936 0.0380 0.2303 -1.3087
+It's wrong but I cannot explain why~tempnear                             0.3486     0.2702  1.2903   0.1969 -0.1809  0.8782 1.4171 0.8345 2.4064  0.1926
+no reason after coding~tempnear                                          0.2135     0.2354  0.9071   0.3644 -0.2478  0.6748 1.2380 0.7805 1.9636  0.1179
+There is nothing wrong~tempnear                                         -0.0419     0.2793 -0.1500   0.8808 -0.5892  0.5055 0.9590 0.5548 1.6577 -0.0231
+It's wrong but I cannot explain why~scenarioJennifer                    -0.2339     0.2750 -0.8504   0.3951 -0.7730  0.3052 0.7914 0.4616 1.3569 -0.1292
+no reason after coding~scenarioJennifer                                 -0.1459     0.2292 -0.6365   0.5244 -0.5951  0.3033 0.8643 0.5515 1.3544 -0.0806
+There is nothing wrong~scenarioJennifer                                 -0.7351     0.2956 -2.4870   0.0129 -1.3144 -0.1558 0.4795 0.2686 0.8558 -0.4061
+It's wrong but I cannot explain why~scenarioJulie and Mark               0.1211     0.2730  0.4434   0.6575 -0.4140  0.6562 1.1287 0.6610 1.9274  0.0669
+no reason after coding~scenarioJulie and Mark                            0.0566     0.2340  0.2419   0.8088 -0.4020  0.5152 1.0582 0.6690 1.6739  0.0313
+There is nothing wrong~scenarioJulie and Mark                           -0.0772     0.2724 -0.2834   0.7768 -0.6111  0.4567 0.9257 0.5427 1.5789 -0.0427
+It's wrong but I cannot explain why~scenarioTrolley                     -0.7698     0.3158 -2.4374   0.0148 -1.3888 -0.1508 0.4631 0.2494 0.8600 -0.4253
+no reason after coding~scenarioTrolley                                  -0.0273     0.2306 -0.1183   0.9059 -0.4792  0.4247 0.9731 0.6193 1.5291 -0.0151
+There is nothing wrong~scenarioTrolley                                   0.0387     0.2603  0.1485   0.8819 -0.4716  0.5489 1.0394 0.6240 1.7314  0.0214
+It's wrong but I cannot explain why~ju1_2                               -0.0774     0.0485 -1.5961   0.1105 -0.1724  0.0176 0.9255 0.8416 1.0178 -0.0428
+no reason after coding~ju1_2                                            -0.0291     0.0344 -0.8455   0.3979 -0.0966  0.0384 0.9713 0.9079 1.0391 -0.0161
+There is nothing wrong~ju1_2                                             0.0312     0.0481  0.6485   0.5167 -0.0631  0.1254 1.0317 0.9389 1.1336  0.0172
+It's wrong but I cannot explain why~ju2_2                                0.0047     0.0454  0.1046   0.9167 -0.0842  0.0936 1.0048 0.9193 1.0982  0.0026
+no reason after coding~ju2_2                                            -0.0023     0.0329 -0.0689   0.9450 -0.0667  0.0621 0.9977 0.9355 1.0641 -0.0013
+There is nothing wrong~ju2_2                                             0.0201     0.0459  0.4373   0.6619 -0.0699  0.1101 1.0203 0.9324 1.1164  0.0111
+It's wrong but I cannot explain why~cf1_2                                0.0005     0.0586  0.0093   0.9926 -0.1144  0.1155 1.0005 0.8919 1.1224  0.0003
+no reason after coding~cf1_2                                             0.0486     0.0422  1.1509   0.2498 -0.0341  0.1313 1.0498 0.9664 1.1403  0.0268
+There is nothing wrong~cf1_2                                             0.0371     0.0597  0.6207   0.5348 -0.0800  0.1541 1.0377 0.9232 1.1666  0.0205
+It's wrong but I cannot explain why~cf2_2                                0.0937     0.0592  1.5830   0.1134 -0.0223  0.2097 1.0982 0.9779 1.2333  0.0518
+no reason after coding~cf2_2                                             0.0132     0.0422  0.3131   0.7542 -0.0696  0.0960 1.0133 0.9328 1.1008  0.0073
+There is nothing wrong~cf2_2                                            -0.0129     0.0584 -0.2216   0.8246 -0.1274  0.1015 0.9871 0.8804 1.1069 -0.0072
+It's wrong but I cannot explain why~confused                            -0.0509     0.0480 -1.0602   0.2890 -0.1450  0.0432 0.9504 0.8650 1.0442 -0.0281
+no reason after coding~confused                                         -0.0162     0.0343 -0.4714   0.6374 -0.0834  0.0510 0.9840 0.9200 1.0524 -0.0089
+There is nothing wrong~confused                                         -0.0251     0.0478 -0.5260   0.5989 -0.1188  0.0685 0.9752 0.8880 1.0709 -0.0139
+It's wrong but I cannot explain why~irritated                            0.0962     0.0480  2.0054   0.0449  0.0022  0.1902 1.1010 1.0022 1.2095  0.0532
+no reason after coding~irritated                                        -0.0158     0.0349 -0.4528   0.6507 -0.0842  0.0526 0.9843 0.9192 1.0540 -0.0087
+There is nothing wrong~irritated                                         0.0250     0.0489  0.5107   0.6096 -0.0708  0.1208 1.0253 0.9316 1.1284  0.0138
+It's wrong but I cannot explain why~reason                               0.0089     0.0473  0.1870   0.8516 -0.0839  0.1016 1.0089 0.9195 1.1070  0.0049
+no reason after coding~reason                                           -0.0120     0.0342 -0.3503   0.7261 -0.0789  0.0550 0.9881 0.9241 1.0565 -0.0066
+There is nothing wrong~reason                                            0.0039     0.0481  0.0818   0.9348 -0.0903  0.0982 1.0039 0.9136 1.1032  0.0022
+It's wrong but I cannot explain why~gut                                 -0.0121     0.0480 -0.2526   0.8006 -0.1062  0.0820 0.9879 0.8992 1.0854 -0.0067
+no reason after coding~gut                                              -0.0046     0.0343 -0.1341   0.8933 -0.0718  0.0626 0.9954 0.9307 1.0646 -0.0025
+There is nothing wrong~gut                                               0.0362     0.0478  0.7580   0.4485 -0.0575  0.1299 1.0369 0.9442 1.1388  0.0200
+It's wrong but I cannot explain why~tempdistant:scenarioJennifer         0.3094     0.5316  0.5820   0.5605 -0.7325  1.3513 1.3626 0.4807 3.8623  0.1709
+no reason after coding~tempdistant:scenarioJennifer                     -0.0802     0.3067 -0.2616   0.7937 -0.6814  0.5209 0.9229 0.5059 1.6836 -0.0443
+There is nothing wrong~tempdistant:scenarioJennifer                      0.9606     0.6283  1.5288   0.1263 -0.2709  2.1922 2.6134 0.7627 8.9545  0.5307
+It's wrong but I cannot explain why~tempnear:scenarioJennifer           -0.3613     0.3863 -0.9353   0.3496 -1.1185  0.3958 0.6968 0.3268 1.4856 -0.1996
+no reason after coding~tempnear:scenarioJennifer                        -0.1088     0.3239 -0.3357   0.7371 -0.7437  0.5262 0.8969 0.4754 1.6924 -0.0601
+There is nothing wrong~tempnear:scenarioJennifer                         0.1592     0.4224  0.3770   0.7062 -0.6686  0.9870 1.1726 0.5124 2.6832  0.0880
+It's wrong but I cannot explain why~tempdistant:scenarioJulie and Mark   0.9886     0.4782  2.0672   0.0387  0.0513  1.9259 2.6874 1.0526 6.8613  0.5462
+no reason after coding~tempdistant:scenarioJulie and Mark               -0.0958     0.3108 -0.3082   0.7580 -0.7049  0.5134 0.9087 0.4942 1.6709 -0.0529
+There is nothing wrong~tempdistant:scenarioJulie and Mark                0.1630     0.6515  0.2501   0.8025 -1.1140  1.4399 1.1770 0.3283 4.2203  0.0900
+It's wrong but I cannot explain why~tempnear:scenarioJulie and Mark     -0.4618     0.3826 -1.2071   0.2274 -1.2116  0.2880 0.6302 0.2977 1.3338 -0.2551
+no reason after coding~tempnear:scenarioJulie and Mark                  -0.4915     0.3366 -1.4603   0.1442 -1.1512  0.1682 0.6117 0.3162 1.1831 -0.2716
+There is nothing wrong~tempnear:scenarioJulie and Mark                   0.3161     0.3840  0.8233   0.4103 -0.4365  1.0687 1.3718 0.6463 2.9116  0.1747
+It's wrong but I cannot explain why~tempdistant:scenarioTrolley         -0.8776     0.8459 -1.0375   0.2995 -2.5355  0.7804 0.4158 0.0792 2.1822 -0.4849
+no reason after coding~tempdistant:scenarioTrolley                      -0.0384     0.3043 -0.1263   0.8995 -0.6348  0.5579 0.9623 0.5301 1.7470 -0.0212
+There is nothing wrong~tempdistant:scenarioTrolley                      -0.7903     0.7640 -1.0345   0.3009 -2.2877  0.7071 0.4537 0.1015 2.0280 -0.4367
+It's wrong but I cannot explain why~tempnear:scenarioTrolley             0.1329     0.4217  0.3151   0.7527 -0.6937  0.9595 1.1421 0.4997 2.6103  0.0734
+no reason after coding~tempnear:scenarioTrolley                         -0.3550     0.3312 -1.0719   0.2838 -1.0041  0.2941 0.7012 0.3664 1.3420 -0.1961
+There is nothing wrong~tempnear:scenarioTrolley                          0.1615     0.3751  0.4306   0.6668 -0.5736  0.8966 1.1753 0.5635 2.4512  0.0892
+```
+
+
+:::
+:::
+
+
+
+
+#### Ambiguity
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+m1 <- mblogit(
+  formula = 
+    cs_with_coded2 ~ temp
+  * ambiguity
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+
+Iteration 1 - deviance = 6618.849 - criterion = 0.9520442
+Iteration 2 - deviance = 6504.704 - criterion = 0.04473515
+Iteration 3 - deviance = 6505.252 - criterion = 0.004297296
+Iteration 4 - deviance = 6504.247 - criterion = 7.406322e-05
+Iteration 5 - deviance = 6504.176 - criterion = 3.708969e-08
+Iteration 6 - deviance = 6504.175 - criterion = 1.223574e-14
+converged
+
+Call:
+mblogit(formula = cs_with_coded2 ~ temp * ambiguity, data = x, 
+    random = list(~1 | ResponseId), method = c("PQL"), estimator = c("ML"))
+
+Equation for It's wrong but I cannot explain why vs It's wrong and I can provide a valid reason:
+                                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                       -1.1233     0.1528  -7.352 1.95e-13 ***
+tempdistant                       -1.9839     0.3330  -5.958 2.56e-09 ***
+tempnear                           0.3905     0.2064   1.892   0.0584 .  
+ambiguityunambiguous               0.2706     0.2023   1.337   0.1811    
+tempdistant:ambiguityunambiguous   0.9202     0.3978   2.314   0.0207 *  
+tempnear:ambiguityunambiguous     -0.4457     0.2805  -1.589   0.1121    
+
+Equation for no reason after coding vs It's wrong and I can provide a valid reason:
+                                 Estimate Std. Error z value Pr(>|z|)  
+(Intercept)                      -0.30149    0.11708  -2.575    0.010 *
+tempdistant                      -0.17292    0.15475  -1.117    0.264  
+tempnear                          0.04349    0.16791   0.259    0.796  
+ambiguityunambiguous             -0.03849    0.16191  -0.238    0.812  
+tempdistant:ambiguityunambiguous -0.05838    0.21612  -0.270    0.787  
+tempnear:ambiguityunambiguous    -0.11135    0.23213  -0.480    0.631  
+
+Equation for There is nothing wrong vs It's wrong and I can provide a valid reason:
+                                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                      -0.68425    0.13119  -5.216 1.83e-07 ***
+tempdistant                      -2.71025    0.36404  -7.445 9.71e-14 ***
+tempnear                          0.03661    0.18820   0.195   0.8458    
+ambiguityunambiguous             -0.41158    0.19567  -2.103   0.0354 *  
+tempdistant:ambiguityunambiguous  0.89148    0.47796   1.865   0.0622 .  
+tempnear:ambiguityunambiguous     0.19134    0.27293   0.701   0.4833    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Co-)Variances:
+Grouping level: ResponseId 
+                                      Estimate                     Std.Err.                     
+It's wrong but I cannot explain why~1 0.108741                     5.063e-05                    
+no reason after coding~1              0.004369 0.113012            3.795e-05 5.608e-05          
+There is nothing wrong~1              0.007260 0.001253 0.107143   3.564e-05 3.680e-05 4.822e-05
+
+Approximate residual deviance: 6504 
+Number of Fisher scoring iterations:  6
+Number of observations
+  Groups by ResponseId: 685
+  Individual observations:  2740
+                                                                     Estimate Std. Error z value Pr(>|z|)     LLs     ULs     OR   ORLL   ORUL    HHES
+It's wrong but I cannot explain why~(Intercept)                       -1.1233     0.1528 -7.3519   0.0000 -1.4228 -0.8239 0.3252 0.2410 0.4387 -0.6206
+no reason after coding~(Intercept)                                    -0.3015     0.1171 -2.5750   0.0100 -0.5310 -0.0720 0.7397 0.5880 0.9305 -0.1666
+There is nothing wrong~(Intercept)                                    -0.6843     0.1312 -5.2157   0.0000 -0.9414 -0.4271 0.5045 0.3901 0.6524 -0.3780
+It's wrong but I cannot explain why~tempdistant                       -1.9839     0.3330 -5.9576   0.0000 -2.6366 -1.3312 0.1375 0.0716 0.2641 -1.0961
+no reason after coding~tempdistant                                    -0.1729     0.1547 -1.1174   0.2638 -0.4762  0.1304 0.8412 0.6211 1.1393 -0.0955
+There is nothing wrong~tempdistant                                    -2.7102     0.3640 -7.4448   0.0000 -3.4238 -1.9967 0.0665 0.0326 0.1358 -1.4974
+It's wrong but I cannot explain why~tempnear                           0.3905     0.2064  1.8923   0.0584 -0.0140  0.7950 1.4778 0.9861 2.2145  0.2158
+no reason after coding~tempnear                                        0.0435     0.1679  0.2590   0.7956 -0.2856  0.3726 1.0444 0.7515 1.4515  0.0240
+There is nothing wrong~tempnear                                        0.0366     0.1882  0.1945   0.8458 -0.3323  0.4055 1.0373 0.7173 1.5000  0.0202
+It's wrong but I cannot explain why~ambiguityunambiguous               0.2706     0.2023  1.3375   0.1811 -0.1260  0.6672 1.3108 0.8817 1.9488  0.1495
+no reason after coding~ambiguityunambiguous                           -0.0385     0.1619 -0.2377   0.8121 -0.3558  0.2789 0.9622 0.7006 1.3216 -0.0213
+There is nothing wrong~ambiguityunambiguous                           -0.4116     0.1957 -2.1034   0.0354 -0.7951 -0.0281 0.6626 0.4515 0.9723 -0.2274
+It's wrong but I cannot explain why~tempdistant:ambiguityunambiguous   0.9202     0.3978  2.3135   0.0207  0.1406  1.6998 2.5099 1.1510 5.4730  0.5084
+no reason after coding~tempdistant:ambiguityunambiguous               -0.0584     0.2161 -0.2701   0.7871 -0.4820  0.3652 0.9433 0.6176 1.4408 -0.0323
+There is nothing wrong~tempdistant:ambiguityunambiguous                0.8915     0.4780  1.8652   0.0622 -0.0453  1.8283 2.4387 0.9557 6.2230  0.4925
+It's wrong but I cannot explain why~tempnear:ambiguityunambiguous     -0.4457     0.2805 -1.5886   0.1121 -0.9955  0.1042 0.6404 0.3695 1.1098 -0.2462
+no reason after coding~tempnear:ambiguityunambiguous                  -0.1114     0.2321 -0.4797   0.6314 -0.5663  0.3436 0.8946 0.5676 1.4100 -0.0615
+There is nothing wrong~tempnear:ambiguityunambiguous                   0.1913     0.2729  0.7011   0.4833 -0.3436  0.7263 1.2109 0.7092 2.0673  0.1057
+```
+
+
+:::
+:::
+
+
+
+
+## Other Variables
+
+### Initial Judgment
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+model1 <- lmerTest::lmer(ju1_2 ~
+                  temp*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(temp = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+emmeans::emmeans(model1, list(pairwise ~ temp), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ scenario), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ temp*scenario), adjust = "tukey")
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+Type III Analysis of Variance Table with Satterthwaite's method
+              Sum Sq Mean Sq NumDF DenDF F value Pr(>F)
+temp          7.1849  3.5925     2  2728  2.0664 0.1268
+scenario      3.7912  1.2637     3  2728  0.7269 0.5359
+temp:scenario 2.5991  0.4332     6  2728  0.2492 0.9598
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: ju1_2 ~ temp * scenario + (1 | ResponseId)
+   Data: x
+
+REML criterion at convergence: 9332.7
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.81323 -0.78859 -0.08903  0.68193  2.85409 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ ResponseId (Intercept) 0.000    0.000   
+ Residual               1.739    1.319   
+Number of obs: 2740, groups:  ResponseId, 685
+
+Fixed effects:
+                  Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)      3.293e+00  2.519e-02  2.728e+03 130.749   <2e-16 ***
+temp1            6.136e-02  3.560e-02  2.728e+03   1.724   0.0849 .  
+temp2            2.590e-03  3.564e-02  2.728e+03   0.073   0.9421    
+scenario1       -5.895e-03  4.363e-02  2.728e+03  -0.135   0.8925    
+scenario2        3.235e-02  4.363e-02  2.728e+03   0.741   0.4585    
+scenario3        3.207e-02  4.363e-02  2.728e+03   0.735   0.4624    
+temp1:scenario1  5.440e-02  6.166e-02  2.728e+03   0.882   0.3777    
+temp2:scenario1 -2.780e-02  6.172e-02  2.728e+03  -0.450   0.6524    
+temp1:scenario2 -6.223e-02  6.166e-02  2.728e+03  -1.009   0.3129    
+temp2:scenario2  2.561e-02  6.172e-02  2.728e+03   0.415   0.6782    
+temp1:scenario3  2.071e-02  6.166e-02  2.728e+03   0.336   0.7370    
+temp2:scenario3 -1.299e-02  6.172e-02  2.728e+03  -0.210   0.8334    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) temp1  temp2  scenr1 scenr2 scenr3 tmp1:1 tmp2:1 tmp1:2 tmp2:2 tmp1:3
+temp1       -0.002                                                                      
+temp2        0.001 -0.499                                                               
+scenario1    0.000  0.000  0.000                                                        
+scenario2    0.000  0.000  0.000 -0.333                                                 
+scenario3    0.000  0.000  0.000 -0.333 -0.333                                          
+temp1:scnr1  0.000  0.000  0.000 -0.002  0.001  0.001                                   
+temp2:scnr1  0.000  0.000  0.000  0.001  0.000  0.000 -0.499                            
+temp1:scnr2  0.000  0.000  0.000  0.001 -0.002  0.001 -0.333  0.166                     
+temp2:scnr2  0.000  0.000  0.000  0.000  0.001  0.000  0.166 -0.333 -0.499              
+temp1:scnr3  0.000  0.000  0.000  0.001  0.001 -0.002 -0.333  0.166 -0.333  0.166       
+temp2:scnr3  0.000  0.000  0.000  0.000  0.000  0.001  0.166 -0.333  0.166 -0.333 -0.499
+optimizer (nloptwrap) convergence code: 0 (OK)
+boundary (singular) fit: see help('isSingular')
+
+$`emmeans of temp`
+ temp    emmean     SE  df lower.CL upper.CL
+ control   3.35 0.0436 682     3.27     3.44
+ distant   3.30 0.0437 682     3.21     3.38
+ near      3.23 0.0437 682     3.14     3.32
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp`
+ 1                 estimate     SE  df t.ratio p.value
+ control - distant   0.0588 0.0617 682   0.953  0.6070
+ control - near      0.1253 0.0617 682   2.032  0.1054
+ distant - near      0.0665 0.0617 682   1.078  0.5283
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+$`emmeans of scenario`
+ scenario       emmean     SE   df lower.CL upper.CL
+ Heinz            3.29 0.0504 2728     3.19     3.39
+ Jennifer         3.33 0.0504 2728     3.23     3.42
+ Julie and Mark   3.33 0.0504 2728     3.23     3.42
+ Trolley          3.23 0.0504 2728     3.14     3.33
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of scenario`
+ 1                         estimate     SE   df t.ratio p.value
+ Heinz - Jennifer          -0.03824 0.0712 2046  -0.537  0.9501
+ Heinz - Julie and Mark    -0.03796 0.0712 2046  -0.533  0.9511
+ Heinz - Trolley            0.05263 0.0712 2046   0.739  0.8815
+ Jennifer - Julie and Mark  0.00028 0.0712 2046   0.004  1.0000
+ Jennifer - Trolley         0.09087 0.0712 2046   1.275  0.5787
+ Julie and Mark - Trolley   0.09059 0.0712 2046   1.272  0.5812
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+$`emmeans of temp, scenario`
+ temp    scenario       emmean     SE   df lower.CL upper.CL
+ control Heinz            3.40 0.0871 2728     3.23     3.57
+ distant Heinz            3.26 0.0873 2728     3.09     3.43
+ near    Heinz            3.20 0.0873 2728     3.03     3.37
+ control Jennifer         3.32 0.0871 2728     3.15     3.50
+ distant Jennifer         3.35 0.0873 2728     3.18     3.53
+ near    Jennifer         3.30 0.0873 2728     3.13     3.47
+ control Julie and Mark   3.41 0.0871 2728     3.24     3.58
+ distant Julie and Mark   3.32 0.0873 2728     3.14     3.49
+ near    Julie and Mark   3.25 0.0873 2728     3.08     3.43
+ control Trolley          3.28 0.0871 2728     3.11     3.45
+ distant Trolley          3.25 0.0873 2728     3.08     3.42
+ near    Trolley          3.17 0.0873 2728     3.00     3.34
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp, scenario`
+ 1                                               estimate    SE   df t.ratio p.value
+ control Heinz - distant Heinz                    0.14097 0.123 2728   1.143  0.9927
+ control Heinz - near Heinz                       0.20631 0.123 2728   1.672  0.8808
+ control Heinz - control Jennifer                 0.07838 0.123 2046   0.636  1.0000
+ control Heinz - distant Jennifer                 0.04931 0.123 2728   0.400  1.0000
+ control Heinz - near Jennifer                    0.10485 0.123 2728   0.850  0.9995
+ control Heinz - control Julie and Mark          -0.00427 0.123 2046  -0.035  1.0000
+ control Heinz - distant Julie and Mark           0.08819 0.123 2728   0.715  0.9999
+ control Heinz - near Julie and Mark              0.14947 0.123 2728   1.212  0.9881
+ control Heinz - control Trolley                  0.11991 0.123 2046   0.973  0.9982
+ control Heinz - distant Trolley                  0.15062 0.123 2728   1.221  0.9874
+ control Heinz - near Trolley                     0.23464 0.123 2728   1.902  0.7581
+ distant Heinz - near Heinz                       0.06533 0.123 2728   0.529  1.0000
+ distant Heinz - control Jennifer                -0.06259 0.123 2728  -0.507  1.0000
+ distant Heinz - distant Jennifer                -0.09166 0.123 2046  -0.742  0.9999
+ distant Heinz - near Jennifer                   -0.03612 0.123 2728  -0.292  1.0000
+ distant Heinz - control Julie and Mark          -0.14525 0.123 2728  -1.177  0.9906
+ distant Heinz - distant Julie and Mark          -0.05278 0.123 2046  -0.427  1.0000
+ distant Heinz - near Julie and Mark              0.00850 0.123 2728   0.069  1.0000
+ distant Heinz - control Trolley                 -0.02107 0.123 2728  -0.171  1.0000
+ distant Heinz - distant Trolley                  0.00965 0.123 2046   0.078  1.0000
+ distant Heinz - near Trolley                     0.09367 0.123 2728   0.758  0.9998
+ near Heinz - control Jennifer                   -0.12792 0.123 2728  -1.037  0.9968
+ near Heinz - distant Jennifer                   -0.15699 0.123 2728  -1.271  0.9826
+ near Heinz - near Jennifer                      -0.10145 0.123 2046  -0.822  0.9996
+ near Heinz - control Julie and Mark             -0.21058 0.123 2728  -1.707  0.8653
+ near Heinz - distant Julie and Mark             -0.11812 0.123 2728  -0.956  0.9985
+ near Heinz - near Julie and Mark                -0.05684 0.123 2046  -0.460  1.0000
+ near Heinz - control Trolley                    -0.08640 0.123 2728  -0.700  0.9999
+ near Heinz - distant Trolley                    -0.05568 0.123 2728  -0.451  1.0000
+ near Heinz - near Trolley                        0.02833 0.123 2046   0.229  1.0000
+ control Jennifer - distant Jennifer             -0.02907 0.123 2728  -0.236  1.0000
+ control Jennifer - near Jennifer                 0.02647 0.123 2728   0.215  1.0000
+ control Jennifer - control Julie and Mark       -0.08266 0.123 2046  -0.671  1.0000
+ control Jennifer - distant Julie and Mark        0.00981 0.123 2728   0.080  1.0000
+ control Jennifer - near Julie and Mark           0.07109 0.123 2728   0.576  1.0000
+ control Jennifer - control Trolley               0.04152 0.123 2046   0.337  1.0000
+ control Jennifer - distant Trolley               0.07224 0.123 2728   0.586  1.0000
+ control Jennifer - near Trolley                  0.15625 0.123 2728   1.267  0.9831
+ distant Jennifer - near Jennifer                 0.05554 0.123 2728   0.450  1.0000
+ distant Jennifer - control Julie and Mark       -0.05359 0.123 2728  -0.434  1.0000
+ distant Jennifer - distant Julie and Mark        0.03888 0.123 2046   0.315  1.0000
+ distant Jennifer - near Julie and Mark           0.10016 0.123 2728   0.811  0.9997
+ distant Jennifer - control Trolley               0.07059 0.123 2728   0.572  1.0000
+ distant Jennifer - distant Trolley               0.10131 0.123 2046   0.820  0.9996
+ distant Jennifer - near Trolley                  0.18532 0.123 2728   1.501  0.9407
+ near Jennifer - control Julie and Mark          -0.10913 0.123 2728  -0.885  0.9993
+ near Jennifer - distant Julie and Mark          -0.01666 0.123 2728  -0.135  1.0000
+ near Jennifer - near Julie and Mark              0.04462 0.123 2046   0.361  1.0000
+ near Jennifer - control Trolley                  0.01505 0.123 2728   0.122  1.0000
+ near Jennifer - distant Trolley                  0.04577 0.123 2728   0.371  1.0000
+ near Jennifer - near Trolley                     0.12978 0.123 2046   1.051  0.9964
+ control Julie and Mark - distant Julie and Mark  0.09247 0.123 2728   0.750  0.9999
+ control Julie and Mark - near Julie and Mark     0.15374 0.123 2728   1.246  0.9851
+ control Julie and Mark - control Trolley         0.12418 0.123 2046   1.008  0.9976
+ control Julie and Mark - distant Trolley         0.15490 0.123 2728   1.256  0.9842
+ control Julie and Mark - near Trolley            0.23891 0.123 2728   1.937  0.7360
+ distant Julie and Mark - near Julie and Mark     0.06128 0.123 2728   0.496  1.0000
+ distant Julie and Mark - control Trolley         0.03172 0.123 2728   0.257  1.0000
+ distant Julie and Mark - distant Trolley         0.06243 0.123 2046   0.506  1.0000
+ distant Julie and Mark - near Trolley            0.14645 0.123 2728   1.186  0.9901
+ near Julie and Mark - control Trolley           -0.02956 0.123 2728  -0.240  1.0000
+ near Julie and Mark - distant Trolley            0.00115 0.123 2728   0.009  1.0000
+ near Julie and Mark - near Trolley               0.08517 0.123 2046   0.690  0.9999
+ control Trolley - distant Trolley                0.03072 0.123 2728   0.249  1.0000
+ control Trolley - near Trolley                   0.11473 0.123 2728   0.930  0.9988
+ distant Trolley - near Trolley                   0.08401 0.123 2728   0.680  0.9999
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 12 estimates 
+```
+
+
+:::
+:::
+
+
+
+
+### Revised Judgment
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+model1 <- lmerTest::lmer(ju2_2 ~
+                  temp*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(temp = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+emmeans::emmeans(model1, list(pairwise ~ temp), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ scenario), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ temp*scenario), adjust = "tukey")
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+Type III Analysis of Variance Table with Satterthwaite's method
+               Sum Sq Mean Sq NumDF DenDF F value Pr(>F)
+temp           1.4710 0.73552     2  2728  0.3842 0.6810
+scenario       8.3452 2.78173     3  2728  1.4530 0.2255
+temp:scenario 11.6626 1.94377     6  2728  1.0153 0.4133
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: ju2_2 ~ temp * scenario + (1 | ResponseId)
+   Data: x
+
+REML criterion at convergence: 9595.8
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.80064 -0.75445 -0.08492  0.67016  2.72183 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ ResponseId (Intercept) 0.000    0.000   
+ Residual               1.915    1.384   
+Number of obs: 2740, groups:  ResponseId, 685
+
+Fixed effects:
+                  Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)        3.38285    0.02643 2728.00000 127.975   <2e-16 ***
+temp1              0.01672    0.03736 2728.00000   0.448   0.6545    
+temp2              0.01606    0.03740 2728.00000   0.429   0.6677    
+scenario1          0.05776    0.04578 2728.00000   1.262   0.2072    
+scenario2          0.02701    0.04578 2728.00000   0.590   0.5553    
+scenario3         -0.08994    0.04578 2728.00000  -1.964   0.0496 *  
+temp1:scenario1    0.02915    0.06470 2728.00000   0.451   0.6524    
+temp2:scenario1    0.03188    0.06477 2728.00000   0.492   0.6226    
+temp1:scenario2   -0.08002    0.06470 2728.00000  -1.237   0.2163    
+temp2:scenario2    0.06646    0.06477 2728.00000   1.026   0.3050    
+temp1:scenario3   -0.01649    0.06470 2728.00000  -0.255   0.7988    
+temp2:scenario3   -0.10232    0.06477 2728.00000  -1.580   0.1143    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) temp1  temp2  scenr1 scenr2 scenr3 tmp1:1 tmp2:1 tmp1:2 tmp2:2 tmp1:3
+temp1       -0.002                                                                      
+temp2        0.001 -0.499                                                               
+scenario1    0.000  0.000  0.000                                                        
+scenario2    0.000  0.000  0.000 -0.333                                                 
+scenario3    0.000  0.000  0.000 -0.333 -0.333                                          
+temp1:scnr1  0.000  0.000  0.000 -0.002  0.001  0.001                                   
+temp2:scnr1  0.000  0.000  0.000  0.001  0.000  0.000 -0.499                            
+temp1:scnr2  0.000  0.000  0.000  0.001 -0.002  0.001 -0.333  0.166                     
+temp2:scnr2  0.000  0.000  0.000  0.000  0.001  0.000  0.166 -0.333 -0.499              
+temp1:scnr3  0.000  0.000  0.000  0.001  0.001 -0.002 -0.333  0.166 -0.333  0.166       
+temp2:scnr3  0.000  0.000  0.000  0.000  0.000  0.001  0.166 -0.333  0.166 -0.333 -0.499
+optimizer (nloptwrap) convergence code: 0 (OK)
+boundary (singular) fit: see help('isSingular')
+
+$`emmeans of temp`
+ temp    emmean     SE  df lower.CL upper.CL
+ control   3.40 0.0457 682     3.31     3.49
+ distant   3.40 0.0458 682     3.31     3.49
+ near      3.35 0.0458 682     3.26     3.44
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp`
+ 1                 estimate     SE  df t.ratio p.value
+ control - distant 0.000666 0.0647 682   0.010  0.9999
+ control - near    0.049499 0.0647 682   0.765  0.7248
+ distant - near    0.048833 0.0648 682   0.754  0.7315
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+$`emmeans of scenario`
+ scenario       emmean     SE   df lower.CL upper.CL
+ Heinz            3.44 0.0529 2728     3.34     3.54
+ Jennifer         3.41 0.0529 2728     3.31     3.51
+ Julie and Mark   3.29 0.0529 2728     3.19     3.40
+ Trolley          3.39 0.0529 2728     3.28     3.49
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of scenario`
+ 1                         estimate     SE   df t.ratio p.value
+ Heinz - Jennifer            0.0308 0.0748 2046   0.411  0.9765
+ Heinz - Julie and Mark      0.1477 0.0748 2046   1.976  0.1975
+ Heinz - Trolley             0.0526 0.0748 2046   0.703  0.8957
+ Jennifer - Julie and Mark   0.1170 0.0748 2046   1.564  0.3994
+ Jennifer - Trolley          0.0218 0.0748 2046   0.292  0.9913
+ Julie and Mark - Trolley   -0.0951 0.0748 2046  -1.272  0.5808
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+$`emmeans of temp, scenario`
+ temp    scenario       emmean     SE   df lower.CL upper.CL
+ control Heinz            3.49 0.0914 2728     3.31     3.67
+ distant Heinz            3.49 0.0916 2728     3.31     3.67
+ near    Heinz            3.35 0.0916 2728     3.17     3.53
+ control Jennifer         3.35 0.0914 2728     3.17     3.53
+ distant Jennifer         3.49 0.0916 2728     3.31     3.67
+ near    Jennifer         3.39 0.0916 2728     3.21     3.57
+ control Julie and Mark   3.29 0.0914 2728     3.11     3.47
+ distant Julie and Mark   3.21 0.0916 2728     3.03     3.39
+ near    Julie and Mark   3.38 0.0916 2728     3.20     3.56
+ control Trolley          3.47 0.0914 2728     3.29     3.65
+ distant Trolley          3.41 0.0916 2728     3.23     3.59
+ near    Trolley          3.28 0.0916 2728     3.10     3.46
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp, scenario`
+ 1                                                estimate    SE   df t.ratio p.value
+ control Heinz - distant Heinz                   -0.002068 0.129 2728  -0.016  1.0000
+ control Heinz - near Heinz                       0.139678 0.129 2728   1.079  0.9955
+ control Heinz - control Jennifer                 0.139925 0.129 2046   1.082  0.9954
+ control Heinz - distant Jennifer                -0.005887 0.129 2728  -0.045  1.0000
+ control Heinz - near Jennifer                    0.095835 0.129 2728   0.740  0.9999
+ control Heinz - control Julie and Mark           0.193348 0.129 2046   1.495  0.9421
+ control Heinz - distant Julie and Mark           0.279845 0.129 2728   2.162  0.5778
+ control Heinz - near Julie and Mark              0.107540 0.129 2728   0.831  0.9996
+ control Heinz - control Trolley                  0.014378 0.129 2046   0.111  1.0000
+ control Heinz - distant Trolley                  0.078424 0.129 2728   0.606  1.0000
+ control Heinz - near Trolley                     0.202595 0.129 2728   1.565  0.9215
+ distant Heinz - near Heinz                       0.141746 0.130 2728   1.094  0.9950
+ distant Heinz - control Jennifer                 0.141993 0.129 2728   1.097  0.9949
+ distant Heinz - distant Jennifer                -0.003819 0.130 2046  -0.029  1.0000
+ distant Heinz - near Jennifer                    0.097903 0.130 2728   0.755  0.9998
+ distant Heinz - control Julie and Mark           0.195416 0.129 2728   1.510  0.9383
+ distant Heinz - distant Julie and Mark           0.281913 0.130 2046   2.175  0.5679
+ distant Heinz - near Julie and Mark              0.109608 0.130 2728   0.846  0.9995
+ distant Heinz - control Trolley                  0.016446 0.129 2728   0.127  1.0000
+ distant Heinz - distant Trolley                  0.080492 0.130 2046   0.621  1.0000
+ distant Heinz - near Trolley                     0.204663 0.130 2728   1.579  0.9167
+ near Heinz - control Jennifer                    0.000247 0.129 2728   0.002  1.0000
+ near Heinz - distant Jennifer                   -0.145565 0.130 2728  -1.123  0.9937
+ near Heinz - near Jennifer                      -0.043843 0.130 2046  -0.338  1.0000
+ near Heinz - control Julie and Mark              0.053670 0.129 2728   0.415  1.0000
+ near Heinz - distant Julie and Mark              0.140167 0.130 2728   1.082  0.9954
+ near Heinz - near Julie and Mark                -0.032138 0.130 2046  -0.248  1.0000
+ near Heinz - control Trolley                    -0.125300 0.129 2728  -0.968  0.9983
+ near Heinz - distant Trolley                    -0.061254 0.130 2728  -0.473  1.0000
+ near Heinz - near Trolley                        0.062917 0.130 2046   0.486  1.0000
+ control Jennifer - distant Jennifer             -0.145812 0.129 2728  -1.126  0.9935
+ control Jennifer - near Jennifer                -0.044090 0.129 2728  -0.341  1.0000
+ control Jennifer - control Julie and Mark        0.053424 0.129 2046   0.413  1.0000
+ control Jennifer - distant Julie and Mark        0.139920 0.129 2728   1.081  0.9955
+ control Jennifer - near Julie and Mark          -0.032385 0.129 2728  -0.250  1.0000
+ control Jennifer - control Trolley              -0.125546 0.129 2046  -0.971  0.9983
+ control Jennifer - distant Trolley              -0.061501 0.129 2728  -0.475  1.0000
+ control Jennifer - near Trolley                  0.062670 0.129 2728   0.484  1.0000
+ distant Jennifer - near Jennifer                 0.101721 0.130 2728   0.785  0.9998
+ distant Jennifer - control Julie and Mark        0.199235 0.129 2728   1.539  0.9297
+ distant Jennifer - distant Julie and Mark        0.285732 0.130 2046   2.205  0.5462
+ distant Jennifer - near Julie and Mark           0.113427 0.130 2728   0.875  0.9993
+ distant Jennifer - control Trolley               0.020265 0.129 2728   0.157  1.0000
+ distant Jennifer - distant Trolley               0.084311 0.130 2046   0.651  1.0000
+ distant Jennifer - near Trolley                  0.208482 0.130 2728   1.609  0.9062
+ near Jennifer - control Julie and Mark           0.097514 0.129 2728   0.753  0.9998
+ near Jennifer - distant Julie and Mark           0.184010 0.130 2728   1.420  0.9598
+ near Jennifer - near Julie and Mark              0.011705 0.130 2046   0.090  1.0000
+ near Jennifer - control Trolley                 -0.081456 0.129 2728  -0.629  1.0000
+ near Jennifer - distant Trolley                 -0.017411 0.130 2728  -0.134  1.0000
+ near Jennifer - near Trolley                     0.106760 0.130 2046   0.824  0.9996
+ control Julie and Mark - distant Julie and Mark  0.086497 0.129 2728   0.668  1.0000
+ control Julie and Mark - near Julie and Mark    -0.085809 0.129 2728  -0.663  1.0000
+ control Julie and Mark - control Trolley        -0.178970 0.129 2046  -1.384  0.9666
+ control Julie and Mark - distant Trolley        -0.114924 0.129 2728  -0.888  0.9992
+ control Julie and Mark - near Trolley            0.009247 0.129 2728   0.071  1.0000
+ distant Julie and Mark - near Julie and Mark    -0.172305 0.130 2728  -1.330  0.9753
+ distant Julie and Mark - control Trolley        -0.265467 0.129 2728  -2.051  0.6582
+ distant Julie and Mark - distant Trolley        -0.201421 0.130 2046  -1.554  0.9249
+ distant Julie and Mark - near Trolley           -0.077250 0.130 2728  -0.596  1.0000
+ near Julie and Mark - control Trolley           -0.093161 0.129 2728  -0.720  0.9999
+ near Julie and Mark - distant Trolley           -0.029116 0.130 2728  -0.225  1.0000
+ near Julie and Mark - near Trolley               0.095055 0.130 2046   0.733  0.9999
+ control Trolley - distant Trolley                0.064046 0.129 2728   0.495  1.0000
+ control Trolley - near Trolley                   0.188217 0.129 2728   1.454  0.9524
+ distant Trolley - near Trolley                   0.124171 0.130 2728   0.958  0.9985
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 12 estimates 
+```
+
+
+:::
+:::
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+y <- x %>% select(
+  ResponseId
+  ,ju1_2
+  ,ju2_2
+) %>% pivot_longer(c(ju1_2,ju2_2)
+               , names_to = "judgment_time", values_to = "judgment")
+#y$judgment_time <- as.factor(y$judgment_time)
+
+
+model1 <- lmerTest::lmer(judgment ~ judgment_time
+               + (1|ResponseId)
+               , data = y
+               , contrasts = list(judgment_time = contr.sum))
+anova(model1)
+summary(model1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+Type III Analysis of Variance Table with Satterthwaite's method
+              Sum Sq Mean Sq NumDF DenDF F value  Pr(>F)  
+judgment_time 10.923  10.923     1  5478  5.9832 0.01447 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: judgment ~ judgment_time + (1 | ResponseId)
+   Data: y
+
+REML criterion at convergence: 18860.4
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.7629 -0.7828 -0.0833  0.6817  2.6928 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ ResponseId (Intercept) 0.000    0.000   
+ Residual               1.826    1.351   
+Number of obs: 5480, groups:  ResponseId, 685
+
+Fixed effects:
+                 Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)       3.33823    0.01825 5478.00000 182.896   <2e-16 ***
+judgment_time1   -0.04465    0.01825 5478.00000  -2.446   0.0145 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr)
+judgmnt_tm1 0.000 
+optimizer (nloptwrap) convergence code: 0 (OK)
+boundary (singular) fit: see help('isSingular')
+```
+
+
+:::
+:::
+
+
+
+
+### Initial Confidence
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+model1 <- lmerTest::lmer(cf1_2 ~
+                  temp*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(temp = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+emmeans::emmeans(model1, list(pairwise ~ temp), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ scenario), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ temp*scenario), adjust = "tukey")
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+Type III Analysis of Variance Table with Satterthwaite's method
+              Sum Sq Mean Sq NumDF DenDF F value Pr(>F)
+temp          0.0145 0.00726     2   682  0.0063 0.9937
+scenario      1.1781 0.39270     3  2046  0.3416 0.7952
+temp:scenario 7.4312 1.23853     6  2046  1.0774 0.3736
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: cf1_2 ~ temp * scenario + (1 | ResponseId)
+   Data: x
+
+REML criterion at convergence: 8219.8
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.6548 -0.6627  0.1028  0.7763  1.7634 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ ResponseId (Intercept) 0.006645 0.08152 
+ Residual               1.149569 1.07218 
+Number of obs: 2740, groups:  ResponseId, 685
+
+Fixed effects:
+                  Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)      5.190e+00  2.072e-02  6.820e+02 250.517   <2e-16 ***
+temp1            1.408e-03  2.928e-02  6.820e+02   0.048   0.9617    
+temp2           -3.283e-03  2.931e-02  6.820e+02  -0.112   0.9109    
+scenario1        1.881e-02  3.548e-02  2.046e+03   0.530   0.5961    
+scenario2       -3.408e-02  3.548e-02  2.046e+03  -0.961   0.3368    
+scenario3        1.018e-03  3.548e-02  2.046e+03   0.029   0.9771    
+temp1:scenario1  3.462e-02  5.014e-02  2.046e+03   0.690   0.4900    
+temp2:scenario1 -4.618e-02  5.019e-02  2.046e+03  -0.920   0.3576    
+temp1:scenario2 -9.385e-02  5.014e-02  2.046e+03  -1.872   0.0614 .  
+temp2:scenario2  7.745e-02  5.019e-02  2.046e+03   1.543   0.1230    
+temp1:scenario3 -1.306e-03  5.014e-02  2.046e+03  -0.026   0.9792    
+temp2:scenario3  4.590e-02  5.019e-02  2.046e+03   0.914   0.3606    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) temp1  temp2  scenr1 scenr2 scenr3 tmp1:1 tmp2:1 tmp1:2 tmp2:2 tmp1:3
+temp1       -0.002                                                                      
+temp2        0.001 -0.499                                                               
+scenario1    0.000  0.000  0.000                                                        
+scenario2    0.000  0.000  0.000 -0.333                                                 
+scenario3    0.000  0.000  0.000 -0.333 -0.333                                          
+temp1:scnr1  0.000  0.000  0.000 -0.002  0.001  0.001                                   
+temp2:scnr1  0.000  0.000  0.000  0.001  0.000  0.000 -0.499                            
+temp1:scnr2  0.000  0.000  0.000  0.001 -0.002  0.001 -0.333  0.166                     
+temp2:scnr2  0.000  0.000  0.000  0.000  0.001  0.000  0.166 -0.333 -0.499              
+temp1:scnr3  0.000  0.000  0.000  0.001  0.001 -0.002 -0.333  0.166 -0.333  0.166       
+temp2:scnr3  0.000  0.000  0.000  0.000  0.000  0.001  0.166 -0.333  0.166 -0.333 -0.499
+$`emmeans of temp`
+ temp    emmean     SE  df lower.CL upper.CL
+ control   5.19 0.0358 682     5.12     5.26
+ distant   5.19 0.0359 682     5.12     5.26
+ near      5.19 0.0359 682     5.12     5.26
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp`
+ 1                  estimate     SE  df t.ratio p.value
+ control - distant  0.004691 0.0507 682   0.092  0.9953
+ control - near    -0.000467 0.0507 682  -0.009  1.0000
+ distant - near    -0.005158 0.0508 682  -0.102  0.9943
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+$`emmeans of scenario`
+ scenario       emmean     SE   df lower.CL upper.CL
+ Heinz            5.21 0.0411 2728     5.13     5.29
+ Jennifer         5.16 0.0411 2728     5.08     5.24
+ Julie and Mark   5.19 0.0411 2728     5.11     5.27
+ Trolley          5.20 0.0411 2728     5.12     5.29
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of scenario`
+ 1                         estimate     SE   df t.ratio p.value
+ Heinz - Jennifer           0.05289 0.0579 2046   0.913  0.7979
+ Heinz - Julie and Mark     0.01779 0.0579 2046   0.307  0.9900
+ Heinz - Trolley            0.00455 0.0579 2046   0.079  0.9998
+ Jennifer - Julie and Mark -0.03510 0.0579 2046  -0.606  0.9302
+ Jennifer - Trolley        -0.04834 0.0579 2046  -0.834  0.8381
+ Julie and Mark - Trolley  -0.01324 0.0579 2046  -0.229  0.9958
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+$`emmeans of temp, scenario`
+ temp    scenario       emmean     SE   df lower.CL upper.CL
+ control Heinz            5.25 0.0711 2728     5.11     5.38
+ distant Heinz            5.16 0.0712 2728     5.02     5.30
+ near    Heinz            5.22 0.0712 2728     5.08     5.36
+ control Jennifer         5.06 0.0711 2728     4.92     5.20
+ distant Jennifer         5.23 0.0712 2728     5.09     5.37
+ near    Jennifer         5.17 0.0712 2728     5.03     5.31
+ control Julie and Mark   5.19 0.0711 2728     5.05     5.33
+ distant Julie and Mark   5.23 0.0712 2728     5.09     5.37
+ near    Julie and Mark   5.15 0.0712 2728     5.01     5.29
+ control Trolley          5.27 0.0711 2728     5.13     5.41
+ distant Trolley          5.12 0.0712 2728     4.98     5.26
+ near    Trolley          5.22 0.0712 2728     5.08     5.36
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp, scenario`
+ 1                                                estimate    SE   df t.ratio p.value
+ control Heinz - distant Heinz                    0.085489 0.101 2728   0.850  0.9995
+ control Heinz - near Heinz                       0.022584 0.101 2728   0.225  1.0000
+ control Heinz - control Jennifer                 0.181358 0.100 2046   1.810  0.8127
+ control Heinz - distant Jennifer                 0.014748 0.101 2728   0.147  1.0000
+ control Heinz - near Jennifer                    0.070645 0.101 2728   0.702  0.9999
+ control Heinz - control Julie and Mark           0.053712 0.100 2046   0.536  1.0000
+ control Heinz - distant Julie and Mark           0.011200 0.101 2728   0.111  1.0000
+ control Heinz - near Julie and Mark              0.096530 0.101 2728   0.960  0.9984
+ control Heinz - control Trolley                 -0.021374 0.100 2046  -0.213  1.0000
+ control Heinz - distant Trolley                  0.121023 0.101 2728   1.203  0.9888
+ control Heinz - near Trolley                     0.022070 0.101 2728   0.219  1.0000
+ distant Heinz - near Heinz                      -0.062905 0.101 2728  -0.625  1.0000
+ distant Heinz - control Jennifer                 0.095869 0.101 2728   0.953  0.9985
+ distant Heinz - distant Jennifer                -0.070741 0.100 2046  -0.704  0.9999
+ distant Heinz - near Jennifer                   -0.014844 0.101 2728  -0.147  1.0000
+ distant Heinz - control Julie and Mark          -0.031777 0.101 2728  -0.316  1.0000
+ distant Heinz - distant Julie and Mark          -0.074289 0.100 2046  -0.740  0.9999
+ distant Heinz - near Julie and Mark              0.011041 0.101 2728   0.110  1.0000
+ distant Heinz - control Trolley                 -0.106863 0.101 2728  -1.062  0.9961
+ distant Heinz - distant Trolley                  0.035534 0.100 2046   0.354  1.0000
+ distant Heinz - near Trolley                    -0.063419 0.101 2728  -0.630  1.0000
+ near Heinz - control Jennifer                    0.158774 0.101 2728   1.578  0.9170
+ near Heinz - distant Jennifer                   -0.007836 0.101 2728  -0.078  1.0000
+ near Heinz - near Jennifer                       0.048061 0.100 2046   0.479  1.0000
+ near Heinz - control Julie and Mark              0.031127 0.101 2728   0.309  1.0000
+ near Heinz - distant Julie and Mark             -0.011385 0.101 2728  -0.113  1.0000
+ near Heinz - near Julie and Mark                 0.073946 0.100 2046   0.736  0.9999
+ near Heinz - control Trolley                    -0.043958 0.101 2728  -0.437  1.0000
+ near Heinz - distant Trolley                     0.098439 0.101 2728   0.977  0.9981
+ near Heinz - near Trolley                       -0.000515 0.100 2046  -0.005  1.0000
+ control Jennifer - distant Jennifer             -0.166610 0.101 2728  -1.656  0.8876
+ control Jennifer - near Jennifer                -0.110713 0.101 2728  -1.101  0.9947
+ control Jennifer - control Julie and Mark       -0.127646 0.100 2046  -1.274  0.9823
+ control Jennifer - distant Julie and Mark       -0.170159 0.101 2728  -1.691  0.8724
+ control Jennifer - near Julie and Mark          -0.084828 0.101 2728  -0.843  0.9995
+ control Jennifer - control Trolley              -0.202732 0.100 2046  -2.023  0.6775
+ control Jennifer - distant Trolley              -0.060335 0.101 2728  -0.600  1.0000
+ control Jennifer - near Trolley                 -0.159288 0.101 2728  -1.583  0.9153
+ distant Jennifer - near Jennifer                 0.055897 0.101 2728   0.555  1.0000
+ distant Jennifer - control Julie and Mark        0.038964 0.101 2728   0.387  1.0000
+ distant Jennifer - distant Julie and Mark       -0.003549 0.100 2046  -0.035  1.0000
+ distant Jennifer - near Julie and Mark           0.081782 0.101 2728   0.812  0.9997
+ distant Jennifer - control Trolley              -0.036122 0.101 2728  -0.359  1.0000
+ distant Jennifer - distant Trolley               0.106275 0.100 2046   1.058  0.9962
+ distant Jennifer - near Trolley                  0.007322 0.101 2728   0.073  1.0000
+ near Jennifer - control Julie and Mark          -0.016933 0.101 2728  -0.168  1.0000
+ near Jennifer - distant Julie and Mark          -0.059445 0.101 2728  -0.590  1.0000
+ near Jennifer - near Julie and Mark              0.025885 0.100 2046   0.258  1.0000
+ near Jennifer - control Trolley                 -0.092019 0.101 2728  -0.915  0.9990
+ near Jennifer - distant Trolley                  0.050378 0.101 2728   0.500  1.0000
+ near Jennifer - near Trolley                    -0.048575 0.100 2046  -0.484  1.0000
+ control Julie and Mark - distant Julie and Mark -0.042512 0.101 2728  -0.423  1.0000
+ control Julie and Mark - near Julie and Mark     0.042819 0.101 2728   0.426  1.0000
+ control Julie and Mark - control Trolley        -0.075086 0.100 2046  -0.749  0.9999
+ control Julie and Mark - distant Trolley         0.067312 0.101 2728   0.669  1.0000
+ control Julie and Mark - near Trolley           -0.031642 0.101 2728  -0.315  1.0000
+ distant Julie and Mark - near Julie and Mark     0.085331 0.101 2728   0.847  0.9995
+ distant Julie and Mark - control Trolley        -0.032573 0.101 2728  -0.324  1.0000
+ distant Julie and Mark - distant Trolley         0.109824 0.100 2046   1.094  0.9950
+ distant Julie and Mark - near Trolley            0.010870 0.101 2728   0.108  1.0000
+ near Julie and Mark - control Trolley           -0.117904 0.101 2728  -1.172  0.9910
+ near Julie and Mark - distant Trolley            0.024493 0.101 2728   0.243  1.0000
+ near Julie and Mark - near Trolley              -0.074461 0.100 2046  -0.742  0.9999
+ control Trolley - distant Trolley                0.142397 0.101 2728   1.415  0.9607
+ control Trolley - near Trolley                   0.043444 0.101 2728   0.432  1.0000
+ distant Trolley - near Trolley                  -0.098953 0.101 2728  -0.983  0.9981
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 12 estimates 
+```
+
+
+:::
+:::
+
+
+
+
+
+### Revised Confidence
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+model1 <- lmerTest::lmer(cf2_2 ~
+                  temp*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(temp = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+emmeans::emmeans(model1, list(pairwise ~ temp), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ scenario), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ temp*scenario), adjust = "tukey")
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+Type III Analysis of Variance Table with Satterthwaite's method
+              Sum Sq Mean Sq NumDF DenDF F value Pr(>F)
+temp          2.3459 1.17296     2   682  1.0358 0.3555
+scenario      0.9553 0.31842     3  2046  0.2812 0.8390
+temp:scenario 6.4718 1.07864     6  2046  0.9525 0.4561
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: cf2_2 ~ temp * scenario + (1 | ResponseId)
+   Data: x
+
+REML criterion at convergence: 8221.7
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.8802 -0.6782  0.1146  0.7889  1.7038 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ ResponseId (Intercept) 0.02537  0.1593  
+ Residual               1.13240  1.0641  
+Number of obs: 2740, groups:  ResponseId, 685
+
+Fixed effects:
+                  Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)      5.267e+00  2.122e-02  6.820e+02 248.213   <2e-16 ***
+temp1           -1.214e-02  2.999e-02  6.820e+02  -0.405   0.6858    
+temp2            4.199e-02  3.002e-02  6.820e+02   1.399   0.1623    
+scenario1       -2.610e-02  3.521e-02  2.046e+03  -0.741   0.4586    
+scenario2        8.387e-03  3.521e-02  2.046e+03   0.238   0.8118    
+scenario3       -6.727e-03  3.521e-02  2.046e+03  -0.191   0.8485    
+temp1:scenario1 -6.037e-02  4.976e-02  2.046e+03  -1.213   0.2252    
+temp2:scenario1  1.050e-01  4.981e-02  2.046e+03   2.108   0.0351 *  
+temp1:scenario2  2.357e-02  4.976e-02  2.046e+03   0.474   0.6358    
+temp2:scenario2 -6.553e-02  4.981e-02  2.046e+03  -1.315   0.1885    
+temp1:scenario3 -1.593e-02  4.976e-02  2.046e+03  -0.320   0.7488    
+temp2:scenario3 -6.993e-03  4.981e-02  2.046e+03  -0.140   0.8884    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) temp1  temp2  scenr1 scenr2 scenr3 tmp1:1 tmp2:1 tmp1:2 tmp2:2 tmp1:3
+temp1       -0.002                                                                      
+temp2        0.001 -0.499                                                               
+scenario1    0.000  0.000  0.000                                                        
+scenario2    0.000  0.000  0.000 -0.333                                                 
+scenario3    0.000  0.000  0.000 -0.333 -0.333                                          
+temp1:scnr1  0.000  0.000  0.000 -0.002  0.001  0.001                                   
+temp2:scnr1  0.000  0.000  0.000  0.001  0.000  0.000 -0.499                            
+temp1:scnr2  0.000  0.000  0.000  0.001 -0.002  0.001 -0.333  0.166                     
+temp2:scnr2  0.000  0.000  0.000  0.000  0.001  0.000  0.166 -0.333 -0.499              
+temp1:scnr3  0.000  0.000  0.000  0.001  0.001 -0.002 -0.333  0.166 -0.333  0.166       
+temp2:scnr3  0.000  0.000  0.000  0.000  0.000  0.001  0.166 -0.333  0.166 -0.333 -0.499
+$`emmeans of temp`
+ temp    emmean     SE  df lower.CL upper.CL
+ control   5.26 0.0367 682     5.18     5.33
+ distant   5.31 0.0368 682     5.24     5.38
+ near      5.24 0.0368 682     5.17     5.31
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp`
+ 1                 estimate    SE  df t.ratio p.value
+ control - distant  -0.0541 0.052 682  -1.042  0.5508
+ control - near      0.0177 0.052 682   0.341  0.9379
+ distant - near      0.0719 0.052 682   1.381  0.3513
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+$`emmeans of scenario`
+ scenario       emmean     SE   df lower.CL upper.CL
+ Heinz            5.24 0.0411 2724     5.16     5.32
+ Jennifer         5.28 0.0411 2724     5.20     5.36
+ Julie and Mark   5.26 0.0411 2724     5.18     5.34
+ Trolley          5.29 0.0411 2724     5.21     5.37
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of scenario`
+ 1                         estimate     SE   df t.ratio p.value
+ Heinz - Jennifer           -0.0345 0.0575 2046  -0.600  0.9321
+ Heinz - Julie and Mark     -0.0194 0.0575 2046  -0.337  0.9868
+ Heinz - Trolley            -0.0505 0.0575 2046  -0.879  0.8157
+ Jennifer - Julie and Mark   0.0151 0.0575 2046   0.263  0.9936
+ Jennifer - Trolley         -0.0161 0.0575 2046  -0.279  0.9924
+ Julie and Mark - Trolley   -0.0312 0.0575 2046  -0.542  0.9487
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+$`emmeans of temp, scenario`
+ temp    scenario       emmean     SE   df lower.CL upper.CL
+ control Heinz            5.17 0.0711 2724     5.03     5.31
+ distant Heinz            5.39 0.0713 2724     5.25     5.53
+ near    Heinz            5.17 0.0713 2724     5.03     5.31
+ control Jennifer         5.29 0.0711 2724     5.15     5.43
+ distant Jennifer         5.25 0.0713 2724     5.11     5.39
+ near    Jennifer         5.29 0.0713 2724     5.15     5.43
+ control Julie and Mark   5.23 0.0711 2724     5.09     5.37
+ distant Julie and Mark   5.30 0.0713 2724     5.16     5.44
+ near    Julie and Mark   5.25 0.0713 2724     5.11     5.39
+ control Trolley          5.33 0.0711 2724     5.19     5.47
+ distant Trolley          5.30 0.0713 2724     5.16     5.44
+ near    Trolley          5.24 0.0713 2724     5.10     5.38
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp, scenario`
+ 1                                                estimate     SE   df t.ratio p.value
+ control Heinz - distant Heinz                   -0.219524 0.1010 2724  -2.181  0.5639
+ control Heinz - near Heinz                       0.001998 0.1010 2724   0.020  1.0000
+ control Heinz - control Jennifer                -0.118430 0.0994 2046  -1.191  0.9897
+ control Heinz - distant Jennifer                -0.083467 0.1010 2724  -0.829  0.9996
+ control Heinz - near Jennifer                   -0.119103 0.1010 2724  -1.183  0.9902
+ control Heinz - control Julie and Mark          -0.063815 0.0994 2046  -0.642  1.0000
+ control Heinz - distant Julie and Mark          -0.126887 0.1010 2724  -1.260  0.9837
+ control Heinz - near Julie and Mark             -0.084957 0.1010 2724  -0.844  0.9995
+ control Heinz - control Trolley                 -0.163661 0.0994 2046  -1.646  0.8919
+ control Heinz - distant Trolley                 -0.132549 0.1010 2724  -1.317  0.9771
+ control Heinz - near Trolley                    -0.072963 0.1010 2724  -0.725  0.9999
+ distant Heinz - near Heinz                       0.221521 0.1010 2724   2.198  0.5511
+ distant Heinz - control Jennifer                 0.101094 0.1010 2724   1.004  0.9976
+ distant Heinz - distant Jennifer                 0.136057 0.0997 2046   1.365  0.9699
+ distant Heinz - near Jennifer                    0.100421 0.1010 2724   0.996  0.9978
+ distant Heinz - control Julie and Mark           0.155708 0.1010 2724   1.547  0.9273
+ distant Heinz - distant Julie and Mark           0.092637 0.0997 2046   0.929  0.9988
+ distant Heinz - near Julie and Mark              0.134567 0.1010 2724   1.335  0.9745
+ distant Heinz - control Trolley                  0.055863 0.1010 2724   0.555  1.0000
+ distant Heinz - distant Trolley                  0.086975 0.0997 2046   0.873  0.9993
+ distant Heinz - near Trolley                     0.146560 0.1010 2724   1.454  0.9523
+ near Heinz - control Jennifer                   -0.120427 0.1010 2724  -1.196  0.9893
+ near Heinz - distant Jennifer                   -0.085464 0.1010 2724  -0.848  0.9995
+ near Heinz - near Jennifer                      -0.121100 0.0997 2046  -1.215  0.9879
+ near Heinz - control Julie and Mark             -0.065813 0.1010 2724  -0.654  1.0000
+ near Heinz - distant Julie and Mark             -0.128884 0.1010 2724  -1.279  0.9817
+ near Heinz - near Julie and Mark                -0.086954 0.0997 2046  -0.872  0.9994
+ near Heinz - control Trolley                    -0.165658 0.1010 2724  -1.646  0.8920
+ near Heinz - distant Trolley                    -0.134546 0.1010 2724  -1.335  0.9745
+ near Heinz - near Trolley                       -0.074961 0.0997 2046  -0.752  0.9998
+ control Jennifer - distant Jennifer              0.034963 0.1010 2724   0.347  1.0000
+ control Jennifer - near Jennifer                -0.000673 0.1010 2724  -0.007  1.0000
+ control Jennifer - control Julie and Mark        0.054615 0.0994 2046   0.549  1.0000
+ control Jennifer - distant Julie and Mark       -0.008457 0.1010 2724  -0.084  1.0000
+ control Jennifer - near Julie and Mark           0.033473 0.1010 2724   0.333  1.0000
+ control Jennifer - control Trolley              -0.045231 0.0994 2046  -0.455  1.0000
+ control Jennifer - distant Trolley              -0.014119 0.1010 2724  -0.140  1.0000
+ control Jennifer - near Trolley                  0.045467 0.1010 2724   0.452  1.0000
+ distant Jennifer - near Jennifer                -0.035636 0.1010 2724  -0.354  1.0000
+ distant Jennifer - control Julie and Mark        0.019652 0.1010 2724   0.195  1.0000
+ distant Jennifer - distant Julie and Mark       -0.043420 0.0997 2046  -0.436  1.0000
+ distant Jennifer - near Julie and Mark          -0.001490 0.1010 2724  -0.015  1.0000
+ distant Jennifer - control Trolley              -0.080194 0.1010 2724  -0.797  0.9997
+ distant Jennifer - distant Trolley              -0.049082 0.0997 2046  -0.492  1.0000
+ distant Jennifer - near Trolley                  0.010504 0.1010 2724   0.104  1.0000
+ near Jennifer - control Julie and Mark           0.055288 0.1010 2724   0.549  1.0000
+ near Jennifer - distant Julie and Mark          -0.007784 0.1010 2724  -0.077  1.0000
+ near Jennifer - near Julie and Mark              0.034146 0.0997 2046   0.343  1.0000
+ near Jennifer - control Trolley                 -0.044558 0.1010 2724  -0.443  1.0000
+ near Jennifer - distant Trolley                 -0.013446 0.1010 2724  -0.133  1.0000
+ near Jennifer - near Trolley                     0.046140 0.0997 2046   0.463  1.0000
+ control Julie and Mark - distant Julie and Mark -0.063072 0.1010 2724  -0.627  1.0000
+ control Julie and Mark - near Julie and Mark    -0.021142 0.1010 2724  -0.210  1.0000
+ control Julie and Mark - control Trolley        -0.099845 0.0994 2046  -1.004  0.9976
+ control Julie and Mark - distant Trolley        -0.068733 0.1010 2724  -0.683  0.9999
+ control Julie and Mark - near Trolley           -0.009148 0.1010 2724  -0.091  1.0000
+ distant Julie and Mark - near Julie and Mark     0.041930 0.1010 2724   0.416  1.0000
+ distant Julie and Mark - control Trolley        -0.036774 0.1010 2724  -0.365  1.0000
+ distant Julie and Mark - distant Trolley        -0.005662 0.0997 2046  -0.057  1.0000
+ distant Julie and Mark - near Trolley            0.053923 0.1010 2724   0.535  1.0000
+ near Julie and Mark - control Trolley           -0.078704 0.1010 2724  -0.782  0.9998
+ near Julie and Mark - distant Trolley           -0.047592 0.1010 2724  -0.472  1.0000
+ near Julie and Mark - near Trolley               0.011993 0.0997 2046   0.120  1.0000
+ control Trolley - distant Trolley                0.031112 0.1010 2724   0.309  1.0000
+ control Trolley - near Trolley                   0.090697 0.1010 2724   0.901  0.9991
+ distant Trolley - near Trolley                   0.059585 0.1010 2724   0.591  1.0000
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 12 estimates 
+```
+
+
+:::
+:::
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+y <- x %>% select(
+  ResponseId
+  ,cf1_2
+  ,cf2_2
+) %>% pivot_longer(c(cf1_2,cf2_2)
+               , names_to = "judgment_time", values_to = "confidence")
+#y$judgment_time <- as.factor(y$judgment_time)
+
+
+model1 <- lmerTest::lmer(confidence ~ judgment_time
+               + (1|ResponseId)
+               , data = y
+               , contrasts = list(judgment_time = contr.sum))
+anova(model1)
+summary(model1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+Type III Analysis of Variance Table with Satterthwaite's method
+              Sum Sq Mean Sq NumDF DenDF F value   Pr(>F)   
+judgment_time 8.1141  8.1141     1  4794   7.048 0.007962 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: confidence ~ judgment_time + (1 | ResponseId)
+   Data: y
+
+REML criterion at convergence: 16355.8
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.9345 -0.6642  0.1056  0.7832  1.6761 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ ResponseId (Intercept) 0.004485 0.06697 
+ Residual               1.151268 1.07297 
+Number of obs: 5480, groups:  ResponseId, 685
+
+Fixed effects:
+                 Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)       5.22881    0.01472  683.99971 355.255  < 2e-16 ***
+judgment_time1   -0.03848    0.01449 4793.99967  -2.655  0.00796 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr)
+judgmnt_tm1 0.000 
+```
+
+
+:::
+:::
+
+
+
+
+### Confused
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+model1 <- lmerTest::lmer(confused ~
+                  temp*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(temp = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+emmeans::emmeans(model1, list(pairwise ~ temp), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ scenario), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ temp*scenario), adjust = "tukey")
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+Type III Analysis of Variance Table with Satterthwaite's method
+               Sum Sq Mean Sq NumDF DenDF F value Pr(>F)
+temp           0.4441 0.22207     2  2728  0.1266 0.8811
+scenario       2.5123 0.83744     3  2728  0.4773 0.6981
+temp:scenario 16.3548 2.72580     6  2728  1.5536 0.1567
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: confused ~ temp * scenario + (1 | ResponseId)
+   Data: x
+
+REML criterion at convergence: 9357.6
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.8215 -0.7624 -0.1102  0.6901  2.8753 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ ResponseId (Intercept) 0.000    0.000   
+ Residual               1.754    1.325   
+Number of obs: 2740, groups:  ResponseId, 685
+
+Fixed effects:
+                  Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)      3.272e+00  2.531e-02  2.728e+03 129.307   <2e-16 ***
+temp1            1.798e-02  3.576e-02  2.728e+03   0.503   0.6152    
+temp2           -8.348e-03  3.580e-02  2.728e+03  -0.233   0.8156    
+scenario1        2.472e-02  4.383e-02  2.728e+03   0.564   0.5728    
+scenario2       -2.370e-02  4.383e-02  2.728e+03  -0.541   0.5888    
+scenario3       -3.583e-02  4.383e-02  2.728e+03  -0.817   0.4137    
+temp1:scenario1 -4.565e-02  6.194e-02  2.728e+03  -0.737   0.4612    
+temp2:scenario1 -3.829e-02  6.201e-02  2.728e+03  -0.618   0.5369    
+temp1:scenario2 -6.598e-02  6.194e-02  2.728e+03  -1.065   0.2869    
+temp2:scenario2  1.243e-01  6.201e-02  2.728e+03   2.005   0.0451 *  
+temp1:scenario3 -3.462e-03  6.194e-02  2.728e+03  -0.056   0.9554    
+temp2:scenario3 -7.864e-02  6.201e-02  2.728e+03  -1.268   0.2048    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) temp1  temp2  scenr1 scenr2 scenr3 tmp1:1 tmp2:1 tmp1:2 tmp2:2 tmp1:3
+temp1       -0.002                                                                      
+temp2        0.001 -0.499                                                               
+scenario1    0.000  0.000  0.000                                                        
+scenario2    0.000  0.000  0.000 -0.333                                                 
+scenario3    0.000  0.000  0.000 -0.333 -0.333                                          
+temp1:scnr1  0.000  0.000  0.000 -0.002  0.001  0.001                                   
+temp2:scnr1  0.000  0.000  0.000  0.001  0.000  0.000 -0.499                            
+temp1:scnr2  0.000  0.000  0.000  0.001 -0.002  0.001 -0.333  0.166                     
+temp2:scnr2  0.000  0.000  0.000  0.000  0.001  0.000  0.166 -0.333 -0.499              
+temp1:scnr3  0.000  0.000  0.000  0.001  0.001 -0.002 -0.333  0.166 -0.333  0.166       
+temp2:scnr3  0.000  0.000  0.000  0.000  0.000  0.001  0.166 -0.333  0.166 -0.333 -0.499
+optimizer (nloptwrap) convergence code: 0 (OK)
+boundary (singular) fit: see help('isSingular')
+
+$`emmeans of temp`
+ temp    emmean     SE  df lower.CL upper.CL
+ control   3.29 0.0438 682     3.20     3.38
+ distant   3.26 0.0439 682     3.18     3.35
+ near      3.26 0.0439 682     3.18     3.35
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp`
+ 1                 estimate    SE  df t.ratio p.value
+ control - distant  0.02633 0.062 682   0.425  0.9053
+ control - near     0.02761 0.062 682   0.446  0.8964
+ distant - near     0.00128 0.062 682   0.021  0.9998
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+$`emmeans of scenario`
+ scenario       emmean     SE   df lower.CL upper.CL
+ Heinz            3.30 0.0506 2728     3.20     3.40
+ Jennifer         3.25 0.0506 2728     3.15     3.35
+ Julie and Mark   3.24 0.0506 2728     3.14     3.34
+ Trolley          3.31 0.0506 2728     3.21     3.41
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of scenario`
+ 1                         estimate     SE   df t.ratio p.value
+ Heinz - Jennifer            0.0484 0.0716 2046   0.676  0.9060
+ Heinz - Julie and Mark      0.0606 0.0716 2046   0.846  0.8324
+ Heinz - Trolley            -0.0101 0.0716 2046  -0.141  0.9990
+ Jennifer - Julie and Mark   0.0121 0.0716 2046   0.170  0.9983
+ Jennifer - Trolley         -0.0585 0.0716 2046  -0.817  0.8463
+ Julie and Mark - Trolley   -0.0706 0.0716 2046  -0.987  0.7570
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+$`emmeans of temp, scenario`
+ temp    scenario       emmean     SE   df lower.CL upper.CL
+ control Heinz            3.27 0.0875 2728     3.10     3.44
+ distant Heinz            3.25 0.0877 2728     3.08     3.42
+ near    Heinz            3.37 0.0877 2728     3.20     3.54
+ control Jennifer         3.20 0.0875 2728     3.03     3.37
+ distant Jennifer         3.36 0.0877 2728     3.19     3.54
+ near    Jennifer         3.18 0.0877 2728     3.01     3.35
+ control Julie and Mark   3.25 0.0875 2728     3.08     3.42
+ distant Julie and Mark   3.15 0.0877 2728     2.98     3.32
+ near    Julie and Mark   3.31 0.0877 2728     3.14     3.48
+ control Trolley          3.44 0.0875 2728     3.27     3.61
+ distant Trolley          3.29 0.0877 2728     3.12     3.46
+ near    Trolley          3.19 0.0877 2728     3.02     3.36
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp, scenario`
+ 1                                                estimate    SE   df t.ratio p.value
+ control Heinz - distant Heinz                    0.018967 0.124 2728   0.153  1.0000
+ control Heinz - near Heinz                      -0.101987 0.124 2728  -0.823  0.9996
+ control Heinz - control Jennifer                 0.068742 0.124 2046   0.555  1.0000
+ control Heinz - distant Jennifer                -0.095231 0.124 2728  -0.768  0.9998
+ control Heinz - near Jennifer                    0.088721 0.124 2728   0.716  0.9999
+ control Heinz - control Julie and Mark           0.018364 0.124 2046   0.148  1.0000
+ control Heinz - distant Julie and Mark           0.119867 0.124 2728   0.967  0.9983
+ control Heinz - near Julie and Mark             -0.039596 0.124 2728  -0.320  1.0000
+ control Heinz - control Trolley                 -0.170818 0.124 2046  -1.380  0.9674
+ control Heinz - distant Trolley                 -0.022016 0.124 2728  -0.178  1.0000
+ control Heinz - near Trolley                     0.079571 0.124 2728   0.642  1.0000
+ distant Heinz - near Heinz                      -0.120954 0.124 2728  -0.975  0.9982
+ distant Heinz - control Jennifer                 0.049774 0.124 2728   0.402  1.0000
+ distant Heinz - distant Jennifer                -0.114198 0.124 2046  -0.921  0.9989
+ distant Heinz - near Jennifer                    0.069753 0.124 2728   0.562  1.0000
+ distant Heinz - control Julie and Mark          -0.000603 0.124 2728  -0.005  1.0000
+ distant Heinz - distant Julie and Mark           0.100900 0.124 2046   0.813  0.9997
+ distant Heinz - near Julie and Mark             -0.058563 0.124 2728  -0.472  1.0000
+ distant Heinz - control Trolley                 -0.189785 0.124 2728  -1.532  0.9320
+ distant Heinz - distant Trolley                 -0.040983 0.124 2046  -0.330  1.0000
+ distant Heinz - near Trolley                     0.060604 0.124 2728   0.489  1.0000
+ near Heinz - control Jennifer                    0.170729 0.124 2728   1.378  0.9678
+ near Heinz - distant Jennifer                    0.006756 0.124 2728   0.054  1.0000
+ near Heinz - near Jennifer                       0.190708 0.124 2046   1.537  0.9302
+ near Heinz - control Julie and Mark              0.120351 0.124 2728   0.971  0.9982
+ near Heinz - distant Julie and Mark              0.221854 0.124 2728   1.788  0.8246
+ near Heinz - near Julie and Mark                 0.062391 0.124 2046   0.503  1.0000
+ near Heinz - control Trolley                    -0.068831 0.124 2728  -0.555  1.0000
+ near Heinz - distant Trolley                     0.079972 0.124 2728   0.645  1.0000
+ near Heinz - near Trolley                        0.181558 0.124 2046   1.464  0.9501
+ control Jennifer - distant Jennifer             -0.163972 0.124 2728  -1.323  0.9762
+ control Jennifer - near Jennifer                 0.019979 0.124 2728   0.161  1.0000
+ control Jennifer - control Julie and Mark       -0.050378 0.124 2046  -0.407  1.0000
+ control Jennifer - distant Julie and Mark        0.051125 0.124 2728   0.413  1.0000
+ control Jennifer - near Julie and Mark          -0.108338 0.124 2728  -0.874  0.9993
+ control Jennifer - control Trolley              -0.239560 0.124 2046  -1.935  0.7369
+ control Jennifer - distant Trolley              -0.090757 0.124 2728  -0.732  0.9999
+ control Jennifer - near Trolley                  0.010830 0.124 2728   0.087  1.0000
+ distant Jennifer - near Jennifer                 0.183951 0.124 2728   1.483  0.9454
+ distant Jennifer - control Julie and Mark        0.113595 0.124 2728   0.917  0.9990
+ distant Jennifer - distant Julie and Mark        0.215098 0.124 2046   1.734  0.8525
+ distant Jennifer - near Julie and Mark           0.055635 0.124 2728   0.448  1.0000
+ distant Jennifer - control Trolley              -0.075588 0.124 2728  -0.610  1.0000
+ distant Jennifer - distant Trolley               0.073215 0.124 2046   0.590  1.0000
+ distant Jennifer - near Trolley                  0.174802 0.124 2728   1.409  0.9620
+ near Jennifer - control Julie and Mark          -0.070357 0.124 2728  -0.568  1.0000
+ near Jennifer - distant Julie and Mark           0.031146 0.124 2728   0.251  1.0000
+ near Jennifer - near Julie and Mark             -0.128317 0.124 2046  -1.034  0.9969
+ near Jennifer - control Trolley                 -0.259539 0.124 2728  -2.094  0.6269
+ near Jennifer - distant Trolley                 -0.110736 0.124 2728  -0.893  0.9992
+ near Jennifer - near Trolley                    -0.009149 0.124 2046  -0.074  1.0000
+ control Julie and Mark - distant Julie and Mark  0.101503 0.124 2728   0.819  0.9996
+ control Julie and Mark - near Julie and Mark    -0.057960 0.124 2728  -0.468  1.0000
+ control Julie and Mark - control Trolley        -0.189182 0.124 2046  -1.528  0.9328
+ control Julie and Mark - distant Trolley        -0.040380 0.124 2728  -0.326  1.0000
+ control Julie and Mark - near Trolley            0.061207 0.124 2728   0.494  1.0000
+ distant Julie and Mark - near Julie and Mark    -0.159463 0.124 2728  -1.285  0.9810
+ distant Julie and Mark - control Trolley        -0.290685 0.124 2728  -2.346  0.4441
+ distant Julie and Mark - distant Trolley        -0.141883 0.124 2046  -1.144  0.9926
+ distant Julie and Mark - near Trolley           -0.040296 0.124 2728  -0.325  1.0000
+ near Julie and Mark - control Trolley           -0.131222 0.124 2728  -1.059  0.9962
+ near Julie and Mark - distant Trolley            0.017580 0.124 2728   0.142  1.0000
+ near Julie and Mark - near Trolley               0.119167 0.124 2046   0.961  0.9984
+ control Trolley - distant Trolley                0.148803 0.124 2728   1.201  0.9890
+ control Trolley - near Trolley                   0.250390 0.124 2728   2.021  0.6794
+ distant Trolley - near Trolley                   0.101587 0.124 2728   0.819  0.9996
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 12 estimates 
+```
+
+
+:::
+:::
+
+
+
+### irritated
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+model1 <- lmerTest::lmer(irritated ~
+                  temp*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(temp = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+emmeans::emmeans(model1, list(pairwise ~ temp), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ scenario), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ temp*scenario), adjust = "tukey")
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+Type III Analysis of Variance Table with Satterthwaite's method
+               Sum Sq Mean Sq NumDF DenDF F value  Pr(>F)  
+temp           2.4144  1.2072     2  2728  0.7068 0.49332  
+scenario      11.8716  3.9572     3  2728  2.3168 0.07374 .
+temp:scenario 21.0809  3.5135     6  2728  2.0571 0.05513 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: irritated ~ temp * scenario + (1 | ResponseId)
+   Data: x
+
+REML criterion at convergence: 9284.4
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.94186 -0.76613 -0.07647  0.69571  2.86876 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ ResponseId (Intercept) 0.000    0.000   
+ Residual               1.708    1.307   
+Number of obs: 2740, groups:  ResponseId, 685
+
+Fixed effects:
+                  Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)      3.264e+00  2.497e-02  2.728e+03 130.735  < 2e-16 ***
+temp1           -7.895e-03  3.528e-02  2.728e+03  -0.224  0.82297    
+temp2            3.968e-02  3.532e-02  2.728e+03   1.123  0.26138    
+scenario1        5.500e-02  4.324e-02  2.728e+03   1.272  0.20353    
+scenario2        1.479e-02  4.324e-02  2.728e+03   0.342  0.73237    
+scenario3       -1.112e-01  4.324e-02  2.728e+03  -2.572  0.01017 *  
+temp1:scenario1 -1.132e-01  6.111e-02  2.728e+03  -1.853  0.06399 .  
+temp2:scenario1  1.798e-01  6.118e-02  2.728e+03   2.940  0.00331 ** 
+temp1:scenario2 -5.191e-02  6.111e-02  2.728e+03  -0.849  0.39569    
+temp2:scenario2 -4.116e-02  6.118e-02  2.728e+03  -0.673  0.50118    
+temp1:scenario3  5.950e-02  6.111e-02  2.728e+03   0.974  0.33030    
+temp2:scenario3 -2.438e-02  6.118e-02  2.728e+03  -0.398  0.69029    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) temp1  temp2  scenr1 scenr2 scenr3 tmp1:1 tmp2:1 tmp1:2 tmp2:2 tmp1:3
+temp1       -0.002                                                                      
+temp2        0.001 -0.499                                                               
+scenario1    0.000  0.000  0.000                                                        
+scenario2    0.000  0.000  0.000 -0.333                                                 
+scenario3    0.000  0.000  0.000 -0.333 -0.333                                          
+temp1:scnr1  0.000  0.000  0.000 -0.002  0.001  0.001                                   
+temp2:scnr1  0.000  0.000  0.000  0.001  0.000  0.000 -0.499                            
+temp1:scnr2  0.000  0.000  0.000  0.001 -0.002  0.001 -0.333  0.166                     
+temp2:scnr2  0.000  0.000  0.000  0.000  0.001  0.000  0.166 -0.333 -0.499              
+temp1:scnr3  0.000  0.000  0.000  0.001  0.001 -0.002 -0.333  0.166 -0.333  0.166       
+temp2:scnr3  0.000  0.000  0.000  0.000  0.000  0.001  0.166 -0.333  0.166 -0.333 -0.499
+optimizer (nloptwrap) convergence code: 0 (OK)
+boundary (singular) fit: see help('isSingular')
+
+$`emmeans of temp`
+ temp    emmean     SE  df lower.CL upper.CL
+ control   3.26 0.0432 682     3.17     3.34
+ distant   3.30 0.0433 682     3.22     3.39
+ near      3.23 0.0433 682     3.15     3.32
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp`
+ 1                 estimate     SE  df t.ratio p.value
+ control - distant  -0.0476 0.0611 682  -0.778  0.7166
+ control - near      0.0239 0.0611 682   0.391  0.9193
+ distant - near      0.0715 0.0612 682   1.168  0.4729
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+$`emmeans of scenario`
+ scenario       emmean     SE   df lower.CL upper.CL
+ Heinz            3.32 0.0499 2728     3.22     3.42
+ Jennifer         3.28 0.0499 2728     3.18     3.38
+ Julie and Mark   3.15 0.0499 2728     3.05     3.25
+ Trolley          3.31 0.0499 2728     3.21     3.40
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of scenario`
+ 1                         estimate     SE   df t.ratio p.value
+ Heinz - Jennifer            0.0402 0.0706 2046   0.569  0.9412
+ Heinz - Julie and Mark      0.1662 0.0706 2046   2.354  0.0866
+ Heinz - Trolley             0.0136 0.0706 2046   0.192  0.9975
+ Jennifer - Julie and Mark   0.1260 0.0706 2046   1.784  0.2811
+ Jennifer - Trolley         -0.0266 0.0706 2046  -0.377  0.9817
+ Julie and Mark - Trolley   -0.1527 0.0706 2046  -2.162  0.1344
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+$`emmeans of temp, scenario`
+ temp    scenario       emmean     SE   df lower.CL upper.CL
+ control Heinz            3.20 0.0864 2728     3.03     3.37
+ distant Heinz            3.54 0.0866 2728     3.37     3.71
+ near    Heinz            3.22 0.0866 2728     3.05     3.39
+ control Jennifer         3.22 0.0864 2728     3.05     3.39
+ distant Jennifer         3.28 0.0866 2728     3.11     3.45
+ near    Jennifer         3.34 0.0866 2728     3.17     3.51
+ control Julie and Mark   3.20 0.0864 2728     3.04     3.37
+ distant Julie and Mark   3.17 0.0866 2728     3.00     3.34
+ near    Julie and Mark   3.09 0.0866 2728     2.92     3.26
+ control Trolley          3.40 0.0864 2728     3.23     3.57
+ distant Trolley          3.23 0.0866 2728     3.06     3.40
+ near    Trolley          3.28 0.0866 2728     3.11     3.45
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp, scenario`
+ 1                                               estimate    SE   df t.ratio p.value
+ control Heinz - distant Heinz                   -0.34066 0.122 2728  -2.786  0.1863
+ control Heinz - near Heinz                      -0.02274 0.122 2728  -0.186  1.0000
+ control Heinz - control Jennifer                -0.02112 0.122 2046  -0.173  1.0000
+ control Heinz - distant Jennifer                -0.07945 0.122 2728  -0.650  1.0000
+ control Heinz - near Jennifer                   -0.14221 0.122 2728  -1.163  0.9915
+ control Heinz - control Julie and Mark          -0.00652 0.122 2046  -0.053  1.0000
+ control Heinz - distant Julie and Mark           0.02979 0.122 2728   0.244  1.0000
+ control Heinz - near Julie and Mark              0.11200 0.122 2728   0.916  0.9990
+ control Heinz - control Trolley                 -0.20532 0.122 2046  -1.681  0.8769
+ control Heinz - distant Trolley                 -0.03294 0.122 2728  -0.269  1.0000
+ control Heinz - near Trolley                    -0.08444 0.122 2728  -0.691  0.9999
+ distant Heinz - near Heinz                       0.31792 0.122 2728   2.597  0.2815
+ distant Heinz - control Jennifer                 0.31955 0.122 2728   2.613  0.2724
+ distant Heinz - distant Jennifer                 0.26121 0.122 2046   2.134  0.5981
+ distant Heinz - near Jennifer                    0.19845 0.122 2728   1.621  0.9015
+ distant Heinz - control Julie and Mark           0.33414 0.122 2728   2.733  0.2106
+ distant Heinz - distant Julie and Mark           0.37045 0.122 2046   3.026  0.1017
+ distant Heinz - near Julie and Mark              0.45266 0.122 2728   3.698  0.0119
+ distant Heinz - control Trolley                  0.13534 0.122 2728   1.107  0.9944
+ distant Heinz - distant Trolley                  0.30772 0.122 2046   2.514  0.3315
+ distant Heinz - near Trolley                     0.25622 0.122 2728   2.093  0.6277
+ near Heinz - control Jennifer                    0.00163 0.122 2728   0.013  1.0000
+ near Heinz - distant Jennifer                   -0.05670 0.122 2728  -0.463  1.0000
+ near Heinz - near Jennifer                      -0.11947 0.122 2046  -0.976  0.9982
+ near Heinz - control Julie and Mark              0.01622 0.122 2728   0.133  1.0000
+ near Heinz - distant Julie and Mark              0.05253 0.122 2728   0.429  1.0000
+ near Heinz - near Julie and Mark                 0.13474 0.122 2046   1.101  0.9947
+ near Heinz - control Trolley                    -0.18258 0.122 2728  -1.493  0.9427
+ near Heinz - distant Trolley                    -0.01019 0.122 2728  -0.083  1.0000
+ near Heinz - near Trolley                       -0.06169 0.122 2046  -0.504  1.0000
+ control Jennifer - distant Jennifer             -0.05833 0.122 2728  -0.477  1.0000
+ control Jennifer - near Jennifer                -0.12109 0.122 2728  -0.990  0.9979
+ control Jennifer - control Julie and Mark        0.01459 0.122 2046   0.119  1.0000
+ control Jennifer - distant Julie and Mark        0.05090 0.122 2728   0.416  1.0000
+ control Jennifer - near Julie and Mark           0.13311 0.122 2728   1.089  0.9952
+ control Jennifer - control Trolley              -0.18421 0.122 2046  -1.508  0.9386
+ control Jennifer - distant Trolley              -0.01182 0.122 2728  -0.097  1.0000
+ control Jennifer - near Trolley                 -0.06332 0.122 2728  -0.518  1.0000
+ distant Jennifer - near Jennifer                -0.06276 0.122 2728  -0.513  1.0000
+ distant Jennifer - control Julie and Mark        0.07293 0.122 2728   0.596  1.0000
+ distant Jennifer - distant Julie and Mark        0.10924 0.122 2046   0.892  0.9992
+ distant Jennifer - near Julie and Mark           0.19144 0.122 2728   1.564  0.9218
+ distant Jennifer - control Trolley              -0.12587 0.122 2728  -1.029  0.9970
+ distant Jennifer - distant Trolley               0.04651 0.122 2046   0.380  1.0000
+ distant Jennifer - near Trolley                 -0.00499 0.122 2728  -0.041  1.0000
+ near Jennifer - control Julie and Mark           0.13569 0.122 2728   1.110  0.9943
+ near Jennifer - distant Julie and Mark           0.17200 0.122 2728   1.405  0.9627
+ near Jennifer - near Julie and Mark              0.25421 0.122 2046   2.077  0.6396
+ near Jennifer - control Trolley                 -0.06311 0.122 2728  -0.516  1.0000
+ near Jennifer - distant Trolley                  0.10927 0.122 2728   0.893  0.9992
+ near Jennifer - near Trolley                     0.05777 0.122 2046   0.472  1.0000
+ control Julie and Mark - distant Julie and Mark  0.03631 0.122 2728   0.297  1.0000
+ control Julie and Mark - near Julie and Mark     0.11852 0.122 2728   0.969  0.9983
+ control Julie and Mark - control Trolley        -0.19880 0.122 2046  -1.628  0.8990
+ control Julie and Mark - distant Trolley        -0.02642 0.122 2728  -0.216  1.0000
+ control Julie and Mark - near Trolley           -0.07792 0.122 2728  -0.637  1.0000
+ distant Julie and Mark - near Julie and Mark     0.08221 0.122 2728   0.672  0.9999
+ distant Julie and Mark - control Trolley        -0.23511 0.122 2728  -1.923  0.7449
+ distant Julie and Mark - distant Trolley        -0.06272 0.122 2046  -0.512  1.0000
+ distant Julie and Mark - near Trolley           -0.11423 0.122 2728  -0.933  0.9988
+ near Julie and Mark - control Trolley           -0.31732 0.122 2728  -2.595  0.2827
+ near Julie and Mark - distant Trolley           -0.14493 0.122 2728  -1.184  0.9902
+ near Julie and Mark - near Trolley              -0.19644 0.122 2046  -1.605  0.9076
+ control Trolley - distant Trolley                0.17239 0.122 2728   1.410  0.9618
+ control Trolley - near Trolley                   0.12088 0.122 2728   0.989  0.9979
+ distant Trolley - near Trolley                  -0.05150 0.122 2728  -0.421  1.0000
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 12 estimates 
+```
+
+
+:::
+:::
+
+
+
+### Reason
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+model1 <- lmerTest::lmer(reason ~
+                  temp*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(temp = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+emmeans::emmeans(model1, list(pairwise ~ temp), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ scenario), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ temp*scenario), adjust = "tukey")
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+Type III Analysis of Variance Table with Satterthwaite's method
+              Sum Sq Mean Sq NumDF DenDF F value Pr(>F)
+temp          0.2355 0.11775     2   682  0.0679 0.9344
+scenario      2.9453 0.98175     3  2046  0.5658 0.6375
+temp:scenario 5.2459 0.87431     6  2046  0.5039 0.8058
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: reason ~ temp * scenario + (1 | ResponseId)
+   Data: x
+
+REML criterion at convergence: 9379
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.75546 -0.77892 -0.07674  0.68229  2.84554 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ ResponseId (Intercept) 0.03422  0.185   
+ Residual               1.73501  1.317   
+Number of obs: 2740, groups:  ResponseId, 685
+
+Fixed effects:
+                  Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)      3.254e+00  2.614e-02  6.820e+02 124.487   <2e-16 ***
+temp1           -1.358e-02  3.694e-02  6.820e+02  -0.368    0.713    
+temp2            7.570e-03  3.698e-02  6.820e+02   0.205    0.838    
+scenario1        2.452e-02  4.358e-02  2.046e+03   0.563    0.574    
+scenario2        4.205e-03  4.358e-02  2.046e+03   0.096    0.923    
+scenario3       -5.479e-02  4.358e-02  2.046e+03  -1.257    0.209    
+temp1:scenario1 -8.719e-02  6.159e-02  2.046e+03  -1.416    0.157    
+temp2:scenario1  2.369e-02  6.166e-02  2.046e+03   0.384    0.701    
+temp1:scenario2  4.585e-02  6.159e-02  2.046e+03   0.744    0.457    
+temp2:scenario2 -1.044e-02  6.166e-02  2.046e+03  -0.169    0.866    
+temp1:scenario3 -2.360e-02  6.159e-02  2.046e+03  -0.383    0.702    
+temp2:scenario3  1.143e-02  6.166e-02  2.046e+03   0.185    0.853    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) temp1  temp2  scenr1 scenr2 scenr3 tmp1:1 tmp2:1 tmp1:2 tmp2:2 tmp1:3
+temp1       -0.002                                                                      
+temp2        0.001 -0.499                                                               
+scenario1    0.000  0.000  0.000                                                        
+scenario2    0.000  0.000  0.000 -0.333                                                 
+scenario3    0.000  0.000  0.000 -0.333 -0.333                                          
+temp1:scnr1  0.000  0.000  0.000 -0.002  0.001  0.001                                   
+temp2:scnr1  0.000  0.000  0.000  0.001  0.000  0.000 -0.499                            
+temp1:scnr2  0.000  0.000  0.000  0.001 -0.002  0.001 -0.333  0.166                     
+temp2:scnr2  0.000  0.000  0.000  0.000  0.001  0.000  0.166 -0.333 -0.499              
+temp1:scnr3  0.000  0.000  0.000  0.001  0.001 -0.002 -0.333  0.166 -0.333  0.166       
+temp2:scnr3  0.000  0.000  0.000  0.000  0.000  0.001  0.166 -0.333  0.166 -0.333 -0.499
+$`emmeans of temp`
+ temp    emmean     SE  df lower.CL upper.CL
+ control   3.24 0.0452 682     3.15     3.33
+ distant   3.26 0.0453 682     3.17     3.35
+ near      3.26 0.0453 682     3.17     3.35
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp`
+ 1                 estimate     SE  df t.ratio p.value
+ control - distant -0.02115 0.0640 682  -0.330  0.9416
+ control - near    -0.01959 0.0640 682  -0.306  0.9497
+ distant - near     0.00156 0.0641 682   0.024  0.9997
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+$`emmeans of scenario`
+ scenario       emmean     SE   df lower.CL upper.CL
+ Heinz            3.28 0.0508 2725     3.18     3.38
+ Jennifer         3.26 0.0508 2725     3.16     3.36
+ Julie and Mark   3.20 0.0508 2725     3.10     3.30
+ Trolley          3.28 0.0508 2725     3.18     3.38
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of scenario`
+ 1                         estimate     SE   df t.ratio p.value
+ Heinz - Jennifer           0.02032 0.0712 2046   0.285  0.9919
+ Heinz - Julie and Mark     0.07931 0.0712 2046   1.114  0.6808
+ Heinz - Trolley           -0.00154 0.0712 2046  -0.022  1.0000
+ Jennifer - Julie and Mark  0.05899 0.0712 2046   0.829  0.8408
+ Jennifer - Trolley        -0.02186 0.0712 2046  -0.307  0.9900
+ Julie and Mark - Trolley  -0.08085 0.0712 2046  -1.136  0.6673
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+$`emmeans of temp, scenario`
+ temp    scenario       emmean     SE   df lower.CL upper.CL
+ control Heinz            3.18 0.0879 2725     3.01     3.35
+ distant Heinz            3.31 0.0881 2725     3.14     3.48
+ near    Heinz            3.35 0.0881 2725     3.18     3.52
+ control Jennifer         3.29 0.0879 2725     3.12     3.46
+ distant Jennifer         3.26 0.0881 2725     3.08     3.43
+ near    Jennifer         3.23 0.0881 2725     3.06     3.40
+ control Julie and Mark   3.16 0.0879 2725     2.99     3.33
+ distant Julie and Mark   3.22 0.0881 2725     3.05     3.39
+ near    Julie and Mark   3.22 0.0881 2725     3.04     3.39
+ control Trolley          3.33 0.0879 2725     3.16     3.50
+ distant Trolley          3.26 0.0881 2725     3.09     3.44
+ near    Trolley          3.25 0.0881 2725     3.07     3.42
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp, scenario`
+ 1                                                estimate    SE   df t.ratio p.value
+ control Heinz - distant Heinz                   -0.132029 0.124 2725  -1.061  0.9961
+ control Heinz - near Heinz                      -0.170284 0.124 2725  -1.368  0.9694
+ control Heinz - control Jennifer                -0.112726 0.123 2046  -0.916  0.9990
+ control Heinz - distant Jennifer                -0.077588 0.124 2725  -0.623  1.0000
+ control Heinz - near Jennifer                   -0.051049 0.124 2725  -0.410  1.0000
+ control Heinz - control Julie and Mark           0.015713 0.123 2046   0.128  1.0000
+ control Heinz - distant Julie and Mark          -0.040462 0.124 2725  -0.325  1.0000
+ control Heinz - near Julie and Mark             -0.039643 0.124 2725  -0.319  1.0000
+ control Heinz - control Trolley                 -0.153673 0.123 2046  -1.248  0.9849
+ control Heinz - distant Trolley                 -0.085203 0.124 2725  -0.685  0.9999
+ control Heinz - near Trolley                    -0.068056 0.124 2725  -0.547  1.0000
+ distant Heinz - near Heinz                      -0.038255 0.125 2725  -0.307  1.0000
+ distant Heinz - control Jennifer                 0.019303 0.124 2725   0.155  1.0000
+ distant Heinz - distant Jennifer                 0.054441 0.123 2046   0.441  1.0000
+ distant Heinz - near Jennifer                    0.080979 0.125 2725   0.650  1.0000
+ distant Heinz - control Julie and Mark           0.147742 0.124 2725   1.187  0.9900
+ distant Heinz - distant Julie and Mark           0.091567 0.123 2046   0.742  0.9999
+ distant Heinz - near Julie and Mark              0.092386 0.125 2725   0.742  0.9999
+ distant Heinz - control Trolley                 -0.021645 0.124 2725  -0.174  1.0000
+ distant Heinz - distant Trolley                  0.046826 0.123 2046   0.380  1.0000
+ distant Heinz - near Trolley                     0.063973 0.125 2725   0.514  1.0000
+ near Heinz - control Jennifer                    0.057557 0.124 2725   0.463  1.0000
+ near Heinz - distant Jennifer                    0.092696 0.125 2725   0.744  0.9999
+ near Heinz - near Jennifer                       0.119234 0.123 2046   0.966  0.9983
+ near Heinz - control Julie and Mark              0.185997 0.124 2725   1.495  0.9423
+ near Heinz - distant Julie and Mark              0.129822 0.125 2725   1.042  0.9967
+ near Heinz - near Julie and Mark                 0.130641 0.123 2046   1.059  0.9962
+ near Heinz - control Trolley                     0.016610 0.124 2725   0.133  1.0000
+ near Heinz - distant Trolley                     0.085080 0.125 2725   0.683  0.9999
+ near Heinz - near Trolley                        0.102228 0.123 2046   0.829  0.9996
+ control Jennifer - distant Jennifer              0.035138 0.124 2725   0.282  1.0000
+ control Jennifer - near Jennifer                 0.061677 0.124 2725   0.496  1.0000
+ control Jennifer - control Julie and Mark        0.128439 0.123 2046   1.043  0.9967
+ control Jennifer - distant Julie and Mark        0.072265 0.124 2725   0.581  1.0000
+ control Jennifer - near Julie and Mark           0.073084 0.124 2725   0.587  1.0000
+ control Jennifer - control Trolley              -0.040947 0.123 2046  -0.333  1.0000
+ control Jennifer - distant Trolley               0.027523 0.124 2725   0.221  1.0000
+ control Jennifer - near Trolley                  0.044670 0.124 2725   0.359  1.0000
+ distant Jennifer - near Jennifer                 0.026538 0.125 2725   0.213  1.0000
+ distant Jennifer - control Julie and Mark        0.093301 0.124 2725   0.750  0.9998
+ distant Jennifer - distant Julie and Mark        0.037126 0.123 2046   0.301  1.0000
+ distant Jennifer - near Julie and Mark           0.037945 0.125 2725   0.305  1.0000
+ distant Jennifer - control Trolley              -0.076086 0.124 2725  -0.611  1.0000
+ distant Jennifer - distant Trolley              -0.007615 0.123 2046  -0.062  1.0000
+ distant Jennifer - near Trolley                  0.009532 0.125 2725   0.077  1.0000
+ near Jennifer - control Julie and Mark           0.066763 0.124 2725   0.536  1.0000
+ near Jennifer - distant Julie and Mark           0.010588 0.125 2725   0.085  1.0000
+ near Jennifer - near Julie and Mark              0.011407 0.123 2046   0.092  1.0000
+ near Jennifer - control Trolley                 -0.102624 0.124 2725  -0.825  0.9996
+ near Jennifer - distant Trolley                 -0.034154 0.125 2725  -0.274  1.0000
+ near Jennifer - near Trolley                    -0.017006 0.123 2046  -0.138  1.0000
+ control Julie and Mark - distant Julie and Mark -0.056175 0.124 2725  -0.451  1.0000
+ control Julie and Mark - near Julie and Mark    -0.055356 0.124 2725  -0.445  1.0000
+ control Julie and Mark - control Trolley        -0.169387 0.123 2046  -1.376  0.9680
+ control Julie and Mark - distant Trolley        -0.100916 0.124 2725  -0.811  0.9997
+ control Julie and Mark - near Trolley           -0.083769 0.124 2725  -0.673  0.9999
+ distant Julie and Mark - near Julie and Mark     0.000819 0.125 2725   0.007  1.0000
+ distant Julie and Mark - control Trolley        -0.113212 0.124 2725  -0.910  0.9990
+ distant Julie and Mark - distant Trolley        -0.044742 0.123 2046  -0.363  1.0000
+ distant Julie and Mark - near Trolley           -0.027594 0.125 2725  -0.222  1.0000
+ near Julie and Mark - control Trolley           -0.114031 0.124 2725  -0.916  0.9990
+ near Julie and Mark - distant Trolley           -0.045561 0.125 2725  -0.366  1.0000
+ near Julie and Mark - near Trolley              -0.028413 0.123 2046  -0.230  1.0000
+ control Trolley - distant Trolley                0.068470 0.124 2725   0.550  1.0000
+ control Trolley - near Trolley                   0.085618 0.124 2725   0.688  0.9999
+ distant Trolley - near Trolley                   0.017147 0.125 2725   0.138  1.0000
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 12 estimates 
+```
+
+
+:::
+:::
+
+
+
+### Gut
+
+
+
+::: {.cell .panel-sidebar}
+
+```{.r .cell-code}
+model1 <- lmerTest::lmer(gut ~
+                  temp*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(temp = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+emmeans::emmeans(model1, list(pairwise ~ temp), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ scenario), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ temp*scenario), adjust = "tukey")
+```
+
+::: {.cell-output .cell-output-stdout}
+
+``` hscroll
+Type III Analysis of Variance Table with Satterthwaite's method
+               Sum Sq Mean Sq NumDF DenDF F value  Pr(>F)  
+temp           5.3419  2.6710     2   682  1.5397 0.21519  
+scenario       3.6404  1.2135     3  2046  0.6995 0.55232  
+temp:scenario 22.1318  3.6886     6  2046  2.1263 0.04752 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: gut ~ temp * scenario + (1 | ResponseId)
+   Data: x
+
+REML criterion at convergence: 9348.8
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.82664 -0.79479 -0.08401  0.66520  2.89956 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ ResponseId (Intercept) 0.01423  0.1193  
+ Residual               1.73474  1.3171  
+Number of obs: 2740, groups:  ResponseId, 685
+
+Fixed effects:
+                  Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)      3.261e+00  2.557e-02  6.820e+02 127.512   <2e-16 ***
+temp1            6.340e-02  3.614e-02  6.820e+02   1.754   0.0798 .  
+temp2           -3.047e-02  3.618e-02  6.820e+02  -0.842   0.3999    
+scenario1       -5.397e-02  4.358e-02  2.046e+03  -1.238   0.2157    
+scenario2        4.852e-02  4.358e-02  2.046e+03   1.113   0.2657    
+scenario3       -1.332e-03  4.358e-02  2.046e+03  -0.031   0.9756    
+temp1:scenario1 -7.079e-02  6.159e-02  2.046e+03  -1.149   0.2505    
+temp2:scenario1  1.426e-01  6.166e-02  2.046e+03   2.313   0.0208 *  
+temp1:scenario2 -1.160e-01  6.159e-02  2.046e+03  -1.883   0.0598 .  
+temp2:scenario2 -3.947e-02  6.166e-02  2.046e+03  -0.640   0.5221    
+temp1:scenario3  8.277e-02  6.159e-02  2.046e+03   1.344   0.1791    
+temp2:scenario3 -5.879e-02  6.166e-02  2.046e+03  -0.954   0.3404    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) temp1  temp2  scenr1 scenr2 scenr3 tmp1:1 tmp2:1 tmp1:2 tmp2:2 tmp1:3
+temp1       -0.002                                                                      
+temp2        0.001 -0.499                                                               
+scenario1    0.000  0.000  0.000                                                        
+scenario2    0.000  0.000  0.000 -0.333                                                 
+scenario3    0.000  0.000  0.000 -0.333 -0.333                                          
+temp1:scnr1  0.000  0.000  0.000 -0.002  0.001  0.001                                   
+temp2:scnr1  0.000  0.000  0.000  0.001  0.000  0.000 -0.499                            
+temp1:scnr2  0.000  0.000  0.000  0.001 -0.002  0.001 -0.333  0.166                     
+temp2:scnr2  0.000  0.000  0.000  0.000  0.001  0.000  0.166 -0.333 -0.499              
+temp1:scnr3  0.000  0.000  0.000  0.001  0.001 -0.002 -0.333  0.166 -0.333  0.166       
+temp2:scnr3  0.000  0.000  0.000  0.000  0.000  0.001  0.166 -0.333  0.166 -0.333 -0.499
+$`emmeans of temp`
+ temp    emmean     SE  df lower.CL upper.CL
+ control   3.32 0.0442 682     3.24     3.41
+ distant   3.23 0.0443 682     3.14     3.32
+ near      3.23 0.0443 682     3.14     3.31
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp`
+ 1                 estimate     SE  df t.ratio p.value
+ control - distant  0.09387 0.0626 682   1.499  0.2919
+ control - near     0.09632 0.0626 682   1.538  0.2736
+ distant - near     0.00245 0.0627 682   0.039  0.9992
+
+Results are averaged over the levels of: scenario 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+$`emmeans of scenario`
+ scenario       emmean     SE   df lower.CL upper.CL
+ Heinz            3.21 0.0505 2727     3.11     3.31
+ Jennifer         3.31 0.0505 2727     3.21     3.41
+ Julie and Mark   3.26 0.0505 2727     3.16     3.36
+ Trolley          3.27 0.0505 2727     3.17     3.37
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of scenario`
+ 1                         estimate     SE   df t.ratio p.value
+ Heinz - Jennifer          -0.10249 0.0712 2046  -1.440  0.4744
+ Heinz - Julie and Mark    -0.05264 0.0712 2046  -0.740  0.8811
+ Heinz - Trolley           -0.06076 0.0712 2046  -0.854  0.8286
+ Jennifer - Julie and Mark  0.04985 0.0712 2046   0.700  0.8969
+ Jennifer - Trolley         0.04173 0.0712 2046   0.586  0.9362
+ Julie and Mark - Trolley  -0.00812 0.0712 2046  -0.114  0.9995
+
+Results are averaged over the levels of: temp 
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+$`emmeans of temp, scenario`
+ temp    scenario       emmean     SE   df lower.CL upper.CL
+ control Heinz            3.20 0.0874 2727     3.03     3.37
+ distant Heinz            3.32 0.0876 2727     3.15     3.49
+ near    Heinz            3.10 0.0876 2727     2.93     3.27
+ control Jennifer         3.26 0.0874 2727     3.09     3.43
+ distant Jennifer         3.24 0.0876 2727     3.07     3.41
+ near    Jennifer         3.43 0.0876 2727     3.26     3.60
+ control Julie and Mark   3.41 0.0874 2727     3.23     3.58
+ distant Julie and Mark   3.17 0.0876 2727     3.00     3.34
+ near    Julie and Mark   3.20 0.0876 2727     3.03     3.37
+ control Trolley          3.43 0.0874 2727     3.26     3.61
+ distant Trolley          3.19 0.0876 2727     3.02     3.36
+ near    Trolley          3.17 0.0876 2727     3.00     3.35
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$`pairwise differences of temp, scenario`
+ 1                                               estimate    SE   df t.ratio p.value
+ control Heinz - distant Heinz                   -0.11954 0.124 2727  -0.966  0.9983
+ control Heinz - near Heinz                       0.09735 0.124 2727   0.787  0.9998
+ control Heinz - control Jennifer                -0.05730 0.123 2046  -0.466  1.0000
+ control Heinz - distant Jennifer                -0.03993 0.124 2727  -0.323  1.0000
+ control Heinz - near Jennifer                   -0.23241 0.124 2727  -1.878  0.7728
+ control Heinz - control Julie and Mark          -0.20621 0.123 2046  -1.675  0.8795
+ control Heinz - distant Julie and Mark           0.02923 0.124 2727   0.236  1.0000
+ control Heinz - near Julie and Mark             -0.00313 0.124 2727  -0.025  1.0000
+ control Heinz - control Trolley                 -0.23555 0.123 2046  -1.914  0.7508
+ control Heinz - distant Trolley                  0.00668 0.124 2727   0.054  1.0000
+ control Heinz - near Trolley                     0.02442 0.124 2727   0.197  1.0000
+ distant Heinz - near Heinz                       0.21689 0.124 2727   1.751  0.8440
+ distant Heinz - control Jennifer                 0.06224 0.124 2727   0.503  1.0000
+ distant Heinz - distant Jennifer                 0.07960 0.123 2046   0.645  1.0000
+ distant Heinz - near Jennifer                   -0.11287 0.124 2727  -0.911  0.9990
+ distant Heinz - control Julie and Mark          -0.08667 0.124 2727  -0.700  0.9999
+ distant Heinz - distant Julie and Mark           0.14877 0.123 2046   1.206  0.9886
+ distant Heinz - near Julie and Mark              0.11641 0.124 2727   0.940  0.9987
+ distant Heinz - control Trolley                 -0.11601 0.124 2727  -0.938  0.9987
+ distant Heinz - distant Trolley                  0.12622 0.123 2046   1.023  0.9972
+ distant Heinz - near Trolley                     0.14396 0.124 2727   1.162  0.9916
+ near Heinz - control Jennifer                   -0.15465 0.124 2727  -1.250  0.9848
+ near Heinz - distant Jennifer                   -0.13729 0.124 2727  -1.108  0.9944
+ near Heinz - near Jennifer                      -0.32977 0.123 2046  -2.673  0.2404
+ near Heinz - control Julie and Mark             -0.30356 0.124 2727  -2.453  0.3703
+ near Heinz - distant Julie and Mark             -0.06812 0.124 2727  -0.550  1.0000
+ near Heinz - near Julie and Mark                -0.10048 0.123 2046  -0.815  0.9997
+ near Heinz - control Trolley                    -0.33290 0.124 2727  -2.691  0.2313
+ near Heinz - distant Trolley                    -0.09067 0.124 2727  -0.732  0.9999
+ near Heinz - near Trolley                       -0.07293 0.123 2046  -0.591  1.0000
+ control Jennifer - distant Jennifer              0.01736 0.124 2727   0.140  1.0000
+ control Jennifer - near Jennifer                -0.17511 0.124 2727  -1.415  0.9607
+ control Jennifer - control Julie and Mark       -0.14891 0.123 2046  -1.210  0.9883
+ control Jennifer - distant Julie and Mark        0.08653 0.124 2727   0.699  0.9999
+ control Jennifer - near Julie and Mark           0.05417 0.124 2727   0.438  1.0000
+ control Jennifer - control Trolley              -0.17825 0.123 2046  -1.448  0.9537
+ control Jennifer - distant Trolley               0.06398 0.124 2727   0.517  1.0000
+ control Jennifer - near Trolley                  0.08172 0.124 2727   0.660  1.0000
+ distant Jennifer - near Jennifer                -0.19248 0.124 2727  -1.554  0.9250
+ distant Jennifer - control Julie and Mark       -0.16627 0.124 2727  -1.344  0.9732
+ distant Jennifer - distant Julie and Mark        0.06917 0.123 2046   0.561  1.0000
+ distant Jennifer - near Julie and Mark           0.03680 0.124 2727   0.297  1.0000
+ distant Jennifer - control Trolley              -0.19562 0.124 2727  -1.581  0.9161
+ distant Jennifer - distant Trolley               0.04661 0.123 2046   0.378  1.0000
+ distant Jennifer - near Trolley                  0.06435 0.124 2727   0.520  1.0000
+ near Jennifer - control Julie and Mark           0.02621 0.124 2727   0.212  1.0000
+ near Jennifer - distant Julie and Mark           0.26165 0.124 2727   2.112  0.6139
+ near Jennifer - near Julie and Mark              0.22928 0.123 2046   1.859  0.7847
+ near Jennifer - control Trolley                 -0.00314 0.124 2727  -0.025  1.0000
+ near Jennifer - distant Trolley                  0.23909 0.124 2727   1.930  0.7401
+ near Jennifer - near Trolley                     0.25683 0.123 2046   2.082  0.6358
+ control Julie and Mark - distant Julie and Mark  0.23544 0.124 2727   1.903  0.7576
+ control Julie and Mark - near Julie and Mark     0.20308 0.124 2727   1.641  0.8937
+ control Julie and Mark - control Trolley        -0.02934 0.123 2046  -0.238  1.0000
+ control Julie and Mark - distant Trolley         0.21288 0.124 2727   1.721  0.8589
+ control Julie and Mark - near Trolley            0.23062 0.124 2727   1.864  0.7816
+ distant Julie and Mark - near Julie and Mark    -0.03236 0.124 2727  -0.261  1.0000
+ distant Julie and Mark - control Trolley        -0.26478 0.124 2727  -2.140  0.5937
+ distant Julie and Mark - distant Trolley        -0.02255 0.123 2046  -0.183  1.0000
+ distant Julie and Mark - near Trolley           -0.00482 0.124 2727  -0.039  1.0000
+ near Julie and Mark - control Trolley           -0.23242 0.124 2727  -1.878  0.7728
+ near Julie and Mark - distant Trolley            0.00981 0.124 2727   0.079  1.0000
+ near Julie and Mark - near Trolley               0.02755 0.123 2046   0.223  1.0000
+ control Trolley - distant Trolley                0.24223 0.124 2727   1.958  0.7221
+ control Trolley - near Trolley                   0.25997 0.124 2727   2.101  0.6220
+ distant Trolley - near Trolley                   0.01774 0.124 2727   0.143  1.0000
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 12 estimates 
+```
+
+
+:::
+:::
+

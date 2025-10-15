@@ -4,7 +4,7 @@
 library(tidyverse)
 
 
-df <- read_csv("sample_data/sample_data.csv")
+df <- read_csv("sample_data.csv")
 
 head(df)
 variable.names(df)
@@ -61,7 +61,7 @@ oth_now$condition6 <- rep("oth_now")
 df <- rbind(ctrl, slf_fut, slf_now, oth_ctrl, oth_fut, oth_now)
 
 
-Jen <- df %>% select(
+Jen <- df %>% dplyr::select(
   "ResponseId"
   , "condition5"
   , "condition6"
@@ -103,7 +103,7 @@ Jen <- `colnames<-`(Jen, c("ResponseId"
                            ,"ju2_2"
                            ,"cf2_2"))
 
-Jmk <- df %>% select(
+Jmk <- df %>% dplyr::select(
   "ResponseId"
   , "condition5"
   , "condition6"
@@ -145,7 +145,7 @@ Jmk <- `colnames<-`(Jmk, c("ResponseId"
                            ,"ju2_2"
                            ,"cf2_2"))
 
-Try <- df %>% select(
+Try <- df %>% dplyr::select(
   "ResponseId"
   , "condition5"
   , "condition6"
@@ -187,7 +187,7 @@ Try <- `colnames<-`(Try, c("ResponseId"
                            ,"ju2_2"
                            ,"cf2_2"))
 
-Hnz <- df %>% select(
+Hnz <- df %>% dplyr::select(
   "ResponseId"
   , "condition5"
   , "condition6"

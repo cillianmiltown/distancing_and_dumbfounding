@@ -19,7 +19,16 @@ $if(csquotes)$
 $endif$
 $citations.tex()$
 
+
+
 $title.tex()$
+
+
+% Cillian Added this line on 19/9/2025 to add Polish/Serbian characters
+% it didn't work though!
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} 
+
 \begin{document}
 $before-body.tex()$
 $for(include-before)$

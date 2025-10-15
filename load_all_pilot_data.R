@@ -88,22 +88,22 @@ prep_data_distancing <- function(a,b){
   df3$InCf2 <- to_num(df3$InCf2)
   df3$InRsn2 <- to_num(df3$InRsn2)
   
-  df3$Ju1_bin <- recode(df3$InJu1,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
-  df3$Ju2_bin <- recode(df3$InJu2,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  df3$Ju1_bin <- car::recode(df3$InJu1,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  df3$Ju2_bin <- car::recode(df3$InJu2,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
   df3$condition
   
-  df3$wrong1 <- recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'")
+  df3$wrong1 <- car::recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'")
   
-  df3$wrong2<- recode(df3$Ju2_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'")
+  df3$wrong2<- car::recode(df3$Ju2_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'")
   
   
-  df3$j1 <- as.vector(recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
-  df3$j2 <- as.vector(recode(df3$InSWr1, "'Yes'='wrong';'No'='not wrong'"))
-  df3$j3 <- as.vector(recode(df3$InSWr2, "'Yes'='wrong';'No'='not wrong'"))
-  df3$j4 <- as.vector(recode(df3$InSWr3, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j1 <- as.vector(car::recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  df3$j2 <- as.vector(car::recode(df3$InSWr1, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j3 <- as.vector(car::recode(df3$InSWr2, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j4 <- as.vector(car::recode(df3$InSWr3, "'Yes'='wrong';'No'='not wrong'"))
   df3$j5 <- as.vector(revalue(df3$InCS, c("There is nothing wrong."="not wrong", "It's wrong but I can't think of a reason."="wrong","It's wrong and I can provide a valid reason."="wrong")))
-  #df3$j5 <- as.vector(recode(df3$cs_temp, "'FALSE'='wrong';'TRUE'='not wrong'"))
-  df3$j6 <- as.vector(recode(df3$Ju2_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  #df3$j5 <- as.vector(car::recode(df3$cs_temp, "'FALSE'='wrong';'TRUE'='not wrong'"))
+  df3$j6 <- as.vector(car::recode(df3$Ju2_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
   
   df3$ch1 <- df3$j1!=df3$j2
   df3$ch2 <- df3$j2!=df3$j3
@@ -121,16 +121,16 @@ prep_data_distancing <- function(a,b){
   df3$changed_tot <- df3$ch1+df3$ch2+df3$ch3+df3$ch4+df3$ch5
   
   df3$rs1 <- as.vector(rep("unstated", length=length(df3$gender)))
-  df3$rs2 <- as.vector(recode(df3$InAR1,"'Yes, I have a reason'='reason';'No, I have no reason'='no reason';'Unsure'='unstated'"))
-  df3$rs3 <- as.vector(recode(df3$InAR2,"'Yes, I have a reason'='reason';'No, I have no reason'='no reason';'Unsure'='unstated'"))
-  df3$rs4 <- as.vector(recode(df3$InAR3,"'Yes, I have a reason'='reason';'No, I have no reason'='no reason';'Unsure'='unstated'"))
+  df3$rs2 <- as.vector(car::recode(df3$InAR1,"'Yes, I have a reason'='reason';'No, I have no reason'='no reason';'Unsure'='unstated'"))
+  df3$rs3 <- as.vector(car::recode(df3$InAR2,"'Yes, I have a reason'='reason';'No, I have no reason'='no reason';'Unsure'='unstated'"))
+  df3$rs4 <- as.vector(car::recode(df3$InAR3,"'Yes, I have a reason'='reason';'No, I have no reason'='no reason';'Unsure'='unstated'"))
   df3$rs5 <- as.vector(revalue(df3$InCS, c("There is nothing wrong."="unstated", "It's wrong but I can't think of a reason."="no reason","It's wrong and I can provide a valid reason."="reason")))
   df3$rs6 <- as.vector(rep("unstated", length=length(df3$gender)))
   
   
-  df3$rs1_bin <- as.vector(recode(df3$InAR1,'"Yes, I have a reason"="reason";"No, I have no reason"="no reason"; "Unsure"="no reason"'))
-  df3$rs2_bin <- as.vector(recode(df3$InAR2,'"Yes, I have a reason"="reason";"No, I have no reason"="no reason"; "Unsure"="no reason"'))
-  df3$rs3_bin <- as.vector(recode(df3$InAR3,'"Yes, I have a reason"="reason";"No, I have no reason"="no reason"; "Unsure"="no reason"'))
+  df3$rs1_bin <- as.vector(car::recode(df3$InAR1,'"Yes, I have a reason"="reason";"No, I have no reason"="no reason"; "Unsure"="no reason"'))
+  df3$rs2_bin <- as.vector(car::recode(df3$InAR2,'"Yes, I have a reason"="reason";"No, I have no reason"="no reason"; "Unsure"="no reason"'))
+  df3$rs3_bin <- as.vector(car::recode(df3$InAR3,'"Yes, I have a reason"="reason";"No, I have no reason"="no reason"; "Unsure"="no reason"'))
   
   df3$reason_always <- df3$rs1_bin=="reason"&df3$rs2_bin=="reason"&df3$rs3_bin=="reason"
   
@@ -140,22 +140,22 @@ prep_data_distancing <- function(a,b){
   names(df3)[names(df3) == 'v_166'] <- 'rugb'
   
   df3$pot_hrm <- to_num(df3$pot_hrm)
-  df3$pot_hrm_bin <- recode(df3$pot_hrm,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  df3$pot_hrm_bin <- car::recode(df3$pot_hrm,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
   df3$all_harm <- (df3$pot_hrm_bin!="wrong"|df3$box=="No"|df3$rugb=="No"|df3$hrm_Qs=="no harm")
-  df3$all_harm <- recode(df3$all_harm, "TRUE='true';FALSE='false';NA='missing'")
+  df3$all_harm <- car::recode(df3$all_harm, "TRUE='true';FALSE='false';NA='missing'")
   
   
   df3$all_harm_norm <- (df3$pot_hrm_bin!="wrong"|df3$box=="No"|df3$rugb=="No"|df3$hrm_Qs=="no harm")&(df3$normQ=="Violating an established moral norm, just for fun or personal enjoyment, is wrong only in situations where someone is harmed as a result, but is acceptable otherwise."|df3$nrm_st=="norms not mentioned")
-  df3$all_harm_norm <- recode(df3$all_harm_norm, "TRUE='true';FALSE='false';NA='missing'")
+  df3$all_harm_norm <- car::recode(df3$all_harm_norm, "TRUE='true';FALSE='false';NA='missing'")
   
   
   df3$nrm_all <- (df3$normQ=="Violating an established moral norm, just for fun or personal enjoyment, is wrong only in situations where someone is harmed as a result, but is acceptable otherwise."|df3$nrm_st=="norms not mentioned")
-  df3$nrm_all <- recode(df3$nrm_all, "TRUE='true';FALSE='false';NA='missing'")
+  df3$nrm_all <- car::recode(df3$nrm_all, "TRUE='true';FALSE='false';NA='missing'")
   
   
   
   df3$Roz_fully_C <- (df3$normQ== 'Violating an established moral norm, just for fun or personal enjoyment, is wrong only in situations where someone is harmed as a result, but is acceptable otherwise.' & df3$Hrm_oth=="Yes, I am able to believe this"& df3$Hrm_rel=="Yes, I am able to believe this")
-  df3$Roz_fully_C <- recode(df3$Roz_fully_C, "TRUE='true';FALSE='false';NA='missing'")
+  df3$Roz_fully_C <- car::recode(df3$Roz_fully_C, "TRUE='true';FALSE='false';NA='missing'")
   
   
   
@@ -164,12 +164,12 @@ prep_data_distancing <- function(a,b){
   
   require(dplyr)
   df3 <- df3 %>%
-    mutate(Dumb_response = ifelse(is.na(Dumb_response),0,Dumb_response))
+    dplyr::mutate(Dumb_response = ifelse(is.na(Dumb_response),0,Dumb_response))
   
   detach("package:dplyr", unload=TRUE)
   
   cbind.data.frame(df3$InCS,df3$Dumb_response)
-  df3$Dumb_response <- recode(df3$Dumb_response, "'0'='unsupported declaration';'2'='admission';'1'='nothing wrong';'3'='reasons'")
+  df3$Dumb_response <- car::recode(df3$Dumb_response, "'0'='unsupported declaration';'2'='admission';'1'='nothing wrong';'3'='reasons'")
   
   df3$Dumb_response
   
@@ -181,12 +181,12 @@ prep_data_distancing <- function(a,b){
   
   require(dplyr)
   df3 <- df3 %>%
-    mutate(right_change = ifelse(is.na(right_change),0,right_change))
+    dplyr::mutate(right_change = ifelse(is.na(right_change),0,right_change))
   
   detach("package:dplyr", unload=TRUE)
   
   cbind.data.frame(df3$InCS,df3$right_change)
-  df3$right_change <- recode(df3$right_change, "'0'='right initially';'2'='dumbfounded';'1'='nothing wrong';'3'='reasons'")
+  df3$right_change <- car::recode(df3$right_change, "'0'='right initially';'2'='dumbfounded';'1'='nothing wrong';'3'='reasons'")
   
   
   
@@ -281,7 +281,7 @@ study2fun <- function(){
   
   to_num <- function(x){
     #levels(x) <- c(0:6)
-    x <- recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
+    x <- car::recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
     #levels(x) <- c(0:6)
     x <- suppressWarnings(as.numeric(x))
     x
@@ -289,7 +289,7 @@ study2fun <- function(){
   
   NFC_rev <- function(x){
     
-    b <- recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
+    b <- car::recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
     
     b <- suppressWarnings(as.numeric(b))
     b
@@ -394,6 +394,23 @@ study2fun <- function(){
   df3 <- ds6
   df3 <- df3[which(is.na(df3$gender)==FALSE),]
   
+  df3$Ju1_bin <- car::recode(df3$InJu1,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  df3$Ju2_bin <- car::recode(df3$InJu2,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  
+  
+  df3$j1 <- as.vector(car::recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  df3$j2 <- as.vector(car::recode(df3$InSWr1, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j3 <- as.vector(car::recode(df3$InSWr2, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j4 <- as.vector(car::recode(df3$InSWr3, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j5 <- as.vector(revalue(df3$InCS, c("There is nothing wrong."="not wrong", "It's wrong but I can't think of a reason."="wrong","It's wrong and I can provide a valid reason."="wrong")))
+  #df3$j5 <- as.vector(car::recode(df3$cs_temp, "'FALSE'='wrong';'TRUE'='not wrong'"))
+  df3$j6 <- as.vector(car::recode(df3$Ju2_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  
+  df3$ch1 <- df3$j1!=df3$j2
+  df3$ch2 <- df3$j2!=df3$j3
+  df3$ch3 <- df3$j3!=df3$j4
+  df3$ch4 <- df3$j4!=df3$j5
+  df3$ch5 <- df3$j5!=df3$j6
   
   df3
 }
@@ -486,7 +503,7 @@ distance_three <- function(){
   
   to_num <- function(x){
     #levels(x) <- c(0:6)
-    x <- recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
+    x <- car::recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
     #levels(x) <- c(0:6)
     x <- suppressWarnings(as.numeric(x))
     x
@@ -494,7 +511,7 @@ distance_three <- function(){
   
   NFC_rev <- function(x){
     
-    b <- recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
+    b <- car::recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
     
     b <- suppressWarnings(as.numeric(b))
     b
@@ -601,6 +618,24 @@ distance_three <- function(){
   df3 <- ds6
   df3 <- df3[which(is.na(df3$gender)==FALSE),]
   
+  
+  df3$Ju1_bin <- car::recode(df3$InJu1,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  df3$Ju2_bin <- car::recode(df3$InJu2,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  
+  
+  df3$j1 <- as.vector(car::recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  df3$j2 <- as.vector(car::recode(df3$InSWr1, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j3 <- as.vector(car::recode(df3$InSWr2, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j4 <- as.vector(car::recode(df3$InSWr3, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j5 <- as.vector(revalue(df3$InCS, c("There is nothing wrong."="not wrong", "It's wrong but I can't think of a reason."="wrong","It's wrong and I can provide a valid reason."="wrong")))
+  #df3$j5 <- as.vector(car::recode(df3$cs_temp, "'FALSE'='wrong';'TRUE'='not wrong'"))
+  df3$j6 <- as.vector(car::recode(df3$Ju2_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  
+  df3$ch1 <- df3$j1!=df3$j2
+  df3$ch2 <- df3$j2!=df3$j3
+  df3$ch3 <- df3$j3!=df3$j4
+  df3$ch4 <- df3$j4!=df3$j5
+  df3$ch5 <- df3$j5!=df3$j6
   
   df3
   
@@ -692,7 +727,7 @@ distance_four <- function(){
   
   to_num <- function(x){
     #levels(x) <- c(0:6)
-    x <- recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
+    x <- car::recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
     #levels(x) <- c(0:6)
     x <- suppressWarnings(as.numeric(x))
     x
@@ -700,7 +735,7 @@ distance_four <- function(){
   
   NFC_rev <- function(x){
     
-    b <- recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
+    b <- car::recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
     
     b <- suppressWarnings(as.numeric(b))
     b
@@ -805,6 +840,24 @@ distance_four <- function(){
   df3 <- ds6
   df3 <- df3[which(is.na(df3$gender)==FALSE),]
   
+  
+  df3$Ju1_bin <- car::recode(df3$InJu1,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  df3$Ju2_bin <- car::recode(df3$InJu2,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  
+  
+  df3$j1 <- as.vector(car::recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  df3$j2 <- as.vector(car::recode(df3$InSWr1, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j3 <- as.vector(car::recode(df3$InSWr2, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j4 <- as.vector(car::recode(df3$InSWr3, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j5 <- as.vector(revalue(df3$InCS, c("There is nothing wrong."="not wrong", "It's wrong but I can't think of a reason."="wrong","It's wrong and I can provide a valid reason."="wrong")))
+  #df3$j5 <- as.vector(car::recode(df3$cs_temp, "'FALSE'='wrong';'TRUE'='not wrong'"))
+  df3$j6 <- as.vector(car::recode(df3$Ju2_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  
+  df3$ch1 <- df3$j1!=df3$j2
+  df3$ch2 <- df3$j2!=df3$j3
+  df3$ch3 <- df3$j3!=df3$j4
+  df3$ch4 <- df3$j4!=df3$j5
+  df3$ch5 <- df3$j5!=df3$j6
   
   df3
   
@@ -900,7 +953,7 @@ distance_five <- function(){
   
   to_num <- function(x){
     #levels(x) <- c(0:6)
-    x <- recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
+    x <- car::recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
     #levels(x) <- c(0:6)
     x <- suppressWarnings(as.numeric(x))
     x
@@ -908,7 +961,7 @@ distance_five <- function(){
   
   NFC_rev <- function(x){
     
-    b <- recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
+    b <- car::recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
     
     b <- suppressWarnings(as.numeric(b))
     b
@@ -1015,6 +1068,24 @@ distance_five <- function(){
   df3 <- df3[which(is.na(df3$gender)==FALSE),]
   
   
+  df3$Ju1_bin <- car::recode(df3$InJu1,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  df3$Ju2_bin <- car::recode(df3$InJu2,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  
+  
+  df3$j1 <- as.vector(car::recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  df3$j2 <- as.vector(car::recode(df3$InSWr1, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j3 <- as.vector(car::recode(df3$InSWr2, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j4 <- as.vector(car::recode(df3$InSWr3, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j5 <- as.vector(revalue(df3$InCS, c("There is nothing wrong."="not wrong", "It's wrong but I can't think of a reason."="wrong","It's wrong and I can provide a valid reason."="wrong")))
+  #df3$j5 <- as.vector(car::recode(df3$cs_temp, "'FALSE'='wrong';'TRUE'='not wrong'"))
+  df3$j6 <- as.vector(car::recode(df3$Ju2_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  
+  df3$ch1 <- df3$j1!=df3$j2
+  df3$ch2 <- df3$j2!=df3$j3
+  df3$ch3 <- df3$j3!=df3$j4
+  df3$ch4 <- df3$j4!=df3$j5
+  df3$ch5 <- df3$j5!=df3$j6
+  
   df3
   
 }
@@ -1109,7 +1180,7 @@ distance_ca_scale <- function(){
   
   to_num <- function(x){
     #levels(x) <- c(0:6)
-    x <- recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
+    x <- car::recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
     #levels(x) <- c(0:6)
     x <- suppressWarnings(as.numeric(x))
     x
@@ -1117,7 +1188,7 @@ distance_ca_scale <- function(){
   
   NFC_rev <- function(x){
     
-    b <- recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
+    b <- car::recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
     
     b <- suppressWarnings(as.numeric(b))
     b
@@ -1226,6 +1297,24 @@ distance_ca_scale <- function(){
   df3$InCS_ju <- as.numeric(df3$v_291)
   df3$InCS_rsn <- as.numeric(df3$v_296)
   
+  df3$Ju1_bin <- car::recode(df3$InJu1,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  df3$Ju2_bin <- car::recode(df3$InJu2,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  
+  
+  df3$j1 <- as.vector(car::recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  df3$j2 <- as.vector(car::recode(df3$InSWr1, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j3 <- as.vector(car::recode(df3$InSWr2, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j4 <- as.vector(car::recode(df3$InSWr3, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j5 <- as.vector(revalue(df3$InCS, c("There is nothing wrong."="not wrong", "It's wrong but I can't think of a reason."="wrong","It's wrong and I can provide a valid reason."="wrong")))
+  #df3$j5 <- as.vector(car::recode(df3$cs_temp, "'FALSE'='wrong';'TRUE'='not wrong'"))
+  df3$j6 <- as.vector(car::recode(df3$Ju2_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  
+  df3$ch1 <- df3$j1!=df3$j2
+  df3$ch2 <- df3$j2!=df3$j3
+  df3$ch3 <- df3$j3!=df3$j4
+  df3$ch4 <- df3$j4!=df3$j5
+  df3$ch5 <- df3$j5!=df3$j6
+  
   df3
   
 }
@@ -1319,7 +1408,7 @@ distance_ca <- function(){
   
   to_num <- function(x){
     #levels(x) <- c(0:6)
-    x <- recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
+    x <- car::recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
     #levels(x) <- c(0:6)
     x <- suppressWarnings(as.numeric(x))
     x
@@ -1327,7 +1416,7 @@ distance_ca <- function(){
   
   NFC_rev <- function(x){
     
-    b <- recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
+    b <- car::recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
     
     b <- suppressWarnings(as.numeric(b))
     b
@@ -1434,6 +1523,23 @@ distance_ca <- function(){
   df3 <- ds6
   df3 <- df3[which(is.na(df3$gender)==FALSE),]
   
+  df3$Ju1_bin <- car::recode(df3$InJu1,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  df3$Ju2_bin <- car::recode(df3$InJu2,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  
+  
+  df3$j1 <- as.vector(car::recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  df3$j2 <- as.vector(car::recode(df3$InSWr1, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j3 <- as.vector(car::recode(df3$InSWr2, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j4 <- as.vector(car::recode(df3$InSWr3, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j5 <- as.vector(revalue(df3$InCS, c("There is nothing wrong."="not wrong", "It's wrong but I can't think of a reason."="wrong","It's wrong and I can provide a valid reason."="wrong")))
+  #df3$j5 <- as.vector(car::recode(df3$cs_temp, "'FALSE'='wrong';'TRUE'='not wrong'"))
+  df3$j6 <- as.vector(car::recode(df3$Ju2_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  
+  df3$ch1 <- df3$j1!=df3$j2
+  df3$ch2 <- df3$j2!=df3$j3
+  df3$ch3 <- df3$j3!=df3$j4
+  df3$ch4 <- df3$j4!=df3$j5
+  df3$ch5 <- df3$j5!=df3$j6
   
   df3
   
@@ -1527,7 +1633,7 @@ distance_vig <- function(){
   
   to_num <- function(x){
     #levels(x) <- c(0:6)
-    x <- recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
+    x <- car::recode(x, '0=NA;"strongly disagree"=1; "moderately disagree"=2; "slightly disagree"=3; "slightly agree"=4; "moderately agree"=5;"strongly agree"=6')
     #levels(x) <- c(0:6)
     x <- suppressWarnings(as.numeric(x))
     x
@@ -1535,7 +1641,7 @@ distance_vig <- function(){
   
   NFC_rev <- function(x){
     
-    b <- recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
+    b <- car::recode(x, "1=6;2=5;3=4;4=3;5=2;6=1")
     
     b <- suppressWarnings(as.numeric(b))
     b
@@ -1641,6 +1747,23 @@ distance_vig <- function(){
   df3 <- ds6
   df3 <- df3[which(is.na(df3$gender)==FALSE),]
   
+  df3$Ju1_bin <- car::recode(df3$InJu1,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  df3$Ju2_bin <- car::recode(df3$InJu2,"1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'")
+  
+  
+  df3$j1 <- as.vector(car::recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  df3$j2 <- as.vector(car::recode(df3$InSWr1, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j3 <- as.vector(car::recode(df3$InSWr2, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j4 <- as.vector(car::recode(df3$InSWr3, "'Yes'='wrong';'No'='not wrong'"))
+  df3$j5 <- as.vector(revalue(df3$InCS, c("There is nothing wrong."="not wrong", "It's wrong but I can't think of a reason."="wrong","It's wrong and I can provide a valid reason."="wrong")))
+  #df3$j5 <- as.vector(car::recode(df3$cs_temp, "'FALSE'='wrong';'TRUE'='not wrong'"))
+  df3$j6 <- as.vector(car::recode(df3$Ju2_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
+  
+  df3$ch1 <- df3$j1!=df3$j2
+  df3$ch2 <- df3$j2!=df3$j3
+  df3$ch3 <- df3$j3!=df3$j4
+  df3$ch4 <- df3$j4!=df3$j5
+  df3$ch5 <- df3$j5!=df3$j6
   
   df3
   
@@ -1677,26 +1800,32 @@ df3 <- eight
 
 x <- one
 # combine variables of interest
-one_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(one_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+one_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                           ,x$gender,x$age
+                           ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(one_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                      ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 # distinguish between psychological distance 'psych' and temporal distance 'temp'
 x <- one_cb
-x$condition <- recode(x$condition, "'1manip'='long'; '2control'='control'")
-x$temp_psych <- recode(x$temp, "'1manip'='control_long'; '2control'='control_short'")
-x$psych <- recode(x$psych, "'1manip'='long'; '2control'='control'")
+x$condition <- car::recode(x$condition, "'1manip'='long'; '2control'='control'")
+x$temp_psych <- car::recode(x$temp, "'1manip'='control_long'; '2control'='control_short'")
+x$psych <- car::recode(x$psych, "'1manip'='long'; '2control'='control'")
 x$temp <- rep("short", length(x$gender))
 one_cb <- x
 
 
 x <- two
 
-two_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(two_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+two_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                           ,x$gender,x$age
+                           ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(two_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                      ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 
 x <- two_cb
-x$condition <- recode(x$condition, "'1manip'='long'; '2control'='control'")
-x$temp_psych <- recode(x$temp, "'1manip'='control_long'; '2control'='control_short'")
-x$psych <- recode(x$psych, "'1manip'='long'; '2control'='control'")
+x$condition <- car::recode(x$condition, "'1manip'='long'; '2control'='control'")
+x$temp_psych <- car::recode(x$temp, "'1manip'='control_long'; '2control'='control_short'")
+x$psych <- car::recode(x$psych, "'1manip'='long'; '2control'='control'")
 x$temp <- rep("short", length(x$gender))
 two_cb <- x
 
@@ -1704,53 +1833,68 @@ two_cb <- x
 
 x <- three_tot
 
-three_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(three_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+three_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                             ,x$gender,x$age
+                             ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(three_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                        ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 
 x <- three_cb
 x$psych <- rep("long", length(x$gender))
-x$temp_psych <- recode(x$temp, "'short'='short_long'; 'long'='long_long'")
+x$temp_psych <- car::recode(x$temp, "'short'='short_long'; 'long'='long_long'")
 three_cb <- x
 
 x <- four_tot
 
-four_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(four_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+four_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                            ,x$gender,x$age
+                            ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(four_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                       ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 
 x <- four_cb
 x$psych <- rep("long", length(x$gender))
-x$temp_psych <- recode(x$temp, "'short'='short_long'; 'long'='long_long'")
+x$temp_psych <- car::recode(x$temp, "'short'='short_long'; 'long'='long_long'")
 four_cb <- x
 
 x <- five_tot
 
-five_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(five_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+five_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                            ,x$gender,x$age
+                            ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(five_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                       ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 
 x <- five_cb
 x$psych <- rep("short", length(x$gender))
-x$temp_psych <- recode(x$temp, "'short'='short_short'; 'long'='long_short'")
+x$temp_psych <- car::recode(x$temp, "'short'='short_short'; 'long'='long_short'")
 five_cb <- x
 
 x <- seven_tot
 
-seven_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(seven_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+seven_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                             ,x$gender,x$age
+                             ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(seven_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                        ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 
 x <- seven_cb
 x$psych <- rep("long", length(x$gender))
-x$temp_psych <- recode(x$temp, "'short'='short_long'; 'long'='long_long'")
+x$temp_psych <- car::recode(x$temp, "'short'='short_long'; 'long'='long_long'")
 seven_cb <- x
 
 
 x <- eight_tot
 
-eight_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(eight_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+eight_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                             ,x$gender,x$age
+                             ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(eight_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                        ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 
 x <- eight_cb
 x$psych <- rep("long", length(x$gender))
-x$temp_psych <- recode(x$temp, "'short'='short_short'; 'long'='long_short'")
+x$temp_psych <- car::recode(x$temp, "'short'='short_short'; 'long'='long_short'")
 eight_cb <- x
 
 # onetofive <- rbind(one_cb, two_cb, three_cb, four_cb, five_cb)
@@ -1765,26 +1909,32 @@ onetoeight_tot <- rbind(one_cb, two_cb, three_cb, four_cb, five_cb, seven_cb, ei
 
 x <- one
 # combine variables of interest
-one_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(one_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+one_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                           ,x$gender,x$age
+                           ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(one_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                      ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 # distinguish between psychological distance 'psych' and temporal distance 'temp'
 x <- one_cb
-x$condition <- recode(x$condition, "'1manip'='long'; '2control'='control'")
-x$temp_psych <- recode(x$temp, "'1manip'='control_long'; '2control'='control_short'")
-x$psych <- recode(x$psych, "'1manip'='long'; '2control'='control'")
+x$condition <- car::recode(x$condition, "'1manip'='long'; '2control'='control'")
+x$temp_psych <- car::recode(x$temp, "'1manip'='control_long'; '2control'='control_short'")
+x$psych <- car::recode(x$psych, "'1manip'='long'; '2control'='control'")
 x$temp <- rep("short", length(x$gender))
 one_cb <- x
 
 
 x <- two
 
-two_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(two_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+two_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                           ,x$gender,x$age
+                           ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(two_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                      ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 
 x <- two_cb
-x$condition <- recode(x$condition, "'1manip'='long'; '2control'='control'")
-x$temp_psych <- recode(x$temp, "'1manip'='control_long'; '2control'='control_short'")
-x$psych <- recode(x$psych, "'1manip'='long'; '2control'='control'")
+x$condition <- car::recode(x$condition, "'1manip'='long'; '2control'='control'")
+x$temp_psych <- car::recode(x$temp, "'1manip'='control_long'; '2control'='control_short'")
+x$psych <- car::recode(x$psych, "'1manip'='long'; '2control'='control'")
 x$temp <- rep("short", length(x$gender))
 two_cb <- x
 
@@ -1792,53 +1942,68 @@ two_cb <- x
 
 x <- three
 
-three_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(three_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+three_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                             ,x$gender,x$age
+                             ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(three_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                        ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 
 x <- three_cb
 x$psych <- rep("long", length(x$gender))
-x$temp_psych <- recode(x$temp, "'short'='short_long'; 'long'='long_long'")
+x$temp_psych <- car::recode(x$temp, "'short'='short_long'; 'long'='long_long'")
 three_cb <- x
 
 x <- four
 
-four_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(four_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+four_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                            ,x$gender,x$age
+                            ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(four_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                       ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 
 x <- four_cb
 x$psych <- rep("long", length(x$gender))
-x$temp_psych <- recode(x$temp, "'short'='short_long'; 'long'='long_long'")
+x$temp_psych <- car::recode(x$temp, "'short'='short_long'; 'long'='long_long'")
 four_cb <- x
 
 x <- five
 
-five_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(five_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+five_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                            ,x$gender,x$age
+                            ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(five_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                       ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 
 x <- five_cb
 x$psych <- rep("short", length(x$gender))
-x$temp_psych <- recode(x$temp, "'short'='short_short'; 'long'='long_short'")
+x$temp_psych <- car::recode(x$temp, "'short'='short_short'; 'long'='long_short'")
 five_cb <- x
 
 x <- seven
 
-seven_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(seven_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+seven_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                             ,x$gender,x$age
+                             ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(seven_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                        ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 
 x <- seven_cb
 x$psych <- rep("long", length(x$gender))
-x$temp_psych <- recode(x$temp, "'short'='short_long'; 'long'='long_long'")
+x$temp_psych <- car::recode(x$temp, "'short'='short_long'; 'long'='long_long'")
 seven_cb <- x
 
 
 x <- eight
 
-eight_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2,x$gender,x$age)
-colnames(eight_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age")
+eight_cb <- cbind.data.frame(x$condition,x$condition,x$condition,x$InCS,x$NFC,x$InJu1,x$InJu2
+                             ,x$gender,x$age
+                             ,x$j1,x$j2,x$j3,x$j4,x$j5,x$j6,x$ch1,x$ch2,x$ch3,x$ch4,x$ch5)
+colnames(eight_cb) <- c("condition","temp","psych","InCS","NFC","InJu1","InJu2","gender","age"
+                        ,"j1","j2","j3","j4","j5","j6","ch1","ch2","ch3","ch4","ch5")
 
 x <- eight_cb
 x$psych <- rep("long", length(x$gender))
-x$temp_psych <- recode(x$temp, "'short'='short_short'; 'long'='long_short'")
+x$temp_psych <- car::recode(x$temp, "'short'='short_short'; 'long'='long_short'")
 eight_cb <- x
 
 
@@ -1850,18 +2015,18 @@ onetoseven <- rbind(one_cb, two_cb, three_cb, four_cb, five_cb, seven_cb)
 onetoeight <- rbind(one_cb, two_cb, three_cb, four_cb, five_cb, seven_cb, eight_cb)
 # 
 # df3 <- onetoseven
-# df3$condition <- recode(df3$condition, "'1manip'='long'")
+# df3$condition <- car::recode(df3$condition, "'1manip'='long'")
 # 
 # onetofive <- df3
 # df3 <- twotofive
-# df3$condition <- recode(df3$condition, "'1manip'='long'")
+# df3$condition <- car::recode(df3$condition, "'1manip'='long'")
 # twotofive <- df3
 # df3 <- threetofive
-# df3$condition <- recode(df3$condition, "'1manip'='long'")
+# df3$condition <- car::recode(df3$condition, "'1manip'='long'")
 # threetofive <- df3
 
 df3 <- onetoseven
-#car::recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'")
+#car::car::recode(df3$Ju1_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'")
 
 #### rw ####
 

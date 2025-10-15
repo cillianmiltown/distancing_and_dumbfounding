@@ -476,4 +476,268 @@ psych_coeffs$`z value`
 # facilitate the identification of reasons, leading to lower levels of dumbfounded responding.
 
 
+#### 12/8/2025 ####
+
+rm(list=ls())
+
+
+
+# https://onlinelibrary.wiley.com/doi/full/10.1111/lang.12667
+
+# https://www.rdocumentation.org/packages/WebPower/versions/0.9.4/topics/wp.logistic
+
+# https://ccsarapas.github.io/lighthouse/reference/p_to_OR.html
+
+
+# install.packages("mclogit")
+# remotes::install_github("ccsarapas/lighthouse")
+# install.packages('WebPower')
+
+library(mclogit)
+library(pwr)
+library(effectsize)
+library(lighthouse)
+library(WebPower)
+
+
+
+N <- 240
+# session_seed <- 4
+save(N,file = "N.RData")
+
+source("simulate_data_scenario_within.R")
+
+x <- simulated_data_scenarios_within_sc
+
+x <- df
+table(x$temp,x$scenario)
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+
+
+m1a <- mblogit(formula=cs~temp#*scenario
+              , random = list(~1|ResponseId)
+             # , contrasts = list(scenario = contr.sum)
+              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs~temp*scenario
+              , random = list(~1|ResponseId)
+              # , contrasts = list(scenario = contr.sum)
+              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1d <- mblogit(formula=cs~temp*(JulieandMark+Jennifer+Trolley+Heinz)
+                , random = list(~1|ResponseId)
+                # , contrasts = list(scenario = contr.sum)
+                , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1c1 <- mblogit(formula=cs~temp*(JulieandMark+Jennifer+Trolley)
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c2 <- mblogit(formula=cs~temp*(JulieandMark+Jennifer+Heinz)
+                , random = list(~1|ResponseId)
+                # , contrasts = list(scenario = contr.sum)
+                , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c3 <- mblogit(formula=cs~temp*(JulieandMark+Trolley+Heinz)
+                , random = list(~1|ResponseId)
+                # , contrasts = list(scenario = contr.sum)
+                , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c3 <- mblogit(formula=cs~temp*(Jennifer+Trolley+Heinz)
+                , random = list(~1|ResponseId)
+                # , contrasts = list(scenario = contr.sum)
+                , data = x, method=c("PQL"), estimator=c("ML"))
+summary(m1a)
+summary(m1b)
+summary(m1)
+
+summary(m1d)
+
+
+MuMIn::QAIC(m1,chat = deviance(m1)/df.residual(m1) )
+stats::AIC(m1)
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+# lower AIC is better
+# lower BIC is better
+
+
+coefs <- summary(m1)$coefficients
+LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+OR <- exp(coefs[,1])
+ORLL <- exp(LLs)
+ORUL <- exp(ULs)
+HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+
+round(cbind(coefs, LLs, ULs), 4)
+round(cbind(OR, ORLL, ORUL, HHES), 4)
+
+
+round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+
+
+# or = ((p1/(1-p1))/(p2/(1-p2)))
+# or*(p2/(1-p2)) = p1/(1-p1)
+# p2/(1-p2) = (p1/(1-p1))/or
+# p2 = (1-p2) * ((p1/(1-p1))/or)
+
+
+OR_to_p2(.6, .3)
+
+or <- 1.437
+p0 <- .6
+p1 <- OR_to_p2(p0, or)
+p1
+
+p0
+
+wp.logistic(n = NULL, p0 = p0, p1 = p1, alpha = 0.05,
+            power = 0.9, family = "normal", parameter = c(0,1))
+
+
+
+
+load("pilot_data/loaded_data/onetoeight.RData")
+
+x <- onetoeight
+x$InCS
+
+levels(x$InCS[1])
+x$cs <- factor(x$InCS, levels =
+                 c(
+                   "It's wrong and I can provide a valid reason."
+                   ,"It's wrong but I can't think of a reason."
+                   ,"There is nothing wrong."
+                   ))
+
+
+x$ResponseId <- 1:length(x$InCS)
+
+m1 <- mblogit(formula=cs~condition, 
+              random = list(~1|ResponseId),  
+              data = x, method=c("PQL"), estimator=c("ML"))
+summary(m1)
+
+
+m1
+
+coefs <- summary(m1)$coefficients
+LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+OR <- exp(coefs[,1])
+ORLL <- exp(LLs)
+ORUL <- exp(ULs)
+HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+
+round(cbind(coefs, LLs, ULs), 4)
+round(cbind(OR, ORLL, ORUL, HHES), 4)
+
+
+round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+
+OR
+
+
+OR_to_p2(.6373802, .4201)
+
+or <- .4201
+p0 <- .6373802
+p1 <- OR_to_p2(p0, or)
+p1
+
+p0
+
+wp.logistic(n = NULL, p0 = p0, p1 = p1, alpha = 0.05,
+            power = 0.9, family = "normal"
+            , parameter = c(0,1)
+            )
+
+
+#### 29/9/2025 ####
+
+
+load("pilot_data/loaded_data/onetoeight.RData")
+
+
+df3 <- onetoeight_tot
+
+df3$changed <- (df3$ch1+df3$ch2+df3$ch3+df3$ch4+df3$ch5)!=FALSE
+df3$changed_tot <- df3$ch1+df3$ch2+df3$ch3+df3$ch4+df3$ch5
+
+hist(df3$changed_tot)
+
+#df3 <- three
+
+df1 <- df3[which(df3$changed==TRUE),]
+df1
+
+hist(df1$changed)
+
+# df1 <- df3
+df1$participant <- c(1:length(df1$condition))
+a <- rbind.data.frame(cbind(rep("j1",length(df1$j1)),df1$condition,df1$j1,df1$participant,as.vector(df1$InCS)),
+                      cbind(rep("j2",length(df1$j2)),df1$condition,df1$j2,df1$participant,as.vector(df1$InCS)),
+                      cbind(rep("j3",length(df1$j3)),df1$condition,df1$j3,df1$participant,as.vector(df1$InCS)),
+                      cbind(rep("j4",length(df1$j4)),df1$condition,df1$j4,df1$participant,as.vector(df1$InCS)),
+                      cbind(rep("j5",length(df1$j5)),df1$condition,df1$j5,df1$participant,as.vector(df1$InCS)),
+                      cbind(rep("j6",length(df1$j6)),df1$condition,df1$j6,df1$participant,as.vector(df1$InCS)))
+
+colnames(a) <- c("judgement_time","condition","judgement","participant","critical_slide")
+
+
+
+
+b <- rbind.data.frame(cbind(rep("j1",length(df3$j1)),df3$condition,df3$j1,df3$participant,as.vector(df3$InCS)),
+                      cbind(rep("j2",length(df3$j2)),df3$condition,df3$j2,df3$participant,as.vector(df3$InCS)),
+                      cbind(rep("j3",length(df3$j3)),df3$condition,df3$j3,df3$participant,as.vector(df3$InCS)),
+                      cbind(rep("j4",length(df3$j4)),df3$condition,df3$j4,df3$participant,as.vector(df3$InCS)),
+                      cbind(rep("j5",length(df3$j5)),df3$condition,df3$j5,df3$participant,as.vector(df3$InCS)),
+                      cbind(rep("j6",length(df3$j6)),df3$condition,df3$j6,df3$participant,as.vector(df3$InCS)))
+
+colnames(b) <- c("judgement_time","condition","judgement","participant","critical_slide")
+
+
+
+rm(df1)
+
+ggplot(a, aes(x = judgement_time
+              , y = judgement
+              , linetype = condition
+              , color=participant
+)) + #+ geom_point(size=1,position = position_jitter(width = 0.01, height = 0.01))
+  geom_line(aes(group=interaction(a$participant,a$condition)),size=.4,position=position_jitter(width = .18, height = .07)) +
+  #ggtitle("Changes in Judgement") +
+  xlab("Time of Judgement") + ylab("Valence of Judgement") +
+  scale_x_discrete(labels=c("Initial\nJudgement", "Q1", "Q2", "Q3", "Critical\nslide", "Revised\nJudgement")) +
+  #scale_color_manual(values = c("black","dark grey"), name="Experimental\nCondition", labels=c("Cognitive load", "Control")) + theme_bw() +
+  scale_linetype_manual(values = c("solid","dashed"), name="Experimental\nCondition", labels=c("Cognitive load", "Control")) + theme_bw() +
+  #scale_linetype_manual(values=c("dotted","solid", "longdash"), name="Response to\nCritical slide", labels=c("reason","no reason", "nothing wrong"))+ theme_bw() +
+  theme(plot.title=element_text(family="Times", size=12), legend.text=element_text(family="Times", size=10), legend.title=element_text(family="Times", size=12), axis.text=element_text(family="Times", size=10), axis.title=element_text(family="Times", size=12))
+
+
+ggplot(a, aes(x = judgement_time, y = judgement, color = condition, linetype = critical_slide)) + #+ geom_point(size=1,position = position_jitter(width = 0.01, height = 0.01))
+  geom_line(aes(group=interaction(a$condition,a$participant)),size=.4,position=position_jitter(width = .18, height = .07)) +
+  #ggtitle("Changes in Judgement") +
+  xlab("Time of Judgement") + ylab("Valence of Judgement") +
+  scale_x_discrete(labels=c("Initial\nJudgement", "Q1", "Q2", "Q3", "Critical\nslide", "Revised\nJudgement")) +
+  #scale_color_manual(values = c("black","#848484"), name="Experimental\nCondition", labels=c("Cognitive load", "Control")) +
+  scale_linetype_manual(values=c("dotted","solid", "longdash"), name="Response to\nCritical slide", labels=c("reason","no reason", "nothing wrong"))+ theme_bw() + 
+  theme(plot.title=element_text(family="Times", size=12), legend.text=element_text(family="Times", size=10), legend.title=element_text(family="Times", size=12), axis.text=element_text(family="Times", size=10), axis.title=element_text(family="Times", size=12))
+rm(a,b,p)
 

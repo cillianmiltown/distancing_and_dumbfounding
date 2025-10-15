@@ -1,0 +1,31 @@
+Thank you for the opportunity to review the registration report for Stage 1, 'Space to Think: Testing the Effect of Distancing on Moral Dumbfounding.' I believe that the core idea of examining the moral dumbfounding phenomenon through the lens of Construal Level Theory is a promising approach.
+However, I have some methodological concerns that temper my enthusiasm for the paper. Below, I include comments and questions.
+
+(1) The authors should check the methodology of these two replication studies falsifying CLT:
+
+Gong, H., & Medin, D. L. (2012). Construal levels and moral judgment: Some complications. Judgment and Decision making, 7(5), 628-638.
+Žeželj, I. L., & Jokić, B. R. (2014). Replication of experiments evaluating impact of psychological distance on moral judgment. Social Psychology.
+
+(2) For instance, Zezelj and Jokic (2014) asked participants to evaluate the moral wrongness of the classic three scenarios (eating one’s dead pet, sexual intercourse with sibling, dusting with national flag). The researchers manipulated temporal distance by asking participants to imagine that the event will happen “the next day” or “the next year”. Temporal distance had no effect on moral wrongness judgments; in Study 3, they tested again and could not verify the effect of temporal distance. However, social distance manipulations were found to be effective.
+
+The authors aimed to manipulate temporal distance on pg. 8 “ In the control condition, participants will not be provided with any instructions about a time frame; in the increased temporal distance condition, participants will be asked to imagine responding in the distant future (five weeks from now); in the reduced distance condition, participants will be asked to imagine responding in the near future (two to three hours from now).”
+
+Even though DVs are different, Zezelj and Jokic examined moral wrongness judgments; however, the authors want to examine reason-giving, and I still doubt the effectiveness of this manipulation.
+
+(3) A manipulation check is necessary to ensure that temporal distance manipulation increases reason-giving. Then, testing this idea in cases that trigger moral dumbfounding would be better. Another option would be testing the manipulations of social distance, how-why technique, and temporal distance on reason-giving. Then, the most effective ones might be used in the main study.
+
+(4) On pg. 11-12 “Participants will be asked to rate on a 7-point Likert scale how right or wrong the behavior described is (where 1 = morally wrong; 4 = neutral; 7 = morally right), as well as their confidence in this judgment (where 1 = not at all confident; 7 = extremely confident). Participants will then be given an opportunity to provide reasons for their judgment” I do not understand here. Following the evaluation of the scenario, will participants be allowed to provide reasons for their judgment? Why?
+
+a. If yes, this might interfere with the manipulation effect as people are equipped with reason-based thinking. So, the question is whether the high-reason-giving results are obtained from CLT manipulation or by asking participants’ reasons before they provide reasons.
+
+b. Will participants provide their answers in response to this question -julie&mark scenario-, e.g. “And do you accept that they are both consenting adults, and that they both consented and enjoyed it?” Is this question asked to test whether participants understood/read the scenario?
+
+(5) I also do not understand why participants will be asked whether they change their minds. Changing minds is a measure that can be tested with a within-subjects-design. However, if I do not miss anything here, participants will be randomly assigned to manipulation conditions. If the authors aim to compare participants’ responses under “counter-arguments” and “critical slide,” this also seems problematic to me. As I do not grasp what is measured with these responses. Let’s say I am one of the participants, and I respond, “No, I do not accept what they did, but yes, they consented and enjoyed the act as it is written in the scenario.” to your question, “do you accept that they are both consenting adults, and that they both consented and enjoyed it?” Does it assess whether I understand the acts in the scenario or my point of view?
+
+(6) Theory-driven question: On pg. 6, it is written that “Applied to the available responses in the dumbfounding paradigm, providing a reason for a moral judgment (reason giving) involves the most deliberation; providing a dumbfounded response (dumbfounding) involves the least amount of deliberation; and selecting “There is nothing wrong” (nothing wrong) involves less deliberation than reason-giving, but more deliberation than dumbfounding (deliberation may lead participants to accept the counter-arguments, and revise their judgment rather than deliberate further to identify alternative reasons).”
+
+For instance, will participants who are dumbfounded say “there is nothing wrong” with the incest scenario? Haidt explained that if the intuitions are highly strong, people are dumbfounded and find the act unacceptable. If there are possible alternatives to making the act acceptable, then people will not be dumbfounded as they can think reason-based. Dumbfounded people can also find reasons to support their intuitions, so the problem is not finding a reason but a counter-reason. So, the main question is, which reasons will the authors look at? Is High-reason-giving automatically considered that people think reason-based and less dumbfounded?
+
+One possible solution would be to look at “reasons supporting the intuition (with intuition, I mean disapproving or approving the act in a given scenario)” and “reasons falsifying the intuition” across manipulation conditions.
+
+Overall, I hope my questions and comments do not overwhelm the authors. While I am impressed with the core idea, I am confused by certain methodological and theoretical aspects.

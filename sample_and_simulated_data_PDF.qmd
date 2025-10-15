@@ -11,45 +11,21 @@ author:
     #   - Writing - original draft
     #   - Project administration
     #   - Formal Analysis
-  - name: Cillian McHugh
+  - name: Blinded
     corresponding: true
     #orcid: 0000-0002-9701-3232
-    email: cillian.mchugh@ul.ie
+    email: blinded@blinded.com
     #url: https://example.org/
     # Select from the CRediT: Contributor Roles Taxonomy https://credit.niso.org/
     # role:
     affiliations:
       - id: id1
-        name: University of Limerick
-        department: Department of Psychology
+        name: Blinded
+        department: Blinded
         #address: 1234 Capital St.
-        city: Limerick
-        region: Ireland
-        postal-code: V94 T9PX
-  - name: Marek McGann
-    #orcid: 0000-0002-2452-6053
-    # role:
-    affiliations: 
-      - id: id2
-        name: Mary Immaculate College
-        department: Department of Psychology
-        address: South Circular Road
-        city: Limerick
-        region: Ireland
-  - name: Eric R. Igou
-    #orcid: 0000-0001-7744-9648
-    # role:
-    affiliations:
-      - ref: id1
-      # - name: Carina's Primary Affiliation
-      # - name: Carina's Secondary Affiliation
-  - name: Elaine L. Kinsella
-    #orcid: 0000-0003-4835-8581
-    # role:
-    affiliations:
-      - ref: id1 #~
-        # city: Buffalo
-        # region: NY
+        city: Blinded
+        region: Blinded
+        postal-code: Blinded
 author-note:
   blank-lines-above-author-note: 0
   status-changes: 

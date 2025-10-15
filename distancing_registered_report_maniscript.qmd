@@ -50,6 +50,56 @@ author:
       - ref: id1 #~
         # city: Buffalo
         # region: NY
+  - name: Kathryn Francis
+    #orcid: 0000-0002-2452-6053
+    # role:
+    affiliations: 
+      - id: id3
+        name: Keele University
+        department: School of Psychology
+        #address: South Circular Road
+        city: Keele
+        region: UK
+  - name: Mariola Paruzel-Czachura
+    #orcid: 0000-0002-2452-6053
+    # role:
+    affiliations: 
+      - id: id4
+        name: University of Silesia
+        department: Department of Psychology
+        #address: South Circular Road
+        city: Silesia
+        region: Poland
+  - name: Cristián Guillermo Rodríguez
+    #orcid: 0000-0002-2452-6053
+    # role:
+    affiliations: 
+      - id: id5
+        name: Universidad de los Andes
+        department: Department of Psychology
+        #address: South Circular Road
+        city: Los Andes
+        region: Chile
+  - name: Bryan Pang
+    #orcid: 0000-0002-2452-6053
+    # role:
+    affiliations: 
+      - id: id6
+        name: University of Illinois
+        department: Department of Psychology
+        #address: South Circular Road
+        city: Urbana
+        region: USA
+  - name: Ana Gantman
+    #orcid: 0000-0002-2452-6053
+    # role:
+    affiliations: 
+      - id: id7
+        name: Brooklyn College CUNY
+        department: Department of Psychology
+        #address: South Circular Road
+        city: New York
+        region: USA
 author-note:
   blank-lines-above-author-note: 0
   status-changes: 
@@ -138,7 +188,7 @@ library(officer)
 library(knitr)
 conflicts_prefer(dplyr::filter, .quiet = TRUE)
 conflicts_prefer(flextable::separate_header, .quiet = TRUE)
-#devtools::install_github("crsh/citr")
+devtools::install_github("crsh/citr")
 library(citr)
 #install.packages("sjstats")
 library(plyr)
@@ -161,7 +211,7 @@ library(scales)
 # BiocManager::install("multtest")
 # install.packages("multtest")
 # install.packages("mutoss")
-# install.packages("metap")
+#install.packages("metap")
 library(metap)
 library(pwr)
 library(lsr)
@@ -183,44 +233,58 @@ library(grid)
 ```
 
 
+> *"This line of thinking is morally wrong"* [US Representative discussing role of parents/schools in raising children in the House of Representatives in -@douglas_la_malfa_parents_2023]
 
-Think about any politically charged, contentious issue in your country or region and consider how this issue might be discussed in the media. In particular, imagine a TV or radio debate between advocates on either side of the issue. In such a debate, it is plausible that the speakers might defend their positions with statements related to the morality of the issue. Proponents may argue for something "because it is the right thing to do" while opponents may reject something "because it is just plain wrong". These claims regarding morality (or immorality) are often presented as self-evident [@skitka_psychology_2010], without providing justification or reasons for the position, and it is not always apparent if the speakers would be able to provide a justification if they were pressed. Indeed, there is good reason to expect that in at least some cases, the speakers would fail to provide reasons in support of their moral position, and present as morally dumbfounded [e.g., @haidt_moral_2000; @mchugh_searching_2017a; @mchugh_just_2023; see also @macnab_msps_2016; @sim_msps_2016]. 
+> *"The Bill is unnecessary and it is poorly drafted, but above all, it is deeply wrong..."* [UK Politician discussing free speech in Universities in UK Parliament in -@kate_green_higher_2021]
 
-Moral dumbfounding occurs when people maintain a moral judgment even though they cannot provide a reason in support of this judgment [@haidt_moral_2000; @mchugh_searching_2017a]. While perhaps not as prevalent as initially thought [e.g., @royzman_curious_2015; see also @mchugh_reasons_2020], there is a growing body of evidence demonstrating that it is a robust phenomenon [with rates of dumbfounded responding ranging from 9% to 36% depending on the scenario and the population, see @mchugh_just_2023].
+> *"I appeal to the Minister to put this Bill on the shelves of his Department and to leave it to become surrounded by cobwebs ... Artificial contraception is morally wrong."* [Irish Politician discussing contraception in the Dáil in -@oliver_j_flanagan_health_1979]
 
-Previous research has demonstrated that under cognitive load, dumbfounded responding can increase [@mchugh_cognitive_2023], providing support for a dual-process explanation of moral dumbfounding. Here we extend this finding and attempt to develop an experimental manipulation that can reduce dumbfounded responding. In line with a dual-process approach, and drawing on construal-level theory [@liberman_effect_2002; @forster_temporal_2004] we aim to test whether distancing manipulations designed to facilitate abstract/analytical thinking can increase reason-giving and reduce moral dumbfounding.
+The quotes above demonstrate some of the ways people might appeal to morality when discussing an issue. Such moral appeals are not uncommon and are often presented as self-evident [@skitka_psychology_2010], without providing justification or reasons for the position. Think about any politically charged, contentious issue in your country or region and consider how it might be debated in the media. Proponents may argue for something "because it is the right thing to do" while opponents may reject something "because it is just plain wrong". It is not always apparent if the speakers would be able to provide a justification if they were pressed. In fact, there is good reason to expect that, at least in some cases, speakers could fail to provide reasons in support of their moral position [e.g., @haidt_moral_2000; @mchugh_searching_2017a; @mchugh_just_2023; see also @macnab_msps_2016; @sim_msps_2016]. 
+
+This failure to provide reasons for a moral judgment is known as moral dumbfounding [@haidt_moral_2000; @mchugh_searching_2017a]. While perhaps not as prevalent as initially thought [e.g., @royzman_curious_2015; see also @mchugh_reasons_2020], there is a growing body of evidence demonstrating that it is a robust phenomenon [with rates of dumbfounded responding ranging from 9% to 36% depending on the scenario and the population, see @mchugh_just_2023]. Here we examine one possible explanation for moral dumbfounding and test the efficacy of one strategy that might help reduce dumbfounding.
 
 # Moral Dumbfounding as a Conflict in Dual-Processes
 
-@mchugh_cognitive_2023 present a dual-process explanation of moral dumbfounding. Specifically, they draw on dual-process theories of reasoning and moral judgment [e.g., @bago_intuitive_2019; @cushman_action_2013; @greene_secret_2008], to explain moral dumbfounding as occurring as a result of a conflict in dual-processes [e.g., @bonner_conflict_2010]. Conflicts in dual-processes occur when a habitual/intuitive response is different from a response that results from deliberation [e.g., base-rate neglect @bonner_conflict_2010; @deneys_conflict_2008]. For example in classic base-rate neglect studies, participants are provided with a base rate (e.g., a sample contains descriptions of 995 women and 5 men). Participants are then provided with a description apparently taken at random from the sample and asked to estimate the probability that the person described is male. In cases where the description appears to resemble a stereotypical man, the intuitive response (judgement based on the description) is in conflict with the deliberative response [accounting for the base rates, see @deneys_conflict_2014].
+@mchugh_cognitive_2023 proposed a dual-process explanation of moral dumbfounding. Drawing on dual-process theories of reasoning and moral judgment [e.g., @bago_intuitive_2019; @cushman_action_2013; @greene_secret_2008], they argue that moral dumbfounding occurs as a result of a conflict in dual-processes [e.g., @bonner_conflict_2010; @deneys_conflict_2008]. Conflicts in dual-processes occur when a habitual/intuitive response (making a moral judgment) is different from a response that results from deliberation (providing reasons for a moral judgment).
+
+According to this view, rates of reason-giving should be reduced in situations where deliberation is inhibited. @mchugh_cognitive_2023 tested this prediction and demonstrated that a cognitive load manipulation (requiring participants to attend to a secondary task while responding to the moral dumbfounding protocol) led to reduced rates of reason-giving and higher rates of dumbfounding [@mchugh_cognitive_2023].
+
+Another prediction of this approach is that under conditions where deliberative responding is more likely, rates of reason-giving should increase and rates of dumbfounding should decrease. We draw on research on construal level theory and psychological distance [e.g., @trope_construallevel_2010], and predict that under conditions of increased psychological distance, rates of reason-giving should be higher.
+
+# Distancing and Dumbfounding
+
+Psychological distance is the degree to which something is removed from direct experience. There are four dimensions of psychological distance [@trope_construallevel_2010]: temporal distance (thinking about past/future events), spatial distance (thinking about spatially remote locations), social distance (perspective taking), and hypotheticality (thinking about hypothetical situations). Psychological distance is linked with construal level theory such that increased psychological distance is assiciated with higher level construals [@trope_construallevel_2010]. 
+
+According to construal level theory, greater psychological distance is associated with higher level construals, while decreased psychological distance is associated with lower level construals. Construal level is related to abstraction, whereby higher levels of construal are associated with more abstract thinking [@bar-anan_association_2006]. Importantly for the current research, level of abstraction can be linked with the higher or lower levels of deliberation [@evans_dualprocess_2013]. Specifically, more abstract thinking is typically associated with more analytical or deliberative thinking, while less abstraction (more concrete thinking) is associated with less deliberative (more intuitive) thinking [@evans_dualprocess_2013]. We propose that manipulations that increase psychological distance and promote higher level construals, will yield more analytical/deliberative thinking, and will facilitate reason-giving in a moral dumbfounding task.
+
+In-line with @mchugh_cognitive_2023, we have mapped the three responses in the dumbfounding paradigm according to their relative amount of deliberation. According to this view, providing a reason for a moral judgment (reason-giving) involves the most deliberation, providing a dumbfounded response (dumbfounding) involves the least amount of deliberation, and selecting "There is nothing wrong" (nothing-wrong) involves less deliberation than reason-giving, but more deliberation than dumbfounding (see {apafg-summaryfigure}). Based on this, we predict that under conditions of increased psychological distance, rates of reason-giving will increase, while rates of nothing-wrong, and dumbfounding will decrease.
+
 
 
 ```{r}
 #| label: apafg-summaryfigure
 #| include: true
 #| apa-cap: Hypothesized level of deliberation for each response type in the dumbfounding paradigm
-#| apa-note: Reproduced from McHugh et al., (2023)
+#| apa-note: Reproduced from McHugh, McGann, et al., (2023)
 #| out-width: 50%
 
 
 knitr::include_graphics("resources/img/responses_figure4.jpg")
 ```
 
-Understanding dumbfounding as a conflict in dual-processes requires the responses in the dumbfounding paradigm to be mapped according their relative amount of deliberation. @mchugh_cognitive_2023 propose this mapping for each of the three responses, reason-giving, nothing-wrong, and dumbfounding. They propose that providing a reason for a moral judgment (reason-giving) involves the most deliberation, providing a dumbfounded response (dumbfounding) involves the least amount of deliberation, and selecting "There is nothing wrong" (nothing-wrong) involves less deliberation than reason-giving, but more deliberation than dumbfounding (see {apafg-summaryfigure}). This mapping allows for testable predictions regarding the influence of specific experimental manipulations on the rates of these different responses in the dumbfounding paradigm.
-
-One such prediction is that in situations where deliberation is inhibited, rates of reason-giving should be reduced and rates of of dumbfounding (or nothing-wrong) should be higher. @mchugh_cognitive_2023 tested this prediction and demonstrated that a cognitive load manipulation (requiring participants to attend to a secondary task while responding to the moral dumbfounding protocol) led to reduced rates of reason-giving and higher rates of dumbfounding [@mchugh_cognitive_2023].
-
-Another prediction of this approach is that under conditions where deliberative responding is more likely, rates of reason-giving should increase and rates of dumbfounding (or nothing-wrong) should decrease. We draw on research on construal level theory and psychological distance [e.g., @trope_construallevel_2010], and predict that under conditions of increased psychological distance, rates of reason-giving should be higher.
-
-Psychological distance is linked with construal level theory such that increased psychological distance is assiciated with higher level construals [@trope_construallevel_2010]. Psychological distance is the degree to which something is removed from direct experience. There are four dimensions of psychological distance [@trope_construallevel_2010]: temporal distance (thinking about past/future events), spatial distance (thinking about spatially remote locations), social distance (perspective taking), and hypotheticality (thinking about hypothetical situations).
-
-According to construal level theory, greater psychological distance is associated with higher level construals, while decreased psychological distance is associated with lower level construals. Construal level is related to abstraction, whereby higher levels of construal are associated with more abstract thinking [@bar-anan_association_2006]. Importantly for the current research, level of abstraction can be linked with the higher or lower levels of deliberation [@evans_dualprocess_2013]. Specifically, more abstract thinking is typically associated with more analytical or deliberative thinking, while less abstraction (more concrete thinking) is associated with less deliberative (more intuitive) thinking [@evans_dualprocess_2013]. We propose that manipulations that increase psychological distance and promote higher level construals, will yield more analytical/deliberative thinking, and will facilitate reason-giving in a moral dumbfounding task.
 
 # The Current Research
-The current research tests the prediction that manipulations designed to increase psychological distance will facilitate reason-giving in a moral dumbfounding task. We will test two different manipulations across two domains of psychological distance, social distance and temporal distance. We predict that under increased psychological distance (social distance or psychological distance), rates of reason-giving will be higher than in a control group or under reduced psychological distance.
+The current research tests the prediction that manipulations designed to increase psychological distance will facilitate reason-giving in a moral dumbfounding task. We will test two different manipulations across two domains of psychological distance, social distance and temporal distance. We predict that under increased psychological distance (social distance or temporal distance), rates of reason-giving will be higher than in a control group or under reduced psychological distance.
 
+\newpage
 
 # Method
+## Participants and Design
+
+The proposed study will be a 2 $\times$ 3 between-subjects design. The dependent variable is rates of reason-giving/dumbfounding (measured using the critical slide with 3 response options: 1: reason-giving; 2: nothing-wrong; 3: dumbfounded response - admission). The first independent variable is social distance with two levels: control, and increased social distance. Social distance will be manipulated manipulated by asking participants to think about the moral dilemma for themselves (control), or from the perspective of another person (increased social distance). The second independent variable is temporal distance, with three levels: control, reduced temporal distance, and increased temporal distance. Temporal distance will be manipulated by varying the instructions provided to participants. In the control condition, participants will not be provided with any instructions about a time frame; in the increased temporal distance condition, participants will be asked to imagine responding in the distant future (five weeks from now); in the reduced distance condition, participants will be asked to imagine responding in the near future (two to three hours from now). In line with @mchugh_cognitive_2023, we will use four scenarios, and as such *scenario* will function as a third independent variable in some of our analyses.
+
+In order to determine our target sample size, we conducted a series of power analyses for of our planned analyses for large, medium, and small effect sizes. Our planned design will require three different analyses to test our hypotheses. First we will investigate the influence of social distance on reason-giving (Analysis 1: one independent variable with 2 levels). Second we will investigate the influence of temporal distancing on reason-giving (Analysis 2: one independent variable with 3 levels). Third we will investigate the combined influence of social, and temporal distancing on reason-giving (Analysis 3: two independent variables, 2 $\times$ 3 levels). We set our target power as 90% and calculated the minimum sample size required to detect large, medium, and small effects for each analysis. The minimum sample sizes required for each effect size for each analysis are detailed in Table 1.
+
 
 ```{r}
 #| include: false
@@ -270,6 +334,9 @@ analysis1 <- c(round(pwr::pwr.chisq.test(w=small,df=(df),sig.level = .05, power=
                , medium
                ,round(pwr::pwr.chisq.test(w=large,df=(df),sig.level = .05, power=.9)$N)
                , large)
+
+analysis1 <- round(analysis1[c(6,5,4,3,2,1)],digits = 2)
+
 df <- 4
 small <- .1/sqrt(df)
 medium <- .3/sqrt(df)
@@ -280,6 +347,8 @@ analysis2 <- c(round(pwr::pwr.chisq.test(w=small,df=(df),sig.level = .05, power=
                , medium
                ,round(pwr::pwr.chisq.test(w=large,df=(df),sig.level = .05, power=.9)$N)
                , large)
+analysis2 <- round(analysis2[c(6,5,4,3,2,1)],digits = 2)
+
 df <- 10
 small <- .1/sqrt(df)
 medium <- .3/sqrt(df)
@@ -290,25 +359,43 @@ analysis3 <- c(round(pwr::pwr.chisq.test(w=small,df=(df),sig.level = .05, power=
                , medium
                ,round(pwr::pwr.chisq.test(w=large,df=(df),sig.level = .05, power=.9)$N)
                , large)
+analysis3 <- round(analysis3[c(6,5,4,3,2,1)],digits = 2)
 
 power_table <- 
   `rownames<-`(
-    `colnames<-`(rbind(analysis1,analysis2,analysis3),
+    `colnames<-`(rbind(analysis2,analysis2,analysis3),
                  c("Small","V","Medium","V","Large","V")),
-    c("Analysis 1", "Analysis 2", "Analysis 3"))
+    c("Analysis 1: Social Distance", "Analysis 2: Temporal Distance", "Analysis 3: Combined Social & Temporal"))
+
+
+power_table <- 
+  `colnames<-`(
+    `rownames<-`(cbind(analysis1,analysis2,analysis3),
+                 c("Small","V","Medium","V","Large","V")),
+    c("Analysis 1: Social Distance", "Analysis 2: Temporal Distance", "Analysis 3: Combined Social & Temporal"))
+
+
+power_table <- 
+  `colnames<-`(
+    #`rownames<-`(
+      cbind(c("Large","","Medium","","Small","")
+            ,c("V","N","V","N","V","N")
+            ,analysis1,analysis2,analysis3)
+      #,c("Small","V","Medium","V","Large","V")
+      #)
+    ,
+    c(" ","  ", "Analysis 1: Social", "Analysis 2: Temporal", "Analysis 3: Combined"))
+
+
+
+
 power_table
 ```
 
-A series of power analyses were conducted to determine the optimum sample size for this study based on three key hypotheses testing analyses. Our design will investigate the influence of Social Distance (2 levels: analysis 1), Temporal Distance (3 levels, analysis 2), and the combined influence of both Social and Temporal Distance (analysis 3) on rates of reason-giving.
-
-
-
-
 ```{r}
 #| include: true
-
 #| results: asis
-#| include: true
+
 
 papaja::apa_table(
    power_table
@@ -327,24 +414,24 @@ papaja::apa_table(
 ```{r}
 #| include: false
 
-N1 <- 4800
+N1 <- 2400
 df <- 2
 analysis1a <- pwr::pwr.chisq.test(N = N1,df=(df),sig.level = .05, power=.9)$w
-N1 <- 4800
+N1 <- 2400
 df <- 4
 analysis2a <- pwr::pwr.chisq.test(N = N1,df=(df),sig.level = .05, power=.9)$w
-N1 <- 4800
+N1 <- 2400
 df <- 10
 analysis3a <- pwr::pwr.chisq.test(N = N1,df=(df),sig.level = .05, power=.9)$w
 
 
-N1 <- 1200
+N1 <- 600
 df <- 2
 analysis1b <- pwr::pwr.chisq.test(N = N1,df=(df),sig.level = .05, power=.9)$w
-N1 <- 1200
+N1 <- 600
 df <- 4
 analysis2b <- pwr::pwr.chisq.test(N = N1,df=(df),sig.level = .05, power=.9)$w
-N1 <- 1200
+N1 <- 600
 df <- 10
 analysis3b <- pwr::pwr.chisq.test(N = N1,df=(df),sig.level = .05, power=.9)$w
 
@@ -354,12 +441,12 @@ scenarios <- c(analysis1b, analysis2b, analysis3b)
 effect_table <- `rownames<-`(
   `colnames<-`(
     cbind.data.frame(
-      rep(4800,3)
+      rep("2,400",3)
       ,overall
-      ,rep(1200,3)
+      ,rep("600",3)
       ,scenarios)
     , c("Overall N", "Overall V", "Scenario N", "Scenario V")
-  ),c("Analysis 1", "Analysis 2", "Analysis 3")
+  ),c("Analysis 1: Social", "Analysis 2: Temporal", "Analysis 3: Combined")
 )
 
 ```
@@ -367,9 +454,8 @@ effect_table <- `rownames<-`(
 
 ```{r}
 #| include: true
-
 #| results: asis
-#| include: true
+
 
 papaja::apa_table(
    effect_table
@@ -383,6 +469,48 @@ papaja::apa_table(
 )
 
 ```
+
+
+Based on these analyses we set our target sample at *N* = 2,400. This sample size is sufficient to detect a medium effect in Analysis 3 (the combined effects of social and temporal distance). It also allows for sub samples of *n* = 600 for each scenario, and as such the minimum number of participants at each level of the temporal distance independent variable for each scenario will be *n* = 200. Based on this target sample of *N* = 2,400 we have identified the smallest effect size that can be detected with 90% power for each analysis, for the full sample, and for the scenario-level sub-samples. These are displayed in Table 2. 
+
+Participants will primarily be recruited through a combination of convenience and snowball sampling in the institutions each of the members of the research team. Some participants may be recruited using the SONA research participation system where available. Additional participants may be recruited through online research participation systems (e.g., Prolific / Lucid / CloudResearch / MTurk) if necessary.
+
+
+## Procedure and Materials
+Data will be collected using an online survey programmed in Qualtrics (or comparable package). On agreeing to take part in the survey participants will be randomly assigned to one of six experimental groups (reflecting the 2 $\times$ 3 design). At this point participants will be presented with an instruction page that will contain the experimental manipulation. 
+
+In the social distance *control* condition, participants will not receive instructions to think about the scenario/questions from a perspective other than their own. They will simply be told that the following page contains a description of a scenario and a series of questions relating to the scenario.
+
+In the *increased* social distance (manipulation) condition, participants will be introduced to a philosophy student (Alex) who is currently taking a course in ethics. Participants will then be told that the next page contains a scenario and a series of questions that Alex has been asked to study and complete an assignment on. Participants will be instructed to think about the scenario and the related questions from Alex's perspective rather than their own.
+
+In the temporal distance *control* condition, participants will not receive instructions regarding responding to the scenario within any particular time-frame.
+
+In order to manipulate temporal distance, participants in both temporal distance manipulation conditions will be asked to consider the scenario as if it related to an assignments as part of an ethics course, either imagining that they are completing such a course (social distance control group) or on behalf of Alex (increased social distance group). In the *increased* temporal distance condition, participants will be asked to imagine the deadline for this assignment is five weeks away. In the *reduced* temporal distance condition, this deadline is within 2-3 hours.
+
+A summary of the key differences between the different conditions is outlined in {apafg-summaryconditions} (see the supplementary materials for the full text of the instructions for each condition).
+
+
+```{r}
+#| label: apafg-summaryconditions
+#| include: true
+#| apa-cap: Summary of the different experimental conditions
+#| out-width: 100%
+
+
+knitr::include_graphics("resources/img/summary_conditions.png")
+```
+
+Following the experimental manipulation, participants will be presented with one of four moral scenarios (*Heinz*, *Trolley*, *Jennifer*, and *Julie and Mark*) previously used in the study of moral dumbfounding [@mchugh_searching_2017a], and the influences on moral dumbfounding [@mchugh_cognitive_2023]. Participants will be asked to rate on a 7-point Likert scale how right or wrong the behavior described is (where, 1 = *Morally wrong*; 4 = *neutral*; 7 = *Morally right*), as well as their confidence in this judgment (where, 1 = *Not at all confident*; 7 = *Extremely confident*). Participants will then be given an opportunity to provide reasons for their judgment. Following this, participants will be presented with a series of counter-arguments, which refute commonly used justifications for rating the behavior as “wrong” (see supplementary materials for full text of scenarios and all counter-arguments).
+
+After each counter-argument participants will be asked if they (or Alex) view (should rate) the behaviour as wrong, and if they have a reason for this judgement. Following the counter-arguments and related questions, dumbfounding will be measured using the critical slide [@mchugh_searching_2017a]. This contains a statement defending the behavior and a question as to how the behavior could be wrong (e.g., "Jennifer's actions did not harm anyone, or negatively affect anyone. How can there be anything wrong with what she did?"). There are three possible answer options (presented in randomized order): (a) "It’s wrong, and I can provide a valid reason" (reasons-giving); (b) "It’s wrong, but I can’t think of a reason" (dumbfounding: an admission of not having reasons); (c) "There is nothing wrong" (nothing-wrong). Participants who select (a) will be prompted to type a reason on the next page.
+
+Two attention check tasks will be included for all participants; these included a brief paragraph of text where instructions for the correct response were embedded within the text. The wording of the text is misleading such that if participants skim or only read some of the text, they will likely provide an incorrect response. Participants who fail both attention checks will be excluded from analysis. Participants will also be asked to report basic demographic information including age, gender, nationality, religion, and place of residence.
+
+When participants click on the survey link, they will be randomly assigned to one of the six experimental groups, and randomly presented with one of the four moral scenarios. The study duration is estimated to be less than 5 minutes.
+
+## Analysis Plan
+
+We will conduct a combination of chi-squared test for independence, and multinomial logistic regressions to test each of our hypotheses. Our primary analysis for each hypothesis will be a chi-squared test for independence, where we will test for an association between experimental condition/experimental group and response to the critical slide. We will also conduct logistic regressions to test each hypothesis, this will allow us to additionally control for other variables (e.g., scenario or participant country) in our analysis. 
 
 \pagebreak
 
@@ -401,5 +529,11 @@ papaja::apa_table(
 
 
 \pagebreak
+
+&nbsp;
+
+\pagebreak
+
+
 
 # References

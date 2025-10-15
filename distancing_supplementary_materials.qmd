@@ -192,6 +192,7 @@ editor_options:
 
 \raggedbottom
 
+
 ```{r}
 #| label: setup
 #| include: false
@@ -251,16 +252,41 @@ library(grid)
 # Scenarios
 
 ## Heinz
-In Europe, a woman was near death from a very bad disease, a special kind of cancer. There was one drug that the doctors thought might save her. It was a form of radium for which a druggist was charging ten times what the drug cost him to make. The sick woman's husband, Heinz, went to everyone he knew to borrow the money, but he could only get together about half of what it cost. He told the druggist that his wife was dying, and asked him to sell it cheaper or let him pay later. But the druggist said, "No, I discovered the drug and I'm going to make money from it." So, Heinz got desperate and broke into the man's store to steal the drug for his wife. The druggist had Heinz arrested and charged.
+
+Imagine that in Europe, a woman is near death from a very bad disease, a special kind of cancer. There is one drug that the doctors think might save her. It is a form of radium for which a druggist is charging ten times what the drug cost him to make. The sick woman's husband, Heinz, has approached everyone he knows to borrow the money, but he has only been able to get together about half of what it cost. He has told the druggist that his wife was dying, and asked him to sell it cheaper or let him pay later. But the druggist said, "No, I discovered the drug and I'm going to make money from it." So, Heinz gets desperate and brakes into the man's store to steal the drug for his wife. The druggist has Heinz arrested and charged.
 
 ## Trolley
-A Trolley is hurtling down a track towards five people. It will kill them all on impact. Paul is on a bridge under which it will pass. He can stop it by putting something very heavy in front of it. As it happens, there is a very fat man next to him – Paul's only way to stop the trolley is to push him over the bridge and onto the track, killing him to save five. Paul decides to push the man.
+Imagine that a Trolley is hurtling down a track towards five people. It will kill them all on impact. Paul is on a bridge under which it will pass. He can stop it by putting something very heavy in front of it. As it happens, there is a very large man next to him – Paul's only way to stop the trolley is to push him over the bridge and onto the track, killing him to save five. Paul decides to push the man.
 
 ## Jennifer
-Jennifer works in a medical school pathology lab as a research assistant. The lab prepares human cadavers that are used to teach medical students about anatomy. The cadavers come from people who had donated their body for the general use of the researchers in the lab. The bodies are normally cremated, however, severed cuts may be disposed of at the discretion of lab researchers, One night Jennifer is leaving the lab when she sees a body that is going to be discarded the next day. Jennifer was a vegetarian, for moral reasons. She thought it was wrong to kill animals for food. But then, when she saw a body about to be cremated, she thought it was irrational to waste perfectly edible meat. So she cut off a piece of flesh, and took it home and cooked it. The person had died recently of a heart attack, and she cooked the meat thoroughly, so there was no risk of disease
+Imagine a person called Jennifer. She works in a medical school pathology lab as a research assistant. The lab prepares human cadavers that are used to teach medical students about anatomy. The cadavers come from people who had donated their body for the general use of the researchers in the lab. The bodies are normally cremated, however, severed cuts may be disposed of at the discretion of lab researchers, One night Jennifer is leaving the lab when she sees a body that is going to be discarded the next day. Jennifer was a vegetarian, for moral reasons. She thought it was wrong to kill animals for food. But then, when she saw a body about to be cremated, she thought it was irrational to waste perfectly edible meat. So she cut off a piece of flesh, and took it home and cooked it. The person had died recently of a heart attack, and she cooked the meat thoroughly, so there was no risk of disease
 
 ## Julie and Mark
-Julie and Mark, who are brother and sister, are travelling together in France. They are both on summer vacation from college. One night they are staying alone in a cabin near the beach. They decide that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark uses a condom too, just to be safe. They both enjoy it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other.
+Imagine Julie and Mark, who are brother and sister, are travelling together in France. They are both on summer vacation from college. One night they are staying alone in a cabin near the beach. They decide that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark uses a condom too, just to be safe. They both enjoy it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other.
+
+\pagebreak
+
+# Judgement and Confidence Questions
+
+
+How would you rate the behavior described?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Morally wrong &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Neutral&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Morally right
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+
+How confident are you in your judgment?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Not at all confident &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely confident
+
+
+\pagebreak
 
 # Counter Arguments
 
@@ -295,6 +321,8 @@ Julie and Mark, who are brother and sister, are travelling together in France. T
 >And do you accept that they are both consenting adults, and that they both consented and enjoyed it?
 
 >And do you concede that nobody else was affected by their actions?
+
+\pagebreak
 
 # Critical Slide
 
@@ -336,25 +364,9 @@ It's wrong but I can't think of a reason.
 
 It's wrong and I can provide a valid reason.
 
+\pagebreak
 
 # Concluding Questionnaire
-
-
-How sure were you about your judgement?
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
-
-Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely sure
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
-
-How much did you change your mind?
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
-
-Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
 
 How confused were you?
 
@@ -386,80 +398,169 @@ How much was your judgement based on “gut” feeling?
 
 Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely
 
-# Instructions/Distancing Manipulations
+\pagebreak
 
-## Social: Control / Temporal: Control
+# Temporal Distance Manipulations (Study 1)
 
-> The next page contains a description of a scenario followed by a series of questions relating to this scenario. 
+The manipulations of temporal distance are adapted from @zezelj_Replication_2014. There will be a set of general instructions prior to presenting the scenarios. In the manipulation conditions, each scenario will include an additional final sentence
+
+## Control
+
+> In the following you will read several situations of people making decisions. After you read each scenario you will be asked a series of questions, including making a judgment.
+
+> Read carefully and answer the questions below each description.
+
+\pagebreak
+
+## Increased Temporal Distance
+
+### Instructions before scenarios
+
+> **In the next couple of minutes try to think about a day a year from now: how it will look like, what will happen, what you will do/feel...**
+
+> In the following you will read several situations of people making decisions. After you read each scenario you will be asked a series of questions, including making a judgment.
+
+> **Try to imagine each scenario is going to happen a year from now.** Read carefully and answer the questions below each description.
+
+### Final sentence appended to each scenario:
+
+> Imagine this event is going to happen in a year from now.
+
+\pagebreak
+
+## Decreased Temporal Distance
+
+### Instructions before scenarios
+
+> **In the next couple of minutes try to think about tomorrow: how it will look like, what will happen, what you will do/feel...**
+
+> In the following you will read several situations of people making decisions. After you read each scenario you will be asked a series of questions, including making a judgment.
+
+> **Try to imagine each scenario is going to tomorrow.** Read carefully and answer the questions below each description.
+
+### Final sentence appended to each scenario:
+
+> Imagine this event is going to happen tomorrow.
+
+\pagebreak
+
+## Manipulation Check Question:
+
+The manipulation check is adapted from @gamliel_effect_2017
+
+How far into the future did you imagine this event?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Very close/very soon &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Very Far/Very distant
+
+\pagebreak
+
+# Mindset Induction (Study 2)
+
+We will directly manipulate mindset using the how-why task taken from @freitas_influence_2004 and @fujita_Construal_2006.
+
+## How Task (Concrete)
+
+For everything we do, there always is a process of how we do it. Moreover, we often can follow our broad life-goals down to our very specific behaviors. For example, like most people, you probably hope to find happiness in life. How can you do this? Perhaps finding a good job, or being educated, can help. How can you do these things? Perhaps by earning a college degree. How do you earn a college degree? By satisfying course requirements. How do you satisfy course requirements? In some cases, such as today, you participate in a psychology experiment. Research suggests that engaging in thought exercise like that above, in which one thinks about how one's ultimate life goals can be expressed through specific actions, can improve people's life satisfaction. In this experiment, we are testing such a technique. This thought exercise is intended to focus your attention on how you do the things you do.
+
+For this thought exercise, please consider the following activity: "improving and maintaining one's physical health."
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+Please list three ways in which you can improve your health:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+
+How much will engaging in this activity improve and maintain your health?
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 
+
+a little &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;very, very much
 
 
 
-## Social: Control / Temporal: Reduced
 
-> Imagine **you** are taking a course on ethics.
+\pagebreak
 
-> The next page contains a description of a scenario followed by a series of questions relating to this scenario.
+Starting with the goal outlined in the top box, please identify how you might achieve this and enter your answer into the second box. Next, think about the response you just provided and identify how you might achieve this; enter your answer in the box. Work your way through the boxes until you have entered a response into all boxes. Your first response should identify how you might improve and maintain your health
 
-> Imagine that, you have been asked to study this scenario for your ethics course. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-> For your assignment you must identify if the behaviour described is right or wrong, and provide reasons for your judgement.
+> You entered _______. How would you _______?
 
-> Imagine you must complete and submit this assignment within **2-3 hours**.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+> You entered _______. How would you _______?
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-## Social: Control / Temporal: Increased
+> You entered _______. How would you _______?
 
-> Imagine **you** are taking a course on ethics.
+\pagebreak
 
-> The next page contains a description of a scenario followed by a series of questions relating to this scenario.
+## Why Task (Abstract) 
 
-> Imagine that, you have been asked to study this scenario for your ethics course. 
+For every thing we do, there always is a reason why we do it. Moreover, we often can trace the causes of our behavior back to broad life-goals that we have. For example, you currently are participating in a psychology experiment. Why are you doing this? Perhaps to satisfy a course requirement. Why are you satisfying the course requirement? Perhaps to pass a psychology course. Why pass the course? Perhaps because you want to earn a college degree. Why earn a college degree? Maybe because you want to find a good job, or because you want to educate yourself. And perhaps you wish to educate yourself or find a good job because you feel that doing so can bring you happiness in life. Research suggests that engaging in thought exercises like that above, in which one thinks about how one's actions relate to one's ultimate life goals, can improve people's life satisfaction. In this experiment, we are testing such a technique. This thought exercise is intended to focus your attention on why you do the things you do.
 
-> For your assignment you must identify if the behaviour described is right or wrong, and provide reasons for your judgement.
+For this thought exercise, please consider the following activity: "improving and maintaining one's physical health."
 
-> Imagine you must complete and submit this assignment within **5 weeks**.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
 
+Please list three ways in which improving and maintaining your physical health could help you meet important life goals
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
 
-## Social: Increased / Temporal: Control
-
-> Alex is a student who is currently taking an ethics course.
-
-> The next page contains a description of a scenario followed by a series of questions relating to this scenario.
-
-> Alex has been asked to study this scenario for their ethics course. For the assignment, Alex must identify if the behaviour described is right or wrong, and provide reasons for this judgement.
-
-> When reading this scenario and responding to the questions **try to think about the scenario from Alex’s perspective rather than your own.** 
+How much will improving and maintaining your health help you meet this important goal?
 
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 
 
-## Social: Increased / Temporal: Reduced
-
-> Alex is a student who is currently taking an ethics course.
-
-> The next page contains a description of a scenario followed by a series of questions relating to this scenario.
-
-> Alex has been asked to study this scenario for their ethics course. For the assignment, Alex must identify if the behaviour described is right or wrong, and provide reasons for this judgement.
-
-> Alex must complete and submit this assignment within **the next 2-3 hours**.
-
-> When reading this scenario and responding to the questions **try to think about the scenario from Alex’s perspective rather than your own.** 
+a little &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;very, very much
 
 
 
 
-## Social: Increased / Temporal: Increased
+\pagebreak
 
-> Alex is a student who is currently taking an ethics course.
+Starting with the goal outlined in the bottom box, please identify why you might want to achieve this and enter your answer into the second box. Next, think about the response you just provided and identify why you might want achieve this; enter your answer in the next box. Work your way through the boxes until you have entered a response into all boxes. Your first response should identify why you might want to improve and maintain your health
 
-> The next page contains a description of a scenario followed by a series of questions relating to this scenario.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-> Alex has been asked to study this scenario for their ethics course. For the assignment, Alex must identify if the behaviour described is right or wrong, and provide reasons for this judgement.
+> You entered _______. Why do you want to _______?
 
-> Alex must complete and submit this assignment within **the next 5 weeks**.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-> When reading this scenario and responding to the questions **try to think about the scenario from Alex’s perspective rather than your own.** 
+> You entered _______. Why do you want to _______?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+> You entered _______. Why do you want to _______?
+
+
+\pagebreak
+
+![Direct manipulation of Construal Level](resources/img/construal_manip.png){height=600px width=480px}
+
+\pagebreak
+
+# Attention Checks
+
+
+![Screenshot of the attention checks that will be used.](resources/img/attention1.png){height=300px width=520px}
+
+
+![](resources/img/attention2.png){height=300px width=480px}
+
+
+\pagebreak
+
+# References
+
+
+
 
 
 

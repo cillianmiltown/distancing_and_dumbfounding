@@ -1,0 +1,2935 @@
+---
+title: "Simulated Data Sample Analyses (Study 2)"
+author: "Cillian McHugh"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+keywords          : "moral dumbfounding, dual-processes, reasons, intuitions"
+bibliography: "resources/bib/My Library.bib"
+figsintext        : yes
+figurelist        : yes
+tablelist         : yes
+footnotelist      : no
+lineno            : yes
+class             : "man"
+format:
+  html:
+    toc: true
+    toc-depth: 4
+    toc-location: left
+    code-fold: true
+    source: true
+knitr:
+  opts_chunk: 
+    R.options:
+      width: 400    
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{css, echo=FALSE}
+.hscroll {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+```
+
+```{r ch5setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(include = FALSE)
+#options(scipen=1, digits=2)
+# knitr::opts_chunk$set(fig.path='figure/graphics-', 
+#                       cache.path='cache/graphics-', 
+#                       fig.align='center',
+#                       external=TRUE,
+#                       echo=FALSE,
+#                       warning=FALSE,
+#                       fig.pos='H'
+# )
+```
+
+
+```{r}
+rm(list=ls())
+library(conflicted)
+library(tidyverse)
+library(mlogit)
+library(DescTools)
+library(nnet)
+library(pwr)
+library(scales)
+#library(reshape2)
+#conflicts_prefer(dplyr::filter, .quiet = TRUE)
+
+
+library(mclogit)
+
+```
+
+
+```{r}
+# N <- 2400
+# session_seed <- 4
+# save(N,file = "N.RData")
+
+source("simulate_data_mindset_Study2.R")
+
+x <- simulated_data_scenarios_within_sc_Study2
+df <- x
+simulated_data <- x
+
+```
+
+```{r}
+
+table(x$condition)/4
+
+```
+
+# Analysis of Simulated Data
+
+The following is a sample analysis using a simulated data set. This simulated data set contains *N* = `r length(x$cs)/4` participants. 
+
+
+```{r}
+#| include: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+table(x$condition)/4
+
+```
+
+
+
+
+
+# Construal Level and Dumbfounding
+
+
+```{r}
+#| include: false
+
+x <- simulated_data
+
+x <- x[which(is.na(x$cs)==FALSE),]
+table(x$construal)
+
+
+y <- table(x$construal,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$construal,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abc_graph <- function(){
+  a <- x[which(x$construal==levels(as.factor(x$construal))[1]),]
+  a$construal <- droplevels(a$construal)
+  b <- x[which(x$construal==levels(as.factor(x$construal))[2]),]
+  b$construal <- droplevels(b$construal)
+  # c <- x[which(x$construal==levels(as.factor(x$construal))[3]),]
+  # c$construal <- droplevels(c$construal)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$construal))
+  by <- as.data.frame(table(b$cs,b$construal))
+  # cy <- as.data.frame(table(c$cs,c$construal))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","construal","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","construal","Freq","perc")
+  
+  # cperc <- cy$Freq/length(c$cs)
+  # cy <- cbind(cy,cperc)
+  # colnames(cy) <- c("cs","construal","Freq","perc")
+  
+  tot <- rbind(ay, by) #, cy)
+  
+  tot
+}
+
+test <- abc_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$construal=="abstract"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="abstract"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="abstract"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$construal=="concrete"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$construal=="concrete"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$construal=="concrete"),])
+)
+
+y1 <- y %>% select("cs","construal","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("construal","cs") )
+table(x$construal)
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(construal
+                                            # ,labels=c("Control","Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.16,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.6,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.4,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reasons", "Dumbfounded", "Nothing Wrong"
+                            #, "Dumbfounded","Reasons"
+  )) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+```
+
+```{r}
+#| label: apafg-construaloverall
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Simulated Data: Responses to critical slide depending on construal level in the abstract condition (n = 564), and for the concrete condition (n = 560), (error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+
+
+## Scenario-by-scenario Chi-Squared Tests
+
+First we will conduct a series of chi-squared tests to test for an association between construal level and dumbfounded responding for each scenario individually. For each DV there is an overall chi-squared test followed by the expected counts, the observed counts, and the standardized residuals.
+
+### Julie and Mark
+
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+x <- df
+x <- x[which(x$scenario=="Julie and Mark"),]
+
+
+```
+
+#### Critical Slide Only
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+table(x$cs,x$condition)
+
+c <- chisq.test(table(x$cs,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+
+```
+
+#### Including Coded Responses 
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+table(x$cs_with_coded1,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded1,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+
+```
+
+#### Exploratory: Different Kinds of Dumbfounding
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+
+table(x$cs_with_coded2,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded2,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+
+
+
+```
+
+
+
+
+#### Plot
+
+```{r}
+#| include: false
+
+# x <- simulated_data
+# 
+# x <- x[which(is.na(x$cs)==FALSE),]
+# table(x$construal)
+
+
+y <- table(x$construal,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$construal,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abc_graph <- function(){
+  a <- x[which(x$construal==levels(as.factor(x$construal))[1]),]
+  a$construal <- droplevels(a$construal)
+  b <- x[which(x$construal==levels(as.factor(x$construal))[2]),]
+  b$construal <- droplevels(b$construal)
+  # c <- x[which(x$construal==levels(as.factor(x$construal))[3]),]
+  # c$construal <- droplevels(c$construal)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$construal))
+  by <- as.data.frame(table(b$cs,b$construal))
+  # cy <- as.data.frame(table(c$cs,c$construal))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","construal","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","construal","Freq","perc")
+  
+  # cperc <- cy$Freq/length(c$cs)
+  # cy <- cbind(cy,cperc)
+  # colnames(cy) <- c("cs","construal","Freq","perc")
+  
+  tot <- rbind(ay, by) #, cy)
+  
+  tot
+}
+
+test <- abc_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$construal=="abstract"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="abstract"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="abstract"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$construal=="concrete"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$construal=="concrete"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$construal=="concrete"),])
+)
+
+y1 <- y %>% select("cs","construal","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("construal","cs") )
+table(x$construal)
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(construal
+                                            # ,labels=c("Control","Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.16,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.6,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.4,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reasons", "Dumbfounded", "Nothing Wrong"
+                            #, "Dumbfounded","Reasons"
+  )) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+```
+
+```{r}
+#| label: apafg-construalJulieMark
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Simulated Data: Responses to critical slide depending on construal level in the abstract condition (n = 141), and for the concrete condition (n = 140), (error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+
+
+
+
+
+### Jennifer
+
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+x <- df
+x <- x[which(x$scenario=="Jennifer"),]
+
+
+```
+
+#### Critical Slide Only
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+table(x$cs,x$condition)
+
+c <- chisq.test(table(x$cs,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+
+```
+
+#### Including Coded Responses 
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+table(x$cs_with_coded1,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded1,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+
+```
+
+#### Exploratory: Different Kinds of Dumbfounding
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+
+table(x$cs_with_coded2,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded2,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+
+
+
+```
+
+
+
+
+#### Plot
+
+
+```{r}
+#| include: false
+
+# x <- simulated_data
+# 
+# x <- x[which(is.na(x$cs)==FALSE),]
+# table(x$construal)
+
+
+y <- table(x$construal,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$construal,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abc_graph <- function(){
+  a <- x[which(x$construal==levels(as.factor(x$construal))[1]),]
+  a$construal <- droplevels(a$construal)
+  b <- x[which(x$construal==levels(as.factor(x$construal))[2]),]
+  b$construal <- droplevels(b$construal)
+  # c <- x[which(x$construal==levels(as.factor(x$construal))[3]),]
+  # c$construal <- droplevels(c$construal)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$construal))
+  by <- as.data.frame(table(b$cs,b$construal))
+  # cy <- as.data.frame(table(c$cs,c$construal))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","construal","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","construal","Freq","perc")
+  
+  # cperc <- cy$Freq/length(c$cs)
+  # cy <- cbind(cy,cperc)
+  # colnames(cy) <- c("cs","construal","Freq","perc")
+  
+  tot <- rbind(ay, by) #, cy)
+  
+  tot
+}
+
+test <- abc_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$construal=="abstract"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="abstract"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="abstract"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$construal=="concrete"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$construal=="concrete"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$construal=="concrete"),])
+)
+
+y1 <- y %>% select("cs","construal","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("construal","cs") )
+table(x$construal)
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(construal
+                                            # ,labels=c("Control","Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.16,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.6,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.4,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reasons", "Dumbfounded", "Nothing Wrong"
+                            #, "Dumbfounded","Reasons"
+  )) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+```
+
+```{r}
+#| label: apafg-construalJennifer
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Simulated Data: Responses to critical slide depending on construal level in the abstract condition (n = 141), and for the concrete condition (n = 140), (error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+
+
+
+
+
+
+
+
+
+### Trolley
+
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+x <- df
+x <- x[which(x$scenario=="Trolley"),]
+
+
+```
+
+#### Critical Slide Only
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+table(x$cs,x$condition)
+
+c <- chisq.test(table(x$cs,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+
+```
+
+#### Including Coded Responses 
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+table(x$cs_with_coded1,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded1,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+
+```
+
+#### Exploratory: Different Kinds of Dumbfounding
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+
+table(x$cs_with_coded2,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded2,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+
+
+
+```
+
+
+
+
+#### Plot
+
+
+```{r}
+#| include: false
+
+# x <- simulated_data
+# 
+# x <- x[which(is.na(x$cs)==FALSE),]
+# table(x$construal)
+
+
+y <- table(x$construal,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$construal,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abc_graph <- function(){
+  a <- x[which(x$construal==levels(as.factor(x$construal))[1]),]
+  a$construal <- droplevels(a$construal)
+  b <- x[which(x$construal==levels(as.factor(x$construal))[2]),]
+  b$construal <- droplevels(b$construal)
+  # c <- x[which(x$construal==levels(as.factor(x$construal))[3]),]
+  # c$construal <- droplevels(c$construal)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$construal))
+  by <- as.data.frame(table(b$cs,b$construal))
+  # cy <- as.data.frame(table(c$cs,c$construal))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","construal","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","construal","Freq","perc")
+  
+  # cperc <- cy$Freq/length(c$cs)
+  # cy <- cbind(cy,cperc)
+  # colnames(cy) <- c("cs","construal","Freq","perc")
+  
+  tot <- rbind(ay, by) #, cy)
+  
+  tot
+}
+
+test <- abc_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$construal=="abstract"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="abstract"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="abstract"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$construal=="concrete"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$construal=="concrete"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$construal=="concrete"),])
+)
+
+y1 <- y %>% select("cs","construal","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("construal","cs") )
+table(x$construal)
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(construal
+                                            # ,labels=c("Control","Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.16,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.6,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.4,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reasons", "Dumbfounded", "Nothing Wrong"
+                            #, "Dumbfounded","Reasons"
+  )) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+```
+
+```{r}
+#| label: apafg-construalTrolley
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Simulated Data: Responses to critical slide depending on construal level in the abstract condition (n = 141), and for the concrete condition (n = 140), (error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+
+
+### Heinz
+
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+x <- df
+x <- x[which(x$scenario=="Heinz"),]
+
+
+```
+
+#### Critical Slide Only
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+table(x$cs,x$condition)
+
+c <- chisq.test(table(x$cs,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+
+```
+
+#### Including Coded Responses 
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+table(x$cs_with_coded1,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded1,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+
+```
+
+#### Exploratory: Different Kinds of Dumbfounding
+
+```{r}
+#| include: true
+#| echo: true
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+table(x$cs_with_coded2,x$condition)
+
+c <- chisq.test(table(x$cs_with_coded2,x$condition))
+c
+c$expected
+c$observed
+c$stdres
+
+
+
+```
+
+
+
+#### Plot
+
+
+```{r}
+#| include: false
+
+# x <- simulated_data
+# 
+# x <- x[which(is.na(x$cs)==FALSE),]
+# table(x$construal)
+
+
+y <- table(x$construal,x$cs)
+y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+z <- as.data.frame(table(x$construal,x$cs)/length(x$cs)*2)
+perc <- z$Freq
+test <- cbind(y,perc)
+test$condition
+test
+
+
+#y <- table(df3$condition,df3$Dumb_incl_string)
+#y <- as.data.frame(y)
+colnames(y) <- c("condition","CS","Freq")
+
+
+abc_graph <- function(){
+  a <- x[which(x$construal==levels(as.factor(x$construal))[1]),]
+  a$construal <- droplevels(a$construal)
+  b <- x[which(x$construal==levels(as.factor(x$construal))[2]),]
+  b$construal <- droplevels(b$construal)
+  # c <- x[which(x$construal==levels(as.factor(x$construal))[3]),]
+  # c$construal <- droplevels(c$construal)
+  #levels(as.factor(df3$condition))[1]
+  
+  ay <- as.data.frame(table(a$cs,a$construal))
+  by <- as.data.frame(table(b$cs,b$construal))
+  # cy <- as.data.frame(table(c$cs,c$construal))
+  
+  aperc <- ay$Freq/length(a$cs)
+  ay <- cbind(ay,aperc)
+  colnames(ay) <- c("cs","construal","Freq","perc")
+  
+  bperc <- by$Freq/length(b$cs)
+  by <- cbind(by,bperc)
+  colnames(by) <- c("cs","construal","Freq","perc")
+  
+  # cperc <- cy$Freq/length(c$cs)
+  # cy <- cbind(cy,cperc)
+  # colnames(cy) <- c("cs","construal","Freq","perc")
+  
+  tot <- rbind(ay, by) #, cy)
+  
+  tot
+}
+
+test <- abc_graph()
+test
+
+se_fun <- function(a,b){
+  k <- length(a$cs)
+  n <- length(b$cs)
+  
+  pbar <- k/n
+  a$pbar <- pbar
+  a$se = sqrt(pbar * (1 - pbar)/n)
+  a}
+# https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion
+
+y <- rbind(
+  se_fun(x[which(x$construal=="abstract"&x$cs=="It's wrong and I can provide a valid reason"),]
+         ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="abstract"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="abstract"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$construal=="abstract"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="It's wrong and I can provide a valid reason"),]
+          ,x[which(x$construal=="concrete"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="There is nothing wrong"),]
+          ,x[which(x$construal=="concrete"),])
+  ,se_fun(x[which(x$construal=="concrete"&x$cs=="It's wrong but I cannot explain why"),]
+          ,x[which(x$construal=="concrete"),])
+)
+
+y1 <- y %>% select("cs","construal","pbar","se")
+rownames(y1) <- NULL
+test
+
+y1 <- y1[!duplicated(y1),]
+y1
+test1 <- dplyr::left_join(test,y1, by = c("construal","cs") )
+table(x$construal)
+
+rm(y)
+```
+
+```{r}
+#| include: false
+
+
+g <- ggplot(test1, aes(x=cs, y=perc, fill=factor(construal
+                                            # ,labels=c("Control","Increased","Decreased")
+                                             ))) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_errorbar(aes(ymin=perc-se, ymax=perc+se), linewidth=.2, width=.16,
+               position=position_dodge(.9), color=#"black" #
+                 "#5a5a5a"
+                 )+
+  geom_text(#family = "Times",
+            size=2.6,
+            aes( label = scales::percent(perc, accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.4,
+            hjust = +1.1,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(#family = "Times", 
+            size=4,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            ) +
+  xlab("Response to Critical Slide") +
+  ylab("Percentage of participants selecting each response")+
+  scale_x_discrete(labels=c("Reasons", "Dumbfounded", "Nothing Wrong"
+                            #, "Dumbfounded","Reasons"
+  )) +
+  scale_fill_grey(start = .5, end = .9) +
+  labs(fill="Condition") +
+  #theme_apa() +
+  theme_bw() +
+  theme(plot.title=element_text(#family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(#family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(#family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(#family="Times",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(#family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(#family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+```
+
+```{r}
+#| label: apafg-construalHeinz
+#| include: true
+#| fig-height: 5
+#| apa-cap: "Simulated Data: Responses to critical slide depending on construal level in the abstract condition (n = 141), and for the concrete condition (n = 140), (error bars represent standard error of the proportion)"
+
+suppressWarnings(print(g))
+
+```
+
+
+
+
+
+
+
+
+## Overall Effect of Construal Level
+
+### Just Critical Slide
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| results: false
+#| class-output: hscroll
+#| panel: sidebar
+
+
+x <- df
+table(x$construal,x$scenario)
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+
+
+m1a <- mblogit(formula=cs~construal#*scenario
+, random = list(~1|ResponseId)
+# , contrasts = list(scenario = contr.sum)
+, data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs~construal*scenario
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_heinz_base <- mblogit(formula=cs~construal*(JulieandMark+Jennifer+Trolley)
+                          , random = list(~1|ResponseId)
+                          # , contrasts = list(scenario = contr.sum)
+                          , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_trolley_base <- mblogit(formula=cs~construal*(JulieandMark+Jennifer+Heinz)
+                            , random = list(~1|ResponseId)
+                            # , contrasts = list(scenario = contr.sum)
+                            , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_jennifer_base <- mblogit(formula=cs~construal*(JulieandMark+Trolley+Heinz)
+                             , random = list(~1|ResponseId)
+                             # , contrasts = list(scenario = contr.sum)
+                             , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_JulieMark_base <- mblogit(formula=cs~construal*(Jennifer+Trolley+Heinz)
+                              , random = list(~1|ResponseId)
+                              # , contrasts = list(scenario = contr.sum)
+                              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+
+m1d <- mblogit(formula=cs~construal*scenario
+               + ju1_2 + ju2_2 + cf1_2 + cf2_2
+               + confused + irritated + reason + gut
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+stats::BIC(m1c_heinz_base)
+stats::BIC(m1c_trolley_base)
+stats::BIC(m1c_jennifer_base)
+stats::BIC(m1c_JulieMark_base)
+
+stats::BIC(m1d)
+
+
+stats::AIC(m1c_heinz_base)
+stats::AIC(m1c_trolley_base)
+stats::AIC(m1c_jennifer_base)
+stats::AIC(m1c_JulieMark_base)
+
+stats::AIC(m1d)
+
+# lower AIC is better
+# lower BIC is better
+summary(m1a)
+summary(m1b)
+summary(m1c_heinz_base)
+summary(m1c_trolley_base)
+summary(m1c_jennifer_base)
+summary(m1c_JulieMark_base)
+summary(m1d)
+
+
+
+summary(m1d)
+
+m1_results <- function(x){
+  m1 <- x
+  coefs <- summary(m1)$coefficients
+  LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+  ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+  OR <- exp(coefs[,1])
+  ORLL <- exp(LLs)
+  ORUL <- exp(ULs)
+  HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+  
+  round(cbind(coefs, LLs, ULs), 4)
+  round(cbind(OR, ORLL, ORUL, HHES), 4)
+  
+  
+  round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+}
+
+```
+
+#### Most Basic Model (not including Scenario)
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+m1 <- mblogit(
+  formula = 
+    cs ~ construal
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+#### Scenario included
+
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+m1 <- mblogit(
+  formula = 
+    cs ~ construal
+  * scenario
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+
+```
+
+
+#### Covariates added
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+m1 <- mblogit(
+  formula =
+    cs ~ construal
+  * scenario
+  + ju1_2 + ju2_2 + cf1_2 + cf2_2
+  + confused + irritated + reason + gut
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+
+m1_results(m1)
+
+```
+
+
+
+#### Ambiguity
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+m1 <- mblogit(
+  formula = 
+    cs ~ construal
+  * ambiguity
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+
+```
+
+
+### Including Coded Responses
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| results: false
+#| class-output: hscroll
+#| panel: sidebar
+
+
+x <- df
+table(x$construal,x$scenario)
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+x$cs_with_coded1 <- as.factor(x$cs_with_coded1)
+x$cs_with_coded2 <- as.factor(x$cs_with_coded2)
+
+m1a <- mblogit(formula=cs_with_coded1~construal#*scenario
+, random = list(~1|ResponseId)
+# , contrasts = list(scenario = contr.sum)
+, data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs_with_coded1~construal*scenario
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_heinz_base <- mblogit(formula=cs_with_coded1~construal*(JulieandMark+Jennifer+Trolley)
+                          , random = list(~1|ResponseId)
+                          # , contrasts = list(scenario = contr.sum)
+                          , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_trolley_base <- mblogit(formula=cs_with_coded1~construal*(JulieandMark+Jennifer+Heinz)
+                            , random = list(~1|ResponseId)
+                            # , contrasts = list(scenario = contr.sum)
+                            , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_jennifer_base <- mblogit(formula=cs_with_coded1~construal*(JulieandMark+Trolley+Heinz)
+                             , random = list(~1|ResponseId)
+                             # , contrasts = list(scenario = contr.sum)
+                             , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_JulieMark_base <- mblogit(formula=cs_with_coded1~construal*(Jennifer+Trolley+Heinz)
+                              , random = list(~1|ResponseId)
+                              # , contrasts = list(scenario = contr.sum)
+                              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+
+m1d <- mblogit(formula=cs_with_coded1~construal*scenario
+               + ju1_2 + ju2_2 + cf1_2 + cf2_2
+               + confused + irritated + reason + gut
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+stats::BIC(m1c_heinz_base)
+stats::BIC(m1c_trolley_base)
+stats::BIC(m1c_jennifer_base)
+stats::BIC(m1c_JulieMark_base)
+
+stats::BIC(m1d)
+
+
+stats::AIC(m1c_heinz_base)
+stats::AIC(m1c_trolley_base)
+stats::AIC(m1c_jennifer_base)
+stats::AIC(m1c_JulieMark_base)
+
+stats::AIC(m1d)
+
+# lower AIC is better
+# lower BIC is better
+summary(m1a)
+summary(m1b)
+summary(m1c_heinz_base)
+summary(m1c_trolley_base)
+summary(m1c_jennifer_base)
+summary(m1c_JulieMark_base)
+summary(m1d)
+
+
+
+summary(m1d)
+
+m1_results <- function(x){
+  m1 <- x
+  coefs <- summary(m1)$coefficients
+  LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+  ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+  OR <- exp(coefs[,1])
+  ORLL <- exp(LLs)
+  ORUL <- exp(ULs)
+  HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+  
+  round(cbind(coefs, LLs, ULs), 4)
+  round(cbind(OR, ORLL, ORUL, HHES), 4)
+  
+  
+  round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+}
+
+```
+
+#### Most Basic Model (not including Scenario)
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+m1 <- mblogit(
+  formula = 
+    cs_with_coded1 ~ construal
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+#### Scenario included
+
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+m1 <- mblogit(
+  formula = 
+    cs_with_coded1 ~ construal
+  * scenario
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+
+```
+
+
+#### Covariates added
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+m1 <- mblogit(
+  formula =
+    cs_with_coded1 ~ construal
+  * scenario
+  + ju1_2 + ju2_2 + cf1_2 + cf2_2
+  + confused + irritated + reason + gut
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+
+m1_results(m1)
+
+```
+
+
+#### Ambiguity
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+m1 <- mblogit(
+  formula = 
+    cs_with_coded1 ~ construal
+  * ambiguity
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+
+```
+
+### Exploratory: Different Kinds of Dumbfounding
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| results: false
+#| class-output: hscroll
+#| panel: sidebar
+
+
+x <- df
+table(x$construal,x$scenario)
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+x$cs_with_coded1 <- as.factor(x$cs_with_coded1)
+x$cs_with_coded2 <- as.factor(x$cs_with_coded2)
+
+
+m1a <- mblogit(formula=cs_with_coded2~construal#*scenario
+, random = list(~1|ResponseId)
+# , contrasts = list(scenario = contr.sum)
+, data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs_with_coded2~construal*scenario
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_heinz_base <- mblogit(formula=cs_with_coded2~construal*(JulieandMark+Jennifer+Trolley)
+                          , random = list(~1|ResponseId)
+                          # , contrasts = list(scenario = contr.sum)
+                          , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_trolley_base <- mblogit(formula=cs_with_coded2~construal*(JulieandMark+Jennifer+Heinz)
+                            , random = list(~1|ResponseId)
+                            # , contrasts = list(scenario = contr.sum)
+                            , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_jennifer_base <- mblogit(formula=cs_with_coded2~construal*(JulieandMark+Trolley+Heinz)
+                             , random = list(~1|ResponseId)
+                             # , contrasts = list(scenario = contr.sum)
+                             , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_JulieMark_base <- mblogit(formula=cs_with_coded2~construal*(Jennifer+Trolley+Heinz)
+                              , random = list(~1|ResponseId)
+                              # , contrasts = list(scenario = contr.sum)
+                              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+
+m1d <- mblogit(formula=cs_with_coded2~construal*scenario
+               + ju1_2 + ju2_2 + cf1_2 + cf2_2
+               + confused + irritated + reason + gut
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+stats::BIC(m1c_heinz_base)
+stats::BIC(m1c_trolley_base)
+stats::BIC(m1c_jennifer_base)
+stats::BIC(m1c_JulieMark_base)
+
+stats::BIC(m1d)
+
+
+stats::AIC(m1c_heinz_base)
+stats::AIC(m1c_trolley_base)
+stats::AIC(m1c_jennifer_base)
+stats::AIC(m1c_JulieMark_base)
+
+stats::AIC(m1d)
+
+# lower AIC is better
+# lower BIC is better
+summary(m1a)
+summary(m1b)
+summary(m1c_heinz_base)
+summary(m1c_trolley_base)
+summary(m1c_jennifer_base)
+summary(m1c_JulieMark_base)
+summary(m1d)
+
+
+
+summary(m1d)
+
+m1_results <- function(x){
+  m1 <- x
+  coefs <- summary(m1)$coefficients
+  LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+  ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+  OR <- exp(coefs[,1])
+  ORLL <- exp(LLs)
+  ORUL <- exp(ULs)
+  HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+  
+  round(cbind(coefs, LLs, ULs), 4)
+  round(cbind(OR, ORLL, ORUL, HHES), 4)
+  
+  
+  round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+}
+
+```
+
+#### Most Basic Model (not including Scenario)
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+m1 <- mblogit(
+  formula = 
+    cs_with_coded2 ~ construal
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+#### Scenario included
+
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+m1 <- mblogit(
+  formula = 
+    cs_with_coded2 ~ construal
+  * scenario
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+
+```
+
+
+#### Covariates added
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+m1 <- mblogit(
+  formula =
+    cs_with_coded2 ~ construal
+  * scenario
+  + ju1_2 + ju2_2 + cf1_2 + cf2_2
+  + confused + irritated + reason + gut
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+
+m1_results(m1)
+
+```
+
+
+#### Ambiguity
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+m1 <- mblogit(
+  formula = 
+    cs_with_coded2 ~ construal
+  * ambiguity
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+
+```
+
+
+
+## Re-run with "nothing-wrong" excluded
+
+### Just Critical Slide
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| results: false
+#| class-output: hscroll
+#| panel: sidebar
+
+
+x <- df
+table(x$construal,x$scenario)
+
+
+x <- x[which(x$cs!= "There is nothing wrong"),]
+x$cs <- droplevels(x$cs)
+
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+
+
+m1a <- mblogit(formula=cs~construal#*scenario
+, random = list(~1|ResponseId)
+# , contrasts = list(scenario = contr.sum)
+, data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs~construal*scenario
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_heinz_base <- mblogit(formula=cs~construal*(JulieandMark+Jennifer+Trolley)
+                          , random = list(~1|ResponseId)
+                          # , contrasts = list(scenario = contr.sum)
+                          , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_trolley_base <- mblogit(formula=cs~construal*(JulieandMark+Jennifer+Heinz)
+                            , random = list(~1|ResponseId)
+                            # , contrasts = list(scenario = contr.sum)
+                            , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_jennifer_base <- mblogit(formula=cs~construal*(JulieandMark+Trolley+Heinz)
+                             , random = list(~1|ResponseId)
+                             # , contrasts = list(scenario = contr.sum)
+                             , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_JulieMark_base <- mblogit(formula=cs~construal*(Jennifer+Trolley+Heinz)
+                              , random = list(~1|ResponseId)
+                              # , contrasts = list(scenario = contr.sum)
+                              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+
+m1d <- mblogit(formula=cs~construal*scenario
+               + ju1_2 + ju2_2 + cf1_2 + cf2_2
+               + confused + irritated + reason + gut
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+stats::BIC(m1c_heinz_base)
+stats::BIC(m1c_trolley_base)
+stats::BIC(m1c_jennifer_base)
+stats::BIC(m1c_JulieMark_base)
+
+stats::BIC(m1d)
+
+
+stats::AIC(m1c_heinz_base)
+stats::AIC(m1c_trolley_base)
+stats::AIC(m1c_jennifer_base)
+stats::AIC(m1c_JulieMark_base)
+
+stats::AIC(m1d)
+
+# lower AIC is better
+# lower BIC is better
+summary(m1a)
+summary(m1b)
+summary(m1c_heinz_base)
+summary(m1c_trolley_base)
+summary(m1c_jennifer_base)
+summary(m1c_JulieMark_base)
+summary(m1d)
+
+
+
+summary(m1d)
+
+m1_results <- function(x){
+  m1 <- x
+  coefs <- summary(m1)$coefficients
+  LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+  ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+  OR <- exp(coefs[,1])
+  ORLL <- exp(LLs)
+  ORUL <- exp(ULs)
+  HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+  
+  round(cbind(coefs, LLs, ULs), 4)
+  round(cbind(OR, ORLL, ORUL, HHES), 4)
+  
+  
+  round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+}
+
+```
+
+#### Most Basic Model (not including Scenario)
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+m1 <- mblogit(
+  formula = 
+    cs ~ construal
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+#### Scenario included
+
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+m1 <- mblogit(
+  formula = 
+    cs ~ construal
+  * scenario
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+
+```
+
+
+#### Covariates added
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+m1 <- mblogit(
+  formula =
+    cs ~ construal
+  * scenario
+  + ju1_2 + ju2_2 + cf1_2 + cf2_2
+  + confused + irritated + reason + gut
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+
+m1_results(m1)
+
+```
+
+
+
+#### Ambiguity
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+m1 <- mblogit(
+  formula = 
+    cs ~ construal
+  * ambiguity
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+
+```
+
+
+### Including Coded Responses
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| results: false
+#| class-output: hscroll
+#| panel: sidebar
+
+
+x <- df
+table(x$construal,x$scenario)
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+x$cs_with_coded1 <- as.factor(x$cs_with_coded1)
+x$cs_with_coded2 <- as.factor(x$cs_with_coded2)
+
+m1a <- mblogit(formula=cs_with_coded1~construal#*scenario
+, random = list(~1|ResponseId)
+# , contrasts = list(scenario = contr.sum)
+, data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs_with_coded1~construal*scenario
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_heinz_base <- mblogit(formula=cs_with_coded1~construal*(JulieandMark+Jennifer+Trolley)
+                          , random = list(~1|ResponseId)
+                          # , contrasts = list(scenario = contr.sum)
+                          , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_trolley_base <- mblogit(formula=cs_with_coded1~construal*(JulieandMark+Jennifer+Heinz)
+                            , random = list(~1|ResponseId)
+                            # , contrasts = list(scenario = contr.sum)
+                            , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_jennifer_base <- mblogit(formula=cs_with_coded1~construal*(JulieandMark+Trolley+Heinz)
+                             , random = list(~1|ResponseId)
+                             # , contrasts = list(scenario = contr.sum)
+                             , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_JulieMark_base <- mblogit(formula=cs_with_coded1~construal*(Jennifer+Trolley+Heinz)
+                              , random = list(~1|ResponseId)
+                              # , contrasts = list(scenario = contr.sum)
+                              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+
+m1d <- mblogit(formula=cs_with_coded1~construal*scenario
+               + ju1_2 + ju2_2 + cf1_2 + cf2_2
+               + confused + irritated + reason + gut
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+stats::BIC(m1c_heinz_base)
+stats::BIC(m1c_trolley_base)
+stats::BIC(m1c_jennifer_base)
+stats::BIC(m1c_JulieMark_base)
+
+stats::BIC(m1d)
+
+
+stats::AIC(m1c_heinz_base)
+stats::AIC(m1c_trolley_base)
+stats::AIC(m1c_jennifer_base)
+stats::AIC(m1c_JulieMark_base)
+
+stats::AIC(m1d)
+
+# lower AIC is better
+# lower BIC is better
+summary(m1a)
+summary(m1b)
+summary(m1c_heinz_base)
+summary(m1c_trolley_base)
+summary(m1c_jennifer_base)
+summary(m1c_JulieMark_base)
+summary(m1d)
+
+
+
+summary(m1d)
+
+m1_results <- function(x){
+  m1 <- x
+  coefs <- summary(m1)$coefficients
+  LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+  ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+  OR <- exp(coefs[,1])
+  ORLL <- exp(LLs)
+  ORUL <- exp(ULs)
+  HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+  
+  round(cbind(coefs, LLs, ULs), 4)
+  round(cbind(OR, ORLL, ORUL, HHES), 4)
+  
+  
+  round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+}
+
+```
+
+#### Most Basic Model (not including Scenario)
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+m1 <- mblogit(
+  formula = 
+    cs_with_coded1 ~ construal
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+#### Scenario included
+
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+m1 <- mblogit(
+  formula = 
+    cs_with_coded1 ~ construal
+  * scenario
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+
+```
+
+
+#### Covariates added
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+m1 <- mblogit(
+  formula =
+    cs_with_coded1 ~ construal
+  * scenario
+  + ju1_2 + ju2_2 + cf1_2 + cf2_2
+  + confused + irritated + reason + gut
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+
+m1_results(m1)
+
+```
+
+
+#### Ambiguity
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+m1 <- mblogit(
+  formula = 
+    cs_with_coded1 ~ construal
+  * ambiguity
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+
+```
+
+### Exploratory: Different Kinds of Dumbfounding
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| results: false
+#| class-output: hscroll
+#| panel: sidebar
+
+
+x <- df
+table(x$construal,x$scenario)
+
+x$JulieandMark <- car::recode(x$scenario, "'Julie and Mark'=1;'Jennifer'=0; 'Trolley'=0; 'Heinz'=0")
+x$Jennifer <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=1; 'Trolley'=0; 'Heinz'=0")
+x$Trolley <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=1; 'Heinz'=0")
+x$Heinz <- car::recode(x$scenario, "'Julie and Mark'=0;'Jennifer'=0; 'Trolley'=0; 'Heinz'=1")
+
+x$cs_with_coded1 <- as.factor(x$cs_with_coded1)
+x$cs_with_coded2 <- as.factor(x$cs_with_coded2)
+
+
+m1a <- mblogit(formula=cs_with_coded2~construal#*scenario
+, random = list(~1|ResponseId)
+# , contrasts = list(scenario = contr.sum)
+, data = x, method=c("PQL"), estimator=c("ML"))
+
+
+m1b <- mblogit(formula=cs_with_coded2~construal*scenario
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_heinz_base <- mblogit(formula=cs_with_coded2~construal*(JulieandMark+Jennifer+Trolley)
+                          , random = list(~1|ResponseId)
+                          # , contrasts = list(scenario = contr.sum)
+                          , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_trolley_base <- mblogit(formula=cs_with_coded2~construal*(JulieandMark+Jennifer+Heinz)
+                            , random = list(~1|ResponseId)
+                            # , contrasts = list(scenario = contr.sum)
+                            , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_jennifer_base <- mblogit(formula=cs_with_coded2~construal*(JulieandMark+Trolley+Heinz)
+                             , random = list(~1|ResponseId)
+                             # , contrasts = list(scenario = contr.sum)
+                             , data = x, method=c("PQL"), estimator=c("ML"))
+
+m1c_JulieMark_base <- mblogit(formula=cs_with_coded2~construal*(Jennifer+Trolley+Heinz)
+                              , random = list(~1|ResponseId)
+                              # , contrasts = list(scenario = contr.sum)
+                              , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+
+m1d <- mblogit(formula=cs_with_coded2~construal*scenario
+               + ju1_2 + ju2_2 + cf1_2 + cf2_2
+               + confused + irritated + reason + gut
+               , random = list(~1|ResponseId)
+               # , contrasts = list(scenario = contr.sum)
+               , data = x, method=c("PQL"), estimator=c("ML"))
+
+
+stats::AIC(m1a)
+stats::AIC(m1b)
+
+stats::BIC(m1a)
+stats::BIC(m1b)
+
+stats::BIC(m1c_heinz_base)
+stats::BIC(m1c_trolley_base)
+stats::BIC(m1c_jennifer_base)
+stats::BIC(m1c_JulieMark_base)
+
+stats::BIC(m1d)
+
+
+stats::AIC(m1c_heinz_base)
+stats::AIC(m1c_trolley_base)
+stats::AIC(m1c_jennifer_base)
+stats::AIC(m1c_JulieMark_base)
+
+stats::AIC(m1d)
+
+# lower AIC is better
+# lower BIC is better
+summary(m1a)
+summary(m1b)
+summary(m1c_heinz_base)
+summary(m1c_trolley_base)
+summary(m1c_jennifer_base)
+summary(m1c_JulieMark_base)
+summary(m1d)
+
+
+
+summary(m1d)
+
+m1_results <- function(x){
+  m1 <- x
+  coefs <- summary(m1)$coefficients
+  LLs <- coefs[,1] + qnorm(.025)*coefs[,2]
+  ULs <- coefs[,1] + qnorm(.975)*coefs[,2]
+  OR <- exp(coefs[,1])
+  ORLL <- exp(LLs)
+  ORUL <- exp(ULs)
+  HHES <- coefs[,1]/1.81 # Hasselblad and Hedges Effect Size
+  
+  round(cbind(coefs, LLs, ULs), 4)
+  round(cbind(OR, ORLL, ORUL, HHES), 4)
+  
+  
+  round(cbind(coefs, LLs, ULs, OR, ORLL, ORUL, HHES), 4)
+}
+
+```
+
+#### Most Basic Model (not including Scenario)
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+m1 <- mblogit(
+  formula = 
+    cs_with_coded2 ~ construal
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+```
+
+#### Scenario included
+
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+m1 <- mblogit(
+  formula = 
+    cs_with_coded2 ~ construal
+  * scenario
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+
+```
+
+
+#### Covariates added
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+
+m1 <- mblogit(
+  formula =
+    cs_with_coded2 ~ construal
+  * scenario
+  + ju1_2 + ju2_2 + cf1_2 + cf2_2
+  + confused + irritated + reason + gut
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+
+m1_results(m1)
+
+```
+
+
+#### Ambiguity
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+m1 <- mblogit(
+  formula = 
+    cs_with_coded2 ~ construal
+  * ambiguity
+  , random = list(~1|ResponseId)
+  , data = x
+  , method=c("PQL")
+  , estimator=c("ML"))
+summary(m1)
+m1_results(m1)
+
+```
+
+
+## Other Variables
+
+### Initial Judgment
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+model1 <- lmerTest::lmer(ju1_2 ~
+                  construal*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(construal = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+
+```
+
+
+### Revised Judgment
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+model1 <- lmerTest::lmer(ju2_2 ~
+                  construal*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(construal = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+
+```
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+y <- x %>% select(
+  ResponseId
+  ,ju1_2
+  ,ju2_2
+) %>% pivot_longer(c(ju1_2,ju2_2)
+               , names_to = "judgment_time", values_to = "judgment")
+#y$judgment_time <- as.factor(y$judgment_time)
+
+
+model1 <- lmerTest::lmer(judgment ~ judgment_time
+               + (1|ResponseId)
+               , data = y
+               , contrasts = list(judgment_time = contr.sum))
+anova(model1)
+summary(model1)
+
+
+```
+
+
+### Initial Confidence
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+model1 <- lmerTest::lmer(cf1_2 ~
+                  construal*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(construal = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+
+```
+
+
+
+### Revised Confidence
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+model1 <- lmerTest::lmer(cf2_2 ~
+                  construal*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(construal = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+
+```
+
+
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+y <- x %>% select(
+  ResponseId
+  ,cf1_2
+  ,cf2_2
+) %>% pivot_longer(c(cf1_2,cf2_2)
+               , names_to = "judgment_time", values_to = "confidence")
+#y$judgment_time <- as.factor(y$judgment_time)
+
+
+model1 <- lmerTest::lmer(confidence ~ judgment_time
+               + (1|ResponseId)
+               , data = y
+               , contrasts = list(judgment_time = contr.sum))
+anova(model1)
+summary(model1)
+
+
+```
+
+
+### Confused
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+model1 <- lmerTest::lmer(confused ~
+                  construal*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(construal = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+
+```
+
+### irritated
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+model1 <- lmerTest::lmer(irritated ~
+                  construal*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(construal = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+
+```
+
+### Reason
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+model1 <- lmerTest::lmer(reason ~
+                  construal*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(construal = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+
+```
+
+### Gut
+
+```{r}
+#| include: true
+#| echo: true
+#| message: false
+#| warning: false
+#| class-output: hscroll
+#| panel: sidebar
+#| results: hold
+
+model1 <- lmerTest::lmer(gut ~
+                  construal*scenario
+                + (1|ResponseId)
+                , data = x
+                , contrasts = list(construal = contr.sum  , scenario = contr.sum)
+            )
+anova(model1)
+summary(model1)
+
+```
+
