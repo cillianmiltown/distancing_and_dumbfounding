@@ -1305,7 +1305,8 @@ distance_ca_scale <- function(){
   df3$j2 <- as.vector(car::recode(df3$InSWr1, "'Yes'='wrong';'No'='not wrong'"))
   df3$j3 <- as.vector(car::recode(df3$InSWr2, "'Yes'='wrong';'No'='not wrong'"))
   df3$j4 <- as.vector(car::recode(df3$InSWr3, "'Yes'='wrong';'No'='not wrong'"))
-  df3$j5 <- as.vector(revalue(df3$InCS, c("There is nothing wrong."="not wrong", "It's wrong but I can't think of a reason."="wrong","It's wrong and I can provide a valid reason."="wrong")))
+  df3$j5 <- as.vector(car::recode(df3$InCS_ju, "1='wrong';2='wrong';3='wrong';4='neutral';5='right';6='right';7='right'"))
+  # df3$j5 <- as.vector(revalue(df3$InCS, c("There is nothing wrong."="not wrong", "It's wrong but I can't think of a reason."="wrong","It's wrong and I can provide a valid reason."="wrong")))
   #df3$j5 <- as.vector(car::recode(df3$cs_temp, "'FALSE'='wrong';'TRUE'='not wrong'"))
   df3$j6 <- as.vector(car::recode(df3$Ju2_bin, "'wrong'='wrong'; 'neutral'='not wrong'; 'right'='not wrong'"))
   

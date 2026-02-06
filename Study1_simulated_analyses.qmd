@@ -1,6 +1,6 @@
 ---
 title: "Simulated Data Sample Analyses (Study 1)"
-author: "Cillian McHugh"
+author: "Blinded"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 keywords          : "moral dumbfounding, dual-processes, reasons, intuitions"
 bibliography: "resources/bib/My Library.bib"
@@ -2739,16 +2739,16 @@ m1_results(m1)
 #| results: hold
 
 model1 <- lmerTest::lmer(ju1_2 ~
-                  temp*scenario
+                  temp*ambiguity
                 + (1|ResponseId)
                 , data = x
-                , contrasts = list(temp = contr.sum  , scenario = contr.sum)
+                , contrasts = list(temp = contr.sum  , ambiguity = contr.sum)
             )
 anova(model1)
 summary(model1)
 emmeans::emmeans(model1, list(pairwise ~ temp), adjust = "tukey")
-emmeans::emmeans(model1, list(pairwise ~ scenario), adjust = "tukey")
-emmeans::emmeans(model1, list(pairwise ~ temp*scenario), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ ambiguity), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ temp*ambiguity), adjust = "tukey")
 
 ```
 
@@ -2765,16 +2765,16 @@ emmeans::emmeans(model1, list(pairwise ~ temp*scenario), adjust = "tukey")
 #| results: hold
 
 model1 <- lmerTest::lmer(ju2_2 ~
-                  temp*scenario
+                  temp*ambiguity
                 + (1|ResponseId)
                 , data = x
-                , contrasts = list(temp = contr.sum  , scenario = contr.sum)
+                , contrasts = list(temp = contr.sum  , ambiguity = contr.sum)
             )
 anova(model1)
 summary(model1)
 emmeans::emmeans(model1, list(pairwise ~ temp), adjust = "tukey")
-emmeans::emmeans(model1, list(pairwise ~ scenario), adjust = "tukey")
-emmeans::emmeans(model1, list(pairwise ~ temp*scenario), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ ambiguity), adjust = "tukey")
+emmeans::emmeans(model1, list(pairwise ~ temp*ambiguity), adjust = "tukey")
 
 ```
 

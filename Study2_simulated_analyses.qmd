@@ -2706,10 +2706,10 @@ m1_results(m1)
 #| results: hold
 
 model1 <- lmerTest::lmer(ju1_2 ~
-                  construal*scenario
+                  construal*ambiguity
                 + (1|ResponseId)
                 , data = x
-                , contrasts = list(construal = contr.sum  , scenario = contr.sum)
+                , contrasts = list(construal = contr.sum  , ambiguity = contr.sum)
             )
 anova(model1)
 summary(model1)
@@ -2729,10 +2729,10 @@ summary(model1)
 #| results: hold
 
 model1 <- lmerTest::lmer(ju2_2 ~
-                  construal*scenario
+                  construal*ambiguity
                 + (1|ResponseId)
                 , data = x
-                , contrasts = list(construal = contr.sum  , scenario = contr.sum)
+                , contrasts = list(construal = contr.sum  , ambiguity = contr.sum)
             )
 anova(model1)
 summary(model1)

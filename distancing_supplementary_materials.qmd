@@ -26,21 +26,37 @@ author:
         city: Limerick
         region: Ireland
         postal-code: V94 T9PX
-  - name: Kathryn B. Francis
+  - name: Dries Bostyn
     #orcid: 0000-0002-2452-6053
     # role:
     affiliations: 
       - id: id2
-        name: Keele University
-        department: School of Psychology
+        name: Ghent University
+        department: Department of Psychology
         #address: South Circular Road
-        city: Keele
+        city: Ghent
+        region: Belgium
+  - name: Kathryn B. Francis
+    #orcid: 0000-0002-2452-6053
+    # role:
+    affiliations: 
+      - id: id3
+        name: University of Oxford
+        department: Department of Psychiatry
+        #address: South Circular Road
+        city: Oxford
+        region: UK
+      - id: id4
+        name: University of Oxford
+        department: The Uehiro Oxford Institute
+        #address: South Circular Road
+        city: Oxford
         region: UK
   - name: Ana Gantman
     #orcid: 0000-0002-2452-6053
     # role:
     affiliations: 
-      - id: id3
+      - id: id5
         name: Brooklyn College CUNY
         department: Department of Psychology
         #address: South Circular Road
@@ -50,7 +66,7 @@ author:
     #orcid: 0000-0002-2452-6053
     # role:
     affiliations: 
-      - id: id4
+      - id: id6
         name: Universidad de los Andes
         department: Department of Psychology
         #address: South Circular Road
@@ -74,7 +90,7 @@ author:
     #orcid: 0000-0002-2452-6053
     # role:
     affiliations: 
-      - id: id5
+      - id: id7
         name: Mary Immaculate College
         department: Department of Psychology
         address: South Circular Road
@@ -84,7 +100,7 @@ author:
     #orcid: 0000-0002-2452-6053
     # role:
     affiliations: 
-      - id: id6
+      - id: id8
         name: University of Illinois
         department: Department of Psychology
         #address: South Circular Road
@@ -94,13 +110,13 @@ author:
     #orcid: 0000-0002-2452-6053
     # role:
     affiliations: 
-      - id: id7
+      - id: id9
         name: University of Silesia in Katowice
         department: Department of Psychology
         #address: South Circular Road
         city: Katowice
         region: Poland
-      - id: id8
+      - id: id10
         name: University of Pennsylvania
         department: Perelman School of Medicine, Chatlab
         #address: South Circular Road
@@ -110,11 +126,11 @@ author:
     #orcid: 0000-0002-2452-6053
     # role:
     affiliations: 
-      - id: id9
-        name: Boston College
-        department: Department of Psychology and Neuroscience
+      - id: id11
+        name: Cornell University
+        department: Department of Psychology
         #address: South Circular Road
-        city: Boston
+        city: New York
         region: USA
 author-note:
   blank-lines-above-author-note: 0
@@ -251,17 +267,17 @@ library(grid)
 
 # Scenarios
 
-## Heinz
+## Heinz (Ambiguous/high trade-off salience)
 
 Imagine that in Europe, a woman is near death from a very bad disease, a special kind of cancer. There is one drug that the doctors think might save her. It is a form of radium for which a druggist is charging ten times what the drug cost him to make. The sick woman's husband, Heinz, has approached everyone he knows to borrow the money, but he has only been able to get together about half of what it cost. He has told the druggist that his wife was dying, and asked him to sell it cheaper or let him pay later. But the druggist said, "No, I discovered the drug and I'm going to make money from it." So, Heinz gets desperate and brakes into the man's store to steal the drug for his wife. The druggist has Heinz arrested and charged.
 
-## Trolley
+## Trolley (Ambiguous/high trade-off salience)
 Imagine that a Trolley is hurtling down a track towards five people. It will kill them all on impact. Paul is on a bridge under which it will pass. He can stop it by putting something very heavy in front of it. As it happens, there is a very large man next to him – Paul's only way to stop the trolley is to push him over the bridge and onto the track, killing him to save five. Paul decides to push the man.
 
-## Jennifer
+## Jennifer (Unambiguous/low trade-off salience)
 Imagine a person called Jennifer. She works in a medical school pathology lab as a research assistant. The lab prepares human cadavers that are used to teach medical students about anatomy. The cadavers come from people who had donated their body for the general use of the researchers in the lab. The bodies are normally cremated, however, severed cuts may be disposed of at the discretion of lab researchers, One night Jennifer is leaving the lab when she sees a body that is going to be discarded the next day. Jennifer was a vegetarian, for moral reasons. She thought it was wrong to kill animals for food. But then, when she saw a body about to be cremated, she thought it was irrational to waste perfectly edible meat. So she cut off a piece of flesh, and took it home and cooked it. The person had died recently of a heart attack, and she cooked the meat thoroughly, so there was no risk of disease
 
-## Julie and Mark
+## Julie and Mark (Unambiguous/low trade-off salience)
 Imagine Julie and Mark, who are brother and sister, are travelling together in France. They are both on summer vacation from college. One night they are staying alone in a cabin near the beach. They decide that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark uses a condom too, just to be safe. They both enjoy it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other.
 
 \pagebreak
@@ -553,6 +569,38 @@ Starting with the goal outlined in the bottom box, please identify why you might
 
 
 ![](resources/img/attention2.png){height=300px width=480px}
+
+\pagebreak
+
+# Study 1 Analysis Plan
+
+The main analyses for each Study 1a-1e will be conducted separately. Findings will be aggregated using an internal meta-analysis. We will additionally conduct exploratory pooled analyses similar to that described below (where we also adjust for study site). This pooled analysis will have a larger sample size and thus may be sufficiently powered to detect smaller effects; however, our conclusions will primarily be based on the results of the separate analyses and associated meta-analysis.
+
+To test the effectiveness of our manipulation in influencing participants’ perceptions of how far into the future the events took place, we will conduct a linear-mixed-effects model. This will include responses to the manipulation check question as the outcome measure. Temporal distance and scenario will be included as included as fixed effects, and participant ID will be included as a random factor. To examine potential differences between specific conditions, we will conduct Tukey’s post-hoc pairwise comparisons.
+
+We will conduct a series of chi-squared tests to examine the association between temporal distancing (near vs. far vs. control) and dumbfounded responding for each scenario separately (*Julie and Mark*, *Jennifer*, *Trolley*, *Heinz*). We will run separate analyses for each measure of reason-giving/dumbfounding: (i) raw responses to the critical slide (3 levels: reason-giving, dumbfounded, nothing-wrong), (ii) incorporating the coded response from participants who provided reasons (3 levels: reason-giving, dumbfounded, nothing-wrong), (iii) differentiating between dumbfounding before coding and dumbfounding after coding (4 levels: reason-giving, dumbfounded before coding, dumbfounded after coding, nothing-wrong). The first set of 3 $\times$ 3 chi-squared tests will take the raw responses to the critical slide 3 $\times$ 3 chi-squared tests. A second set of 3 $\times$ 3 chi-squared tests will be based on our secondary measure of reason-giving/dumbfounding that additionally includes the coded open-ended responses from participants who provided reasons. Finally, a series of exploratory 3 $\times$ 4 chi-squared tests will examine our third measure that differentiates between dumbfounding before and after coding.
+
+Following our scenario-by-scenario tests, we will examine the overall effect of temporal distance on reason-giving/dumbfounding using a series of mixed-effects multinomial logistic regressions. As above, we will run separate analyses for each measure of reason-giving/dumbfounding: (i) raw responses to the critical slide (3 levels), (ii) incorporating the coded response from participants who provided reasons (3 levels), (iii) differentiating between dumbfounding before coding and dumbfounding after coding (4 levels). For the mixed-effects multinomial logistic regressions, we will construct four different models. Models 1 and 2 will directly test our hypothesis that construal level will influence reason-giving, Model 3 will be exploratory and will include additional measures taken as covariates, and Model 4 will test the prediction that construal level might interact with ambiguity (trade-off salience). Model fit comparisons will be based on AIC and BIC statistics, and all three models will be reported. Model 1 will include reason-giving/dumbfounding as the outcome measure and temporal distancing as a fixed effect, with random effects for participant ID. Model 2 will include reason-giving/dumbfounding as the outcome measure, temporal distancing, scenario, and a temporal distance $\times$ scenario interaction will be included as fixed effects, and random effects will be included for participant ID. Model 3 will be similar to Model 2 but will additionally include participants’ other questions (initial/revised judgment, initial/revised confidence, confusion, irritation, based on reason, based on gut feeling) as fixed effects. Model 4 will include reason-giving/dumbfounding as the outcome measure, temporal distance, ambiguity/scenario type (ambiguous vs. unambiguous), and a temporal distance $\times$ ambiguity interaction will be included as fixed effects, and random effects will be included for participant ID.
+
+One potential challenge to interpreting our results comes from the inclusion of the “nothing-wrong” response option on our measure of reason-giving/dumbfounding. It is possible that temporal distancing may influence the valence of judgment, without influencing participants’ ability to provide reasons. In this case, we would see higher rates of selecting ‘nothing-wrong’, and lower rates of selecting the reason-giving response. However, attempting to interpret these lower rates of reason-giving would be confounded by the valence of judgment. In order to account for this, we will run the above analyses twice: first, we will run the analyses on the full sample, second, we will remove participants who selected ‘nothing-wrong’ and re-run the analyses.
+
+Following our main analysis to test our primary hypothesis, we will conduct follow-up analyses investigating the effect of temporal distance and ambiguity on other measured variables of interest. Specifically, we will test for differences in the following measures: initial judgment, revised judgment, initial confidence, revised confidence, confusion, irritation, the extent to which judgment was based on reason, and the extent to which judgment was based on gut feeling. Each of these measures is recorded on a 7-point Likert scale. For each measure, we will conduct a linear mixed-effects model, with the measure of interest as the outcome variable; temporal distance, scenario type, and a temporal distance $\times$ scenario type interaction will be included as fixed effects, and participant ID will be included as a random effect. We will conduct post-hoc Tukey’s pairwise comparison to examine any differences between specific conditions. Sample code for the analyses described above (using a simulated dataset) is available in the on the OSF at [https://osf.io/3fuer/files/osfstorage/68effca5b19c9347f5f988b3](https://osf.io/3fuer/files/osfstorage/68effca5b19c9347f5f988b3).
+
+\pagebreak
+
+# Study 2 Analysis Plan
+
+The analysis plan for Study 2 will closely resemble that of Study 1. The design and hypotheses are similar. The difference between the studies lies in the manipulation of construal level that was used. In Study 1, we manipulated temporal distance, which had three levels: control, increased, and decreased. In Study 2, we manipulated mindset/construal level directly, leading to an independent variable with two levels, abstract vs concrete.
+
+As with Study 1, the main analyses for each Studies 2a, 2b, 2f and 2g will be conducted separately, with aggregated results collated using an internal meta-analysis. Again, we will conduct some exploratory pooled analyses (controlling for study site), but our conclusions will be based on the separate analyses and meta-analyses.
+
+As noted above, our manipulation check will involve independent coders coding the responses to the “how-and-why” task to generate an index with a potential range of -4 to +4, where higher scores represent higher levels of construal (described above). We will conduct an independent samples t-test to examine differences in this construal level index across experimental conditions.
+
+As in Study 1, our first test of our hypothesis will involve a series of chi-squared tests for each scenario separately (*Julie and Mark*, *Jennifer*, *Trolley*, *Heinz*). The first set of 2 $\times$ 3 chi-squared tests will examine raw responses to the critical slide; the second set of 2 $\times$ 3 chi-squared tests will examine the secondary measure of reason-giving/dumbfounding (when coded open-ended responses are included). A final set of exploratory 2 $\times$ 4 chi-squared tests will examine the third measure of reason-giving/dumbfounding that differentiates between dumbfounding before and after coding.
+
+Next, we will test for an overall effect of construal level on rates of reason-giving/dumbfounding using a series of mixed-effects multinomial logistic regression (with separate analyses for each of the three measures of reason-giving/dumbfounding: raw critical slide responses, including coded responses, differentiating between dumbfounding before/after coding). As in Study 1, we will construct four models for each outcome measure, with Models 1 and 2 directly testing the hypothesis, an exploratory Model 3 including additional measures, and Model 4 will examine the role of ambiguity (trade-off salience). Model 1 will include construal level as a fixed effect and random effects for participant ID, Model 2 will additionally include scenario and a construal level $\times$ scenario interaction as fixed effects, while Model 3 will additionally include initial/revised judgment, initial/revised confidence, confusion, irritation, based on reason, based on gut feeling, as fixed effects. In line with Study 1, we will conduct these analyses twice: first, on the full sample, and second, on the sample with participants who selected ‘nothing-wrong’ excluded (to account for the potentially confounding influence of valence on interpreting our results).
+
+As in Study 1, we will conduct follow-up analyses investigating the effect of construal level on the other measures taken, including initial judgment, revised judgment, initial confidence, revised confidence, confusion, irritation, the extent to which judgment was based on reason, and the extent to which judgment was based on gut feeling. This will involve a series of linear-mixed-effects models with the measure of interest as the outcome variable. Construal level, scenario type, and a construal level $\times$ scenario type interaction will be included as fixed effects, and participant ID will be included as random effects. We will conduct post-hoc Tukey’s pairwise comparison to examine any differences between specific conditions. Sample code for the analyses described above (using a simulated dataset) is available in the on the OSF at [https://osf.io/3fuer/files/osfstorage/68effca2d9a98e8a0b7f32c2](https://osf.io/3fuer/files/osfstorage/68effca2d9a98e8a0b7f32c2).
 
 
 \pagebreak

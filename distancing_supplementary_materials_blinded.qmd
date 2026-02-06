@@ -1,0 +1,511 @@
+---
+title: "Space to Think: Supplementary Materials"
+blank-lines-above-title: 2
+shorttitle: "Space to Think"
+author:
+    # Roles are optional
+    # Conceptualization, Data curation, Formal Analysis, Funding acquisition, Investigation, 
+    # Methodology, Project administration, Resources, Software, Supervision, Validation, 
+    # Visualization, Writing – original draft, Writing – review & editing
+    #   - Conceptualization
+    #   - Writing - original draft
+    #   - Project administration
+    #   - Formal Analysis
+  - name: blinded
+    corresponding: true
+    #orcid: 0000-0002-9701-3232
+    email: blinded
+    #url: https://example.org/
+    # Select from the CRediT: Contributor Roles Taxonomy https://credit.niso.org/
+    # role:
+    affiliations:
+      - id: id1
+        name: blinded
+        department: blinded
+        #address: 1234 Capital St.
+        city: blinded
+        region: blinded
+        postal-code: blinded
+author-note:
+  blank-lines-above-author-note: 0
+  status-changes: 
+    # Example: [Author name] is now at [affiliation].
+    # affiliation-change: Ana Fulana is now at X University.
+    # Example: [Author name] is deceased.
+    # deceased: Carina Mengana is deceased.
+    # Disclosures condensed to one paragraph, but you can start a field with two line breaks to break them up: \n\nNew Paragraph
+  disclosures: 
+    # Example. Because the authors are equal contributors, order of authorship was determined by a fair coin toss.
+    # Example: "All procedures performed in studies involving human participants"
+    study-registration: All procedures performed in studies involving human participants were approved by the Institutional Research Ethics Committee and conducted in accordance with the Code of Professional Ethics of the Psychological Society of Ireland and with the 1964 Helsinki declaration and its later amendments or comparable ethical standards. Informed consent was obtained from all individual participants included in the study. The authors declare that there are no potential conflicts of interest with respect to the research, authorship, and/or publication of this article.
+    data-sharing: null
+    # Example: This article is based on data published in Pulaski (2017).
+    # Example: This article is based on the dissertation completed by Graham (2018).    
+    related-report: ~ # This article is based on data published in Pulaski (2017). 
+    # Example: Sally Jones earns royalties from the sale of Test X.
+    conflict-of-interest: null
+    # Example: This study was supported by Grant A123 from the National Science Foundation.
+    financial-support: null
+    # Example: The authors are grateful for the technical assistance of Dr. X during the initial design and setup of our lab equipment.
+    gratitude: null
+    authorship-agreements: null
+abstract: "Supplementary Materials"
+keywords: [moral dumbfounding, distancing, construal-level theory, dual-processes, reasons, intuitions]
+bibliography: "resources/bib/My Library.bib"
+format:
+  # apaquarto-docx: default
+  # apaquarto-html: default
+  apaquarto-pdf:
+    # can be jou (journal), man (manuscript), stu (student), or doc (document)
+    # for now, tables and figures do not render properly in jou mode. 
+    # can be 10pt, 11pt, or 12pt
+    # Integrate tables and figures in text
+    # a4 paper if true, letter size if false
+    # suppresses loading of the lmodern font package
+    # Suppresses loading of the fontenc package
+    # Suppress the title above the introduction
+    # In jou mode, use times or pslatex instead of txfonts
+    # In jou mode, use Computer Modern font instead of times
+    # In jou mode, cancels automatic stretching of tables to column width 
+    # Uses Helvetica font in stu and man mode
+    # In man and stu mode, neutralizes the \helvetica command.
+    # In man and stu mode, uses typewriter font
+    # Puts draft watermark on first page
+    # Puts draft watermakr on all pages
+    # Masks references that are marked as the author's own
+    documentmode: man
+    fontsize: 12pt
+    floatsintext: true
+    a4paper: true
+    nolmodern: false
+    nofontenc: false
+    donotrepeattitle: false
+    notxfonts: false
+    notimes: false
+    notab: false
+    helv: false
+    nosf: false
+    tt: false
+    draftfirst: false
+    draftall: false
+    mask: false
+    journal: null
+    volume: null
+    course: null
+    professor: null
+    duedate: null
+editor_options: 
+  chunk_output_type: console
+---
+
+{{< include _extensions/wjschne/apaquarto/_apa_title.qmd >}}
+
+\raggedbottom
+
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(conflicted)
+library(tidyverse)
+library(flextable)
+library(ftExtra)
+library(officer)
+library(knitr)
+conflicts_prefer(dplyr::filter, .quiet = TRUE)
+conflicts_prefer(flextable::separate_header, .quiet = TRUE)
+#devtools::install_github("crsh/citr")
+library(citr)
+#install.packages("sjstats")
+library(plyr)
+library(foreign)
+library(car)
+#devtools::install_github("cillianmiltown/R_desnum")
+library(desnum)
+library(ggplot2)
+library(extrafont)
+#install.packages("devtools")
+#devtools::install_github("crsh/papaja")
+#library(papaja)
+#library("dplyr")
+library("afex")
+library("tibble")
+library(scales)
+#install.packages("fftw3")
+# install.packages("qqconf")
+# install.packages("BiocManager")
+# BiocManager::install("multtest")
+# install.packages("multtest")
+# install.packages("mutoss")
+# install.packages("metap")
+library(metap)
+library(pwr)
+library(lsr)
+#install.packages("sjstats")
+library(sjstats)
+library(DescTools)
+#inatall.packages("ggstatsplot")
+#library(ggstatsplot)
+library(VGAM)
+library(nnet)
+library(mlogit)
+library(reshape2)
+library(ggpubr)
+library(gridExtra)
+library(grid)
+
+#tinytex:: install_tinytex()
+
+```
+
+# Scenarios
+
+## Heinz (Ambiguous/high trade-off salience)
+
+Imagine that in Europe, a woman is near death from a very bad disease, a special kind of cancer. There is one drug that the doctors think might save her. It is a form of radium for which a druggist is charging ten times what the drug cost him to make. The sick woman's husband, Heinz, has approached everyone he knows to borrow the money, but he has only been able to get together about half of what it cost. He has told the druggist that his wife was dying, and asked him to sell it cheaper or let him pay later. But the druggist said, "No, I discovered the drug and I'm going to make money from it." So, Heinz gets desperate and brakes into the man's store to steal the drug for his wife. The druggist has Heinz arrested and charged.
+
+## Trolley (Ambiguous/high trade-off salience)
+Imagine that a Trolley is hurtling down a track towards five people. It will kill them all on impact. Paul is on a bridge under which it will pass. He can stop it by putting something very heavy in front of it. As it happens, there is a very large man next to him – Paul's only way to stop the trolley is to push him over the bridge and onto the track, killing him to save five. Paul decides to push the man.
+
+## Jennifer (Unambiguous/low trade-off salience)
+Imagine a person called Jennifer. She works in a medical school pathology lab as a research assistant. The lab prepares human cadavers that are used to teach medical students about anatomy. The cadavers come from people who had donated their body for the general use of the researchers in the lab. The bodies are normally cremated, however, severed cuts may be disposed of at the discretion of lab researchers, One night Jennifer is leaving the lab when she sees a body that is going to be discarded the next day. Jennifer was a vegetarian, for moral reasons. She thought it was wrong to kill animals for food. But then, when she saw a body about to be cremated, she thought it was irrational to waste perfectly edible meat. So she cut off a piece of flesh, and took it home and cooked it. The person had died recently of a heart attack, and she cooked the meat thoroughly, so there was no risk of disease
+
+## Julie and Mark (Unambiguous/low trade-off salience)
+Imagine Julie and Mark, who are brother and sister, are travelling together in France. They are both on summer vacation from college. One night they are staying alone in a cabin near the beach. They decide that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark uses a condom too, just to be safe. They both enjoy it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other.
+
+\pagebreak
+
+# Judgement and Confidence Questions
+
+
+How would you rate the behavior described?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Morally wrong &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Neutral&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Morally right
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+
+How confident are you in your judgment?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Not at all confident &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely confident
+
+
+\pagebreak
+
+# Counter Arguments
+
+## Heinz/Druggist
+
+>Do you agree that the druggist has to make a living?
+
+>And do you accept that Heinz broke into the druggist's store?
+
+>And do you accept that he stole from him?
+
+## Trolley
+
+>Do you accept that five people would have died if Paul didn't push the man?
+
+>And this man is the only way available to stop the trolley? (Paul does not weigh enough)
+
+>Do you agree that in stopping the trolley Paul saved the lives of five people?
+
+## Jennifer
+
+>The body had been donated for research, it was to be discarded the next day. You must agree then that it had obviously fulfilled its purpose?
+
+>Do you accept that the body was already dead?
+
+>And do you accept that there was no risk of disease?
+
+## Julie and Mark
+
+>Do you not agree that any concerns regarding reproductive complications are eased by their using of two forms of contraception?
+
+>And do you accept that they are both consenting adults, and that they both consented and enjoyed it?
+
+>And do you concede that nobody else was affected by their actions?
+
+\pagebreak
+
+# Critical Slide
+
+
+## Heinz/Druggist
+
+The druggist was only protecting his livelihood.
+
+
+How can that be wrong?
+
+## Jennifer
+
+Jennifer's actions did not harm anyone, or negatively affect anyone.
+
+
+How can there be anything wrong with what she did?
+
+## Julie and Mark
+
+Julie and Mark's actions did not harm anyone, or negatively affect anyone.
+
+
+How can there be anything wrong with what they did
+
+## Trolley
+
+Paul's actions saved the lives of five people!
+
+
+How can saving lives be wrong?
+
+
+## Response options (randomised order)
+
+There is nothing wrong.
+
+It's wrong but I can't think of a reason.
+
+It's wrong and I can provide a valid reason.
+
+\pagebreak
+
+# Concluding Questionnaire
+
+How confused were you?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely confused
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+How irritated were you?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely irritated
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+How much was your judgement based on reason?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+How much was your judgement based on “gut” feeling?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Not at all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extremely
+
+\pagebreak
+
+# Temporal Distance Manipulations (Study 1)
+
+The manipulations of temporal distance are adapted from @zezelj_Replication_2014. There will be a set of general instructions prior to presenting the scenarios. In the manipulation conditions, each scenario will include an additional final sentence
+
+## Control
+
+> In the following you will read several situations of people making decisions. After you read each scenario you will be asked a series of questions, including making a judgment.
+
+> Read carefully and answer the questions below each description.
+
+\pagebreak
+
+## Increased Temporal Distance
+
+### Instructions before scenarios
+
+> **In the next couple of minutes try to think about a day a year from now: how it will look like, what will happen, what you will do/feel...**
+
+> In the following you will read several situations of people making decisions. After you read each scenario you will be asked a series of questions, including making a judgment.
+
+> **Try to imagine each scenario is going to happen a year from now.** Read carefully and answer the questions below each description.
+
+### Final sentence appended to each scenario:
+
+> Imagine this event is going to happen in a year from now.
+
+\pagebreak
+
+## Decreased Temporal Distance
+
+### Instructions before scenarios
+
+> **In the next couple of minutes try to think about tomorrow: how it will look like, what will happen, what you will do/feel...**
+
+> In the following you will read several situations of people making decisions. After you read each scenario you will be asked a series of questions, including making a judgment.
+
+> **Try to imagine each scenario is going to tomorrow.** Read carefully and answer the questions below each description.
+
+### Final sentence appended to each scenario:
+
+> Imagine this event is going to happen tomorrow.
+
+\pagebreak
+
+## Manipulation Check Question:
+
+The manipulation check is adapted from @gamliel_effect_2017
+
+How far into the future did you imagine this event?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7
+
+Very close/very soon &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Very Far/Very distant
+
+\pagebreak
+
+# Mindset Induction (Study 2)
+
+We will directly manipulate mindset using the how-why task taken from @freitas_influence_2004 and @fujita_Construal_2006.
+
+## How Task (Concrete)
+
+For everything we do, there always is a process of how we do it. Moreover, we often can follow our broad life-goals down to our very specific behaviors. For example, like most people, you probably hope to find happiness in life. How can you do this? Perhaps finding a good job, or being educated, can help. How can you do these things? Perhaps by earning a college degree. How do you earn a college degree? By satisfying course requirements. How do you satisfy course requirements? In some cases, such as today, you participate in a psychology experiment. Research suggests that engaging in thought exercise like that above, in which one thinks about how one's ultimate life goals can be expressed through specific actions, can improve people's life satisfaction. In this experiment, we are testing such a technique. This thought exercise is intended to focus your attention on how you do the things you do.
+
+For this thought exercise, please consider the following activity: "improving and maintaining one's physical health."
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+Please list three ways in which you can improve your health:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+
+How much will engaging in this activity improve and maintain your health?
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 
+
+a little &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;very, very much
+
+
+
+
+\pagebreak
+
+Starting with the goal outlined in the top box, please identify how you might achieve this and enter your answer into the second box. Next, think about the response you just provided and identify how you might achieve this; enter your answer in the box. Work your way through the boxes until you have entered a response into all boxes. Your first response should identify how you might improve and maintain your health
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+> You entered _______. How would you _______?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+> You entered _______. How would you _______?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+> You entered _______. How would you _______?
+
+\pagebreak
+
+## Why Task (Abstract) 
+
+For every thing we do, there always is a reason why we do it. Moreover, we often can trace the causes of our behavior back to broad life-goals that we have. For example, you currently are participating in a psychology experiment. Why are you doing this? Perhaps to satisfy a course requirement. Why are you satisfying the course requirement? Perhaps to pass a psychology course. Why pass the course? Perhaps because you want to earn a college degree. Why earn a college degree? Maybe because you want to find a good job, or because you want to educate yourself. And perhaps you wish to educate yourself or find a good job because you feel that doing so can bring you happiness in life. Research suggests that engaging in thought exercises like that above, in which one thinks about how one's actions relate to one's ultimate life goals, can improve people's life satisfaction. In this experiment, we are testing such a technique. This thought exercise is intended to focus your attention on why you do the things you do.
+
+For this thought exercise, please consider the following activity: "improving and maintaining one's physical health."
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+Please list three ways in which improving and maintaining your physical health could help you meet important life goals
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________
+
+How much will improving and maintaining your health help you meet this important goal?
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 
+
+a little &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;very, very much
+
+
+
+
+\pagebreak
+
+Starting with the goal outlined in the bottom box, please identify why you might want to achieve this and enter your answer into the second box. Next, think about the response you just provided and identify why you might want achieve this; enter your answer in the next box. Work your way through the boxes until you have entered a response into all boxes. Your first response should identify why you might want to improve and maintain your health
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+> You entered _______. Why do you want to _______?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+> You entered _______. Why do you want to _______?
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+> You entered _______. Why do you want to _______?
+
+
+\pagebreak
+
+![Direct manipulation of Construal Level](resources/img/construal_manip.png){height=600px width=480px}
+
+\pagebreak
+
+# Attention Checks
+
+
+![Screenshot of the attention checks that will be used.](resources/img/attention1.png){height=300px width=520px}
+
+
+![](resources/img/attention2.png){height=300px width=480px}
+
+\pagebreak
+
+# Study 1 Analysis Plan
+
+The main analyses for each Study 1a-1e will be conducted separately. Findings will be aggregated using an internal meta-analysis. We will additionally conduct exploratory pooled analyses similar to that described below (where we also adjust for study site). This pooled analysis will have a larger sample size and thus may be sufficiently powered to detect smaller effects; however, our conclusions will primarily be based on the results of the separate analyses and associated meta-analysis.
+
+To test the effectiveness of our manipulation in influencing participants’ perceptions of how far into the future the events took place, we will conduct a linear-mixed-effects model. This will include responses to the manipulation check question as the outcome measure. Temporal distance and scenario will be included as included as fixed effects, and participant ID will be included as a random factor. To examine potential differences between specific conditions, we will conduct Tukey’s post-hoc pairwise comparisons.
+
+We will conduct a series of chi-squared tests to examine the association between temporal distancing (near vs. far vs. control) and dumbfounded responding for each scenario separately (*Julie and Mark*, *Jennifer*, *Trolley*, *Heinz*). We will run separate analyses for each measure of reason-giving/dumbfounding: (i) raw responses to the critical slide (3 levels: reason-giving, dumbfounded, nothing-wrong), (ii) incorporating the coded response from participants who provided reasons (3 levels: reason-giving, dumbfounded, nothing-wrong), (iii) differentiating between dumbfounding before coding and dumbfounding after coding (4 levels: reason-giving, dumbfounded before coding, dumbfounded after coding, nothing-wrong). The first set of 3 $\times$ 3 chi-squared tests will take the raw responses to the critical slide 3 $\times$ 3 chi-squared tests. A second set of 3 $\times$ 3 chi-squared tests will be based on our secondary measure of reason-giving/dumbfounding that additionally includes the coded open-ended responses from participants who provided reasons. Finally, a series of exploratory 3 $\times$ 4 chi-squared tests will examine our third measure that differentiates between dumbfounding before and after coding.
+
+Following our scenario-by-scenario tests, we will examine the overall effect of temporal distance on reason-giving/dumbfounding using a series of mixed-effects multinomial logistic regressions. As above, we will run separate analyses for each measure of reason-giving/dumbfounding: (i) raw responses to the critical slide (3 levels), (ii) incorporating the coded response from participants who provided reasons (3 levels), (iii) differentiating between dumbfounding before coding and dumbfounding after coding (4 levels). For the mixed-effects multinomial logistic regressions, we will construct four different models. Models 1 and 2 will directly test our hypothesis that construal level will influence reason-giving, Model 3 will be exploratory and will include additional measures taken as covariates, and Model 4 will test the prediction that construal level might interact with ambiguity (trade-off salience). Model fit comparisons will be based on AIC and BIC statistics, and all three models will be reported. Model 1 will include reason-giving/dumbfounding as the outcome measure and temporal distancing as a fixed effect, with random effects for participant ID. Model 2 will include reason-giving/dumbfounding as the outcome measure, temporal distancing, scenario, and a temporal distance $\times$ scenario interaction will be included as fixed effects, and random effects will be included for participant ID. Model 3 will be similar to Model 2 but will additionally include participants’ other questions (initial/revised judgment, initial/revised confidence, confusion, irritation, based on reason, based on gut feeling) as fixed effects. Model 4 will include reason-giving/dumbfounding as the outcome measure, temporal distance, ambiguity/scenario type (ambiguous vs. unambiguous), and a temporal distance $\times$ ambiguity interaction will be included as fixed effects, and random effects will be included for participant ID.
+
+One potential challenge to interpreting our results comes from the inclusion of the “nothing-wrong” response option on our measure of reason-giving/dumbfounding. It is possible that temporal distancing may influence the valence of judgment, without influencing participants’ ability to provide reasons. In this case, we would see higher rates of selecting ‘nothing-wrong’, and lower rates of selecting the reason-giving response. However, attempting to interpret these lower rates of reason-giving would be confounded by the valence of judgment. In order to account for this, we will run the above analyses twice: first, we will run the analyses on the full sample, second, we will remove participants who selected ‘nothing-wrong’ and re-run the analyses.
+
+Following our main analysis to test our primary hypothesis, we will conduct follow-up analyses investigating the effect of temporal distance and ambiguity on other measured variables of interest. Specifically, we will test for differences in the following measures: initial judgment, revised judgment, initial confidence, revised confidence, confusion, irritation, the extent to which judgment was based on reason, and the extent to which judgment was based on gut feeling. Each of these measures is recorded on a 7-point Likert scale. For each measure, we will conduct a linear mixed-effects model, with the measure of interest as the outcome variable; temporal distance, scenario type, and a temporal distance $\times$ scenario type interaction will be included as fixed effects, and participant ID will be included as a random effect. We will conduct post-hoc Tukey’s pairwise comparison to examine any differences between specific conditions. Sample code for the analyses described above (using a simulated dataset) is available in the on the OSF at [https://osf.io/qtrwm/files/osfstorage/6902318a3ee343ef14c185cf](https://osf.io/qtrwm/files/osfstorage/6902318a3ee343ef14c185cf).
+
+Project page at [https://osf.io/qtrwm/overview?view_only=2418b9e8e75b4655be731f69b147f233](https://osf.io/qtrwm/overview?view_only=2418b9e8e75b4655be731f69b147f233)
+
+\pagebreak
+
+# Study 2 Analysis Plan
+
+The analysis plan for Study 2 will closely resemble that of Study 1. The design and hypotheses are similar. The difference between the studies lies in the manipulation of construal level that was used. In Study 1, we manipulated temporal distance, which had three levels: control, increased, and decreased. In Study 2, we manipulated mindset/construal level directly, leading to an independent variable with two levels, abstract vs concrete.
+
+As with Study 1, the main analyses for each Studies 2a, 2b, 2f and 2g will be conducted separately, with aggregated results collated using an internal meta-analysis. Again, we will conduct some exploratory pooled analyses (controlling for study site), but our conclusions will be based on the separate analyses and meta-analyses.
+
+As noted above, our manipulation check will involve independent coders coding the responses to the “how-and-why” task to generate an index with a potential range of -4 to +4, where higher scores represent higher levels of construal (described above). We will conduct an independent samples t-test to examine differences in this construal level index across experimental conditions.
+
+As in Study 1, our first test of our hypothesis will involve a series of chi-squared tests for each scenario separately (*Julie and Mark*, *Jennifer*, *Trolley*, *Heinz*). The first set of 2 $\times$ 3 chi-squared tests will examine raw responses to the critical slide; the second set of 2 $\times$ 3 chi-squared tests will examine the secondary measure of reason-giving/dumbfounding (when coded open-ended responses are included). A final set of exploratory 2 $\times$ 4 chi-squared tests will examine the third measure of reason-giving/dumbfounding that differentiates between dumbfounding before and after coding.
+
+Next, we will test for an overall effect of construal level on rates of reason-giving/dumbfounding using a series of mixed-effects multinomial logistic regression (with separate analyses for each of the three measures of reason-giving/dumbfounding: raw critical slide responses, including coded responses, differentiating between dumbfounding before/after coding). As in Study 1, we will construct four models for each outcome measure, with Models 1 and 2 directly testing the hypothesis, an exploratory Model 3 including additional measures, and Model 4 will examine the role of ambiguity (trade-off salience). Model 1 will include construal level as a fixed effect and random effects for participant ID, Model 2 will additionally include scenario and a construal level $\times$ scenario interaction as fixed effects, while Model 3 will additionally include initial/revised judgment, initial/revised confidence, confusion, irritation, based on reason, based on gut feeling, as fixed effects. In line with Study 1, we will conduct these analyses twice: first, on the full sample, and second, on the sample with participants who selected ‘nothing-wrong’ excluded (to account for the potentially confounding influence of valence on interpreting our results).
+
+As in Study 1, we will conduct follow-up analyses investigating the effect of construal level on the other measures taken, including initial judgment, revised judgment, initial confidence, revised confidence, confusion, irritation, the extent to which judgment was based on reason, and the extent to which judgment was based on gut feeling. This will involve a series of linear-mixed-effects models with the measure of interest as the outcome variable. Construal level, scenario type, and a construal level $\times$ scenario type interaction will be included as fixed effects, and participant ID will be included as random effects. We will conduct post-hoc Tukey’s pairwise comparison to examine any differences between specific conditions. Sample code for the analyses described above (using a simulated dataset) is available in the on the OSF at [https://osf.io/qtrwm/files/osfstorage/6902318051ae74df9ebe2ed2](https://osf.io/qtrwm/files/osfstorage/6902318051ae74df9ebe2ed2).
+
+Project page at [https://osf.io/qtrwm/overview?view_only=2418b9e8e75b4655be731f69b147f233](https://osf.io/qtrwm/overview?view_only=2418b9e8e75b4655be731f69b147f233)
+
+\pagebreak
+
+# References
+
+
+
+
+
+
