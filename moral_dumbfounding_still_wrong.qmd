@@ -144,14 +144,6 @@ nothing_palette <- c('#0149ff','#1b5bff','#356eff','#4e80ff','#6892ff','#81a5ff'
 
 ## Thanks for the Invitation
 
-::: {.r-stack}
-![](resources/ronan/ronan4.jpg){.fragment}
-
-![](resources/ronan/ronan3.jpg){.fragment}
-
-![](resources/ronan/ronan2.jpg){.fragment}
-:::
-
 
 ## Thanks for the Invitation
 
@@ -262,8 +254,6 @@ Moral Dumbfounding occurs when people <font color="ff744e">defend</font> a moral
 - Typically occurs for harmless taboos
 
 :::
-
-## { background-video="Participant_26_subs.mp4" background-size="contain"}
 
 
 
